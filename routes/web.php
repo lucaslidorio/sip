@@ -1,18 +1,20 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoriaController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+//Rotas de Categorias
+Route::get('admin/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
+Route::get('admin/categorias/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+Route::post('admin/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
+
+Route::get('admin/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
+
 
 Route::get('/', function () {
+    //Alert::success('Success Title', 'Success Message');
+    //toast('Success Toast','success');
+
     return view('welcome');
 });
