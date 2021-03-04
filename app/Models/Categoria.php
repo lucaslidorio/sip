@@ -10,4 +10,17 @@ class Categoria extends Model
     use HasFactory;
 
     protected $fillable = ['nome', 'url', 'descricao'];
+
+    public function search($pesquisar = null)
+    {
+        //dd($pesquisar);
+        $resultado = $this
+                    ->where('nome', 'LIKE', "%{$pesquisar}%")
+                    ->orWhere('descricao', 'LIKE', "%{$pesquisar}%")
+                    ->paginate(10);
+
+                    
+        return $resultado;
+    }
 }
+

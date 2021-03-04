@@ -11,12 +11,12 @@ return [
     |
     | For detailed instructions you can look the title section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/6.-Basic-Configuration
-    |
+    |ADMIN LTE 3
     */
 
     'title' => 'SIP',
     'title_prefix' => '',
-    'title_postfix' => 'Fps Tecnologia',
+    'title_postfix' => 'Sistema Integrado de Publicações',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>SIP</b>Publicações',
+    'logo' => '<b>SIP</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -234,18 +234,12 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'Administração'],
+      
+        ['header' => 'ADMINISTRAÇÃO'],
         [
             'text' => 'Categorias',
             'url'  => 'admin/categorias',
-            'icon' => 'fas fa-tasks',
+            'icon' => 'fas fa-list',
         ],
         [
             'text' => 'change_password',
@@ -344,7 +338,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
