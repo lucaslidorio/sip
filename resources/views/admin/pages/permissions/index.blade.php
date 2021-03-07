@@ -1,9 +1,6 @@
 @extends('adminlte::page')
-
 @section('title', 'Perfis')
-
 @section('content_header')
-
 @include('sweetalert::alert')
 
 
@@ -20,7 +17,6 @@
     </div>
   </div>
 </div>
-<!--Alerta -->
 
 @stop
 
@@ -50,9 +46,7 @@
             </div>
           </div>
         </div> 
-
-      </div>
-     
+      </div>    
    
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
@@ -104,7 +98,6 @@
 @stop
 
 @section('js')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
   //Inicia os tooltip
     $(function () {
@@ -113,20 +106,22 @@
     //Alert de confirmação de exclusão
     $('.delete-confirm').on('click', function (event) {
     event.preventDefault();
-    const url = $(this).attr('href');
-    swal({
-        title: 'Deseja continuar',
-        text: 'Este registro e seus detalhes serão excluídos permanentemente!',
-        icon: 'warning',
-        buttons: ["Cancelar", "Sim, Excluir!"],
-    }).then(function(value) {
-        if (value) {
+    const url = $(this).attr('href');    
+          Swal.fire({
+          title: 'Deseja continuar?',
+          text: "Este registro e seus detalhes serão excluídos permanentemente!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText:'Cancelar',
+          confirmButtonText: 'Sim, Exclua!'
+        }).then((result) => {
+          if (result.isConfirmed) {
             window.location.href = url;
-        }
-    });
+          }
+        })  
 });
-
-
 </script>
 
 

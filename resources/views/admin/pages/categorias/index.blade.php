@@ -1,12 +1,8 @@
 @extends('adminlte::page')
-
 @section('title', 'Categorias')
-
 @section('content_header')
 @section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
-
-
 
 <div class="container-fluid">
   <div class="row mb-2">
@@ -21,10 +17,8 @@
     </div>
   </div>
 </div>
-<!--Alerta -->
 
 @stop
-
 @section('content')
 <div class="row">
   <div class="col-12">
@@ -51,9 +45,7 @@
             </div>
           </div>
         </div> 
-
-      </div>
-     
+      </div>     
    
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
@@ -107,13 +99,9 @@
 </div>
 @stop
 
-
 @section('js')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-
-//Swal.fire('Any fool can use a computer');
-  
+//Swal.fire('Any fool can use a computer');  
   //Inicia os tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -121,21 +109,21 @@
     //Alert de confirmação de exclusão
     $('.delete-confirm').on('click', function (event) {
     event.preventDefault();
-    const url = $(this).attr('href');
-    swal({
-        title: 'Deseja continuar',
-        text: 'Este registro e seus detalhes serão excluídos permanentemente!',
-        icon: 'warning',
-        buttons: ["Cancelar", "Excluir!"],
-    }).then(function(value) {
-        if (value) {
+    const url = $(this).attr('href');    
+          Swal.fire({
+          title: 'Deseja continuar?',
+          text: "Este registro e seus detalhes serão excluídos permanentemente!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText:'Cancelar',
+          confirmButtonText: 'Sim, Exclua!'
+        }).then((result) => {
+          if (result.isConfirmed) {
             window.location.href = url;
-        }
-    });
+          }
+        })  
 });
-
-
 </script>
-
-
 @stop
