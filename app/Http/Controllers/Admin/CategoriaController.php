@@ -82,7 +82,7 @@ class CategoriaController extends Controller
     public function search(Request $request)
     {
          $pesquisar = $request->except('_token');
-        $categorias = $this->repository->search($request->pesquisa);
+         $categorias = $this->repository->search($request->pesquisa);
 
         return view('admin.pages.categorias.index', [
             'categorias' => $categorias,

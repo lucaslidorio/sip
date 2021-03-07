@@ -1,22 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Categorias')
+@section('title', 'Perfis')
 
 @section('content_header')
-@section('plugins.Sweetalert2', true)
-@include('sweetalert::alert')
 
+@include('sweetalert::alert')
 
 
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Categorias</h1>
+      <h1>Perfis</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Categorias</li>
+        <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
       </ol>
     </div>
   </div>
@@ -33,13 +32,13 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('categorias.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar nova categoria" ><i
+            <a href="{{route('profiles.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
+            title="Cadastrar novo perfil" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('categorias.search')}}" method="post" class="form form-inline  float-right">
+              <form action="{{route('profiles.search')}}" method="post" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
@@ -60,32 +59,35 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>URL</th>
+              <th>Nome</th>              
               <th>Descrição</th>
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($categorias as $categoria)
+            @foreach ($profiles as $profile)
       
             <tr >
-              <td>{{$categoria->id}}</td>
-              <td>{{$categoria->nome}}</td>
-              <td>{{$categoria->url}}</td>
-              <td>{{$categoria->descricao}}</td>
+                 <td>{{$profile->nome}}</td>
+              
+              <td>{{$profile->descricao}}</td>
               <td class="text-center">
-                <a href="{{route('categorias.edit', $categoria->id)}}" 
+                <a href="{{route('profiles.edit', $profile->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
 
-                <a href="{{route('categorias.destroy', $categoria->id)}}" data-id="{{$categoria->id}}"
+                <a href="{{route('profiles.destroy', $profile->id)}}" data-id="{{$profile->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
+                </a>
+
+                <a href="{{route('profile.permissions', $profile->id)}}" data-id="{{$profile->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver permissões do perfil">
+                  <i class="fas fa-lock" ></i>
                 </a>
               </td>
             </tr>
@@ -96,9 +98,9 @@
       <!-- /.card-body -->
       <div class="card-footer">
         @if (isset($pesquisar))
-        {!!$categorias->appends($pesquisar)->links()!!}
+        {!!$profiles->appends($pesquisar)->links()!!}
         @else
-        {!!$categorias->links()!!}
+        {!!$profiles->links()!!}
         @endif
       </div>
     </div>
@@ -107,13 +109,9 @@
 </div>
 @stop
 
-
 @section('js')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-
-//Swal.fire('Any fool can use a computer');
-  
   //Inicia os tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -126,7 +124,7 @@
         title: 'Deseja continuar',
         text: 'Este registro e seus detalhes serão excluídos permanentemente!',
         icon: 'warning',
-        buttons: ["Cancelar", "Excluir!"],
+        buttons: ["Cancelar", "Sim, Excluir!"],
     }).then(function(value) {
         if (value) {
             window.location.href = url;

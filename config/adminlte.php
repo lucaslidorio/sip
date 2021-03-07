@@ -241,6 +241,29 @@ return [
             'url'  => 'admin/categorias',
             'icon' => 'fas fa-list',
         ],
+
+        [
+            'text'    => 'Segurança',
+            'icon'    => 'fas fa-lock',
+            'submenu' => [
+                [
+                    'text' => 'Perfis',
+                    'url'  => 'admin/profiles',
+                    'icon' => 'fas fa-id-badge',
+                ],
+                [
+                    'text' => 'Permissões',
+                    'url'  => 'admin/permissions',
+                    'icon' => 'fas fa-key',
+                ],
+                
+               
+            ],
+        ],
+
+       
+        
+
         [
             'text' => 'change_password',
             'url'  => 'admin/settings',
@@ -383,7 +406,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -405,6 +428,17 @@ return [
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
                 ],
+            ],
+        ],
+        'Icheck' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous"',
+                ],
+               
             ],
         ],
     ],
