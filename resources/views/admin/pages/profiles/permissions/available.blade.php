@@ -2,30 +2,25 @@
 
 @section('title', ' Permissões disponiveis - ')
 @section('content_header')
-
-@section('plugins.Icheck', true)
-
+@section('plugins.icheck-bootstrap', true)
     @include('sweetalert::alert')
-
-
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Permissioes disponiveis para o perfil <strong>{{ $profile->nome }}</strong></h1>
+                <h1>Permissiões disponíveis para o perfil <strong>{{ $profile->nome }}</strong></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashbord</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ route('profiles.index') }}">Permissões do perfil</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashbord</a></li>
+                    <li class="breadcrumb-item "><a href="{{route('profiles.index')}}">Perfis</a></li>
+                    <li class="breadcrumb-item a"><a href="{{route('profiles.permissions',$profile->id)}}">Permissões do perfil</a></li>
+                    <li class="breadcrumb-item">Adicionar nova</li>
                 </ol>
             </div>
         </div>
     </div>
     <!--Alerta -->
-
 @stop
-
-
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -33,19 +28,16 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-
-                            <a href="{{ route('profile.permissions.available', $profile->id) }}"
-                                class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
-                                title="Adicionar nova permissão"><i class="fas fa-plus"></i> Adicionar nova permissão</a>
+                            
                         </div>
                         <div class="col-md-4">
                             <div class="card-tools">
-                                <form action="{{ route('profiles.search') }}" method="post"
+                                <form action="{{ route('profile.permissions.available', $profile->id) }}" method="post"
                                     class="form form-inline  float-right">
                                     @csrf
                                     <div class="input-group input-group-sm" style="width: 250px;">
                                         <input type="text" name="pesquisa" class="form-control float-right"
-                                            placeholder="Nome, Descrição">
+                                            placeholder="Nome">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default"><i
                                                     class="fas fa-search"></i></button>
@@ -55,51 +47,48 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-
                 <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover">
+                <div class="card-body table-responsive p-0 ">
+                    <table class="table table-hover ">
                         <thead>
                             <tr>
-                                <th width="50px">#</th>
-                                <th>Nome</th>
+                                <th width="40px">#</th>
+                                <th class="pl-5">Nome </th>
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            <form action="" method="POST">
+                            <form action="{{route('profile.permissions.attach', $profile->id )}}" method="POST">
                                 @csrf
                                 @foreach ($permissions as $permission)
-                                    <tr>                                      
+                                    <tr>
+                                        <td>                                           
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" name="permissions[]" value="{{$permission->id}}" id="{{$permission->id}}" />
+                                                <label for="{{$permission->id}}"></label>
+                                             </div>
+                                            </td>
                                         <td>
                                             <div class="icheck-primary">
-                                                <input type="checkbox" id="checkboxPrimary1" checked>
-                                                <label for="checkboxPrimary1">
-                                                </label>
-                                              </div>
+                                                <label for="{{$permission->id}}">{{$permission->nome}}</label>   
+                                            </div>                                           
                                         </td>
-
-                                        <td>
-                                            {{ $permission->nome }}
-                                        </td>
-                                      </div>
                                     </tr>
                                 @endforeach
-
                                 <tr>
                                     <td colspan="500">
                                         <button type="submit" class="btn btn-success">Vincular</button>
                                     </td>
                                 </tr>
-
                             </form>
                         </tbody>
                     </table>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
+                
                     @if (isset($pesquisar))
                         {!! $permissions->appends($pesquisar)->links() !!}
                     @else
@@ -108,8 +97,9 @@
                 </div>
             </div>
             <!-- /.card -->
-        </div>
+        </div>        
     </div>
+  
 @stop
 
 @section('js')

@@ -33,20 +33,68 @@ class PermissionProfileController extends Controller
          return view('admin.pages.profiles.permissions.permissions', compact('profile', 'permissions'));
 
     }
-
-    public function permissionsAvailable($idProfile){
-
-        $profile =  $this->profile->find($idProfile);
+    //recupera as perfil vinculado a permissão
+    public function profiles($idPermission)
+    {  
+        $permission =  $this->permission->find($idPermission);
        
+        if(!$permission){
+            return redirect()->back();
+        }
+         $profiles = $permission->profiles()->paginate();
+
+         return view('admin.pages.permissions.profiles.profiles', compact('permission', 'profiles'));
+
+    }
+    //Lista as permissoes disponiveis  para o perfil
+    public function permissionsAvailable(Request $request, $idProfile){
+
+        $profile =  $this->profile->find($idProfile);       
         if(!$profile){
             return redirect()->back();
         }
 
-        $permissions = $this->permission->paginate();
+        $filters = $request->except('_token');
+        $permissions = $profile->permissionsAvailable($request->pesquisa);
+
+       // $permissions = $profile->permissionsAvailable();
+        return view('admin.pages.profiles.permissions.available', compact('profile', 'permissions','filters' ));
 
 
-        return view('admin.pages.profiles.permissions.available', compact('profile', 'permissions'));
+    }
+    //Vincula permissão com o perfil
+    public function attachPermissionProfile(Request $request, $idProfile){
 
+        $profile =  $this->profile->find($idProfile);       
+        if(!$profile){
+            return redirect()->back();
+        }
 
+        if(!$request->permissions  || count($request->permissions) == 0){
+            toast('É necessário escolher uma permissão','error')->toToast('top');
+            return redirect()->back();
+            
+        }
+    
+        $profile->permissions()->attach($request->permissions);
+        toast('Permissão(s) vinculada com sucesso!','success')->toToast('top');
+        return redirect()->route('profiles.permissions', $profile->id);
+
+    }
+
+    //Desvincula permissão do perfil
+    public function detachPermissionProfile($idProfile, $idPermission){
+        
+        $profile =  $this->profile->find($idProfile); 
+        $permission =  $this->permission->find($idPermission);  
+
+        if(!$profile || !$idPermission){
+            return redirect()->back();
+        }
+
+        $profile->permissions()->detach($permission);
+        toast('Permissão(s) desvinculada com sucesso!','success')->toToast('top');
+        return redirect()->back();
+        //return redirect()->route('profiles.permissions', $profile->id);
     }
 }

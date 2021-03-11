@@ -7,7 +7,7 @@
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Permissão</h1>
+      <h1>Permissões</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
@@ -76,6 +76,11 @@
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
+                </a>
+                <a href="{{route('permissions.profiles', $permission->id)}}" data-id="{{$permission->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver perfis vinculado a permissão">
+                  <i class="fas fa-id-badge" ></i>
                 </a>
               </td>
             </tr>

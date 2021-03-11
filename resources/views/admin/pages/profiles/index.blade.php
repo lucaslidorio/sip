@@ -12,7 +12,7 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
+        <li class="breadcrumb-item ">Perfis</li>
       </ol>
     </div>
   </div>
@@ -81,7 +81,7 @@
                   <i class="fas fa-trash-alt" ></i>
                 </a>
 
-                <a href="{{route('profile.permissions', $profile->id)}}" data-id="{{$profile->id}}"
+                <a href="{{route('profiles.permissions', $profile->id)}}" data-id="{{$profile->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver permissões do perfil">
                   <i class="fas fa-lock" ></i>
@@ -131,6 +131,4 @@
         })  
 });
 </script>
-
-
 @stop

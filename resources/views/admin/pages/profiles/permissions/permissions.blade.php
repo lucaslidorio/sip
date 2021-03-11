@@ -1,21 +1,19 @@
 @extends('adminlte::page')
-
 @section('title', 'Permissões do perfil - ')
-
 @section('content_header')
-
 @include('sweetalert::alert')
 
 
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Permissioes do Perfil <strong>{{$profile->nome}}</strong></h1>
+      <h1>Permissões do Perfil - <strong>{{$profile->nome}}</strong></h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Permissões do perfil</a></li>
+        <li class="breadcrumb-item"><a href="{{route('profiles.index')}}">Perfis</a></li>
+        <li class="breadcrumb-item ">Permissões do perfil</li>
       </ol>
     </div>
   </div>
@@ -60,15 +58,24 @@
           <thead>
             <tr>
               <th>Nome</th>
+              <th width="20%" class="">Ações</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($permissions as $permission)
       
             <tr >
-                 <td>{{$permission->nome}}</td>
-              
+                 <td>{{$permission->nome}}</td>   
+                 <td>
+                   <a href="{{route('profile.permissions.detach',[$profile->id, $permission->id])}}" data-id="{{$profile->id}}"
+                    class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Remover Permissão">
+                    <i class="fas fa-trash-alt" ></i>
+                  </a>
+
+                  </td>           
             </tr>
+
             @endforeach
           </tbody>
         </table>
@@ -88,30 +95,30 @@
 @stop
 
 @section('js')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-  //Inicia os tooltip
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })  
-    //Alert de confirmação de exclusão
-    $('.delete-confirm').on('click', function (event) {
-    event.preventDefault();
-    const url = $(this).attr('href');
-    swal({
-        title: 'Deseja continuar',
-        text: 'Este registro e seus detalhes serão excluídos permanentemente!',
-        icon: 'warning',
-        buttons: ["Cancelar", "Sim, Excluir!"],
-    }).then(function(value) {
-        if (value) {
-            window.location.href = url;
-        }
+    <script>
+      //Inicia os tooltip
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })  //Alert de confirmação de exclusão
+        $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');    
+              Swal.fire({
+              title: 'Deseja continuar?',
+              text: "Este registro e seus detalhes serão excluídos permanentemente!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText:'Cancelar',
+              confirmButtonText: 'Sim, Exclua!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = url;
+              }
+            })  
     });
-});
 
-
-</script>
-
+    </script>
 
 @stop

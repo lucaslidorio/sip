@@ -16,6 +16,23 @@ class Profile extends Model
 
         return $this->BelongsToMany(Permission::class, 'permission_profile');
     }
+    //Pega as permissões ainda não vinculada ao perfil
+    public function permissionsAvailable( $filter = null){
+
+            $permissions = Permission::whereNotIn('id', function($query){
+            $query->select('permission_id');
+            $query->from('permission_profile');
+            $query->whereRaw("permission_profile.profile_id={$this->id}");
+        })
+        ->where(function($queryfilter) use($filter){
+            if($filter)
+            $queryfilter ->where('permissions.nome', 'LIKE', "%{$filter}%" );
+        })       
+        ->paginate();          
+
+        return $permissions;
+    }
+
 
 
 

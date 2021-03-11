@@ -10,11 +10,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('admin/', [CategoriaController::class, 'index'])->name('admin.index');
 
 //Rotas de Permmissão X perfil
-Route::get( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
-Route::get( 'profile/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profile.permissions');
+Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
+Route::post( 'profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
+Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
+Route::get( 'profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
+Route::get( 'permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
 
 
-//Rotas de Perfis
+//Rotas de Permissões
 Route::any('admin/permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
 Route::put('admin/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
 Route::get('admin/permissions/{id}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
@@ -44,6 +47,9 @@ Route::get('admin/categorias/{id}', [CategoriaController::class, 'destroy'])->na
 Route::post('admin/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
 Route::get('admin/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
 Route::get('/', function () {
@@ -52,3 +58,6 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+
+
+require __DIR__.'/auth.php';
