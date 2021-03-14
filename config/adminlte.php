@@ -237,6 +237,11 @@ return [
       
         ['header' => 'ADMINISTRAÇÃO'],
         [
+            'text' => 'Secretarias',
+            'url'  => 'admin/secretaries',
+            'icon' => 'fas fa-table',
+        ],
+        [
             'text' => 'Categorias',
             'url'  => 'admin/categorias',
             'icon' => 'fas fa-list',
@@ -244,19 +249,24 @@ return [
 
         [
             'text'    => 'Segurança',
-            'icon'    => 'fas fa-lock',
+            'icon'    => 'fas fa-lock',                       
             'submenu' => [
+                [
+                    'text' => 'Usuários',
+                    'url'  => 'admin/users',
+                    'icon' => 'fas fa-users',
+                ],
                 [
                     'text' => 'Perfis',
                     'url'  => 'admin/profiles',
                     'icon' => 'fas fa-id-badge',
+                    'active' => ['profiles'],
                 ],
                 [
                     'text' => 'Permissões',
                     'url'  => 'admin/permissions',
                     'icon' => 'fas fa-key',
-                ],
-                
+                ],               
                
             ],
         ],
