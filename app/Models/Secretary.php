@@ -11,6 +11,7 @@ class Secretary extends Model
     protected $fillable = [
         'nome',
         'sigla',
+        'url',
         'nome_responsavel',
         'telefone',
         'celular',
@@ -19,4 +20,17 @@ class Secretary extends Model
         'situacao',
         'sobre',
         ];
+
+
+        //Faz a pesquisa na index
+        public function search($pesquisar = null)
+        {
+            //dd($pesquisar);
+            $resultado = $this
+                        ->where('nome', 'LIKE', "%{$pesquisar}%")
+                        ->orWhere('sigla', $pesquisar)
+                        ->paginate(10);
+                        
+            return $resultado;
+        }
 }

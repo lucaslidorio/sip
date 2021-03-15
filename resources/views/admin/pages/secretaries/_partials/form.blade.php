@@ -1,19 +1,28 @@
       <div class="row">
           <div class="col-sm-9">
-              <div class="form-group">
+              <div class="form-group">                  
                   <label for="nome">Nome <span class="text-danger">*</span> </label>
-                  <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome"
-                      name="nome" placeholder="Nome da secretaria" value="{{ $secretary->nome ?? old('nome') }}">
-                  @error('nome')
-                      <small class="invalid-feedback">
-                          {{ $message }}
-                      </small>
-                  @enderror
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
+                        </div> 
+                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome"
+                        name="nome" placeholder="Nome da secretaria" value="{{ $secretary->nome ?? old('nome') }}">
+                    @error('nome')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                  </div>
               </div>
           </div>
           <div class="col-sm-3">
               <div class="form-group">
                   <label for="sigla">Sigla</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
+                    </div> 
                   <input type="text" class="form-control {{ $errors->has('sigla') ? 'is-invalid' : '' }}" id="sigla"
                       name="sigla" placeholder="Sigla" value="{{ $secretary->sigla ?? old('sigla') }}">
                   @error('sigla')
@@ -21,6 +30,7 @@
                           {{ $message }}
                       </small>
                   @enderror
+                  </div>
               </div>
           </div>
       </div>
@@ -29,6 +39,10 @@
           <div class="col-sm-6">
               <div class="form-group">
                   <label for="nome_responsavel">Nome Secretário(a)/Reponsável:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                    </div> 
                   <input type="text" class="form-control {{ $errors->has('nome_responsavel') ? 'is-invalid' : '' }}"
                       id="nome_responsavel" name="nome_responsavel" placeholder="Nome do Secretário(a) ou responsável"
                       value="{{ $secretary->nome_responsavel ?? old('nome_responsavel') }}">
@@ -37,63 +51,67 @@
                           {{ $message }}
                       </small>
                   @enderror
+                  </div>
               </div>
           </div>
           <div class="col-sm-3">
               <div class="form-group">
                   <label for="telefone">Telefone da secretaria:</label>
-                  <input type="number" class="form-control {{ $errors->has('telefone') ? 'is-invalid' : '' }}"
-                      id="telefone" name="telefone" placeholder="Número de tefefone da secretaria"
-                      value="{{ $secretary->telefone ?? old('telefone') }}">
-                  @error('telefone')
-                      <small class="invalid-feedback">
-                          {{ $message }}
-                      </small>
-                  @enderror
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control telefone_fixo {{ $errors->has('telefone') ? 'is-invalid' : '' }}" 
+                        data-inputmask-clearmaskonlostfocus="false"
+                        id="telefone" name="telefone" placeholder="Número de tefefone da secretaria"
+                        value="{{ $secretary->telefone ?? old('telefone') }}">
+                    @error('telefone')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
               </div>
           </div>
           <div class="col-sm-3">
             <div class="form-group">
                 <label for="celular">Nº. de celular da secretaria:</label>
-                <input type="number" class="form-control {{ $errors->has('celular') ? 'is-invalid' : '' }}"
-                    id="celular" name="celular"  placeholder="Número de tefefone da secretaria"
-                    value="{{ $secretary->celular ?? old('celular') }}">
-                @error('celular')
-                    <small class="invalid-feedback">
-                        {{ $message }}
-                    </small>
-                @enderror
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control telefone_celular {{ $errors->has('celular') ? 'is-invalid' : '' }} "
+                        data-inputmask-clearmaskonlostfocus="false"
+                        id="celular" name="celular"  placeholder="Número de tefefone da secretaria"
+                        value="{{ $secretary->celular ?? old('celular') }}">
+                    @error('celular')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                    @enderror
+            </div>
             </div>
         </div>
       </div>
-          <div class="row">
-              <div class="col-sm-12">
-                  <div class="form-group">
-                    <label>US phone mask:</label>
-
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                      </div>
-                      <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                    </div>
-                    <!-- /.input group -->
-                  </div>
-              </div>
-          </div>
+          
     
       <div class="row">
           <div class="col-sm-12">
               <div class="form-group">
                   <label for="endereco">Endereço:</label>
-                  <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}"
-                      id="endereco" name="endereco" placeholder="Rua, Número, Bairro, CEP, Cidade"
-                      value="{{ $secretary->endereco ?? old('endereco') }}">
-                  @error('endereco')
-                      <small class="invalid-feedback">
-                          {{ $message }}
-                      </small>
-                  @enderror
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search-location"></i></span>
+                    </div>                    
+                    <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}"
+                        id="endereco" name="endereco" placeholder="Rua, Número, Bairro, CEP, Cidade"
+                        value="{{ $secretary->endereco ?? old('endereco') }}">
+                    @error('endereco')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                    </div>
               </div>
           </div>
       </div>
@@ -102,14 +120,19 @@
         <div class="col-sm-8">
             <div class="form-group">
                 <label for="email">E-mail:</label>
-                <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                    id="email" name="email" placeholder="Email da secretaria"
-                    value="{{ $secretary->email ?? old('email') }}">
-                @error('email')
-                    <small class="invalid-feedback">
-                        {{ $message }}
-                    </small>
-                @enderror
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-at"></i></span>
+                        </div>    
+                    <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                        id="email" name="email" placeholder="Email da secretaria"
+                        value="{{ $secretary->email ?? old('email') }}">
+                    @error('email')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="col-sm-4">

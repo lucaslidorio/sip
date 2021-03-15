@@ -16,6 +16,9 @@ class CategoriaController extends Controller
         //Pega todos os planos atravé do injeção do model no contrutor
         $this->repository = $categoria;
     }
+    public function home(){
+        return view('dashboard');
+    }
 
     public function index()
     {

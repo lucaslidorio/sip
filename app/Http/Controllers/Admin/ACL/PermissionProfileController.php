@@ -81,6 +81,7 @@ class PermissionProfileController extends Controller
         return redirect()->route('profiles.permissions', $profile->id);
 
     }
+    
 
     //Desvincula permissão do perfil
     public function detachPermissionProfile($idProfile, $idPermission){

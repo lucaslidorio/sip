@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 //Grupo de roda para Middleware de autenticação
 Route::middleware(['auth'])->group(function () {
 
-    //Rota do Dashboard
-    Route::get('admin/', [CategoriaController::class, 'index'])->name('admin.index');
-
+    //Rota da dashboard (home)
+      Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
     //Rotas de Permmissão X perfil
     Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
     Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
@@ -26,6 +27,17 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')
             ->namespace('Admin')                
             ->group(function () {
+
+             //Rotas de Posts
+             Route::any('/posts/search', [PostController::class, 'search'])->name('posts.search');
+             Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+             Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+             Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
+             Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+             Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+             Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+                 
 
             
             //Rotas de Secretarias
@@ -85,12 +97,11 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-
+/*
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-
+})->middleware(['auth'])->name('dashboard.index');
+*/
 
 Route::get('/', function () {
     //Alert::success('Success Title', 'Success Message');

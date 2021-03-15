@@ -11,7 +11,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashbord</a></li>
+          <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
           <li class="breadcrumb-item "> <a href="{{route('profiles.index')}}">Perfis </a></li>
           <li class="breadcrumb-item ">Editar Categoria</li>          
         </ol>

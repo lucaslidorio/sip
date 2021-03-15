@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Categoria;
+use App\Models\Secretary;
 use App\Observers\CategoriaObserver;
+use App\Observers\SecretaryObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -28,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         Categoria::observe(CategoriaObserver::class);
+        Secretary::observe(SecretaryObserver::class);
     }
 }

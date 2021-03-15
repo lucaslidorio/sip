@@ -16,7 +16,8 @@ class CreateSecretariesTable extends Migration
         Schema::create('secretaries', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
-            $table->char('sigla',10)->nullable();
+            $table->char('sigla',10);
+            $table->string('url');
             $table->string('nome_responsavel')->nullable();
             $table->char('telefone',12)->nullable();
             $table->char('celular',12)->nullable();           

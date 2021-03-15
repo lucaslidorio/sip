@@ -28,8 +28,8 @@ class StoreUpadateSecretary extends FormRequest
             'nome' => ['required', 'min:3', 'max:255', "unique:secretaries,nome,{$id},id"],
             'sigla' => ['nullable', 'min:2', 'max:255' ,"unique:secretaries,sigla,{$id},id"],
             'nome_responsavel' => ['nullable', 'min:3', 'max:255' ],
-            'telefone' => ['nullable','min:4','numeric'],
-            'celular' => ['nullable','min:8','numeric'],
+            'telefone' => ['nullable','min:4'],
+            'celular' => ['nullable','min:8'],
             'endereco' => ['nullable', 'min:5', 'max:255' ],
             'email' => ['nullable', 'email' ],
         ];

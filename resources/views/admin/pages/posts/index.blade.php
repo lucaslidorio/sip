@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Perfis')
+@section('title', 'Posts')
 @section('content_header')
 @include('sweetalert::alert')
 
@@ -7,12 +7,12 @@
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Usuários</h1>
+      <h1>Posts</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Usuários</li>
+        <li class="breadcrumb-item ">Posts</li>
       </ol>
     </div>
   </div>
@@ -29,13 +29,13 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('users.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo perfil" ><i
+            <a href="{{route('posts.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
+            title="Cadastrar novo Post" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('users.search')}}" method="post" class="form form-inline  float-right">
+              <form action="{{route('posts.search')}}" method="post" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
@@ -57,32 +57,37 @@
           <thead>
             <tr>
               <th>Nome</th>              
-              <th>Email</th>
-              <th>Matricula</th>              
+              <th>Sigla</th>
+              <th>Responsável</th>
+              <th>E-mail</th>
+              <th>Situação</th>
+                          
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($users as $user)
+            @foreach ($posts as $post)
       
             <tr >
-              <td>{{$user->name}}</td>              
-              <td>{{$user->email}}</td>
-              <td>{{$user->matricula}}
-              <td class="text-center">
-                <a href="{{route('users.edit', $user->id)}}" 
+              <td>{{$post->nome}}</td>              
+              <td>{{$post->sigla}}</td>
+              <td>{{$post->nome_responsavel}}</td>
+              <td>{{$post->email}}</td>
+              <td>{{$post->situacao == 1 ? 'Ativo':'Inativo'}}</td>
+                <td class="text-center">
+                <a href="{{route('posts.edit', $post->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
 
-                <a href="{{route('users.destroy', $user->id)}}" data-id="{{$user->id}}"
+                <a href="{{route('posts.destroy', $post->id)}}" data-id="{{$post->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
 
-                <a href="{{route('users.show', $user->id)}}" data-id="{{$user->id}}"
+                <a href="{{route('posts.show', $post->id)}}" data-id="{{$post->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
                   <i class="fas fa-address-book" ></i>
@@ -96,9 +101,9 @@
       <!-- /.card-body -->
       <div class="card-footer">
         @if (isset($pesquisar))
-        {!!$users->appends($pesquisar)->links()!!}
+        {!!$posts->appends($pesquisar)->links()!!}
         @else
-        {!!$users->links()!!}
+        {!!$posts->links()!!}
         @endif
       </div>
     </div>

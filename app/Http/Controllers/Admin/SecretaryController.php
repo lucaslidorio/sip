@@ -17,7 +17,7 @@ class SecretaryController extends Controller
     
     public function index()
     {
-        $secretaries = $this->repository->latest()->paginate(10);
+        $secretaries = $this->repository->orderBy('situacao','DESC')->paginate(10);
         return view('admin.pages.secretaries.index', compact('secretaries'));
     }
 
@@ -118,5 +118,17 @@ class SecretaryController extends Controller
         $secretary->delete();
         toast('Secretaria excluida com sucesso!','success')->toToast('top');            
         return redirect()->route('secretaries.index');
+    }
+
+    //Metodo de pesquisa
+    public function search(Request $request)
+    {
+         $pesquisar = $request->except('_token');
+         $secretaries = $this->repository->search($request->pesquisa);
+
+        return view('admin.pages.secretaries.index', [
+            'secretaries' => $secretaries,
+            'pesquisar' => $pesquisar
+        ]);
     }
 }

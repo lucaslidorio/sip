@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', "Detelhea da secretaria")
+@section('title', "Detelhea da post")
 
 @section('content_header')
 
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Detalhes da  secretaria -  <strong>{{$secretary->nome}}</strong></h1>
+        <h1>Detalhes do post -  <strong>{{$post->nome}}</strong></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-          <li class="breadcrumb-item "> <a href="{{route('secretaries.index')}}">Secretarias </a></li>
+          <li class="breadcrumb-item "> <a href="{{route('posts.index')}}">Secretarias </a></li>
           <li class="breadcrumb-item ">Detalhes</li>          
         </ol>
       </div>
@@ -29,33 +29,33 @@
   <div class="card-body">
       <ul>
           <li>
-              <strong>Nome:</strong> {{$secretary->nome}}
+              <strong>Nome:</strong> {{$post->nome}}
           </li>
 
           <li>
-              <strong>Sigla:</strong> {{$secretary->sigla}}
+              <strong>Sigla:</strong> {{$post->sigla}}
           </li>    
           <li>
-            <strong>Responsável:</strong> {{$secretary->nome_responsavel}}
+            <strong>Responsável:</strong> {{$post->nome_responsavel}}
           </li>
           <li>
-            <strong>Telefone:</strong> {{$secretary->telefone}}
+            <strong>Telefone:</strong> {{$post->telefone}}
           </li>
 
           <li>
-              <strong>Celular:</strong> {{$secretary->celular}}
+              <strong>Celular:</strong> {{$post->celular}}
           </li>
           <li>
-              <strong>Endereço:</strong> {{$secretary->endereco}}
+              <strong>Endereço:</strong> {{$post->endereco}}
           </li>
           <li>
-            <strong>E-mail:</strong> {{$secretary->email}}
+            <strong>E-mail:</strong> {{$post->email}}
           </li>          
           <li>
-            <strong>Situação:</strong> {{$secretary->situacao ==1 ? 'Ativo':'Inativo'}}
+            <strong>Situação:</strong> {{$post->situacao ==1 ? 'Ativo':'Inativo'}}
           </li>
           <li>
-            <strong>Sobre:</strong> {{$secretary->sobre}}
+            <strong>Sobre:</strong> {{$post->sobre}}
           </li>
           
       </ul>     

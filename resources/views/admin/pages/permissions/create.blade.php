@@ -11,7 +11,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashbord</a></li>
+          <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
           <li class="breadcrumb-item "> <a href="{{route('permissions.index')}}">Permissão </a></li>
           <li class="breadcrumb-item ">Nova Permissão</li>          
         </ol>

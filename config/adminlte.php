@@ -237,6 +237,11 @@ return [
       
         ['header' => 'ADMINISTRAÇÃO'],
         [
+            'text' => 'Posts',
+            'url'  => 'admin/posts',
+            'icon' => 'far fa-clipboard',
+        ],
+        [
             'text' => 'Secretarias',
             'url'  => 'admin/secretaries',
             'icon' => 'fas fa-table',
@@ -260,7 +265,7 @@ return [
                     'text' => 'Perfis',
                     'url'  => 'admin/profiles',
                     'icon' => 'fas fa-id-badge',
-                    'active' => ['profiles'],
+                    
                 ],
                 [
                     'text' => 'Permissões',
@@ -452,6 +457,17 @@ return [
                 
             ],
         ],
+
+        'inputmask' => [
+            'active' => true,
+            'files' => [              
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/inputmask/jquery.inputmask.min.js',
+                ],
+            ],
+        ], 
     ],
 
     /*
