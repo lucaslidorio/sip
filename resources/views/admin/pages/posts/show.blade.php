@@ -1,18 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', "Detelhea da post")
+@section('title', "Detalhes do post")
+@section('plugins.icheck-bootstrap', true)
 
 @section('content_header')
 
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Detalhes do post -  <strong>{{$post->nome}}</strong></h1>
+        <h1>Detalhes do post -  <strong>{{$post->titulo}}</strong></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-          <li class="breadcrumb-item "> <a href="{{route('posts.index')}}">Secretarias </a></li>
+          <li class="breadcrumb-item "> <a href="{{route('posts.index')}}">Posts </a></li>
           <li class="breadcrumb-item ">Detalhes</li>          
         </ol>
       </div>
@@ -27,35 +28,53 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-      <ul>
+      <ul class="list-unstyled">
           <li>
-              <strong>Nome:</strong> {{$post->nome}}
+              <strong>Titulo:</strong>  {{$post->titulo}}
           </li>
 
           <li>
-              <strong>Sigla:</strong> {{$post->sigla}}
+              <strong>Data Publicação:</strong> {{$post->data_publicacao}}
           </li>    
           <li>
-            <strong>Responsável:</strong> {{$post->nome_responsavel}}
+            <strong>Data Expiração:</strong> {{$post->data_expiracao}}
           </li>
           <li>
-            <strong>Telefone:</strong> {{$post->telefone}}
+            <strong>Secretária:</strong> {{$post->secretary->sigla}} - {{$post->secretary->nome}}
+          </li>
+          <li>                   
+            
+            <strong>Categorias:</strong> &nbsp;             
+              @foreach ($post->categories as $category)  
+                <div class="icheck-primary icheck-inline">
+                  <input type="checkbox" name="categories[]" value="{{$category->id}}" id="{{$category->id}}" checked disabled />
+                  <label for="{{$category->id}}"> {{$category->nome}}</label>
+                </div>    
+              @endforeach 
+                           
+          </li>
+          <li>
+            <strong>Imagem Destaque:</strong><br>
+            <img src="{{url("storage/{$post->img_destaque}")}}" alt="{{$post->titulo}}" style="max-width: 200px">
+          </li>
+          <li>
+              <strong>Conteúdo:</strong> 
+              <p class="text-justify">{{$post->conteudo}}</p>
+          </li>
+                   
+          
+          <li>
+            <strong>Galeria:</strong> <br>
+            @foreach ($post->imagens as $imagem)
+            <img src="{{url("storage/{$imagem->img}")}}" alt="{{$post->titulo}}" style="max-width: 200px">
+            
+                
+            @endforeach
           </li>
 
           <li>
-              <strong>Celular:</strong> {{$post->celular}}
-          </li>
-          <li>
-              <strong>Endereço:</strong> {{$post->endereco}}
-          </li>
-          <li>
-            <strong>E-mail:</strong> {{$post->email}}
-          </li>          
-          <li>
-            <strong>Situação:</strong> {{$post->situacao ==1 ? 'Ativo':'Inativo'}}
-          </li>
-          <li>
-            <strong>Sobre:</strong> {{$post->sobre}}
+            <br>
+            <strong>Postado por: </strong><span class="text-muted">{{$post->user->name}}</span>
           </li>
           
       </ul>     

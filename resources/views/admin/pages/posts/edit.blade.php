@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', "Atualizar  posts")
+@section('plugins.icheck-bootstrap', true)
 
 @section('content_header')
 
@@ -28,7 +29,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('posts.update', $post->id)}}" method="POST">
+        <form action="{{route('posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

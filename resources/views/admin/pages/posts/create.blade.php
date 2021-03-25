@@ -30,7 +30,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('posts.store')}}" method="POST">
+        <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data" >
             @csrf
             @include('admin.pages.posts._partials.form')
 

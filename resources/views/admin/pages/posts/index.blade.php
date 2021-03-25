@@ -56,11 +56,13 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Nome</th>              
-              <th>Sigla</th>
-              <th>Responsável</th>
-              <th>E-mail</th>
-              <th>Situação</th>
+              <th>Titulo</th>              
+              <th>Conteúdo</th>
+              <th>Secretaria</th>
+              <th>Data Publicação</th>
+              <th>Data Expiração</th>
+              <th>Categorias</th>
+              <th>Postado Por</th>
                           
               <th width="20%" class="text-center">Ações</th>
             </tr>
@@ -68,13 +70,19 @@
           <tbody>
             @foreach ($posts as $post)
       
-            <tr >
-              <td>{{$post->nome}}</td>              
-              <td>{{$post->sigla}}</td>
-              <td>{{$post->nome_responsavel}}</td>
-              <td>{{$post->email}}</td>
-              <td>{{$post->situacao == 1 ? 'Ativo':'Inativo'}}</td>
-                <td class="text-center">
+            <tr>
+              <td>{{$post->titulo}}</td>              
+              <td>{{$post->conteudo}}</td>
+              <td>{{$post->secretary->sigla}}</td>
+              <td>{{$post->data_publicacao}}</td>
+              <td>{{$post->data_expiracao}}</td>
+              <td>  
+                @foreach ($post->categories as $category)  
+                  <p> {{$category->nome}}</p>
+                @endforeach
+              </td>
+              <td>{{$post->user->name}}</td>
+              <td class="text-center">
                 <a href="{{route('posts.edit', $post->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">

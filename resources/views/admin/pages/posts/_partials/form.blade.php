@@ -6,7 +6,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-heading"></i></span>
                         </div> 
-                    <input type="text" class="form-control {{ $errors->has('v') ? 'is-invalid' : '' }}" id="titulo"
+                    <input type="text" class="form-control {{ $errors->has('titulo') ? 'is-invalid' : '' }}" id="titulo"
                         name="titulo" placeholder="Titúlo da matéria, posts..." value="{{ $post->titulo ?? old('titulo') }}">
                     @error('nome')
                         <small class="invalid-feedback">
@@ -57,28 +57,37 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label>Secretária</label>
-                <select class="form-control select2" name="secretary_id" style="width: 100%;">                 
-                  @foreach ($secretaries as $secretary)            
-                    <option value="{{$secretary->id}}">{{$secretary->sigla}} - {{$secretary->nome}}</option>
-                    @endforeach                
+                <label>Secretaria</label>
+                <select class="form-control select2" name="secretary_id" style="width: 100%;">
+                    <option value="" selected></option>               
+                    @foreach ($secretaries as $secretary)            
+                    <option value="{{$secretary->id ?? old('') }}" 
+                        @isset($post)
+                        {{$secretary->id == $post->secretary->id ? 'selected' :''}}
+                        @endisset >
+                        {{$secretary->sigla ?? old('')}} - {{$secretary->nome ?? old('')}}</option>
+                    @endforeach 
                 </select>
               </div>
         </div>
       </div>
 
       <div class="card card-default">
-        <h5 class="card-header">Categorias</h5>
+        <h5 class="card-header"><strong>Categorias </strong></h5>
         <div class="card-body">
-            @foreach ($categories as $category)
-                <div class="icheck-primary icheck-inline">
-                    <input type="checkbox" name="categories[]" value="{{$category->id}}" id="{{$category->id}}" />
-                    <label for="{{$category->id}}"> {{$category->nome}}</label>
-                </div>                   
+             @foreach ($categories as $category)            
+             <div class="icheck-primary icheck-inline">
+                <input type="checkbox" name="categories[]" value="{{$category->id}}" id="{{$category->id}}"                 
+                    @isset($post)
+                        @foreach ($post->categories as $postCategoria)                     
+                            {{$category->id == $postCategoria->id ? 'checked' : ''}}        
+                        @endforeach               
+                    @endisset />
+              <label for="{{$category->id}}"> {{$category->nome}}</label>                
+            </div>          
             @endforeach
         </div>
-      </div>
-            
+      </div>           
       
       <div class="row">
           <div class="col-sm-12">
@@ -113,13 +122,13 @@
     <div class="row">
         <div class="col-sm-12">
           <div class="form-group">                  
-              <label for="img_galeria">Imagens para galeria <span class="text-danger">*</span> </label>
+              <label for="img_galeria" class="custom-file-label" >Imagens para galeria</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
                     </div> 
                 <input type="file" class="form-control {{ $errors->has('img_galeria') ? 'is-invalid' : '' }}" id="img_galeria"
-                    name="img_galeria" placeholder="Nenhuma imagem selecinada" value="{{ $post->img_galeria ?? old('img_galeria') }}">
+                    name="img_galeria[]" placeholder="Nenhuma imagem selecinada" value="{{ $post->img_galeria ?? old('img_galeria') }}" multiple>
                 @error('img_galeria')
                     <small class="invalid-feedback">
                         {{ $message }}

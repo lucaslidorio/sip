@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
+
 class Post extends Model
 {
     use HasFactory;
@@ -24,8 +25,15 @@ class Post extends Model
         return $this->belongsTo(Secretary::class);
     }
 
-    public function catergories(){
-        return $this->belongsTo(Categoria::class);
+    public function user(){
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+    public function categories(){
+        return $this->belongsToMany(Categoria::class, 'post_category');
 
+    }
+
+    public function imagens(){
+        return $this->hasMany(PostImg::class);
     }
 }
