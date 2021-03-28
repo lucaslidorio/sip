@@ -1,7 +1,5 @@
 @extends('adminlte::page')
-
 @section('title', "Atualizar o secretaria")
-
 @section('content_header')
 
 <div class="container-fluid">
@@ -31,7 +29,6 @@
         <form action="{{route('secretaries.update', $secretary->id)}}" method="POST">
             @csrf
             @method('PUT')
-
             @include('admin.pages.secretaries._partials.form')
 
         </form>

@@ -153,8 +153,7 @@
                 placeholder="Sobre a secretaia">{{$secretary->sobre ?? old('sobre')}}</textarea>
             </div>
         </div>
-    </div>
-    
+    </div>   
       
     
       <div class="form-group">

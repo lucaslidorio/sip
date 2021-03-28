@@ -34,10 +34,10 @@
           </li>
 
           <li>
-              <strong>Data Publicação:</strong> {{$post->data_publicacao}}
+              <strong>Data Publicação:</strong> {{ date('d/m/Y', strtotime($post->data_publicacao)) }}
           </li>    
           <li>
-            <strong>Data Expiração:</strong> {{$post->data_expiracao}}
+            <strong>Data Expiração:</strong> {{ date('d/m/Y', strtotime($post->data_expiracao)) }}
           </li>
           <li>
             <strong>Secretária:</strong> {{$post->secretary->sigla}} - {{$post->secretary->nome}}
@@ -59,16 +59,14 @@
           </li>
           <li>
               <strong>Conteúdo:</strong> 
-              <p class="text-justify">{{$post->conteudo}}</p>
+              <p class="text-justify">{!!$post->conteudo!!}</p>
           </li>
                    
           
           <li>
             <strong>Galeria:</strong> <br>
             @foreach ($post->imagens as $imagem)
-            <img src="{{url("storage/{$imagem->img}")}}" alt="{{$post->titulo}}" style="max-width: 200px">
-            
-                
+              <img src="{{url("storage/{$imagem->img}")}}" alt="{{$post->titulo}}" style="max-width: 200px">         
             @endforeach
           </li>
 

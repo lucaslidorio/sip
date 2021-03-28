@@ -1,11 +1,14 @@
 @extends('adminlte::page')
 
 @section('title', 'Cadastrar novo post')
-@section('plugins.Select2', true)
+@section('plugins.Select2', false)
+@section('plugins.Summernote', true)
 @section('plugins.icheck-bootstrap', true)
 
 @section('content_header')
-
+@section('css')
+    <link rel="stylesheet" href="../../dashboard/css/main.css">
+@stop
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
@@ -24,8 +27,6 @@
 @include('sweetalert::alert')
 @stop
 
-
-
 @section('content')
 
 <div class="card">
@@ -38,11 +39,18 @@
     </div>
 </div>
 
-@stop
-
+@endsection
 @section('js')
 <script src="../../dashboard/js/main.js"></script>
-  
+<script src="../../dashboard/js/summernote-pt-br.js"></script>   
+<script>  
+    //inicia o summernote  
+    $(document).ready(function() {
+      $('#summernote').summernote({
+      lang: 'pt-BR'
+      });
+    });
+  </script>
 @endsection
 
 

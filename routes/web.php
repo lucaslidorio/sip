@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
              Route::any('/posts/search', [PostController::class, 'search'])->name('posts.search');
              Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
              Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+             Route::post('/posts/deleteImage', [PostController::class, 'removeImage'])->name('posts.removeImage');
              Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
              Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
              Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');

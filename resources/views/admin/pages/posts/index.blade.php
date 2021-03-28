@@ -72,7 +72,7 @@
       
             <tr>
               <td>{{$post->titulo}}</td>              
-              <td>{{$post->conteudo}}</td>
+              <td>{!!$post->conteudo!!}</td>
               <td>{{$post->secretary->sigla}}</td>
               <td>{{$post->data_publicacao}}</td>
               <td>{{$post->data_expiracao}}</td>

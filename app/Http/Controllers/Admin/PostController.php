@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdatePost;
 use App\Models\Categoria;
 use App\Models\Post;
 use App\Models\PostImg;
 use App\Models\Secretary;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -38,19 +42,18 @@ class PostController extends Controller
         return view('admin.pages.posts.create', compact('secretaries', 'categories'));
     }
     
-    public function store(Request $request)
+    public function store(StoreUpdatePost $request)
     {
-       //pega usuário autenticado        
-        
+               
         
         $dadosPost = new Post();
         //Pega os dados dos input especificos do post
-        $dadosPost = $request->only('titulo','data_publicacao','data_expiracao','secretary_id', 'conteudo', 'img_destaque');
-       
+        $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque');
+        //pega usuário autenticado       
         $user = auth()->user();
         $dadosPost['user_id'] = $user->id;  
-              
-       
+        $dadosPost['data_publicacao'] =date('Y/m/d');
+ 
         //Upload de da imagem de destaque
         if($request->hasFile('img_destaque') && $request->img_destaque->isValid()){
             $dadosPost['img_destaque'] = $request->img_destaque->store('posts');
@@ -58,14 +61,14 @@ class PostController extends Controller
         //Grava os dados na tabela post
         $dadosPost = $this->repository->create($dadosPost);
       
-          //pega os checkbox de categoria marcados e grava tabela post_category
-       $request->only('categories');       
-       if($request->categories){
+        //pega os checkbox de categoria marcados e grava tabela post_category
+        $request->only('categories');       
+        if($request->categories){
            for ($i=0; $i < count($request->categories) ; $i++) { 
                $categoryPost = ($request->categories[$i]);
                $dadosPost->categories()->attach($categoryPost);
            }
-       }  
+        }  
        
       //Grava as imagens da galeria na tabela post_img
         $imgGaleria =  $request->only('img_galeria');
@@ -106,44 +109,97 @@ class PostController extends Controller
     {
         $post = $this->repository->where('id', $id)->first();
         $secretaries = $this->secretary->all();
-        $categories = $this->category->all();
-
-        
-
+        $categories = $this->category->all();     
         if(!$post){
             return redirect()->back();                       
         }                       
         return view('admin.pages.posts.edit',[
             'post' => $post,
             'categories'=> $categories,
-            'secretaries' => $secretaries
-            
+            'secretaries' => $secretaries            
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
-    {
-        if($request->hasFile('image') && $request->img_destaque->isValid()){
+    {       
+        //recupera o post pelo id 
+        $post  = $this->repository->where('id', $id)->first();
+        if(!$post){
+            redirect()->back();
+        }      
+        $dadosPost= request()->all();
+       
+         //verifica se existe um arquivo e se é do tipo image e faz o upload 
+         //antes de fazer salvar, remove a imagem já existente    
+         if($request->hasFile('img_destaque') && $request->img_destaque->isValid()){
+            if(Storage::exists($post->img_destaque)){
+               Storage::delete($post->img_destaque);
+            }
             $dadosPost['img_destaque'] = $request->img_destaque->store('posts');
-
         }
+        //Atualila a tabela post
+         $post->update($dadosPost);
+       
+        //Captura os checkbox e atualiza a tabela post_category
+        $request->only('categories');               
+        if($request->categories){
+           for ($i=0; $i < count($request->categories) ; $i++) { 
+               $categoryPost[] = ($request->categories[$i]); 
+               $post->categories()->sync($categoryPost);            
+               
+           }      
+        }  
+        //Grava as imagens da galeria na tabela post_img
+        $imgGaleria =  $request->only('img_galeria');
+        if($request->hasFile('img_galeria')){
+            for ($i=0; $i < count($imgGaleria['img_galeria']) ; $i++) { 
+                $file= $imgGaleria['img_galeria'][$i];
+                $postImg = new PostImg();
+                $postImg->post_id = $post->id;
+                $postImg->img= $file->store('posts');
+                $postImg->save();
+                unset($postImg);       
+                    }                   
+        } 
+        toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
+        return redirect()->back();      
+    }
+    public function removeImage(Request $request)
+    {
+        $imageName = $request->get('imageName');
+        //Remove dos arquivos
+        if(Storage::disk('public')->exists($imageName)){
+            Storage::disk('public')->delete($imageName);
+        }
+
+        //Removo as imagem dos banco
+        $removeImage = PostImg::where('img', $imageName);
+        //$postId = $removeImage->first()->post_id;
+        
+        //dd($removeImage);
+        $removeImage->delete();   
+
+        toast('Imagem  removida com sucesso!','success')->toToast('top') ;
+        
+        return redirect()->back();
+
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
+  
     public function destroy($id)
     {
-        //
+        $post  = $this->repository->where('id', $id)->first();
+        if(!$post){
+            redirect()->back();
+        }  
+       
+            if(Storage::exists($post->img_destaque)){
+               Storage::delete($post->img_destaque);
+            }
+        
+        
     }
 }

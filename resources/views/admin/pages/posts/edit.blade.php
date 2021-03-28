@@ -1,14 +1,14 @@
 @extends('adminlte::page')
-
 @section('title', "Atualizar  posts")
 @section('plugins.icheck-bootstrap', true)
+@section('plugins.Summernote', true)
 
 @section('content_header')
 
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Editar postagem -  <strong>{{$post->nome}}</strong></h1>
+        <h1>Editar postagem -  <strong>{{$post->titulo}}</strong></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -32,12 +32,22 @@
         <form action="{{route('posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             @include('admin.pages.posts._partials.form')
 
         </form>
     </div>
 </div>
+@stop
+@section('js')
 
-
+<script src="../../dashboard/js/main.js"></script>
+<script src="../../dashboard/js/summernote-pt-br.js"></script>   
+<script>  
+    //inicia o summernote  
+    $(document).ready(function() {
+      $('#summernote').summernote({
+      lang: 'pt-BR'
+      });
+    });
+  </script>
 @stop

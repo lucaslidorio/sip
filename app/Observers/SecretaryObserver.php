@@ -16,6 +16,7 @@ class SecretaryObserver
     public function creating(Secretary $secretary)
     {
         $secretary->sigla= Str::upper($secretary->sigla);
+        //transforma em minusculo
         $secretary->url= Str::lower($secretary->sigla);
         
     }

@@ -1,14 +1,14 @@
       <div class="row">
           <div class="col-sm-12">
               <div class="form-group">                  
-                  <label for="titulo">Titúlo <span class="text-danger">*</span> </label>
+                  <label for="titulo" class="label-required">Titúlo  </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-heading"></i></span>
                         </div> 
                     <input type="text" class="form-control {{ $errors->has('titulo') ? 'is-invalid' : '' }}" id="titulo"
                         name="titulo" placeholder="Titúlo da matéria, posts..." value="{{ $post->titulo ?? old('titulo') }}">
-                    @error('nome')
+                    @error('titulo')
                         <small class="invalid-feedback">
                             {{ $message }}
                         </small>
@@ -26,14 +26,10 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                     </div>
-                    <input type="date" class="form-control {{ $errors->has('data_publicacao') ? 'is-invalid' : '' }}" 
+                    <input type="text" class="form-control" 
                         id="data_publicacao" name="data_publicacao"
-                        value="{{ $post->data_publicacao ?? old('data_publicacao') }}">
-                    @error('data_publicacao')
-                        <small class="invalid-feedback">
-                            {{ $message }}
-                        </small>
-                    @enderror
+                        value="<?php echo date("d/m/Y" ); ?> " disabled>
+                  
                 </div>
               </div>
           </div>
@@ -46,7 +42,7 @@
                   </div>
                   <input type="date" class="form-control {{ $errors->has('data_expiracao') ? 'is-invalid' : '' }}" 
                       id="data_expiracao" name="data_expiracao"
-                      value="{{ $post->data_expiracao ?? old('data_publicacao') }}">
+                      value="{{ $post->data_expiracao ?? old('data_expiracao') }}">
                   @error('data_expiracao')
                       <small class="invalid-feedback">
                           {{ $message }}
@@ -57,42 +53,60 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label>Secretaria</label>
-                <select class="form-control select2" name="secretary_id" style="width: 100%;">
-                    <option value="" selected></option>               
-                    @foreach ($secretaries as $secretary)            
-                    <option value="{{$secretary->id ?? old('') }}" 
+                <label class="label-required">Secretaria</label>
+                <select class="form-control {{ $errors->has('secretary_id') ? 'is-invalid' : '' }}" name="secretary_id" style="width: 100%;" >
+                    <option value="" selected ></option>              
+                    @foreach ($secretaries as $secretary)                          
+                    <option value="{{$secretary->id ?? old('secretary_id') }}" 
                         @isset($post)
-                        {{$secretary->id == $post->secretary->id ? 'selected' :''}}
+                            {{$secretary->id == $post->secretary->id ? 'selected' :''}}
                         @endisset >
-                        {{$secretary->sigla ?? old('')}} - {{$secretary->nome ?? old('')}}</option>
+                            {{$secretary->sigla}} - {{$secretary->nome }} </option>
                     @endforeach 
                 </select>
+                @error('secretary_id')
+                <small class="invalid-feedback">
+                    {{ $message }}
+                </small>
+            @enderror
               </div>
         </div>
       </div>
 
-      <div class="card card-default">
-        <h5 class="card-header"><strong>Categorias </strong></h5>
-        <div class="card-body">
+      <div class="card {{ $errors->has('categories') ? 'card-danger' : '' }}">
+        <h5 class="card-header "><strong>Categorias </strong> <span class="text-danger">*</span></h5>
+        <div class="card-body ">
              @foreach ($categories as $category)            
-             <div class="icheck-primary icheck-inline">
+             <div class="icheck-primary icheck-inline  {{ $errors->has('categories') ? 'is-invalid' : '' }}">
                 <input type="checkbox" name="categories[]" value="{{$category->id}}" id="{{$category->id}}"                 
                     @isset($post)
                         @foreach ($post->categories as $postCategoria)                     
                             {{$category->id == $postCategoria->id ? 'checked' : ''}}        
                         @endforeach               
                     @endisset />
-              <label for="{{$category->id}}"> {{$category->nome}}</label>                
-            </div>          
+              <label for="{{$category->id}}"> {{$category->nome}}</label>     
+            </div> 
+                  
             @endforeach
+            @error('categories')
+            <small class="invalid-feedback">
+                {{ $message }}
+            </small>
+        @enderror  
         </div>
-      </div>           
+      </div> 
+             
       
       <div class="row">
           <div class="col-sm-12">
             <div class="form-group">                  
-                <label for="img_destaque">Imagem de Destaque <span class="text-danger">*</span> </label>
+                <label for="img_destaque" class="label-required">Imagem de Destaque </label>
+                @isset($post)
+                <br>
+                    <img src="{{url("storage/{$post->img_destaque}")}}" alt="{{$post->titulo}}" style="max-width: 200px; padding-bottom: 20px">
+                    
+                @endisset
+
                   <div class="input-group">
                       <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
@@ -110,38 +124,66 @@
           </div>
       </div>          
     
-    <div class="row">
-        <div class="col-sm-12">
-            <label for="conteudo">Conteúdo:</label>
+    <div class="row border-danger">
+        <div class="col-sm-12  ">
+            <label for="conteudo" class="label-required">Conteúdo:</label>
             <div class="form-group">
-            <textarea class="form-control" name="conteudo" id="conteudo" cols="30" rows="10" 
+            <textarea class="form-control {{ $errors->has('conteudo') ? 'is-invalid' : '' }}" name="conteudo" id="summernote" cols="30" rows="10" 
                 placeholder="Conteúdo da postagem">{{$post->conteudo ?? old('conteudo')}}</textarea>
+                @error('conteudo')
+                <small class="invalid-feedback">
+                    {{ $message }}
+                </small>
+            @enderror
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-          <div class="form-group">                  
-              <label for="img_galeria" class="custom-file-label" >Imagens para galeria</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
-                    </div> 
-                <input type="file" class="form-control {{ $errors->has('img_galeria') ? 'is-invalid' : '' }}" id="img_galeria"
-                    name="img_galeria[]" placeholder="Nenhuma imagem selecinada" value="{{ $post->img_galeria ?? old('img_galeria') }}" multiple>
-                @error('img_galeria')
-                    <small class="invalid-feedback">
-                        {{ $message }}
-                    </small>
-                @enderror
-              </div>
-          </div>
+            <div class="form-group">                  
+                <label for="img_destaque">Imagens para Galeria </label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
+                      </div> 
+                  <input type="file" class="form-control {{ $errors->has('img_galeria') ? 'is-invalid' : '' }}" id="img_galeria"
+                      name="img_galeria[]" placeholder="Nenhuma imagem selecinada" 
+                      value="{{ $post->img_destaque ?? old('img_galeria') }}" multiple>
+                  @error('img_galeria')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                </div>
 
+                @isset($post)
+                    <br>
+                    @foreach ($post->imagens as $imagem)                  
+                    <figure class="figure">
+                        <img src="{{url("storage/{$imagem->img}")}}" alt="{{$post->titulo}}" style="max-width: 200px; padding-right: 25px" >
+                     
+                   <form action="{{route('posts.removeImage')}}" method="POST">
+                         
+                        <input type="hidden" name="imageName" value="{{$imagem->img}}">
+                        @csrf
+                        <figcaption class="figure-caption text-right">
+                        <button type="submit" class="btn btn-danger">Remover</button>
+                    </figcaption>
+                    </form>
+                   
+                </figure>
+                    @endforeach                     
+                @endisset
+            </div>                
         </div>
     </div>
-    
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </div>
+
+  
+
       
+
     
-      <div class="form-group">
-          <button type="submit" class="btn btn-success">Salvar</button>
-      </div>
+   
