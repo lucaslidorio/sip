@@ -31,7 +31,7 @@ class StoreUpdatePost extends FormRequest
             'categories' =>['required_without_all'],
             'img_destaque' => ['required','image','max:1024' ],
             'conteudo' => ['required', 'min:10'],
-            'img_galeria.*' => ['image|max:9000'] 
+            //'img_galeria.*' => ['image|max:9000'] 
 
             //'tags' => 'array|size:5';
           

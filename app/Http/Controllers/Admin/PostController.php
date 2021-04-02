@@ -169,7 +169,7 @@ class PostController extends Controller
     public function removeImage($id)
     {
         //Recupera a imagem pelo id
-        $imagem = PostImg::where('id', $id)->first();
+        $imagem = PostImg::where('id', $id)->firt();
         //Verifica se pelo nome, se ela existe o storage, e deleta do storage
         if(Storage::disk('public')->exists($imagem->img)){
             Storage::disk('public')->delete($imagem->img);
@@ -183,15 +183,28 @@ class PostController extends Controller
 
     public function destroy($id)
     {
+        //recupera o post pelo id
         $post  = $this->repository->where('id', $id)->first();
         if(!$post){
             redirect()->back();
         }  
-       
-            if(Storage::exists($post->img_destaque)){
-               Storage::delete($post->img_destaque);
-            }
-        
+        //recupera as imagens da galeria do post relacionado       
+        $imagem = PostImg::where('post_id', $id)->get();               
+        for ($i=0; $i < count($imagem) ; $i++) {            
+            //delete o arquivo
+            Storage::disk('public')->delete($imagem[$i]->img);
+            //deleta o registro no banco
+            $imagem[$i]->delete();
+        }         
+         
+        //Deleta a imagem de destaque, verifica se pelo nome, se ela existe o storage, e deleta do storage
+        if(Storage::exists($post->img_destaque)){
+            Storage::delete($post->img_destaque);
+        }       
+
+        $post->delete();
+        toast('Post excluida com sucesso!','success')->toToast('top');            
+        return redirect()->route('posts.index');        
         
     }
 }

@@ -73,18 +73,19 @@
       </div>
 
       <div class="card {{ $errors->has('categories') ? 'card-danger' : '' }}">
-        <h5 class="card-header "><strong>Categorias: <span class="text-danger">*</span> </h5>
+        <h5 class="card-header "><strong>Categorias </strong> <span class="text-danger">*</span></h5>
         <div class="card-body ">
              @foreach ($categories as $category)            
              <div class="icheck-primary icheck-inline  {{ $errors->has('categories') ? 'is-invalid' : '' }}">
-                <input type="checkbox" name="categories[]" value="{{$category->id}}"                 
+                <input type="checkbox" name="categories[]" value="{{$category->id}}" id="{{$category->id}}"                 
                     @isset($post)
                         @foreach ($post->categories as $postCategoria)                     
                             {{$category->id == $postCategoria->id ? 'checked' : ''}}        
                         @endforeach               
                     @endisset />
               <label for="{{$category->id}}"> {{$category->nome}}</label>     
-            </div>                   
+            </div> 
+                  
             @endforeach
             @error('categories')
             <small class="invalid-feedback">
