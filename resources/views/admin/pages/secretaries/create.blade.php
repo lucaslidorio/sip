@@ -37,12 +37,13 @@
         </form>
     </div>
 </div>
-
 @stop
-
 @section('js')
-<script src="../../dashboard/js/main.js"></script>
-  
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
 @endsection
 
 

@@ -29,8 +29,8 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('users.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo perfil" ><i
+            <a href="{{route('users.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
+            title="Cadastrar novo usuário" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">

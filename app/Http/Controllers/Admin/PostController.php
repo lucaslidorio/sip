@@ -120,7 +120,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePost $request, $id)
     {       
         //recupera o post pelo id 
         $post  = $this->repository->where('id', $id)->first();
@@ -159,36 +159,28 @@ class PostController extends Controller
                 $postImg->img= $file->store('posts');
                 $postImg->save();
                 unset($postImg);       
-                    }                   
+            }                   
         } 
         toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
         return redirect()->back();      
     }
-    public function removeImage(Request $request)
+    
+    //Metodo para remover a imagem de galeria do post
+    public function removeImage($id)
     {
-        $imageName = $request->get('imageName');
-        //Remove dos arquivos
-        if(Storage::disk('public')->exists($imageName)){
-            Storage::disk('public')->delete($imageName);
+        //Recupera a imagem pelo id
+        $imagem = PostImg::where('id', $id)->first();
+        //Verifica se pelo nome, se ela existe o storage, e deleta do storage
+        if(Storage::disk('public')->exists($imagem->img)){
+            Storage::disk('public')->delete($imagem->img);
         }
-
-        //Removo as imagem dos banco
-        $removeImage = PostImg::where('img', $imageName);
-        //$postId = $removeImage->first()->post_id;
-        
-        //dd($removeImage);
-        $removeImage->delete();   
-
-        toast('Imagem  removida com sucesso!','success')->toToast('top') ;
-        
+        //deleta a referência do banco
+        $imagem->delete();  
+        toast('Imagem  removida com sucesso!','success')->toToast('top') ;        
         return redirect()->back();
-
-
     }
 
 
-
-  
     public function destroy($id)
     {
         $post  = $this->repository->where('id', $id)->first();

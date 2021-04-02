@@ -29,7 +29,7 @@ class StoreUpdateCategoria extends FormRequest
             
            
             'nome' => ['required', 'min:3', 'max:255', "unique:categorias,nome,{$id},id"],
-            'descricao' => ['bail',' nullable', 'min:3', 'max:255'],
+            'descricao' => ['nullable', 'min:3', 'max:255'],
             
         ];
     }

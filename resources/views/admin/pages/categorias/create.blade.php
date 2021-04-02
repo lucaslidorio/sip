@@ -21,20 +21,20 @@
 
 @include('sweetalert::alert')
 @stop
-
-
-
 @section('content')
-
 <div class="card">
     <div class="card-body">
         <form action="{{route('categorias.store')}}" method="POST">
             @csrf
             @include('admin.pages.categorias._partials.form')
-
         </form>
     </div>
 </div>
-
-
 @stop
+@section('js')
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
+@endsection

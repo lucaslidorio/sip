@@ -1,7 +1,7 @@
       
            
            <div class="form-group">
-            <label for="nome">Nome <span class="text-danger">*</span> </label>
+            <label for="nome" class="label-required">Nome: </label>
             <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid': '' }}" id="nome" name="nome" placeholder="Nome da categoria" value="{{$categoria->nome ??  old('nome')}}">
             @error('nome')
             <small class="invalid-feedback">
@@ -22,10 +22,11 @@
                      {{ $message }}
                     </small>
                 @enderror
-            </div>
-
+            </div>            
             
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-success">Salvar</button>
+            <div class="col-sm-12 text-center" >
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg align-middle" data-toggle="tooltip" data-placement="top"
+                    title="Salvar registro">Salvar</button>
+                </div>   
             </div>

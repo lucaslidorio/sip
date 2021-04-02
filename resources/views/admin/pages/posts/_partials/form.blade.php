@@ -1,7 +1,7 @@
-      <div class="row">
+     <div class="row">
           <div class="col-sm-12">
               <div class="form-group">                  
-                  <label for="titulo" class="label-required">Titúlo  </label>
+                  <label for="titulo" class="label-required">Titúlo:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-heading"></i></span>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-3">
             <div class="form-group">
-                <label for="data_expiracao">Data Expiracão:</label>
+                <label for="data_expiracao" >Data Expiracão:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
@@ -53,15 +53,14 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label class="label-required">Secretaria</label>
+                <label class="label-required" >Secretaria:</label>
                 <select class="form-control {{ $errors->has('secretary_id') ? 'is-invalid' : '' }}" name="secretary_id" style="width: 100%;" >
                     <option value="" selected ></option>              
                     @foreach ($secretaries as $secretary)                          
-                    <option value="{{$secretary->id ?? old('secretary_id') }}" 
-                        @isset($post)
-                            {{$secretary->id == $post->secretary->id ? 'selected' :''}}
-                        @endisset >
-                            {{$secretary->sigla}} - {{$secretary->nome }} </option>
+                    <option value="{{$secretary->id}}" 
+                          {{ (isset($post) && $secretary->id == $post->secretary->id ? 'selected' : (old('secretary_id') == $secretary->id ? 'selected' : '')) }}>
+                          {{$secretary->sigla}} - {{$secretary->nome }}              
+                        </option>
                     @endforeach 
                 </select>
                 @error('secretary_id')
@@ -74,19 +73,18 @@
       </div>
 
       <div class="card {{ $errors->has('categories') ? 'card-danger' : '' }}">
-        <h5 class="card-header "><strong>Categorias </strong> <span class="text-danger">*</span></h5>
+        <h5 class="card-header "><strong>Categorias: <span class="text-danger">*</span> </h5>
         <div class="card-body ">
              @foreach ($categories as $category)            
              <div class="icheck-primary icheck-inline  {{ $errors->has('categories') ? 'is-invalid' : '' }}">
-                <input type="checkbox" name="categories[]" value="{{$category->id}}" id="{{$category->id}}"                 
+                <input type="checkbox" name="categories[]" value="{{$category->id}}"                 
                     @isset($post)
                         @foreach ($post->categories as $postCategoria)                     
                             {{$category->id == $postCategoria->id ? 'checked' : ''}}        
                         @endforeach               
                     @endisset />
               <label for="{{$category->id}}"> {{$category->nome}}</label>     
-            </div> 
-                  
+            </div>                   
             @endforeach
             @error('categories')
             <small class="invalid-feedback">
@@ -100,7 +98,7 @@
       <div class="row">
           <div class="col-sm-12">
             <div class="form-group">                  
-                <label for="img_destaque" class="label-required">Imagem de Destaque </label>
+                <label for="img_destaque" class="label-required">Imagem de Destaque:</label>
                 @isset($post)
                 <br>
                     <img src="{{url("storage/{$post->img_destaque}")}}" alt="{{$post->titulo}}" style="max-width: 200px; padding-bottom: 20px">
@@ -138,6 +136,8 @@
             </div>
         </div>
     </div>
+
+    
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">                  
@@ -154,33 +154,33 @@
                           {{ $message }}
                       </small>
                   @enderror
-                </div>
-
-                @isset($post)
-                    <br>
-                    @foreach ($post->imagens as $imagem)                  
-                    <figure class="figure">
-                        <img src="{{url("storage/{$imagem->img}")}}" alt="{{$post->titulo}}" style="max-width: 200px; padding-right: 25px" >
-                     
-                   <form action="{{route('posts.removeImage')}}" method="POST">
-                         
-                        <input type="hidden" name="imageName" value="{{$imagem->img}}">
-                        @csrf
-                        <figcaption class="figure-caption text-right">
-                        <button type="submit" class="btn btn-danger">Remover</button>
-                    </figcaption>
-                    </form>
-                   
-                </figure>
-                    @endforeach                     
-                @endisset
+                </div>   
             </div>                
         </div>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Salvar</button>
-    </div>
-
+    </div>    
+        @isset($post)
+            <div class="col-sm-12 imgDelete" id="galeria">                 ​           
+                @foreach ($post->imagens as $imagem)   
+                    <figure class="figure opacity ">                      
+                            <img class="img-fluid img-thumbnail  " src="{{url("storage/{$imagem->img}")}}" alt="{{$post->titulo}}" style="max-width: 200px; " >
+                            <figcaption class="figure-caption text-center">
+                            <a href="{{route('posts.deleteImage', $imagem->id)}}" data-id="{{$imagem->id}}"
+                                class="btn  bg-gradient-danger  delete-confirm botao" data-toggle="tooltip" data-placement="top"  
+                                title="Excluir imagem">
+                                Remover
+                            </a> 
+                            </figcaption>  
+                    </figure> 
+                @endforeach           
+             </div> 
+        @endisset              
+        <div class="col-sm-12 text-center" >
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg align-middle" data-toggle="tooltip" data-placement="top"
+                title="Salvar registro">Salvar</button>
+            </div>   
+        </div>
+   
   
 
       

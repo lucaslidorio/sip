@@ -29,14 +29,17 @@ class StoreUpdatePost extends FormRequest
             'secretary_id' => ['required'],
             'data_expiracao' => ['nullable','date_format:Y-m-d','after_or_equal:today'],
             'categories' =>['required_without_all'],
-            'img_destaque' => ['required','image','max:2048' ],
+            'img_destaque' => ['required','image','max:1024' ],
             'conteudo' => ['required', 'min:10'],
-            //'img_galeria.*' => 'image|max:20' 
+            'img_galeria.*' => ['image|max:9000'] 
+
+            //'tags' => 'array|size:5';
           
         ];
 
         if($this->method() =='PUT'){
-            $rules['img_destaque'] = ['nullable','image','max:2048' ];
+            $rules['img_destaque'] = ['nullable','image','max:1024' ];  
+            $rules['conteudo'] = ['required', 'min:10'];        
         }
         return  $rules;
         

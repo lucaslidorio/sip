@@ -21,9 +21,6 @@
 
 @include('sweetalert::alert')
 @stop
-
-
-
 @section('content')
 
 <div class="card">
@@ -37,6 +34,11 @@
         </form>
     </div>
 </div>
-
-
 @stop
+@section('js')
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
+@endsection

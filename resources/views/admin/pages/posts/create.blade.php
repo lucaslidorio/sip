@@ -1,5 +1,4 @@
 @extends('adminlte::page')
-
 @section('title', 'Cadastrar novo post')
 @section('plugins.Select2', false)
 @section('plugins.Summernote', true)
@@ -7,8 +6,8 @@
 
 @section('content_header')
 @section('css')
-    <link rel="stylesheet" href="../../dashboard/css/main.css">
-@stop
+  <link rel="stylesheet" href="../../dashboard/css/dropzone.css">
+@endsection
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
@@ -31,9 +30,10 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data" >
+        <form action="{{route('posts.store')}}"  method="POST" enctype="multipart/form-data" >
             @csrf
             @include('admin.pages.posts._partials.form')
+          
 
         </form>
     </div>
@@ -41,9 +41,14 @@
 
 @endsection
 @section('js')
-<script src="../../dashboard/js/main.js"></script>
-<script src="../../dashboard/js/summernote-pt-br.js"></script>   
+<script src="../../dashboard/js/summernote-pt-br.js"></script> 
+<script src="../../dashboard/js/dropzone.js"></script>   
 <script>  
+    //inicia o tooltip
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  
     //inicia o summernote  
     $(document).ready(function() {
       $('#summernote').summernote({

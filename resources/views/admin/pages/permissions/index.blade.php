@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('permissions.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
+            <a href="{{route('permissions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova permissão" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>

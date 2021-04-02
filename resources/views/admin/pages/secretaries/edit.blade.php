@@ -19,21 +19,21 @@
 
 @include('sweetalert::alert')
 @stop
-
-
-
 @section('content')
-
 <div class="card">
     <div class="card-body">
         <form action="{{route('secretaries.update', $secretary->id)}}" method="POST">
             @csrf
             @method('PUT')
             @include('admin.pages.secretaries._partials.form')
-
         </form>
     </div>
 </div>
-
-
 @stop
+@section('js')
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
+@endsection

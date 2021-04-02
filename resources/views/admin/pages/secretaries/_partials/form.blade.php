@@ -1,7 +1,7 @@
       <div class="row">
           <div class="col-sm-9">
               <div class="form-group">                  
-                  <label for="nome">Nome <span class="text-danger">*</span> </label>
+                  <label for="nome" class="label-required">Nome </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
@@ -155,7 +155,9 @@
         </div>
     </div>   
       
-    
-      <div class="form-group">
-          <button type="submit" class="btn btn-success">Salvar</button>
-      </div>
+    <div class="col-sm-12 text-center" >
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg align-middle" data-toggle="tooltip" data-placement="top"
+            title="Salvar registro">Salvar</button>
+        </div>   
+    </div>

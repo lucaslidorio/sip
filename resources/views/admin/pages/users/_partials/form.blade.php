@@ -64,13 +64,9 @@
               </div>
 
           </div>
-      </div>
-
-          
-      
-
-
-
-      <div class="form-group">
-          <button type="submit" class="btn btn-success">Salvar</button>
-      </div>
+          <div class="col-sm-12 text-center" >
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg align-middle" data-toggle="tooltip" data-placement="top"
+                title="Salvar registro">Salvar</button>
+            </div>   
+            </div>

@@ -21,11 +21,7 @@
 
 @include('sweetalert::alert')
 @stop
-
-
-
 @section('content')
-
 <div class="card">
     <div class="card-body">
         <form action="{{route('permissions.store')}}" method="POST">
@@ -35,6 +31,11 @@
         </form>
     </div>
 </div>
-
-
 @stop
+@section('js')
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
+@endsection

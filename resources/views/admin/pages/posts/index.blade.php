@@ -29,7 +29,7 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('posts.create')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
+            <a href="{{route('posts.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar novo Post" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
@@ -74,8 +74,8 @@
               <td>{{$post->titulo}}</td>              
               <td>{!!$post->conteudo!!}</td>
               <td>{{$post->secretary->sigla}}</td>
-              <td>{{$post->data_publicacao}}</td>
-              <td>{{$post->data_expiracao}}</td>
+              <td>{{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</td>
+              <td>{{\Carbon\Carbon::parse($post->data_expiracao)->format('d/m/Y') }}</td>
               <td>  
                 @foreach ($post->categories as $category)  
                   <p> {{$category->nome}}</p>
@@ -89,16 +89,19 @@
                   <i class="fas fa-edit" ></i>
                 </a>
 
-                <a href="{{route('posts.destroy', $post->id)}}" data-id="{{$post->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                </a>
-
                 <a href="{{route('posts.show', $post->id)}}" data-id="{{$post->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
                   <i class="fas fa-address-book" ></i>
+                </a>
+
+                
+
+                <a href="{{route('posts.destroy', $post->id)}}" data-id="{{$post->id}}"
+                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Excluir">
+                  <i class="fas fa-trash-alt" ></i>
+                  
                 </a>
               </td>
             </tr>

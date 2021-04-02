@@ -22,8 +22,6 @@
 @include('sweetalert::alert')
 @stop
 
-
-
 @section('content')
 
 <div class="card">
@@ -31,10 +29,14 @@
         <form action="{{route('users.store')}}" method="POST">
             @csrf
             @include('admin.pages.users._partials.form')
-
         </form>
     </div>
 </div>
-
-
 @stop
+@section('js')
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
+@endsection

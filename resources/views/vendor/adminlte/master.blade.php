@@ -26,7 +26,8 @@
     @if(!config('adminlte.enabled_laravel_mix'))
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-
+        {{-- Folha de estilo personalizavel --}}
+        <link rel="stylesheet" href="{{ asset('dashboard/css/main.css') }}">
         {{-- Configured Stylesheets --}}
         @include('adminlte::plugins', ['type' => 'css'])
 
@@ -83,7 +84,10 @@
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
+        {{-- Script personalizavel --}}
+        <script src="{{ asset('dashboard/js/main.js') }}"></script>
+        
+       
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])
 

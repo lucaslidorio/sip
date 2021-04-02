@@ -21,11 +21,7 @@
 
 @include('sweetalert::alert')
 @stop
-
-
-
 @section('content')
-
 <div class="card">
     <div class="card-body">
         <form action="{{route('categorias.update', $categoria->id)}}" method="POST">
@@ -37,6 +33,11 @@
         </form>
     </div>
 </div>
-
-
 @stop
+@section('js')
+  <script>
+    $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+    }) 
+  </script>
+@endsection
