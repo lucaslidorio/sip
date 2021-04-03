@@ -127,7 +127,7 @@ class PostController extends Controller
         if(!$post){
             redirect()->back();
         }      
-        $dadosPost= request()->all();
+        $dadosPost= $request()->all();
        
          //verifica se existe um arquivo e se é do tipo image e faz o upload 
          //antes de fazer salvar, remove a imagem já existente    

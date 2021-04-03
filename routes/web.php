@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\UserController;
@@ -27,6 +28,17 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')
             ->namespace('Admin')                
             ->group(function () {
+
+            //Rotas de Partidos
+            Route::any('/parties/search', [PartyController::class, 'search'])->name('parties.search');
+            Route::put('/parties/{id}', [PartyController::class, 'update'])->name('parties.update');
+            Route::get('/parties/{id}/edit', [PartyController::class, 'edit'])->name('parties.edit');
+            Route::get('/parties/create', [PartyController::class, 'create'])->name('parties.create');
+            Route::get('/parties/{id}', [PartyController::class, 'destroy'])->name('parties.destroy');
+            Route::post('/parties', [PartyController::class, 'store'])->name('parties.store');
+            Route::get('/parties', [PartyController::class, 'index'])->name('parties.index');
+
+
 
              //Rotas de Posts
              Route::any('/posts/search', [PostController::class, 'search'])->name('posts.search');

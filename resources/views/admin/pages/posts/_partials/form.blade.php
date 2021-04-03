@@ -103,15 +103,13 @@
                 @isset($post)
                 <br>
                     <img src="{{url("storage/{$post->img_destaque}")}}" alt="{{$post->titulo}}" style="max-width: 200px; padding-bottom: 20px">
-                    
-                @endisset
-
+                 @endisset
                   <div class="input-group">
                       <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
                       </div> 
                   <input type="file" class="form-control {{ $errors->has('img_destaque') ? 'is-invalid' : '' }}" id="img_destaque"
-                      name="img_destaque" placeholder="Nenhuma imagem selecinada" value="{{ $post->img_destaque ?? old('img_destaque') }}">
+                      name="img_destaque" placeholder="Nenhuma imagem selecionada" value="{{ $post->img_destaque ?? old('img_destaque') }}">
                   @error('img_destaque')
                       <small class="invalid-feedback">
                           {{ $message }}
@@ -119,7 +117,6 @@
                   @enderror
                 </div>
             </div>
-
           </div>
       </div>          
     

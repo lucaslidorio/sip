@@ -41,6 +41,7 @@ class SecretaryController extends Controller
     {
         
         $this->repository->create($request->all());
+        
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
         return redirect()->back();
         
