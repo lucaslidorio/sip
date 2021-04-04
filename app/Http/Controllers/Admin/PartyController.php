@@ -101,22 +101,26 @@ class PartyController extends Controller
     
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         $party = $this->party->where('id', $id)->first();
-
         if(!$party){
-            return redirect()->back();
-                       
+            return redirect()->back();                      
         }       
         $party->delete();
         toast('Partido excluido com sucesso!','success')->toToast('top');            
         return redirect()->route('parties.index');
+    }
+
+    public function search (Request $request){
+
+        $pesquisar = $request->except('_token');
+        $parties = $this->party->search($request->pesquisa);
+
+        return view('admin.pages.parties.index', [
+            'parties' =>$parties,
+            'pesquisar' =>$pesquisar
+        ]);
     }
 }

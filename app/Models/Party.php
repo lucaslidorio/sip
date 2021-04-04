@@ -14,5 +14,12 @@ class Party extends Model
     protected $table = 'parties';
     protected $fillable = ['nome', 'sigla', 'img'];
 
+    public function search($pesquisar =null){
 
+        $resultado = $this      
+                    ->where('nome', 'LIKE', "%{$pesquisar}%")
+                    ->orWhere('sigla', $pesquisar)
+                    ->paginate(10);
+        return $resultado;
+    }
 }

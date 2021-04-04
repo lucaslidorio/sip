@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PostController;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
 
     //Rota da dashboard (home)
-      Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
+    Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
     //Rotas de Permmissão X perfil
     Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
     Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
@@ -28,6 +29,22 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')
             ->namespace('Admin')                
             ->group(function () {
+                
+                Route::prefix('legislativo')
+                    ->namespace('Legislativo')
+                    ->group(function(){
+                    
+                    //Rotas de Vereadores, admin/legislativo/councilors
+                    Route::any('/councilors/search', [CouncilorController::class, 'search'])->name('councilors.search');
+                    Route::put('/councilors/{id}', [CouncilorController::class, 'update'])->name('councilors.update');
+                    Route::get('/councilors/{id}/edit', [CouncilorController::class, 'edit'])->name('councilors.edit');
+                    Route::get('/councilors/show/{id}', [CouncilorController::class, 'show'])->name('councilors.show');
+                    Route::get('/councilors/create', [CouncilorController::class, 'create'])->name('councilors.create');
+                    Route::get('/councilors/{id}', [CouncilorController::class, 'destroy'])->name('councilors.destroy');
+                    Route::post('/councilors', [CouncilorController::class, 'store'])->name('councilors.store');
+                    Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
+
+                    });
 
             //Rotas de Partidos
             Route::any('/parties/search', [PartyController::class, 'search'])->name('parties.search');

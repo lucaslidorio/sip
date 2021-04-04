@@ -121,15 +121,15 @@ class SecretaryController extends Controller
         return redirect()->route('secretaries.index');
     }
 
-    //Metodo de pesquisa
-    public function search(Request $request)
-    {
-         $pesquisar = $request->except('_token');
-         $secretaries = $this->repository->search($request->pesquisa);
+    // //Metodo de pesquisa
+    // public function search(Request $request)
+    // {
+    //      $pesquisar = $request->except('_token');
+    //      $secretaries = $this->repository->search($request->pesquisa);
 
-        return view('admin.pages.secretaries.index', [
-            'secretaries' => $secretaries,
-            'pesquisar' => $pesquisar
-        ]);
-    }
+    //     return view('admin.pages.secretaries.index', [
+    //         'secretaries' => $secretaries,
+    //         'pesquisar' => $pesquisar,
+    //     ]);
+    // }
 }

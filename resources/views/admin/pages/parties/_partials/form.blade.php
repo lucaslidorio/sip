@@ -51,7 +51,7 @@
                                 <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
                             </div> 
                         <input type="file" class="form-control {{ $errors->has('img') ? 'is-invalid' : '' }}" id="img"
-                            name="img" placeholder="Nenhuma imagem selecionada" value="{{ $party->img_destaque ?? old('img') }}">
+                            name="img" placeholder="Nenhuma imagem selecionada" value="{{ $party->img ?? old('img') }}">
                         @error('img')
                             <small class="invalid-feedback">
                                 {{ $message }}

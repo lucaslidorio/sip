@@ -30,9 +30,22 @@ class Councilor extends Model
         'facebook',
         'instagram',
         'biografia', 
+        'img',
     ];
 
     public function party(){
         return $this->belongsTo(Party::class, 'party_id');
+    }
+
+
+    //metodo de pesquisas na index
+    public function search($pesquisar = null)    {
+        
+        $resultado = $this
+                    ->where('nome', 'LIKE', "%{$pesquisar}%")
+                    ->orWhere('nome_parlamentar', 'LIKE', "%{$pesquisar}%")
+                    ->paginate(10);
+                    
+        return $resultado;
     }
 }
