@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\LegislatureController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SecretaryController;
@@ -29,11 +30,16 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')
             ->namespace('Admin')                
             ->group(function () {
+               
                 
                 Route::prefix('legislativo')
                     ->namespace('Legislativo')
                     ->group(function(){
-                    
+
+
+                  
+                    Route::get('/legislatures', [LegislatureController::class, 'index'])->name('legislatures.index');
+                  
                     //Rotas de Vereadores, admin/legislativo/councilors
                     Route::any('/councilors/search', [CouncilorController::class, 'search'])->name('councilors.search');
                     Route::put('/councilors/{id}', [CouncilorController::class, 'update'])->name('councilors.update');
@@ -44,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
                     Route::post('/councilors', [CouncilorController::class, 'store'])->name('councilors.store');
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
 
-                    });
+            });
 
             //Rotas de Partidos
             Route::any('/parties/search', [PartyController::class, 'search'])->name('parties.search');

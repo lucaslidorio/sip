@@ -292,6 +292,11 @@ return [
             'url'  => 'admin/function',
             'icon' => 'fas fa-plus-square',
         ],
+        [
+            'text' => 'Legislaturas',
+            'url'  => 'admin/legislativo/legislatures',
+            'icon' => 'fas fa-university',
+        ],
     ],
 
     /*
