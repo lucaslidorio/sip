@@ -251,6 +251,36 @@ return [
             'url'  => 'admin/categorias',
             'icon' => 'fas fa-list',
         ],
+        [
+            'text' => 'Funções',
+            'url'  => 'admin/functions',
+            'icon' => 'fas fa-plus-square',
+        ],
+
+        [
+            'text' => 'Comissões',
+            'url'  => 'admin/commissions',
+            'icon' => 'fas fa-user-tag',
+        ],
+       
+        [
+            'text'    => 'Comissões old',
+            'icon'    => 'fas fa-user-tag',                       
+            'submenu' => [
+                [
+                    'text' => 'Comissões',
+                    'url'  => 'admin/commissions',
+                    'icon' => 'fas fa-user-tag',
+                ],
+                [
+                    'text' => 'Membros da comissão',
+                    'url'  => 'admin/commissionMembers',
+                    'icon' => 'fas fa-user-tie',
+                ],
+                           
+               
+            ],
+        ],    
 
         [
             'text'    => 'Segurança',
@@ -287,11 +317,7 @@ return [
             'url'  => 'admin/legislativo/councilors',
             'icon' => 'fas fa-user-tie',
         ],
-        [
-            'text' => 'Funções',
-            'url'  => 'admin/function',
-            'icon' => 'fas fa-plus-square',
-        ],
+      
         [
             'text' => 'Legislaturas',
             'url'  => 'admin/legislativo/legislatures',

@@ -4,7 +4,10 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\CommissionController;
+use App\Http\Controllers\Admin\CommissionMembersController;
 use App\Http\Controllers\Admin\CouncilorController;
+use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LegislatureController;
 use App\Http\Controllers\Admin\PartyController;
@@ -51,6 +54,39 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
 
             });
+            //Rotas de Comissões e membros            
+            // Route::any('/commissionMembers/search', [CommissionMembersController::class, 'search'])->name('commissionMembers.search');
+            // Route::put('/commissionMembers/{id}', [CommissionMembersController::class, 'update'])->name('commissionMembers.update');
+            // Route::get('/commissionMembers/{id}/edit', [CommissionMembersController::class, 'edit'])->name('commissionMembers.edit');
+            // Route::get('/commissionMembers/create', [CommissionMembersController::class, 'create'])->name('commissionMembers.create');
+            // Route::get('/commissionMembers/{id}', [CommissionMembersController::class, 'destroy'])->name('commissionMembers.destroy');
+            // Route::post('/commissionMembers', [CommissionMembersController::class, 'store'])->name('commissionMembers.store');
+            // Route::get('/commissionMembers', [CommissionMembersController::class, 'index'])->name('commissionMembers.index');
+
+            //Rotas de Comissões x membros
+
+            Route::get('/commissions/{id}/members', [CommissionController::class, 'members'])->name('commissions.members.index');
+            //Rotas de Comissões             
+            Route::any('/commissions/search', [CommissionController::class, 'search'])->name('commissions.search');
+            Route::put('/commissions/{id}', [CommissionController::class, 'update'])->name('commissions.update');
+            Route::get('/commissions/{id}/edit', [CommissionController::class, 'edit'])->name('commissions.edit');
+            Route::get('/commissions/create', [CommissionController::class, 'create'])->name('commissions.create');
+            Route::get('/commissions/{id}', [CommissionController::class, 'destroy'])->name('commissions.destroy');
+            Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
+            Route::get('/commissions', [CommissionController::class, 'index'])->name('commissions.index');
+
+
+
+             //Rotas de Funções             
+             Route::any('/functions/search', [FunctionController::class, 'search'])->name('functions.search');
+             Route::put('/functions/{id}', [FunctionController::class, 'update'])->name('functions.update');
+             Route::get('/functions/{id}/edit', [FunctionController::class, 'edit'])->name('functions.edit');
+             Route::get('/functions/create', [FunctionController::class, 'create'])->name('functions.create');
+             Route::get('/functions/{id}', [FunctionController::class, 'destroy'])->name('functions.destroy');
+             Route::post('/functions', [FunctionController::class, 'store'])->name('functions.store');
+             Route::get('/functions', [FunctionController::class, 'index'])->name('functions.index');
+ 
+ 
 
             //Rotas de Partidos
             Route::any('/parties/search', [PartyController::class, 'search'])->name('parties.search');

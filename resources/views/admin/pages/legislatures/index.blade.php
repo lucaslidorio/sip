@@ -40,14 +40,38 @@
         <div id="accordion">
           <div class="card  {{ $loop->first ? 'card-primary' : 'card-secondary' }}">
             <div class="card-header">
-              <h4 class="card-title w-100">
-                <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
-                  {{$legislature->descricao}}
-                </a>
-              </h4>
+              <h4 class="card-title w-100">                
+                  <a class="d-inline w-100" data-toggle="collapse" href="#collapseOne">
+                     {{$legislature->descricao}}  
+                    <span class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  
+                      DATA INÍCIO {{\Carbon\Carbon::parse($legislature->data_inicio)->format('d/m/Y')}} 
+                      &nbsp; &nbsp;   
+                      DATA  FIM  {{\Carbon\Carbon::parse($legislature->data_fim)->format('d/m/Y')}} 
+                  </span>      
+                  </a>                     
+                             
+              </h4>             
             </div>
             <div id="collapseOne" class="collapse  {{ $loop->first ? 'show' : 'border-light' }}" data-parent="#accordion">
               <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-light" role="alert">
+                      @foreach($legislature->bienniuns as $bienniun)
+                         <h6 class="mr-3">{{$bienniun->descricao}}
+                            <strong class=" ml-3 mr-3 "> DATA INÍCIO </strong>
+                            {{\Carbon\Carbon::parse($bienniun->data_inicio)->format('d/m/Y')}}
+                            <strong class="ml-3 mr-3 "> DATA FIM </strong>
+                            {{\Carbon\Carbon::parse($bienniun->data_fim)->format('d/m/Y')}}
+                          </h6>                    
+                        
+                          @endforeach
+                    </div>
+                       
+                  </div>
+                </div> 
+
+                
                <table class="table table-bordered table-sm">
                   <thead>
                     <tr>
@@ -72,7 +96,8 @@
                     @endforeach
                   </tbody>
                 </table>      
-              </div>
+             
+            </div>
               <div class="card-footer">
                 @if ($loop->first)
                 <span class="text-monospace">* Legislalatura Virgente</span>

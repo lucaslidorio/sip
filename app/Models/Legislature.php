@@ -19,6 +19,9 @@ class Legislature extends Model
     public function sections(){
         return $this->hasMany(Section::class, 'legislature_id');
     }
+    public function bienniuns(){
+        return $this->hasMany(Biennium::class, 'legislature_id');
+    }
     
 
 }

@@ -37,6 +37,10 @@ class Councilor extends Model
         return $this->belongsTo(Party::class, 'party_id');
     }
 
+    
+    // public function commissions(){
+    //     return $this->hasMany(Commission::class);
+    // }
 
     //metodo de pesquisas na index
     public function search($pesquisar = null)    {

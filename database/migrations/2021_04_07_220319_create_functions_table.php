@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLegislaturesTable extends Migration
+class CreateFunctionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateLegislaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('legislatures', function (Blueprint $table) {
+        Schema::create('functions', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao')->unique();
-            $table->integer('ordem')->unique();
-            $table->date('data_inicio');
-            $table->date('data_fim');
-            $table->integer('atual');
-            $table->softDeletes();
+            $table->string('nome')->unique(); 
+            $table->string('descricao');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateLegislaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('legislatures');
+        Schema::dropIfExists('functions');
     }
 }
