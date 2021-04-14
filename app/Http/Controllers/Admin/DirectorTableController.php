@@ -3,48 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\CommissionMembers;
-use App\Models\Councilor;
-use App\Models\Functions;
+use App\Models\Biennium;
+use App\Models\DirectorTable;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
 
-class CommissionMemberFunction extends Controller
+class DirectorTableController extends Controller
 {
-   private $repository, $function, $member;
+    private $repository, $biennium;
 
-   public function __construct(
-     CommissionMemberFunction $CommissionMemberFunction,
-       Functions $function,
-       Councilor $member
-   )
-   {
-       $this->repository = $CommissionMemberFunction;
-       $this->function = $function;
-       $this->member = $member;
-       
-   }
-
-
+    public function __construct(DirectorTable $directorTable, Biennium $biennium)
+    {
+        $this->repository = $directorTable;
+        $this->biennium = $biennium;
+    }
     public function index()
     {
-        dd('chegou aqui');
-            $comissao = CommissionMembers::with('members', 'functions')->where('commission_id', 6)->get();
-            dd($comissao);
-         
-       return view('admin.pages.commissions.members.index', [
-             'comissao' => $comissao,
-            
-         ]);
+        $directorTables = $this->repository->paginate(10);
+        return view('admin.pages.directorTables.index', compact('directorTables'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function create()
     {
-        dd('chegou aqui');
+        $bienniuns = $this->biennium->orderBy('id', 'DESC')->get();   
+       
+        return view('admin.pages.directorTables.create', compact('bienniuns'));
     }
 
     /**

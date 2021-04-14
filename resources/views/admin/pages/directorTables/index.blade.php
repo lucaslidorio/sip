@@ -6,12 +6,12 @@
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Comissões</h1>
+      <h1>Mesa diretora</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Comissões</li>
+        <li class="breadcrumb-item ">Mesa Diretora</li>
       </ol>
     </div>
   </div>
@@ -28,13 +28,13 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('commissions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
+            <a href="{{route('directorTables.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova comissão" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('commissions.search')}}" method="post" class="form form-inline  float-right">
+              <form action="#" method="post" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Objetivo">
@@ -64,28 +64,28 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($commissions as $commission)
+            @foreach ($directorTables as $directorTable)
                 
            
             <tr >
-              <td>{{$commission->nome}}</td>              
-              <td>{{$commission->objetivo}}</td>
-              <td>{{$commission->tipo == 1 ? 'Permanente' : 'Temporária'}}</td>
+              <td>{{$directorTable->nome}}</td>              
+              <td>{{$directorTable->objetivo}}</td>
+              <td></td>
               
                 <td class="text-center">
-                <a href="{{route('commissions.edit', $commission->id)}}" 
+                <a href="{{route('directorTables.edit', $directorTable->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
 
-                <a href="{{route('comissionMembers.index', $commission->id )}}" data-id="{{$commission->id}}"
+                <a href="{{route('comissionMembers.index', $directorTable->id )}}" data-id="{{$directorTable->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Membros">
                   <i class="fas fa-users" ></i>
                 </a>
 
-                <a href="{{route('commissions.destroy', $commission->id)}}" data-id="{{$commission->id}}"
+                <a href="{{route('directorTables.destroy', $directorTable->id)}}" data-id="{{$directorTable->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
@@ -100,9 +100,9 @@
       <!-- /.card-body -->
       <div class="card-footer">
         @if (isset($pesquisar))
-        {!!$commissions->appends($pesquisar)->links()!!}
+        {!!$directorTables->appends($pesquisar)->links()!!}
         @else
-        {!!$commissions->links()!!}
+        {!!$directorTables->links()!!}
         @endif
       </div>
     </div>

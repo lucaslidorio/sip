@@ -262,25 +262,13 @@ return [
             'url'  => 'admin/commissions',
             'icon' => 'fas fa-user-tag',
         ],
-       
         [
-            'text'    => 'Comissões old',
-            'icon'    => 'fas fa-user-tag',                       
-            'submenu' => [
-                [
-                    'text' => 'Comissões',
-                    'url'  => 'admin/commissions',
-                    'icon' => 'fas fa-user-tag',
-                ],
-                [
-                    'text' => 'Membros da comissão',
-                    'url'  => 'admin/commissionMembers',
-                    'icon' => 'fas fa-user-tie',
-                ],
-                           
-               
-            ],
-        ],    
+            'text' => 'Mesa Diretora',
+            'url'  => 'admin/directorTables',
+            'icon' => 'fas fa-tablets',
+        ],
+       
+        
 
         [
             'text'    => 'Segurança',

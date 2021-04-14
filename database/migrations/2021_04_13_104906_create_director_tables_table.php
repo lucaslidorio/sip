@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommissionsTable extends Migration
+class CreateDirectorTablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,19 @@ class CreateCommissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('commissions', function (Blueprint $table) {
+        Schema::create('director_tables', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('biennium_legislature_id');
             $table->string('nome')->unique(); 
             $table->string('objetivo')->nullable();
-            $table->integer('tipo');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('biennium_legislature_id')
+            ->references('id')
+            ->on('biennium_legislatures')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 
@@ -30,6 +36,6 @@ class CreateCommissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commissions');
+        Schema::dropIfExists('director_tables');
     }
 }

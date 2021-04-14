@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\CommissionMemberFunction;
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CommissionController;
-use App\Http\Controllers\Admin\CommissionMembersController;
 use App\Http\Controllers\Admin\CouncilorController;
+use App\Http\Controllers\Admin\DirectorTableController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LegislatureController;
@@ -54,18 +55,24 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
 
             });
-            //Rotas de Comissões e membros            
-            // Route::any('/commissionMembers/search', [CommissionMembersController::class, 'search'])->name('commissionMembers.search');
-            // Route::put('/commissionMembers/{id}', [CommissionMembersController::class, 'update'])->name('commissionMembers.update');
-            // Route::get('/commissionMembers/{id}/edit', [CommissionMembersController::class, 'edit'])->name('commissionMembers.edit');
-            // Route::get('/commissionMembers/create', [CommissionMembersController::class, 'create'])->name('commissionMembers.create');
-            // Route::get('/commissionMembers/{id}', [CommissionMembersController::class, 'destroy'])->name('commissionMembers.destroy');
-            // Route::post('/commissionMembers', [CommissionMembersController::class, 'store'])->name('commissionMembers.store');
-            // Route::get('/commissionMembers', [CommissionMembersController::class, 'index'])->name('commissionMembers.index');
 
+             //Rotas de Mesa Diretora             
+             Route::any('/directorTables/search', [CommissionController::class, 'search'])->name('directorTables.search');
+             Route::put('/directorTables/{id}', [DirectorTableController::class, 'update'])->name('directorTables.update');
+             Route::get('/directorTables/{id}/edit', [DirectorTableController::class, 'edit'])->name('directorTables.edit');
+             Route::get('/directorTables/create', [DirectorTableController::class, 'create'])->name('directorTables.create');
+             Route::get('/directorTables/{id}', [DirectorTableController::class, 'destroy'])->name('directorTables.destroy');
+             Route::post('/directorTables', [DirectorTableController::class, 'store'])->name('directorTables.store');
+             Route::get('/directorTables', [DirectorTableController::class, 'index'])->name('directorTables.index');
+ 
+            
+          
             //Rotas de Comissões x membros
-
-            Route::get('/commissions/{id}/members', [CommissionController::class, 'members'])->name('commissions.members.index');
+            Route::get('/commissions/members/{id}', [CommissionController::class, 'membersDestroy'])->name('comissionMembersDestroy.destroy');
+            Route::post('/commissions/{id}/members', [CommissionController::class, 'membersStore'])->name('comissionMembersStore.store');
+            Route::get('/commissions/{id}/members/create', [CommissionController::class, 'membersCreate'])->name('comissionMembersCreate.create');
+            Route::get('/commissions/{id}/members', [CommissionController::class, 'members'])->name('comissionMembers.index');
+            
             //Rotas de Comissões             
             Route::any('/commissions/search', [CommissionController::class, 'search'])->name('commissions.search');
             Route::put('/commissions/{id}', [CommissionController::class, 'update'])->name('commissions.update');
