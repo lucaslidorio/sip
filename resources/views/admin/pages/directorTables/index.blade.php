@@ -34,7 +34,7 @@
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="#" method="post" class="form form-inline  float-right">
+              <form action="{{route('directorTables.search')}}" method="post" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Objetivo">
@@ -57,8 +57,8 @@
             <tr>
               <th>Nome</th>              
               <th>Objetivo</th>
-              <th>Tipo</th>
-              
+              <th>Biênio</th>
+              <th>Atual</th>
                           
               <th width="20%" class="text-center">Ações</th>
             </tr>
@@ -67,10 +67,11 @@
             @foreach ($directorTables as $directorTable)
                 
            
-            <tr >
+            <tr class="{{$directorTable->atual == 1 ? 'text-primary' : ''}}">
               <td>{{$directorTable->nome}}</td>              
               <td>{{$directorTable->objetivo}}</td>
-              <td></td>
+              <td>{{$directorTable->biennium->descricao}}</td>
+              <td>{{$directorTable->atual == 1 ? 'Ativo' : 'Inativo'}}</td>
               
                 <td class="text-center">
                 <a href="{{route('directorTables.edit', $directorTable->id)}}" 
@@ -79,7 +80,7 @@
                   <i class="fas fa-edit" ></i>
                 </a>
 
-                <a href="{{route('comissionMembers.index', $directorTable->id )}}" data-id="{{$directorTable->id}}"
+                <a href="{{route('directorTableMembers.index', $directorTable->id )}}" data-id="{{$directorTable->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Membros">
                   <i class="fas fa-users" ></i>

@@ -1,18 +1,18 @@
-     <input type="hidden" name="commission_id" value="{{$commission->id}}">
+     <input type="hidden" name="director_table_id" value="{{$directorTable->id}}">
      <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-                <label  for="biennium_legislature_id" class="label-required" >Biênio:</label>
-                <select class="form-control select2 {{ $errors->has('biennium_legislature_id') ? 'is-invalid' : '' }}" name="biennium_legislature_id" style="width: 100%;" >
+                <label  for="councilor_id" class="label-required" >Membro:</label>
+                <select class="form-control select2 {{ $errors->has('councilor_id') ? 'is-invalid' : '' }}" name="councilor_id" style="width: 100%;" >
                     <option value="" selected >Selecione um membro</option>              
                     @foreach ($councilors as $councilor)                          
                     <option value="{{$councilor->id}}"
-                        {{old('biennium_legislature_id') ? 'selected':'' }}>
+                        {{old('councilor_id') ? 'selected':'' }}>
                           {{$councilor->nome}} - {{$councilor->party->sigla}}         
                         </option>
                     @endforeach 
                 </select>
-                    @error('biennium_legislature_id')
+                    @error('councilor_id')
                     <small class="invalid-feedback">
                         {{ $message }}
                     </small>

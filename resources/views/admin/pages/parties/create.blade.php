@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Cadastrar novo partido')
-
+@section('plugins.Select2', true)
 @section('content_header')
 
 <div class="container-fluid">
@@ -22,14 +22,19 @@
 @include('sweetalert::alert')
 @stop
 @section('content')
-<div class="card">
+
+<form action="{{route('parties.store')}}" method="POST" enctype="multipart/form-data">
+  @csrf
+  @include('admin.pages.parties._partials.form')
+</form>
+{{-- <div class="card">
     <div class="card-body">
         <form action="{{route('parties.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @include('admin.pages.parties._partials.form')
         </form>
     </div>
-</div>
+</div> --}}
 @stop
 @section('js')
   <script>

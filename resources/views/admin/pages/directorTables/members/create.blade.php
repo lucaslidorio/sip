@@ -10,13 +10,13 @@
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Adicionar membros para - <strong>{{$commission->nome}}</strong></h1>
+        <h1>Adicionar membros para - <strong>{{$directorTable->nome}}</strong></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-          <li class="breadcrumb-item "> <a href="{{route('commissions.index')}}">Comissões </a></li>
-          <li class="breadcrumb-item "> <a href="{{route('comissionMembers.index', $commission->id )}}">Membros </a></li>          
+          <li class="breadcrumb-item "> <a href="{{route('directorTables.index')}}">Mesa Diretora </a></li>
+          <li class="breadcrumb-item "> <a href="{{route('directorTableMembers.index', $directorTable->id )}}">Membros </a></li>          
           <li class="breadcrumb-item ">Adicionar Membros</li>          
         </ol>
       </div>
@@ -32,9 +32,9 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('comissionMembersStore.store', $commission->id)}}" method="POST">
+        <form action="{{route('directorTablesStore.store', $directorTable->id)}}" method="POST">
             @csrf
-            @include('admin.pages.commissions.members._partials.form')
+            @include('admin.pages.directorTables.members._partials.form')
 
         </form>
     </div>
@@ -42,7 +42,7 @@
 @stop
 @section('js')
   <script>
-    $(commission () {
+    $(directorTable () {
      $('[data-toggle="tooltip"]').tooltip()
     }) 
   </script>

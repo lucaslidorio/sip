@@ -17,6 +17,7 @@ class CreateDirectorTablesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('biennium_legislature_id');
             $table->string('nome')->unique(); 
+            $table->integer('atual');
             $table->string('objetivo')->nullable();
             $table->softDeletes();
             $table->timestamps();

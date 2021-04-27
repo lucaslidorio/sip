@@ -11,10 +11,12 @@ use App\Http\Controllers\Admin\DirectorTableController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LegislatureController;
+use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AtaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,9 +57,28 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
 
             });
+           //Rotas de Atas             
+           Route::any('/minutes/search', [MinuteController::class, 'search'])->name('minutes.search');
+           Route::put('/minutes/{id}', [MinuteController::class, 'update'])->name('minutes.update');
+           Route::get('/minutes/deleteAttachment/{id}', [MinuteController::class, 'deleteAttachment'])->name('minutes.deleteAttachment');
+           Route::get('/minutes/show/{id}', [MinuteController::class, 'show'])->name('minutes.show');
+           Route::get('/minutes/{id}/edit', [MinuteController::class, 'edit'])->name('minutes.edit');
+           Route::get('/minutes/create', [MinuteController::class, 'create'])->name('minutes.create');
+           Route::get('/minutes/{id}', [MinuteController::class, 'destroy'])->name('minutes.destroy');
+           Route::post('/minutes', [MinuteController::class, 'store'])->name('minutes.store');
+           Route::get('/minutes', [MinuteController::class, 'index'])->name('minutes.index');
+
+
+
+            //Rotas de Mesa Diretora x Membros
+            Route::get('/directorTables/members/{id}', [DirectorTableController::class, 'membersDestroy'])->name('directorTablesDestroy.destroy');
+            Route::post('/directorTables/{id}/members', [DirectorTableController::class, 'membersStore'])->name('directorTablesStore.store');
+            Route::get('/directorTables/{id}/members/create', [DirectorTableController::class, 'membersCreate'])->name('directorTablesCreate.create');
+            Route::get('/directorTables/{id}/members', [DirectorTableController::class, 'members'])->name('directorTableMembers.index');
+           
 
              //Rotas de Mesa Diretora             
-             Route::any('/directorTables/search', [CommissionController::class, 'search'])->name('directorTables.search');
+             Route::any('/directorTables/search', [DirectorTableController::class, 'search'])->name('directorTables.search');
              Route::put('/directorTables/{id}', [DirectorTableController::class, 'update'])->name('directorTables.update');
              Route::get('/directorTables/{id}/edit', [DirectorTableController::class, 'edit'])->name('directorTables.edit');
              Route::get('/directorTables/create', [DirectorTableController::class, 'create'])->name('directorTables.create');

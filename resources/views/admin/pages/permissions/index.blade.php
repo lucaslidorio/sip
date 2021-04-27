@@ -71,16 +71,15 @@
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
-
-                <a href="{{route('permissions.destroy', $permission->id)}}" data-id="{{$permission->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                </a>
                 <a href="{{route('permissions.profiles', $permission->id)}}" data-id="{{$permission->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver perfis vinculado a permissão">
                   <i class="fas fa-id-badge" ></i>
+                </a>   
+                 <a href="{{route('permissions.destroy', $permission->id)}}" data-id="{{$permission->id}}"
+                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Excluir">
+                  <i class="fas fa-trash-alt" ></i>
                 </a>
               </td>
             </tr>

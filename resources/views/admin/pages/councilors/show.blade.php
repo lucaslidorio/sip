@@ -44,7 +44,8 @@
         <p class="card-text"><strong>Ocupação Profissional : </strong> {{$councilor->ocupacao_profissional}}</p>
         <p class="card-text"><strong>Escolaridade : </strong> {{$councilor->escolaridade}}</p>
         <p class="card-text"><strong>Endereço do Parlamentar : </strong> {{$councilor->endereco}}</p>
-            
+        <p class="card-text"><strong>Atual : </strong> {{$councilor->atual == 1 ? 'Sim':'Não'}}</p>
+        <td>
     </div>
     <div class="col-md-5" style="padding-left: 15px">  
         <p class="card-text"><strong>Endereço do Gabinete : </strong> {{$councilor->endereco_gabinete}}</p>

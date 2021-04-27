@@ -80,18 +80,17 @@
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
-
+                <a href="{{route('secretaries.show', $secretary->id)}}" data-id="{{$secretary->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver Detalhes">
+                  <i class="fas fa-address-book" ></i>
+                </a>
                 <a href="{{route('secretaries.destroy', $secretary->id)}}" data-id="{{$secretary->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
 
-                <a href="{{route('secretaries.show', $secretary->id)}}" data-id="{{$secretary->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Ver Detalhes">
-                  <i class="fas fa-address-book" ></i>
-                </a>
               </td>
             </tr>
             @endforeach

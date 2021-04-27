@@ -29,7 +29,8 @@ class Councilor extends Model
         'email',
         'facebook',
         'instagram',
-        'biografia', 
+        'biografia',
+        'atual', 
         'img',
     ];
 
@@ -38,9 +39,10 @@ class Councilor extends Model
     }
 
     
-    // public function commissions(){
-    //     return $this->hasMany(Commission::class);
-    // }
+    public function minutes(){
+        return $this->belongsToMany(Minute::class, 'minute_councilors');
+
+    }
 
     //metodo de pesquisas na index
     public function search($pesquisar = null)    {

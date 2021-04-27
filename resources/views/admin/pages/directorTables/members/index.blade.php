@@ -1,13 +1,13 @@
 @extends('adminlte::page')
-@section('title', 'Comissões')
+@section('title', 'Mesa Diretora')
 @section('content_header')
 @include('sweetalert::alert')
 
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Membros da comissão - <strong>
-       {{$commission->nome}}
+      <h1>Membros da Mesa diretora - <strong>
+       {{$directorTable->nome}}
       </strong></h1>
        
       
@@ -15,7 +15,7 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item "><a href="{{route('commissions.index')}}">Comissões</a>
+        <li class="breadcrumb-item "><a href="{{route('commissions.index')}}">Mesa diretora</a>
         <li class="breadcrumb-item ">Membros</li>
       </ol>
     </div>
@@ -33,7 +33,7 @@
         <div class="row">
           <div class="col-md-8">
             
-            <a href="{{route('comissionMembersCreate.create', $commission->id )}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
+            <a href="{{route('directorTablesCreate.create', $directorTable->id )}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Adicionar novo membro" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
@@ -66,14 +66,14 @@
             </tr>
           </thead>
           <tbody>    
-            @if (count($dataCommission) >= 1)
-              @foreach ($dataCommission as $dados)
+            @if (count($dataTable) >= 1)
+              @foreach ($dataTable as $dados)
               <tr>                
                 <td>{{$dados->members->nome}}</td>              
-                <td>{{$dados->members->party->nome}}</td>
+                <td>{{$dados->members->party->sigla}}</td>
                 <td>{{$dados->functions->nome}}</td>          
                 <td class="text-center">                  
-                      <a href="{{route('comissionMembersDestroy.destroy',$dados->id )}}" data-id="{{$dados->id}}"
+                      <a href="{{route('directorTablesDestroy.destroy',$dados->id )}}" data-id="{{$dados->id}}"
                         class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                         title="Remover">
                         <i class="fas fa-trash-alt" ></i>
@@ -87,7 +87,7 @@
                   <div class="alert alert-info alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-info"></i> Atenção</h5>
-                     Ainda não existe membros adicionado nessa comissão!
+                     Ainda não existe membros adicionado para essa mesa diretora!
                         clique no botão "NOVO" no canto superior esquerdo para adicionar um novo membro membros
                   </div>
                 </td>
@@ -103,11 +103,7 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        {{-- @if (isset($pesquisar))
-        {!!$commissions->appends($pesquisar)->links()!!}
-        @else
-        {!!$commissions->links()!!}
-        @endif --}}
+     
       </div>
     </div>
     <!-- /.card -->

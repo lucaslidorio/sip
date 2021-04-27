@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateDirectorTable;
+use App\Http\Requests\StoreUpdateDirectorTableMemberFunctions;
 use App\Models\Biennium;
 use App\Models\Councilor;
 use App\Models\DirectorTable;
@@ -14,15 +15,17 @@ use PhpParser\Node\Expr\FuncCall;
 
 class DirectorTableController extends Controller
 {
-    private $repository, $biennium, $councilor, $function;
+    private $repository, $biennium, $councilor, $function, $directorTableMemberFunctions;
 
     public function __construct(DirectorTable $directorTable, Biennium $biennium,
-        Councilor $councilor, Functions $function)
+        Councilor $councilor, Functions $function, DirectorTableMemberFunctions $directorTableMemberFunctions)
     {
         $this->repository = $directorTable;
         $this->biennium = $biennium;
         $this->councilor = $councilor;
         $this->function = $function;
+        $this->directorTableMemberFunctions = $directorTableMemberFunctions;
+
     }
     public function index()
     {
@@ -109,8 +112,7 @@ class DirectorTableController extends Controller
 
     //Inicio do crud de membros das comissões
     public function members($id){
-        
-        
+               
         $dataTable= DirectorTableMemberFunctions::with('members', 'functions')->where('director_table_id', $id)->get();          
         $directorTable = $this->repository->where('id', $id)->first();
          
@@ -131,6 +133,30 @@ class DirectorTableController extends Controller
             'councilors' => $councilors,
             'functions' => $functions,           
         ]);      
+    }
+
+    public function membersStore(StoreUpdateDirectorTableMemberFunctions $request, $id){
+        $directorTable = $this->repository->where('id', $id)->first();   
+    
+       $directorTableMembersfunctions = new DirectorTableMemberFunctions();
+       $dados = $request->except('_token');       
+       $directorTableMembersfunctions->create($dados);
+        toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
+        return redirect()->back();
+    }
+
+    public  function membersDestroy($id){
+
+        $directorTableMember =$this->directorTableMemberFunctions->where('id', $id)->first();             
+       
+        //dd($memberFunction);
+        if (!$directorTableMember) {
+            redirect()->back();
+        }
+
+        $directorTableMember->delete();
+        toast('Membro excluido com sucesso!','success')->toToast('top');            
+        return redirect()->back();
     }
 
 }

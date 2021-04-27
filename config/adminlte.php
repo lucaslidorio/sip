@@ -242,6 +242,12 @@ return [
             'icon' => 'far fa-clipboard',
         ],
         [
+            'text' => 'Atas',
+            'url'  => 'admin/minutes',
+            'icon' => 'fas fa-book-open',
+        ],
+        
+        [
             'text' => 'Secretarias',
             'url'  => 'admin/secretaries',
             'icon' => 'fas fa-table',
@@ -268,7 +274,6 @@ return [
             'icon' => 'fas fa-tablets',
         ],
        
-        
 
         [
             'text'    => 'Segurança',

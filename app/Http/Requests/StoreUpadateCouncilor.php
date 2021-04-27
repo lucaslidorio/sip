@@ -30,7 +30,8 @@ class StoreUpadateCouncilor extends FormRequest
             'cpf' => ['nullable', 'min:2', 'max:14',"unique:councilors,cpf,{$id},id"],
             'estado_civil' => ['required', 'min:2', 'max:20'],
             'party_id' => ['required'],
-            'img' =>['nullable','image','max:500'], 
+            'img' =>['nullable','image','max:500'],
+            'atual' => ['required'],
             
         ]; 
         if($this->method() =='PUT'){

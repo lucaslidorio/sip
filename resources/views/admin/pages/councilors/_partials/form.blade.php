@@ -305,10 +305,10 @@
           </div>
           
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label  for="partido" class="label-required" >Partido Político:</label>
-                <select class="form-control select2 {{ $errors->has('party_id') ? 'is-invalid' : '' }}" name="party_id" style="width: 100%;" >
+                <select class="custom-select select2 {{ $errors->has('party_id') ? 'is-invalid' : '' }}" name="party_id" style="width: 100%;" >
                     <option value="" selected >Selecione um partido</option>              
                     @foreach ($parties as $party)                          
                     <option value="{{$party->id}}" 
@@ -324,6 +324,22 @@
             @enderror
               </div>
         </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="atual" class="label-required">Atual</label>
+                <select class="custom-select {{ $errors->has('atual') ? 'is-invalid' : '' }}" 
+                    id="atual" name="atual">
+                    <option value="" selected >Selecione uma opção</option>
+                    <option value="1"> Sim </option>
+                    <option value="0"> Não </option>
+                </select>
+                @error('atual')
+                    <small class="invalid-feedback">
+                        {{ $message }}
+                    </small>
+                @enderror
+            </div>
+        </div>     
     </div>   
     <div class="row">
         <div class="col-sm-12">

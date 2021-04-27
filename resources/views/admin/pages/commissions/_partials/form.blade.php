@@ -18,10 +18,11 @@
           </div>  
           <div class="col-sm-4">
             <div class="form-group">
-                <label for="tipo label-required">Tipo</label>
+                <label for="tipo " class="label-required">Tipo</label>
                 <select class="custom-select form-control-border {{ $errors->has('tipo') ? 'is-invalid' : '' }}" 
                     id="tipo" name="tipo">
-                    <option value="1" selected>Permanente</option>
+                    <option selected>Selecione uma opção</option>
+                    <option value="1" >Permanente</option>
                     <option value="2">Temporária</option>
                 </select>
                 @error('tipo')
