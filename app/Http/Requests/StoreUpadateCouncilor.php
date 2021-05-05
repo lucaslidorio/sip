@@ -35,7 +35,7 @@ class StoreUpadateCouncilor extends FormRequest
             
         ]; 
         if($this->method() =='PUT'){
-            $rules['img'] = ['nullable','image','max:300' ]; 
+            $rules['img'] = ['nullable','image','max:500' ]; 
                     
         }        
         return $rules;

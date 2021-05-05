@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar nova categoria')
+@section('title', 'home')
 
 @section('content_header')
 @stop

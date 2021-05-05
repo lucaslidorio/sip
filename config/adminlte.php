@@ -227,6 +227,7 @@ return [
         [
             'text' => 'Pesquisar',
             'search' => true,
+
             'topnav' => true,
         ],
         [
@@ -236,6 +237,11 @@ return [
         ],
       
         ['header' => 'ADMINISTRAÇÃO'],
+        [
+            'text' => 'Orgão',
+            'url'  => 'admin/tenants',
+            'icon' => 'fas fa-university',
+        ],
         [
             'text' => 'Posts',
             'url'  => 'admin/posts',

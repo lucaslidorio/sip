@@ -191,8 +191,8 @@ class MinuteController extends Controller
         //Recupera a anexo pelo id
         $anexo = AttachmentMinute::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe o storage, e deleta do storage
-        if(Storage::disk('public')->exists($anexo->anexo)){
-            Storage::disk('public')->delete($anexo->anexo);
+        if(Storage::disk('s3')->exists($anexo->anexo)){
+            Storage::disk('s3')->delete($anexo->anexo);
         }
         //deleta a referência do banco
         $anexo->delete();  

@@ -7,7 +7,7 @@ use App\Http\Requests\StoreUpdateParty;
 use App\Models\Party;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Config;
 class PartyController extends Controller
 {
     private $party;
@@ -35,6 +35,8 @@ class PartyController extends Controller
 
     public function store(StoreUpdateParty $request)
     {
+      // dd(Config::get('filesystems'));
+
         $dadosParty = $request->all();
         
         if($request->hasFile('img') && $request->img->isValid()){

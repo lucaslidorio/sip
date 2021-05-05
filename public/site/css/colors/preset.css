@@ -41,6 +41,11 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover{
 .overlay{
 	background: #4676fa;
 }
+.overlay-portifolio{
+	background:none;
+}
+
+
 #hero-area .overlay{
 	background: #4676fa;
 }

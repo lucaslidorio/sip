@@ -15,8 +15,10 @@ use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SecretaryController;
+use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AtaController;
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,12 +53,25 @@ Route::middleware(['auth'])->group(function () {
                     Route::put('/councilors/{id}', [CouncilorController::class, 'update'])->name('councilors.update');
                     Route::get('/councilors/{id}/edit', [CouncilorController::class, 'edit'])->name('councilors.edit');
                     Route::get('/councilors/show/{id}', [CouncilorController::class, 'show'])->name('councilors.show');
-                    Route::get('/councilors/create', [CouncilorController::class, 'create'])->name('councilors.create');
-                    Route::get('/councilors/{id}', [CouncilorController::class, 'destroy'])->name('councilors.destroy');
+                    Route::get('/councilors/create', [CouncilorController::class, 'create'])->name('councilors.create');  
+                    Route::get('/councilors/{id}', [CouncilorController::class, 'destroy'])->name('councilors.destroy');                 
                     Route::post('/councilors', [CouncilorController::class, 'store'])->name('councilors.store');
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
 
             });
+            //Rotas de orgãos
+            Route::any('/tenants/search', [TenantController::class, 'search'])->name('tenants.search');
+            Route::put('/tenants/{id}', [TenantController::class, 'update'])->name('tenants.update');
+            Route::get('/tenants/{id}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
+            Route::get('/tenants/show/{id}', [TenantController::class, 'show'])->name('tenants.show');
+            Route::get('/tenants/create', [TenantController::class, 'create'])->name('tenants.create');
+            Route::get('/tenants/{id}', [TenantController::class, 'destroy'])->name('tenants.destroy');
+            Route::post('/tenants', [TenantController::class, 'store'])->name('tenants.store');
+            Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
+
+
+
+
            //Rotas de Atas             
            Route::any('/minutes/search', [MinuteController::class, 'search'])->name('minutes.search');
            Route::put('/minutes/{id}', [MinuteController::class, 'update'])->name('minutes.update');
@@ -202,13 +217,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard.index');
 */
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
+// Route::get('/', function () {
+//     //Alert::success('Success Title', 'Success Message');
+//     //toast('Success Toast','success');
 
-Route::get('/', function () {
-    //Alert::success('Success Title', 'Success Message');
-    //toast('Success Toast','success');
-
-    return view('site/index');
-});
+//     return view('site/index');
+// });
 
 
 

@@ -56,8 +56,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Titulo</th>              
-              <th>Conteúdo</th>
+              <th>Titulo</th>             
               <th>Secretaria</th>
               <th>Data Publicação</th>
               <th>Data Expiração</th>
@@ -71,8 +70,8 @@
             @foreach ($posts as $post)
       
             <tr>
-              <td>{{$post->titulo}}</td>              
-              <td>{!!$post->conteudo!!}</td>
+              <td>{{$post->titulo}}</td>             
+             
               <td>{{$post->secretary->sigla}}</td>
               <td>{{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</td>
               <td>{{\Carbon\Carbon::parse($post->data_expiracao)->format('d/m/Y') }}</td>

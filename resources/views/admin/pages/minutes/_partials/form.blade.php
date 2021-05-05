@@ -175,7 +175,7 @@
         <span>Anexos:</span>                 ​           
         @foreach ($minute->attachments as $attachment)            
             <div class="row">
-            <a href="{{url("storage/{$attachment->anexo}")}}" target="_blank" class="mb-2 text-reset" >
+            <a href="{{env('AWS_URL')."/{$attachment->anexo}"}}" target="_blank" class="mb-2 text-reset" >
                 <i class="far fa-file-pdf fa-3x text-danger mr-2"></i>
                 <span class="mr-2"> {{$attachment->nome_original}}</span></a> 
            

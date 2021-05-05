@@ -32,134 +32,10 @@
 
   <!-- Header Section Start -->
   <header id="slider-area">
-
-    <div class="navbar-area w-100 bg-white fixed-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg mainmenu-area">
-             
-              @foreach($tenants as $tenant)
-                {{-- <a class="navbar-brand" href="{{route('site.home')}}">
-                  <img src="{{url("storage/{$tenant->brasao}")}}" class="rounded img-fluid float-left" alt="Brasão"
-                  style="max-width: 50px;">  </a>             --}}
-                <a class="navbar-brand" href="{{route('site.home')}}">  {{$tenant->nome}}</a>
-              @endforeach
-    
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link page-scroll" href="#slider-area">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll text-nowrap" href="#camara">A Câmara</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#features">Features</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#portfolios">Works</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#pricing">Pricing</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#vereadores">Vereadores</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#noticias">Notícias</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#contato">Contato</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#subscribe">Subscribe</a>
-                  </li>
-                  <li class="nav-item d-none d-lg-inline-block">
-                    <button class="menu-button" id="open-button"><i class="lnr lnr-menu"></i></button>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-wrap">
-      <nav class="menu">
-        <div class="icon-list navbar-collapse">
-          <div class="about-info">
-            <h3 class="sidebar-title">About</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. sequi ducimus. Voluptate ab esse
-              maiores corporis.</p>
-          </div>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link page-scroll" href="#blog">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link page-scroll" href="#contact">Purchase Now</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link page-scroll" href="#subscribe">Support</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <button class="close-button" id="close-button"><i class="lnr lnr-cross"></i></button>
-    </div>
-
-    <!-- Main Carousel Section -->
-    <div id="carousel-area">
-      <div id="carousel-slider" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-slider" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-slider" data-slide-to="1"></li>
-          <li data-target="#carousel-slider" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-          <div class="carousel-item active">
-            <img src="site/img/slider/bg-1.jpg" alt="">
-            <div class="carousel-caption">
-              <h1>Ultimate Solution for Your<br>Website or Landing Page</h1>
-              <p>High-quality Responsive Website Template Based on Bootstrap 4 to Create Complete Website in Minutes</p>
-              <a href="#why" class="btn btn-lg btn-border">GET STARTED!</a>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="site/img/slider/bg-2.jpg" alt="">
-            <div class="carousel-caption">
-              <h1 class="text-center">We Promise You'll Be<br>Impressed With Crystal</h1>
-              <p>High-quality Responsive Website Template Based on Bootstrap 4 to Create Complete Website in Minutes</p>
-              <a href="#" class="btn btn-lg btn-common">Download</a>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="site/img/slider/bg-3.jpg" alt="">
-            <div class="carousel-caption">
-              <h1>Create Bootstrap 4 Powered<br>Website in Minutes</h1>
-              <p>High-quality Responsive Website Template Based on Bootstrap 4 to Create Complete Website in Minutes</p>
-              <a href="#" class="btn btn-lg btn-common">Download</a>
-              <a href="#" class="btn btn-lg btn-border">Learn More</a>
-            </div>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carousel-slider" role="button" data-slide="prev">
-          <i class="lnr  lnr-arrow-left"></i>
-        </a>
-        <a class="carousel-control-next" href="#carousel-slider" role="button" data-slide="next">
-          <i class="lnr  lnr-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-
+    <!-- Menu-->
+    @include('site.layouts.includes.menu')
+    <!-- Fim Menu -->
+    @include('site.layouts.includes.slide')
   </header>
   <!-- Header Section End -->
 
@@ -341,104 +217,7 @@
   </section>
   <!-- End Video Promo Section -->
 
-  <!-- Portfolio Section -->
-  <section id="portfolios" class="section">
-    <!-- Container Starts -->
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Our <span>Works</span></h2>
-        <hr class="lines">
-        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy <br>
-          nibh euismod tincidunt ut laoreet dolore magna.</p>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <!-- Portfolio Controller/Buttons -->
-          <div class="controls text-center">
-            <a class="filter active btn btn-common" data-filter="all">
-              All
-            </a>
-            <a class="filter btn btn-common" data-filter=".design">
-              Design
-            </a>
-            <a class="filter btn btn-common" data-filter=".development">
-              Development
-            </a>
-            <a class="filter btn btn-common" data-filter=".print">
-              Print
-            </a>
-          </div>
-          <!-- Portfolio Controller/Buttons Ends-->
-        </div>
-
-        <!-- Portfolio Recent Projects -->
-        <div id="portfolio" class="row">
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development print">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img1.jpg">
-                  <img src="site/img/portfolio/img1.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix design print">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img2.jpg">
-                  <img src="site/img/portfolio/img2.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img3.jpg">
-                  <img src="site/img/portfolio/img3.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development design">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img4.jpg">
-                  <img src="site/img/portfolio/img4.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img5.jpg">
-                  <img src="site/img/portfolio/img5.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix print design">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img6.jpg">
-                  <img src="site/img/portfolio/img6.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Container Ends -->
-  </section>
-  <!-- Portfolio Section Ends -->
+  @include('site.layouts.includes.sobre')
 
   <!-- Start Pricing Table Section -->
   <div id="pricing" class="section pricing-section">
@@ -892,13 +671,7 @@
         </div>
       </div>
     </div>
-    <div class="toggle-map">
-      <a href="#" class="map-icon wow pulse" data-wow-iteration="infinite" data-wow-duration="500ms">
-        <i class="lnr lnr-map"></i>
-      </a>
-    </div>
-    <div id="google-map">
-    </div>
+   
   </section>
   <!-- Contact Section End -->
 
@@ -921,32 +694,11 @@
     </div>
   </div>
   <!-- Subcribe Section End -->
-
-  <!-- Footer Section Start -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="social-icons">
-            <ul>
-              <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-              <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-              <li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-            </ul>
-          </div>
-          <div class="site-info">
-            <p>All copyrights reserved &copy; 2023 - Designed & Developed by <a rel="nofollow"
-                href="https://uideck.com">UIdeck</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <!-- Footer Section End -->
-
+  <!-- Rodapé -->
+  @include('site.layouts.includes.rodape')
+  <!-- Fim Rodapé -->
+ 
+ 
   <!-- Go To Top Link -->
   <a href="#" class="back-to-top">
     <i class="lnr lnr-arrow-up"></i>

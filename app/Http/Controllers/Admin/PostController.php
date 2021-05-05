@@ -126,8 +126,9 @@ class PostController extends Controller
         $post  = $this->repository->where('id', $id)->first();
         if(!$post){
             redirect()->back();
-        }      
-        $dadosPost= $request()->all();
+        } 
+
+         $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque');
        
          //verifica se existe um arquivo e se é do tipo image e faz o upload 
          //antes de fazer salvar, remove a imagem já existente    
@@ -135,6 +136,8 @@ class PostController extends Controller
             if(Storage::exists($post->img_destaque)){
                Storage::delete($post->img_destaque);
             }
+          
+            
             $dadosPost['img_destaque'] = $request->img_destaque->store('posts');
         }
         //Atualila a tabela post
@@ -169,10 +172,10 @@ class PostController extends Controller
     public function removeImage($id)
     {
         //Recupera a imagem pelo id
-        $imagem = PostImg::where('id', $id)->firt();
+        $imagem = PostImg::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe o storage, e deleta do storage
-        if(Storage::disk('public')->exists($imagem->img)){
-            Storage::disk('public')->delete($imagem->img);
+        if(Storage::disk('s3')->exists($imagem->img)){
+            Storage::disk('s3')->delete($imagem->img);
         }
         //deleta a referência do banco
         $imagem->delete();  

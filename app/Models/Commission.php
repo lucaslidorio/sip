@@ -14,9 +14,11 @@ class Commission extends Model
     protected $table = 'commissions'; 
     
     
-    // //relaciona os membros da comissão (Councilors - vereadores)
-    // public function members(){
-    //     return $this->belongsToMany(Councilor::class, 'commission_members' );
+    //relaciona os membros da comissão (Councilors - vereadores)
+    public function members(){
+        return $this->belongsTo(Councilor::class);
+
+    }
 
     // }
     //  //relaciona os função com comissão
