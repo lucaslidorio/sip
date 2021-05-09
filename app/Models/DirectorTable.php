@@ -18,14 +18,12 @@ class DirectorTable extends Model
     public function biennium (){
         return $this->belongsTo(Biennium::class, 'biennium_legislature_id', 'id');
     }
+    //relacionamento com os membros da mesa diretora
     public function members()
-    {
-        return $this->hasMany(DirectorTableMemberFunctions::class );
-    }
-    public function teste()
     {
         return $this->BelongsToMany(Councilor::class,  'director_table_member_functions');
     }
+   
    
 
     public function search($pesquisar =null){

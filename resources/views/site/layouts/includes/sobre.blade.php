@@ -2,24 +2,28 @@
 @foreach ($legislatures as $legislature)
 
 @endforeach
+
 @foreach ($directorTables as $mesaDiretora)
 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mix mesa_diretora">
  <div class="portfolio-item">
   <p class="text-justify">{{$mesaDiretora->nome}}</p>
-   <div class="shot-item">
- 
-    <h6 class="">Membros:</h6>
-     @foreach ($mesaDiretora->teste as $membro)
-       <p class="text-justify">{{$membro->nome}}</p>
-     @endforeach
-        
-     <p class="text-justify">{{$mesaDiretora->nome}}</p>
+   <div class="shot-item">   
+
+    <h6 class="">Membros:</h6>    
+     @foreach ($mesaDiretora->members as $membro)
+       <p class="text-justify">{{$membro->nome}}</p>    
+        @foreach ($membro->functionTable as $funcao)
+            <p>{{$funcao->nome}}</p>
+        @endforeach
+     @endforeach      
+     
    </div>
    <h6 class="">Objetivo:</h6>
    <p class="text-justify">{{$mesaDiretora->objetivo}}</p>
  </div>
 </div>
 @endforeach
+
 <section id="sobre" class="section">
     <!-- Container Starts -->
     <div class="container">
@@ -50,26 +54,32 @@
           <!-- Portfolio Controller/Buttons Ends-->
         </div>
             
-        <div id="portfolio" class="row">
-             {{-- @foreach ($dataTable as $dados)
-              <div class=" text-center col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa_diretora">            
-                <div class="portfolio-item ">
-                  <div class="shot-item ">
-                    <a class="overlay-portifolio overlay lightbox " href="{{env('AWS_URL')."/".$dados->members->img }}" >
-                      <img src="{{env('AWS_URL')."/".$dados->members->img }}" class="rounded-circle" alt="" style="width: 150px" >
-                      <i class="lnr lnr-plus-circle item-icon"></i>
-                    </a>
-                  </div>
-                </div>             
-                <h4 class="text-primary">{{$dados->functions->nome}}</h4>                  
-                <h6>{{$dados->members->nome}} - {{$dados->members->party->sigla}}</h6>             
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-              </div>    
-                              
-             @endforeach --}}
-            
-            
+        <div id="portfolio" class="row">  
+          {{-- Mesa diretora    --}}
+             @foreach ($directorTables as $mesaDiretora)                        
+                @foreach ($mesaDiretora->members as $membro)
+                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa_diretora"> 
+                    <div class="portfolio-item ">
+                      <div class="shot-item text-center">
+                        <a class="overlay-portifolio overlay lightbox " href="{{env('AWS_URL')."/".$membro->img }}" >
+                          <img src="{{env('AWS_URL')."/".$membro->img }}" class="rounded-circle" alt="" style="width: 150px" >
+                          <i class="lnr lnr-plus-circle item-icon"></i>
+                        </a>
+                      </div>
+                    </div>
+                      @foreach ($membro->functionTable as $funcao)
+                        <h6 class="text-primary text-center ">{{$funcao->nome}}</h6>   
+                      @endforeach        
+                        
+                  <h6 class="text-center">{{$membro->nome}} - {{$membro->party->sigla}}</h6>             
+                  <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
+                </div> 
+                @endforeach
+              @endforeach
 
+             {{-- Fim mesa diretora --}}
+            
+            
              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mix comissoes">
               <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">

@@ -43,6 +43,11 @@ class Councilor extends Model
         return $this->belongsToMany(Minute::class, 'minute_councilors');
 
     }
+    public function functionTable()
+    {
+        return $this->BelongsToMany(Functions::class,  'director_table_member_functions', 'councilor_id', 'function_id');
+    }
+   
 
     //metodo de pesquisas na index
     public function search($pesquisar = null)    {

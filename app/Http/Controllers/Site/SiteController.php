@@ -41,17 +41,18 @@ class SiteController extends Controller
         $legislatures = $this->legislature->where('atual', 1)->get();
 
         $directorTables = $this->directorTable->where('atual', 1)->get();
-       // $dataTables= DirectorTableMemberFunctions::with('members', 'functions')->get();    
+       $dataTables= DirectorTableMemberFunctions::with('members', 'functions')->get();    
        // $dataCommission= CommissionMembers::with('members', 'functions')->get();    
         $commissions = $this->commission->get();
-            //dd($directorTables);
-        
+        $councilors = $this->councilor->where('id', 12)->get();
+        //dd($councilors);
         return view('site.layouts.app',[
             'tenants' => $tenants,
             'legislatures' => $legislatures,
             'directorTables' => $directorTables,
-            //'dataTables' => $dataTables,
+            'dataTable' => $dataTables,
             'commissions' => $commissions,
+            'councilors' => $councilors
             //'dataCommission' =>$dataCommission,
         ]);
     }
