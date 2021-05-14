@@ -47,6 +47,10 @@ class Councilor extends Model
     {
         return $this->BelongsToMany(Functions::class,  'director_table_member_functions', 'councilor_id', 'function_id');
     }
+    public function functionCommission()
+    {
+        return $this->BelongsToMany(Functions::class,  'commission_member_functions', 'councilor_id', 'function_id');
+    }
    
 
     //metodo de pesquisas na index

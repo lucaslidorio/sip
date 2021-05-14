@@ -40,7 +40,7 @@
                     <a class="nav-link page-scroll" href="#vereadores">Vereadores</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#noticias">Notícias</a>
+                    <a class="nav-link page-scroll" href="#blog">Notícias</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#contato">Contato</a>

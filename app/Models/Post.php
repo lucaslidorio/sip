@@ -15,6 +15,7 @@ class Post extends Model
         'user_id',
         'secretary_id',
         'titulo',
+        'url',
         'conteudo',
         'img_destaque',
         'data_publicacao',

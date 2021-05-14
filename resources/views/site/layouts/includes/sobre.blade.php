@@ -1,28 +1,5 @@
 <!-- Portfolio Section -->
-@foreach ($legislatures as $legislature)
 
-@endforeach
-
-@foreach ($directorTables as $mesaDiretora)
-<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mix mesa_diretora">
- <div class="portfolio-item">
-  <p class="text-justify">{{$mesaDiretora->nome}}</p>
-   <div class="shot-item">   
-
-    <h6 class="">Membros:</h6>    
-     @foreach ($mesaDiretora->members as $membro)
-       <p class="text-justify">{{$membro->nome}}</p>    
-        @foreach ($membro->functionTable as $funcao)
-            <p>{{$funcao->nome}}</p>
-        @endforeach
-     @endforeach      
-     
-   </div>
-   <h6 class="">Objetivo:</h6>
-   <p class="text-justify">{{$mesaDiretora->objetivo}}</p>
- </div>
-</div>
-@endforeach
 
 <section id="sobre" class="section">
     <!-- Container Starts -->
@@ -31,17 +8,12 @@
         <h2 class="section-title">A <span>Câmara</span></h2>
         <hr class="lines">
         <p class="section-subtitle">{{$legislature->descricao}}</p>
-      </div>
-      
+      </div>      
       <div class="row">
         <div class="col-md-12">
           <!-- Portfolio Controller/Buttons -->
           <div class="controls text-center">
-            {{-- <a class="filter active btn btn-common" data-filter="all">
-              All
-            </a> --}}
-            
-            <a class="filter active btn btn-common" data-filter=".mesa_diretora">
+            <a class="filter btn btn-common" data-filter=".mesa">
               Mesa Diretora
             </a>
             <a class="filter btn btn-common" data-filter=".comissoes">
@@ -52,13 +24,12 @@
             </a>
           </div>
           <!-- Portfolio Controller/Buttons Ends-->
-        </div>
-            
+        </div>            
         <div id="portfolio" class="row">  
           {{-- Mesa diretora    --}}
              @foreach ($directorTables as $mesaDiretora)                        
                 @foreach ($mesaDiretora->members as $membro)
-                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa_diretora"> 
+                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa"> 
                     <div class="portfolio-item ">
                       <div class="shot-item text-center">
                         <a class="overlay-portifolio overlay lightbox " href="{{env('AWS_URL')."/".$membro->img }}" >
@@ -69,7 +40,7 @@
                     </div>
                       @foreach ($membro->functionTable as $funcao)
                         <h6 class="text-primary text-center ">{{$funcao->nome}}</h6>   
-                      @endforeach        
+                      @endforeach       
                         
                   <h6 class="text-center">{{$membro->nome}} - {{$membro->party->sigla}}</h6>             
                   <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
@@ -79,138 +50,49 @@
 
              {{-- Fim mesa diretora --}}
             
-            
-             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mix comissoes">
-              <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                {{-- @foreach ($commissions as $commission)
-                <a class="nav-link" id="{{$commission->id}}" data-toggle="tab" href="{{$commission->id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{$commission->nome}}</a>
-               
-                @endforeach                 --}}
-                  
-                  {{-- <a class="nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                  <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a> --}}
-                </div>
-              </nav>
-              
-              <div class="tab-content" id="nav-tabContent">
-                {{-- @foreach ($commissions  as $commission)
-                <div class="tab-pane fade show active" id="{{$commission->id}}" role="tabpanel" aria-labelledby="nav-home-tab">{{$commission->id}}</div>
-                @endforeach --}}
-                
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-              </div>
-              </div>
+            {{-- Comissões --}}   
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mix comissoes" >                
+                <ul class="nav nav-tabs " id="myTab" role="tablist">
+                  @foreach($commissions as $comissao)
+                        <li class="nav-item" role="presentation">
+                          <a class="nav-link {{$loop->index ==0 ? 'active': ''}} " id="home-tab" data-toggle="tab" href="#{{$comissao->id}}" role="tab" aria-controls="home" aria-selected="true">
+                            {{$comissao->nome}}
+                          </a>
+                        </li>
+                  @endforeach
+                </ul>
 
+            <div class="tab-content" id="myTabContent">
+                  @for ($i = 0; $i < count($membrosComissao); $i++)    
+                    @foreach ($membrosComissao[$i] as $membros)
+                    @endforeach           
+                                        
+                    <div class="tab-pane fade {{$i ==0 ? 'show active': ''}} " id="{{$membros->commission_id}}" role="tabpanel" aria-labelledby=" {{$membros->commission_id}}">  
+                      <div class="row text-center">                      
+                        @foreach ($membrosComissao[$i] as $membros)
+                          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <div class="portfolio-item display-inline">
+                              <div class="shot-item text-center">
+                                <a class="overlay-portifolio overlay lightbox " href="{{env('AWS_URL')."/".$membros->members->img }}" >
+                                  <img src="{{env('AWS_URL')."/".$membros->members->img  }}" class="rounded-circle" alt="" style="width: 150px" >
+                                  <i class="lnr lnr-plus-circle item-icon"></i>
+                                </a>                          
+                            </div>                                 
+                          </div>                          
+                            <h6 class="text-primary text-center ">{{$membros->functions->nome}}</h6>  
+                            <h6 class="text-center">{{$membros->members->nome}} - {{$membros->members->party->sigla}}</h6>             
+                            <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
+                          </div>
+                        @endforeach                      
+                      </div>                   
+                    </div>          
+                @endfor     
 
-
-
-
-
-
-{{-- 
-             @foreach ($dataCommission as $dadosComissao)
-             <div class=" text-center col-sm-6 col-md-4 col-lg-4 col-xl-4 mix comissoes">            
-               <div class="portfolio-item ">
-                 <div class="shot-item ">
-                   <a class="overlay-portifolio overlay lightbox " href="{{url("storage/{$dadosComissao->members->img}")}}" >
-                     <img src="{{url("storage/{$dadosComissao->members->img}")}}" class="rounded-circle" alt="" style="width: 150px" >
-                     <i class="lnr lnr-plus-circle item-icon"></i>
-                   </a>
-                 </div>
-               </div>             
-               <h4 class="text-primary">{{$dadosComissao->functions->nome}}</h4>                  
-               <h6>{{$dadosComissao->members->nome}} - {{$dadosComissao->members->party->sigla}}</h6>             
-               <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-             </div>                     
-            @endforeach
-             --}}
-
-
-
-
-
-
-
-            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix">
-                <div class="portfolio-item">
-                  <div class="shot-item">
-                    <a class="overlay lightbox" href="site/img/portfolio/img1.jpg">
-                      <img src="site/img/portfolio/img1.jpg" alt="" />
-                      <i class="lnr lnr-plus-circle item-icon"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-
-
-
-
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development print">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img1.jpg">
-                  <img src="site/img/portfolio/img1.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
             </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix design">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img2.jpg">
-                  <img src="site/img/portfolio/img2.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img3.jpg">
-                  <img src="site/img/portfolio/img3.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development design">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img4.jpg">
-                  <img src="site/img/portfolio/img4.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img5.jpg">
-                  <img src="site/img/portfolio/img5.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix design">
-            <div class="portfolio-item">
-              <div class="shot-item">
-                <a class="overlay lightbox" href="site/img/portfolio/img6.jpg">
-                  <img src="site/img/portfolio/img6.jpg" alt="" />
-                  <i class="lnr lnr-plus-circle item-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+          </div>   
         </div>
       </div>
-      
+      {{-- Fim Comissões --}}   
     </div>
     <!-- Container Ends -->
   </section>

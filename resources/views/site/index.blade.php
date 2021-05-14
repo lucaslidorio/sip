@@ -10,22 +10,21 @@
   <meta name="author" content="Grayrids">
   <title>Crystal - Bootstrap 4 Template</title>
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{{url('site/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/font-awesome.min.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/line-icons.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/owl.carousel.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/owl.theme.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/nivo-lightbox.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/magnific-popup.cs')}}s">
-  <link rel="stylesheet" href="{{url('site/css/animate.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/menu_sideslide.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/main.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/responsive.css')}}">
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="{{url('site/css/bootstrap.min.css')}}">
+ <link rel="stylesheet" href="css/font-awesome.min.css">
+ <link rel="stylesheet" href="css/line-icons.css">
+ <link rel="stylesheet" href="css/owl.carousel.css">
+ <link rel="stylesheet" href="css/owl.theme.css">
+ <link rel="stylesheet" href="css/nivo-lightbox.css">
+ <link rel="stylesheet" href="css/magnific-popup.css">
+ <link rel="stylesheet" href="css/animate.css">
+ <link rel="stylesheet" href="css/menu_sideslide.css">
+ <link rel="stylesheet" href="css/main.css">    
+ <link rel="stylesheet" href="css/responsive.css">
 
-  <!-- Color CSS Styles  -->
-  <link rel="stylesheet" type="text/css" href="{{url('site/css/colors/preset.css')}}" media="screen" />
-
+ <!-- Color CSS Styles  -->
+ <link rel="stylesheet" type="text/css" href="css/colors/preset.css" media="screen" />
 </head>
 
 <body>

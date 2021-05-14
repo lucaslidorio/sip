@@ -27,9 +27,9 @@ class CommissionMemberFunction extends Controller
 
     public function index()
     {
-        dd('chegou aqui');
+       // dd('chegou aqui');
             $comissao = CommissionMembers::with('members', 'functions')->where('commission_id', 6)->get();
-            dd($comissao);
+           // dd($comissao);
          
        return view('admin.pages.commissions.members.index', [
              'comissao' => $comissao,

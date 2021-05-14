@@ -8,7 +8,9 @@
   <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="author" content="Grayrids">
-  <title>Crystal - Bootstrap 4 Template</title>
+  @foreach ($tenants as $tenant)      
+  @endforeach
+  <title>{{$tenant->nome}}</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{url('site/css/bootstrap.min.css')}}">
@@ -29,7 +31,11 @@
 </head>
 
 <body>
+  {{-- Loop para para mostra a legislatura atual --}}
+  @foreach ($legislatures as $legislature)
 
+  @endforeach
+ 
   <!-- Header Section Start -->
   <header id="slider-area">
     <!-- Menu-->
@@ -410,90 +416,7 @@
   <!-- Download Section End -->
 
   <!-- Team section Start -->
-  <section id="vereadores" class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Our <span>Team</span></h2>
-        <hr class="lines">
-        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy <br>
-          nibh euismod tincidunt ut laoreet dolore magna.</p>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-sm-6 col-xs-12">
-          <div class="single-team mb-4">
-            <img src="site/img/team/team1.png" alt="">
-            <div class="team-details">
-              <div class="overlay"></div>
-              <div class="team-inner">
-                <h4 class="team-title">Jhon Doe</h4>
-                <p>Chief Technical Officer</p>
-                <ul class="social-list">
-                  <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                  <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-xs-12">
-          <div class="single-team mb-4">
-            <img src="site/img/team/team2.png" alt="">
-            <div class="team-details">
-              <div class="overlay"></div>
-              <div class="team-inner">
-                <h4 class="team-title">Luke Chesser</h4>
-                <p>Marketing Executive</p>
-                <ul class="social-list">
-                  <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                  <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-xs-12">
-          <div class="single-team mb-4">
-            <img src="site/img/team/team3.png" alt="">
-            <div class="team-details">
-              <div class="overlay"></div>
-              <div class="team-inner">
-                <h4 class="team-title">David Givens</h4>
-                <p>Business Manager</p>
-                <ul class="social-list">
-                  <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                  <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-xs-12">
-          <div class="single-team mb-4">
-            <img src="site/img/team/team4.png" alt="">
-            <div class="team-details">
-              <div class="overlay"></div>
-              <div class="team-inner">
-                <h4 class="team-title">Annie Spratt</h4>
-                <p>Graphic Designer</p>
-                <ul class="social-list">
-                  <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                  <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  @include('site.layouts.includes.vereadores')
   <!-- Team section End -->
 
   <!-- Clients Section -->
@@ -526,96 +449,7 @@
   <!-- Client Section End -->
 
   <!-- Blog Section -->
-  <section id="noticias" class="section">
-    <!-- Container Starts -->
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Latest <span>Blogs</span></h2>
-        <hr class="lines">
-        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy <br>
-          nibh euismod tincidunt ut laoreet dolore magna.</p>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-6 blog-item">
-          <!-- Blog Item Starts -->
-          <div class="blog-item-wrapper mb-5">
-            <div class="blog-item-img">
-              <a href="single-post.html">
-                <img src="site/img/blog/img1.jpg" alt="">
-              </a>
-            </div>
-            <div class="blog-item-text">
-              <h3>
-                <a href="single-post.html">How often should you tweet?</a>
-              </h3>
-              <div class="meta-tags">
-                <span class="date"><i class="lnr lnr-calendar-full"></i>on Mar 23, 2023</span>
-                <span class="comments"><a href="#"><i class="lnr lnr-bubble"></i> 24 Comments</a></span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua...
-              </p>
-              <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
-            </div>
-          </div>
-          <!-- Blog Item Wrapper Ends-->
-        </div>
-
-        <div class="col-lg-4 col-md-6 blog-item">
-          <!-- Blog Item Starts -->
-          <div class="blog-item-wrapper mb-5">
-            <div class="blog-item-img">
-              <a href="single-post.html">
-                <img src="site/img/blog/img2.jpg" alt="">
-              </a>
-            </div>
-            <div class="blog-item-text">
-              <h3>
-                <a href="single-post.html">Content is still king</a>
-              </h3>
-              <div class="meta-tags">
-                <span class="date"><i class="lnr lnr-calendar-full"></i>on Mar 29, 2023</span>
-                <span class="comments"><a href="#"><i class="lnr lnr-bubble"></i> 24 Comments</a></span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua...
-              </p>
-              <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
-            </div>
-          </div>
-          <!-- Blog Item Wrapper Ends-->
-        </div>
-
-        <div class="col-lg-4 col-md-6 blog-item">
-          <!-- Blog Item Starts -->
-          <div class="blog-item-wrapper mb-5">
-            <div class="blog-item-img">
-              <a href="single-post.html">
-                <img src="site/img/blog/img3.jpg" alt="">
-              </a>
-            </div>
-            <div class="blog-item-text">
-              <h3>
-                <a href="single-post.html">Social media at work</a>
-              </h3>
-              <div class="meta-tags">
-                <span class="date"><i class="lnr lnr-calendar-full"></i>on Mar 21, 2023</span>
-                <span class="comments"><a href="#"><i class="lnr lnr-bubble"></i> 24 Comments</a></span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua...
-              </p>
-              <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
-            </div>
-          </div>
-          <!-- Blog Item Wrapper Ends-->
-        </div>
-      </div>
-    </div>
-  </section>
+  @include('site.layouts.includes.noticias')
   <!-- blog Section End -->
 
   <!-- Contact Section Start -->

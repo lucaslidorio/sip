@@ -105,6 +105,7 @@ class CommissionController extends Controller
     public function members($id){
         
         $dataCommission= CommissionMembers::with('members', 'functions')->where('commission_id', $id)->get();          
+        
         $commission = $this->repository->where('id', $id)->first();
         
          return view('admin.pages.commissions.members.index', [

@@ -15,10 +15,12 @@ class Commission extends Model
     
     
     //relaciona os membros da comissão (Councilors - vereadores)
-    public function members(){
-        return $this->belongsTo(Councilor::class);
-
+    public function members()
+    {
+        return $this->BelongsToMany(Councilor::class,  'commission_member_functions');
     }
+   
+   
 
     // }
     //  //relaciona os função com comissão
