@@ -14,8 +14,8 @@
             </ul>
           </div>
           <div class="site-info">
-            <p>All copyrights reserved &copy; 2023 - Designed & Developed by <a rel="nofollow"
-                href="https://uideck.com">UIdeck</a></p>
+            <p>Todos os direitos reservado &copy; 2021 - {{$tenant->nome}}. <span>desenvolvido por:</span>  <a target="_blank" rel="nofollow"
+                href="https://fpstecnologia.com.br/">  FPS Tecnologia</a></p>
           </div>
         </div>
       </div>

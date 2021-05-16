@@ -87,12 +87,13 @@ class SiteController extends Controller
 
     public function noticiaShow($url){
         $post = $this->post->where('url', $url)->first();
-
+        $tenants = $this->tenant->where('id', 3)->get();
         if(!$post)
             return redirect()->back();
 
         return view('site.layouts.noticiaShow',[
-            'post' =>$post
+            'post' =>$post,
+            'tenants' =>  $tenants,
         ]);
     }
 }

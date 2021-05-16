@@ -27,9 +27,9 @@
 
   </head>
   <body>
-
+    @include('site.layouts.includes.menu')
     <!-- Header Section Start -->
-    <header id="hero-area" data-stellar-background-ratio="0.5">    
+    {{-- <header id="hero-area" data-stellar-background-ratio="0.5">    
       <div class="navbar-area bg-white">
         <div class="container">
           <div class="row">
@@ -74,7 +74,7 @@
           </div>
         </div> 
       </div>           
-    </header>
+    </header> --}}
     <!-- Header Section End --> 
     
     <!-- Blog Section Start  -->
