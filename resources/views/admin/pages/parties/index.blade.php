@@ -66,7 +66,7 @@
               <td>{{$party->id}}</td>              
               <td>{{$party->nome}}</td>
               <td>{{$party->sigla}}</td>
-              <td><img src="{{env('AWS_URL')."/{$party->img}" }}" alt="{{$party->nome}}" style="max-width: 100px;;"></td>
+              <td><img src="{{config('app.aws_url')."{$party->img}" }}" alt="{{$party->nome}}" style="max-width: 100px;;"></td>
               <td class="text-center">
                 <a href="{{route('parties.edit', $party->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 

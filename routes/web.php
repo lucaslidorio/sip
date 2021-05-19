@@ -218,7 +218,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard.index');
 */
 Route::get('/', [SiteController::class, 'index'])->name('site.home');
-//Route::get('/{url}', [SiteController::class, 'noticiaShow'])->name('noticias.show');
+Route::get('noticias/{url}', [SiteController::class, 'noticiaShow'])->name('noticias.show');
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');
 //     //toast('Success Toast','success');

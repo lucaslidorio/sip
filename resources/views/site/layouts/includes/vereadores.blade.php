@@ -10,7 +10,7 @@
       @foreach ($councilors as $vereador)
       <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="single-team mb-4">
-          <img src="{{env('AWS_URL')."/".$vereador->img }}" alt="">
+          <img src="{{config('app.aws_url').$vereador->img }}" alt="">
           <div class="team-details">
             <div class="overlay"></div>
             <div class="team-inner">

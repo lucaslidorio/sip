@@ -44,7 +44,7 @@
                       <label for="img" class="">Logo do partido:</label>
                       @isset($party)
                       <br>
-                          <img src="{{env('AWS_URL')."/{$party->img}" }}"" alt="{{$party->nome}}" style="max-width: 200px; padding-bottom: 20px">
+                          <img src="{{config('app.aws_url')."{$party->img}" }}"" alt="{{$party->nome}}" style="max-width: 200px; padding-bottom: 20px">
                       @endisset      
                         <div class="input-group">
                             <div class="input-group-prepend">

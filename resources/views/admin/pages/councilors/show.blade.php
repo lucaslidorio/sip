@@ -23,13 +23,12 @@
 @stop
 
 
-
 @section('content')
 
 <div class="card mb-3 mt-3">
   <div class="row no-gutters " style="padding:20px">
     <div class="col-md-2">
-      <img src="{{env('AWS_URL')."/".$councilor->img }}" class="card-img rounded" alt="{{$councilor->titulo}}" 
+      <img src="{{config('app.aws_url').$councilor->img }}" class="card-img rounded" alt="{{$councilor->titulo}}" 
       style="max-width: 240px; margim:10px;" >
     </div>
     <div class="col-md-5" style="padding-left: 15px" >     
@@ -65,7 +64,7 @@
           
         <p class="card-text"><strong>Partido Político : </strong> </p>
         <figure class="figure">
-          <img src="{{env('AWS_URL')."/".$councilor->party->img }}" class="figure-img img-fluid rounded" 
+          <img src="{{config('app.aws_url').$councilor->party->img }}" class="figure-img img-fluid rounded" 
           alt="{{$councilor->party->nome}}" style="max-width: 150px">
           <figcaption class="figure-caption">{{$councilor->party->sigla}} - {{$councilor->party->nome}}</figcaption>
         </figure>      

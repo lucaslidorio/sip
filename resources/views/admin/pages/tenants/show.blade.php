@@ -70,12 +70,12 @@
             
           <p class="card-text"><strong>Brasão : </strong> </p>
           <figure class="figure">
-            <img src="{{env('AWS_URL')."/{$tenant->brasao}" }}" class="figure-img img-fluid rounded" 
+            <img src="{{config('app.aws_url')"{$tenant->brasao}" }}" class="figure-img img-fluid rounded" 
             alt="{{$tenant->brasao}}" style="max-width: 150px">          
           </figure> 
           <p class="card-text"><strong>Bandeira : </strong> </p>
           <figure class="figure">
-            <img src="{{env('AWS_URL')."/{$tenant->bandeira}" }}" class="figure-img img-fluid rounded" 
+            <img src="{{config('app.aws_url')."{$tenant->bandeira}" }}" class="figure-img img-fluid rounded" 
             alt="{{$tenant->bandeira}}" style="max-width: 150px">          
           </figure>    
           

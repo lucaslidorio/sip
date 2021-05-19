@@ -32,8 +32,8 @@
                 <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa"> 
                     <div class="portfolio-item ">
                       <div class="shot-item text-center">
-                        <a class="overlay-portifolio overlay lightbox " href="{{env('AWS_URL')."/".$membro->img }}" >
-                          <img src="{{env('AWS_URL')."/".$membro->img }}" class="rounded-circle" alt="" style="width: 150px" >
+                        <a class="overlay-portifolio overlay lightbox " href="{{config('app.aws_url').$membro->img }}" >
+                          <img src="{{config('app.aws_url').$membro->img }}" class="rounded-circle" alt="" style="width: 150px" >
                           <i class="lnr lnr-plus-circle item-icon"></i>
                         </a>
                       </div>
@@ -73,8 +73,8 @@
                           <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                             <div class="portfolio-item display-inline">
                               <div class="shot-item text-center">
-                                <a class="overlay-portifolio overlay lightbox " href="{{env('AWS_URL')."/".$membros->members->img }}" >
-                                  <img src="{{env('AWS_URL')."/".$membros->members->img  }}" class="rounded-circle" alt="" style="width: 150px" >
+                                <a class="overlay-portifolio overlay lightbox " href="{{config('app.aws_url').$membros->members->img }}" >
+                                  <img src="{{config('app.aws_url').$membros->members->img  }}" class="rounded-circle" alt="" style="width: 150px" >
                                   <i class="lnr lnr-plus-circle item-icon"></i>
                                 </a>                          
                             </div>                                 

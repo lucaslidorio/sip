@@ -9,29 +9,29 @@
     <meta name="author" content="Grayrids">
     <title>Crystal - Bootstrap 4 Template</title>
 
-     <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{{url('site/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/font-awesome.min.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/line-icons.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/owl.carousel.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/owl.theme.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/nivo-lightbox.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/magnific-popup.cs')}}s">
-  <link rel="stylesheet" href="{{url('site/css/animate.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/menu_sideslide.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/main.css')}}">
-  <link rel="stylesheet" href="{{url('site/css/responsive.css')}}">
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{{url('../site/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/line-icons.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/owl.carousel.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/owl.theme.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/nivo-lightbox.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/magnific-popup.cs')}}s">
+<link rel="stylesheet" href="{{url('../site/css/animate.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/menu_sideslide.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/main.css')}}">
+<link rel="stylesheet" href="{{url('../site/css/responsive.css')}}">
 
-  <!-- Color CSS Styles  -->
-  <link rel="stylesheet" type="text/css" href="{{url('site/css/colors/preset.css')}}" media="screen" />
+<!-- Color CSS Styles  -->
+<link rel="stylesheet" type="text/css" href="{{url('../site/css/colors/preset.css')}}" media="screen" />
 
   </head>
   <body>
-    @include('site.layouts.includes.menu')
+    @include('site.layouts.includes.menuExterno')
     <!-- Header Section Start -->
-    {{-- <header id="hero-area" data-stellar-background-ratio="0.5">    
-      <div class="navbar-area bg-white">
-        <div class="container">
+    <header id="hero-area" data-stellar-background-ratio="0.5">    
+      {{-- <div class="navbar-area bg-white">
+        {{-- <div class="container">
           <div class="row">
             <div class="col-lg-12">
               <nav class="navbar navbar-expand-lg mainmenu-area">
@@ -43,7 +43,7 @@
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto w-100 justify-content-end">
                     <li class="nav-item">
                       <a class="nav-link" href="index.html">Home</a>
@@ -52,29 +52,35 @@
                       <a class="nav-link" href="single-post.html">Single Blog</a>
                     </li>
                   </ul>
-                </div>
+                </div> --}}
               </nav>
             </div>
           </div>
-        </div>
-      </div>
+        </div> --}}
+      </div> --}}
       <div class="container">      
         <div class="row justify-content-md-center">
           <div class="col-md-10">
             <div class="contents text-center">
-              <h1 class="wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">How to sell more templates and themes on ThemeForest</h1>
+              <h1 class="wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
+                {{$post->titulo}}
+              </h1>
               <div class="post-meta">
                 <ul>
-                  <li><i class="lnr lnr-calendar-full"></i> <a href="#">17 August 2023</a></li>
-                  <li><i class="lnr lnr-user"></i> <a href="">Crystal Bloger</a></li>
-                  <li><i class="lnr lnr-bubble"></i> <a href="#">2 Comments</a></li>
+                  <li><i class="lnr lnr-calendar-full"></i> <a href="#">{{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</a></li>
+                  <li><i class="lnr lnr-user"></i> <a href="">{{$post->user->name}}</a></li>
+                 
+                  <li>
+                    @foreach ($post->categories as $categoria)
+                    <i class="lnr lnr-bookmark"></i> <a href="#">{{$categoria->nome}}</a></li>
+                    @endforeach
                 </ul>
               </div>
             </div>
           </div>
         </div> 
       </div>           
-    </header> --}}
+    </header>
     <!-- Header Section End --> 
     
     <!-- Blog Section Start  -->
@@ -87,7 +93,10 @@
                 <img src="img/blog/blog-1-big.jpg" alt="">
               </div>
               <div class="post-content">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>               
+                @isset($post)
+                <p>{!!$post->conteudo!!}</p>  
+                @endisset
+                
               </div>
             </div>
           </div>
@@ -223,25 +232,25 @@
     </div>    
 
    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-   <script src="site/js/jquery-min.js"></script>
-   <script src="site/js/popper.min.js"></script>
-   <script src="site/js/bootstrap.min.js"></script>
-   <script src="site/js/classie.js"></script>
-   <script src="site/js/jquery.mixitup.js"></script>
-   <script src="site/js/nivo-lightbox.js"></script>
-   <script src="site/js/owl.carousel.js"></script>
-   <script src="site/js/jquery.stellar.min.js"></script>
-   <script src="site/js/jquery.nav.js"></script>
-   <script src="site/js/scrolling-nav.js"></script>
-   <script src="site/js/jquery.easing.min.js"></script>
-   <script src="site/js/wow.js"></script>
-   <script src="site/js/menu.js"></script>
-   <script src="site/js/jquery.counterup.min.js"></script>
-   <script src="site/js/jquery.magnific-popup.min.js"></script>
-   <script src="site/js/waypoints.min.js"></script>
-   <script src="site/js/form-validator.min.js"></script>
-   <script src="site/js/contact-form-script.js"></script>
-   <script src="site/js/main.js"></script>
+   <script src="../site/js/jquery-min.js"></script>
+   <script src="../site/js/popper.min.js"></script>
+   <script src="../site/js/bootstrap.min.js"></script>
+   <script src="../site/js/classie.js"></script>
+   <script src="../site/js/jquery.mixitup.js"></script>
+   <script src="../site/js/nivo-lightbox.js"></script>
+   <script src="../site/js/owl.carousel.js"></script>
+   <script src="../site/js/jquery.stellar.min.js"></script>
+   <script src="../site/js/jquery.nav.js"></script>
+   <script src="../site/js/scrolling-nav.js"></script>
+   <script src="../site/js/jquery.easing.min.js"></script>
+   <script src="../site/js/wow.js"></script>
+   <script src="../site/js/menu.js"></script>
+   <script src="../site/js/jquery.counterup.min.js"></script>
+   <script src="../site/js/jquery.magnific-popup.min.js"></script>
+   <script src="../site/js/waypoints.min.js"></script>
+   <script src="../site/js/form-validator.min.js"></script>
+   <script src="../site/js/contact-form-script.js"></script>
+   <script src="../site/js/main.js"></script>
     
   </body>
 </html>

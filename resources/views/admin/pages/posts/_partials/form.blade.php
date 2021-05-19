@@ -102,7 +102,7 @@
                 <label for="img_destaque" class="label-required">Imagem de Destaque:</label>
                 @isset($post)
                 <br>
-                    <img src="{{env('AWS_URL')."/{$post->img_destaque}" }}" alt="{{$post->titulo}}" style="max-width: 200px; padding-bottom: 20px">
+                    <img src="{{config('app.aws_url')."{$post->img_destaque}" }}" alt="{{$post->titulo}}" style="max-width: 200px; padding-bottom: 20px">
                  @endisset
                   <div class="input-group">
                       <div class="input-group-prepend">
@@ -160,7 +160,7 @@
             <div class="col-sm-12 imgDelete" id="galeria">                 ​           
                 @foreach ($post->imagens as $imagem)   
                     <figure class="figure opacity ">                      
-                            <img class="img-fluid img-thumbnail  " src="{{env('AWS_URL')."/{$imagem->img}" }}" alt="{{$post->titulo}}" style="max-width: 200px; " >
+                            <img class="img-fluid img-thumbnail  " src="{{config('app.aws_url')."{$imagem->img}" }}" alt="{{$post->titulo}}" style="max-width: 200px; " >
                             <figcaption class="figure-caption text-center">
                             <a href="{{route('posts.deleteImage', $imagem->id)}}" data-id="{{$imagem->id}}"
                                 class="btn  bg-gradient-danger  delete-confirm botao" data-toggle="tooltip" data-placement="top"  

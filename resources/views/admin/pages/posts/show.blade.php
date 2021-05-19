@@ -55,7 +55,7 @@
           </li>
           <li>
             <strong>Imagem Destaque:</strong><br>
-            <img src="{{env('AWS_URL')."/{$post->img_destaque}" }}" alt="{{$post->titulo}}" style="max-width: 200px">
+            <img src="{{config('app.aws_url')."{$post->img_destaque}" }}" alt="{{$post->titulo}}" style="max-width: 200px">
           </li>
           <li>
               <strong>Conteúdo:</strong> 
@@ -66,7 +66,7 @@
           <li>
             <strong>Galeria:</strong> <br>
             @foreach ($post->imagens as $imagem)
-              <img src="{{env('AWS_URL')."/{$imagem->img}" }}" alt="{{$post->titulo}}" style="max-width: 200px">         
+              <img src="{{config('app.aws_url')."{$imagem->img}" }}" alt="{{$post->titulo}}" style="max-width: 200px">         
             @endforeach
           </li>
 
