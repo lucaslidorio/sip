@@ -30,7 +30,7 @@ class CreateDirectorTableMemberFunctionsTable extends Migration
                     ->on('councilors')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
-            $table->foreign('functions_id')
+            $table->foreign('function_id')
                     ->references('id')
                     ->on('functions')
                     ->onDelete('cascade')

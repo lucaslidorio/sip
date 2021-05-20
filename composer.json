@@ -16,6 +16,7 @@
         "laracasts/flash": "^3.2",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "league/flysystem-aws-s3-v3": "~1.0",
         "realrashid/sweet-alert": "^3.2"
     },
     "require-dev": {
@@ -24,7 +25,6 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.1",
         "laravel/sail": "^1.0.1",
-        "league/flysystem-aws-s3-v3": "~1.0",
         "lucascudo/laravel-pt-br-localization": "^1.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
