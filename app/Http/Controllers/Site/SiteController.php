@@ -56,23 +56,12 @@ class SiteController extends Controller
         $councilors = $this->councilor->where('atual', 1 )->get();
        /// $now = Carbon::now();
    
-       $posts = $this->post->where('data_expiracao', null)->orWhere('data_expiracao', '>', '2021-05-12')->get();
-               // $dadosComissao = [];
-        // for ($i=0; $i < count($commissions) ; $i++) { 
-        //     $dadosComissao[$i] ['nome']  = $commissions[$i]->nome;
-        //     $dadosComissao[$i] ['id']  = $commissions[$i]->id;
-        //     for ($j=0; $j < count($commissions[$i]->members) ; $j++) {                 
-        //         $dadosComissao[$i] [$j] ['membros']  = $commissions[$i]->members; 
-        //         for ($k=0; $k < count($commissions[$i]->members[$j]->functionCommission) ; $k++) { 
-        //             $dadosComissao[$i] [$j] [$k] ['funcao']  = $commissions[$i]->members[$k]->functionCommission;
-        //         }
-        //     }
-        // }
+       //recupera as noticias e mostra na tela as 6 utimas
+       $posts = $this->post->where('data_expiracao', null)->orWhere('data_expiracao', '>', '2021-05-12')
+       ->orderBy('created_at', 'DESC')
+       ->limit(6)
+       ->get();
 
-
-
-        
-        //dd($commissions);
         return view('site.layouts.app',[
             'tenants' => $tenants,
             'legislatures' => $legislatures,
@@ -86,14 +75,36 @@ class SiteController extends Controller
     }
 
     public function noticiaShow($url){
+
         $post = $this->post->where('url', $url)->first();
-        $tenants = $this->tenant->where('id', 3)->get();
+        
         if(!$post)
             return redirect()->back();
 
+        $tenants = $this->tenant->where('id', 3)->get(); 
+        $posts = $this->post->where('secretary_id',$post->secretary_id)
+                  ->where(function ($query) {
+                        $query->where('data_expiracao', null)
+                          ->orWhere('data_expiracao', '>=', Carbon::now()->format('d-m-Y'));                          
+                  })
+                  ->orderBy('created_at', 'DESC')
+                  ->limit(4)
+                  ->get();
+        
         return view('site.layouts.noticiaShow',[
             'post' =>$post,
+            'posts' =>$posts,           
             'tenants' =>  $tenants,
         ]);
+    }
+
+    public function atasIndex(){
+        $tenants = $this->tenant->where('id', 3)->get(); 
+
+        return view('site.layouts.atas',[
+                         
+            'tenants' =>  $tenants
+        ]);
+
     }
 }

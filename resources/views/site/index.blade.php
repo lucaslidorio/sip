@@ -60,11 +60,12 @@
                     <a class="nav-link page-scroll text-nowrap" href="#camara">A Câmara</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#features">Features</a>
+                    <a class="nav-link page-scroll" href="#legislacao">Legislação</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#portfolios">Works</a>
+                    <a class="nav-link page-scroll" href="#features">Features</a>
                   </li>
+                  
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#pricing">Pricing</a>
                   </li>
@@ -163,7 +164,7 @@
   <!-- Header Section End -->
 
   <!-- Services Section Start -->
-  <section id="camara" class="section">
+  <section id="legislacao" class="section">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">Our

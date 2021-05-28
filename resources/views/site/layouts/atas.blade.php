@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,7 +7,10 @@
     <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Grayrids">
-    <title>Crystal - Bootstrap 4 Template</title>
+    @foreach ($tenants as $tenant)      
+    @endforeach
+    <title>{{$tenant->nome}}</title>
+   
 
     <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="{{url('../site/css/bootstrap.min.css')}}">
@@ -31,98 +34,25 @@
   <body>
     @include('site.layouts.includes.menuExterno')
     <!-- Header Section Start -->
-    <header id="hero-area" data-stellar-background-ratio="0.5">       
     
-      <div class="container">      
-        <div class="row justify-content-md-center">
-          <div class="col-md-10">
-            <div class="contents text-center">
-              <h1 class="wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-                {{$post->titulo}}
-              </h1>
-              <div class="post-meta">
-                <ul>
-                  <li><i class="lnr lnr-calendar-full"></i> <a href="#">{{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</a></li>
-                  <li><i class="lnr lnr-user"></i> <a href="">{{$post->user->name}}</a></li>
-                 
-                  <li>
-                    <i class="lnr lnr-bookmark"></i>
-                    @foreach ($post->categories as $categoria)
-                     <a href="#">{{$categoria->nome}}</a></li>
-                    @endforeach
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div> 
-      </div>           
-    </header>
-    <!-- Header Section End --> 
-    
-    <!-- Blog Section Start  -->
-    <div id="blog-single">
+    <section id="legislacao" class="section">
       <div class="container">
-        <div class="row justify-content-md-center">
-          <div class="col-md-12">
-            <div class="blog-post">
-              <div class="post-thumb">
-                <img src="{{config('app.aws_url').$post->img_destaque }}" class="img-fluid" alt="Responsive image" style="max-height: 500px" alt="{{$post->titulo}}">
-              </div>
-              <div class="post-content">
-                @isset($post)
-                <p>{!!$post->conteudo!!}</p>  
-                @endisset
-                
-              </div>            
-              <div class="container mt-5 mb-5">
-                @foreach ($post->imagens as $imagem)         
-                  <a class="galeria_post" href="{{config('app.aws_url')."{$imagem->img}" }}" title="">
-                    {{-- data-lcl-txt = "Descrição" data-lcl-author="Lucas" --}}
-                    <img src="{{config('app.aws_url')."{$imagem->img}" }}" class="" style= "width:200px" >
-                  </a>  
-                 @endforeach
-              </div>          
-            </div>
-          </div>
-          <div class="container">
-            <div class="col-md-12">
-              <h3 class="text-center">Notícias Relacionadas</h3>
-            </div>
-          
-          <div class="row">
-            @foreach ($posts as $post)
-            <div class="col-md-3  mr-3">
-              <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title"></h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{$post->titulo}}</h6>
-                  <a href="single-post.html">
-                    <img src="{{config('app.aws_url').$post->img_destaque }}" alt="" style="max-height: 120px;">
-                  </a><br>
-                  
-                  <div class="meta-tags">
-                    <span class="date"><i class="lnr lnr-calendar-full"></i>
-                      {{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</span>
-                    {{-- <span class="comments"><a href="#"><i class="lnr lnr-bubble"></i> 24 Comments</a></span> --}}
-                </div>
-                <a href="{{route('noticias.show', $post->url)}}" class="btn btn-common btn-rm">Leia Mais</a>
-            
-                </div>
-              </div>
-            </div>
-                
-            @endforeach
-          </div>
-        </div> 
-             
-          
+        <div class="section-header">
+          <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
+            Atas<span> Públicas</span></h2>
+          <hr class="lines wow zoomIn" data-wow-delay="0.3s">
+          <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
+            Atas das Sessões Ordinárias, Extraodinárias, Solene e Audiências Públicas
+          </p>
         </div>
-        
+        <div class="row align-items-center ">
+    
+        </div>
+       
       </div>
-     
-    </div>
-    <!-- Blog Section End  -->
-
+    </section>
+    <!-- Services Section End -->
+ 
   
     <!-- Footer Section Start -->
     <footer>          

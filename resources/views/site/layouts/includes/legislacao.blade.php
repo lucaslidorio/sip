@@ -1,0 +1,82 @@
+<!-- Services Section Start -->
+<section id="legislacao" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
+          <span>Legislação</span></h2>
+        <hr class="lines wow zoomIn" data-wow-delay="0.3s">
+        <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">Leis, Regimentos, Atos oficiais e Publicações
+        </p>
+      </div>
+      <div class="row align-items-center ">
+  
+        <div class="col-md-4 col-sm-6">
+        <a href="{{route('atas.index')}}" class="text-decoration-none">
+          <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+            <div class="icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h4 class="font-weight-bold text-dark" >Atas</h4>
+            <p class="text-dark">Atas das Sessões Ordinárias, Extraodinárias, Solene e Audiências Públicas
+            </p>
+            
+          </div>
+        </a>
+        </div>
+    
+    
+        <div class="col-md-4 col-sm-6">
+            <a href="#" class="text-decoration-none">
+              <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+                <div class="icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h4 class="font-weight-bold text-dark" >Licitações</h4>
+                <p class="text-dark">Licitações realizada <br> pelo Poder Legislativo
+                </p>
+                
+              </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <a href="#" class="text-decoration-none">
+              <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+                <div class="icon">
+                    <i class="fas fa-address-book"></i>
+                </div>
+                <h4 class="font-weight-bold text-dark" >Ordem do dia</h4>
+                <p class="text-dark">Ordem do dia <br> Poder Legislativo
+                </p>
+                
+              </div>
+            </a>
+        </div>
+     <div class="col-md-4 col-sm-6">
+            <a target="__blank" href="https://transparencia.seringueiras.ro.leg.br/" class="text-decoration-none">
+              <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+                <div class="icon">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h4 class="font-weight-bold text-dark" >Portal da Transparência</h4>
+                <p class="text-dark">Acesso à informação <br> Links do Serviço de Informação ao Cidadão.
+                </p>
+                
+              </div>
+            </a>
+        </div>
+        
+        <div class="col-md-4 col-sm-6">
+          <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+            <div class="icon">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            <h4>Projeto de lei</h4>
+            <p>proposta normativa submetida à deliberação 
+            de um órgão legislativo, com o objetivo de produzir uma lei
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Services Section End -->
