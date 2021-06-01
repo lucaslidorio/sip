@@ -10,8 +10,11 @@ use App\Models\DirectorTable;
 use App\Models\DirectorTableMemberFunctions;
 use App\Models\Functions;
 use App\Models\Legislature;
+use App\Models\Minute;
 use App\Models\Post;
+use App\Models\Section;
 use App\Models\Tenant;
+use App\Models\TypeMinutes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,7 +23,8 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 class SiteController extends Controller
 {
     private $tenant, $legislature, $councilor, $function,
-    $directorTable, $commission, $post;
+    $directorTable, $commission, $post, $minute,
+    $section, $type;
     public function __construct(Tenant $tenant, 
                                 Legislature $legislature,
                                 Councilor $councilor,
@@ -28,6 +32,9 @@ class SiteController extends Controller
                                 DirectorTable $directorTable,
                                 Commission $commission,
                                 Post $post,
+                                Minute $minute,
+                                Section $section,
+                                TypeMinutes $type,
                                 )
     {
         $this->tenant = $tenant;
@@ -37,6 +44,9 @@ class SiteController extends Controller
         $this->directorTable= $directorTable;
         $this->commission = $commission;
         $this->post = $post;
+        $this->minute =  $minute;
+        $this->section = $section;
+        $this->type = $type;
 
     }
 
@@ -53,6 +63,7 @@ class SiteController extends Controller
             $id = $comissao->id;
             $membrosComissao [] = CommissionMembers::with('members', 'functions')->where('commission_id', $id)->get(); 
         }      
+
         $councilors = $this->councilor->where('atual', 1 )->get();
        /// $now = Carbon::now();
    
@@ -71,6 +82,24 @@ class SiteController extends Controller
             'councilors' => $councilors,
             'posts' => $posts,
             
+        ]);
+    }
+
+    public function vereadoresShow($nome){
+
+        $vereador = $this->councilor->where('nome', $nome)->first();
+        
+        if(!$vereador)
+            return redirect()->back();
+
+        $tenants = $this->tenant->where('id', 3)->get(); 
+        $councilors = $this->councilor->where('atual', 1 )->get();
+        
+        
+        return view('site.layouts.vereadoresShow',[                
+            'tenants' =>  $tenants,
+            'vereador' => $vereador,
+            'councilors' =>$councilors,
         ]);
     }
 
@@ -98,12 +127,38 @@ class SiteController extends Controller
         ]);
     }
 
-    public function atasIndex(){
-        $tenants = $this->tenant->where('id', 3)->get(); 
+    public function atasIndex(Request $request){
+        $tenants = $this->tenant->where('id', 3)->get();
+        $types = $this->type->get();        
+        $councilors = $this->councilor->where('atual', 1)->get();
+        $legislatures = $this->legislature->get();
+        $sections = $this->section->get();
 
-        return view('site.layouts.atas',[
-                         
-            'tenants' =>  $tenants
+
+        $filters = $request->except('_token');
+       
+    
+        $minutes = $this->minute        
+        ->when($request->type_minute_id, function($query, $role){
+            return $query->where('type_minute_id', $role);
+        })
+        ->when($request->legislature_id, function($query, $role){
+            return $query->where('legislature_id', $role);
+        })   
+        ->when($request->legislature_section_id, function($query, $role){
+            return $query->where('legislature_section_id', $role);
+        })         
+        ->paginate(10);
+
+        return view('site.layouts.atas',[                         
+            'tenants' =>  $tenants,
+            'minutes' => $minutes,
+            'councilors' =>$councilors,
+            'legislatures' => $legislatures,
+            'sections' => $sections,
+            'types' => $types,
+            'filters' => $filters,
+                
         ]);
 
     }

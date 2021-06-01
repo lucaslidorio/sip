@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" >
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -25,28 +25,171 @@
 <link rel="stylesheet" href="{{url('../site/css/main.css')}}">
 <link rel="stylesheet" href="{{url('../site/css/responsive.css')}}">
 <link rel="stylesheet" href="{{url('../site/css/lc_lightbox.min.css')}}">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- Color CSS Styles  -->
 <link rel="stylesheet" type="text/css" href="{{url('../site/css/colors/preset.css')}}" media="screen" />
 
   </head>
-  <body>
+  <body class="container-fluid">
     @include('site.layouts.includes.menuExterno')
     <!-- Header Section Start -->
     
-    <section id="legislacao" class="section">
+    <section id="legislacao" class="section mw-100 " >
+     
       <div class="container">
         <div class="section-header">
           <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
             Atas<span> Públicas</span></h2>
           <hr class="lines wow zoomIn" data-wow-delay="0.3s">
           <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-            Atas das Sessões Ordinárias, Extraodinárias, Solene e Audiências Públicas
+            Atas das Sessões Ordinárias, Extraodinárias, Solene e Audiências Públicas            
           </p>
+        </div>        
+        <div class="row">
+          <div class="col-12">
+            <div class="card bg-light">
+              <div class="card-header">
+                <div class="row">
+                  <h3>Atas</h3>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form action="{{route('atas.index')}}" method="get">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <label for="sessao">Tipo:</label>
+                            <select class="custom-select" id="type_minute_id" name="type_minute_id">
+                              <option value ="" selected>Selecione uma opção</option>
+                              @foreach ($types as $type)                          
+                                  <option value="{{$type->id}}"
+                                    {{request()->query('type_minute_id') == $type->id ? 'selected' : '' }} >
+
+                                    {{$type->nome}}             
+                                  </option>
+                              @endforeach  
+                            </select> 
+                        </div>
+                        <div class="col-md-3">
+                          <label for="sessao">Legislatura:</label>
+                            <select class="custom-select" id="legislature_id" name="legislature_id">
+                              <option value ="" selected>Selecione uma opção</option>
+                              @foreach ($legislatures as $legislature)                          
+                              <option value="{{$legislature->id}}"  
+                                {{request()->query('legislature_id') == $legislature->id ? 'selected' : '' }}>
+                               {{$legislature->descricao}}          
+                              </option>
+                              @endforeach 
+                            </select> 
+                        </div>
+
+                        <div class="col-md-4">
+                          <label for="sessao">Sessão Legislativa:</label>
+                            <select class="custom-select" id="legislature_section_id" name="legislature_section_id">
+                              <option value ="" selected>Selecione uma opção</option>
+                              @foreach ($sections as $section)                          
+                              <option value="{{$section->id}}"  
+                                {{request()->query('legislature_section_id') == $section->id ? 'selected' : '' }}>
+                               {{$section->descricao}} - {{$section->ano}}           
+                              </option>
+                              @endforeach 
+                            </select> 
+                        </div>
+                        
+                        <div class="col-sm-2">
+                          <br>
+                          <button class="btn   btn-primary" type="submit">
+                            <i class="fas fa-filter"></i>
+                            Filtrar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                 
+                </div>
+              </div>
+             
+              <div class="card-body ">
+                <div class="accordion" id="ata">
+                  <div class="row pl-4 font-weight-bold" >
+                    <div class="col-md-3" > <h6>Ata</h6> </div>
+                    <div class="col-md-3"><h6>Sessão</h6></div>
+                    <div class="col-md-3"><h6>Legislatura</h6> </div>
+                    <div class="col-md-3"><h6>Sessão Legislativa</h6></div>
+                  </div>
+                  @foreach ($minutes as $ata)
+                  <div class="card">
+                    <div class="card-header" id="headingOne"> 
+                                          
+                        <a class="btn  btn-link btn-block text-left text-dark" type="button" 
+                          data-toggle="collapse" data-target="#{{$ata->id}}" aria-expanded="false" aria-controls="collapseOne">
+                            <div class="row">
+                              <div class="col-3">{{$ata->nome}}</div>
+                              <div class="col-3 block">{{$ata->type->nome}}</div>
+                              <div class="col-3">{{$ata->legislature->descricao}}</div>
+                              <div class="col-3">{{$ata->section->descricao}} - {{$ata->section->ano}}</div>
+                            </div>                           
+                          </a>
+                      
+                    </div>
+                
+                    <div id="{{$ata->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#ata">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <p class="card-text"><strong>Nome: </strong> {{$ata->nome}}</p>  
+                            <p class="card-text"><strong>Tipo: </strong>  {{$ata->type->nome}}</p>
+                            <p class="card-text"><strong>Legislatura: </strong> {{$ata->legislature->descricao}}</p>
+                            <p class="card-text"><strong>Sessão: </strong> {{$ata->section->descricao}}</p>
+                            <p class="card-text"><strong>Descrição: </strong> {{$ata->descricao}}</p>
+                        
+                          </div>
+                          <div class="col-sm-6">                            
+                            <p class="card-text"><strong>Vereadores Presentes: </strong></p>
+                                  
+                            <p>
+                              @foreach ($ata->councilors as $minuteCouncilor)                                           
+                              {{$minuteCouncilor->nome}}        
+                              @endforeach 
+                            </p>                            
+
+                          </div>
+                        </div>
+                        <div class="row ">
+                        <div class="col-sm-12 "> 
+                          <p><strong>Anexos:</strong></p>                             ​           
+                          @foreach ($ata->attachments as $attachment)            
+                              
+                              <a href="{{config('app.aws_url')."{$attachment->anexo}" }}" target="_blank" class="mb-2 text-reset" >
+                                  <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
+                                  <span class="mr-2"> {{$attachment->nome_original}}</span>
+                              </a> 
+                                     
+                          @endforeach           
+                       </div>
+                       </div>
+                      </div>
+                    </div>
+                  </div>              
+                     
+                  @endforeach                 
+                </div> 
+              
+              </div>              
+                <div class="card-footer">
+                  @if (!empty($filters))
+                  {!!$minutes->appends($filters)->links()!!}
+                  @else
+                  {!!$minutes->links()!!}
+                  @endif
+               
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row align-items-center ">
-    
+         
         </div>
        
       </div>

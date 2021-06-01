@@ -38,7 +38,7 @@ class MinuteController extends Controller
 
     public function index()
     {
-        $minutes = $this->repository->paginate(10);
+        $minutes = $this->repository->paginate(3);
         return view('admin.pages.minutes.index', compact('minutes'));
     }
     

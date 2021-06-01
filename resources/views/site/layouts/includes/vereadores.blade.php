@@ -10,15 +10,15 @@
       @foreach ($councilors as $vereador)
       <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="single-team mb-4">
-          <img src="{{config('app.aws_url').$vereador->img }}" alt="">
+         <a href="#"> <img src="{{config('app.aws_url').$vereador->img }}" alt=""></a>
           <div class="team-details">
             <div class="overlay"></div>
             <div class="team-inner">
-              <h4 class="team-title">{{$vereador->nome}} - {{$vereador->party->sigla}}</h4>
-              <ul class="social-list">
+              <a href="{{route('vereadores.show', $vereador->nome)}}" class=""><h4 class="team-title">  {{$vereador->nome}} - {{$vereador->party->sigla}}</h4></a>
+              {{-- <ul class="social-list">
                 <li class="facebook"><a target="_blank" href="{{$vereador->facebook}}"><i class="fa fa-facebook"></i></a></li>
                 <li class="instagram"><a target="_blank" href="{{$vereador->instagram}}"><i class="fa fa-instagram"></i></a></li>
-              </ul>
+              </ul> --}}
             </div>
           </div>
         </div>

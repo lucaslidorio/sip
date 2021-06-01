@@ -219,7 +219,9 @@ Route::get('/dashboard', function () {
 */
 Route::get('/', [SiteController::class, 'index'])->name('site.home');
 Route::get('noticias/{url}', [SiteController::class, 'noticiaShow'])->name('noticias.show');
+Route::get('vereadores/{nome}', [SiteController::class, 'vereadoresShow'])->name('vereadores.show');
 Route::get('atas', [SiteController::class, 'atasIndex'])->name('atas.index');
+
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');
 //     //toast('Success Toast','success');

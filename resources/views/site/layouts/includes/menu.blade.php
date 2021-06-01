@@ -25,14 +25,15 @@
                     <a class="nav-link page-scroll" href="#slider-area">Home</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#legislacao">Legislação</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link page-scroll text-nowrap" href="#sobre">A Câmara</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#features">Features</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#legislacao">Legislação</a>
-                  </li>
+                  
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#pricing">Pricing</a>
                   </li>

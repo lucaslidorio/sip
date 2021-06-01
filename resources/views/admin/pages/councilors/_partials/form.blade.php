@@ -300,7 +300,7 @@
               </div>
               @isset($councilor)
               <br>
-                  <img src="{{env('AWS_URL')."/{$councilor->img}" }}" alt="{{$councilor->nome}}" style="max-width: 100px; padding-bottom: 20px">
+                  <img src="{{config('app.aws_url')."{$councilor->img}" }}" alt="{{$councilor->nome}}" style="max-width: 100px; padding-bottom: 20px">
               @endisset
           </div>
           
