@@ -7,7 +7,10 @@
     <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Grayrids">
-    <title>Crystal - Bootstrap 4 Template</title>
+    @foreach ($tenants as $tenant)      
+    @endforeach
+    <title>{{$tenant->nome}}</title>
+   
 
     <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="{{url('../site/css/bootstrap.min.css')}}">

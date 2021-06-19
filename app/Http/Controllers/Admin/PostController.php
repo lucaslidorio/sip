@@ -48,7 +48,7 @@ class PostController extends Controller
         
         $dadosPost = new Post();
         //Pega os dados dos input especificos do post
-        $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque');
+        $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque', 'destaque');
         //pega usuário autenticado       
         $user = auth()->user();
         $dadosPost['user_id'] = $user->id;  
@@ -128,7 +128,7 @@ class PostController extends Controller
             redirect()->back();
         } 
 
-         $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque');
+         $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque', 'destaque');
        
          //verifica se existe um arquivo e se é do tipo image e faz o upload 
          //antes de fazer salvar, remove a imagem já existente    

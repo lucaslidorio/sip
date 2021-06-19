@@ -13,8 +13,10 @@ use App\Models\Legislature;
 use App\Models\Minute;
 use App\Models\Post;
 use App\Models\Section;
+use App\Models\Session;
 use App\Models\Tenant;
 use App\Models\TypeMinutes;
+use App\Models\TypeSession;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,7 +26,7 @@ class SiteController extends Controller
 {
     private $tenant, $legislature, $councilor, $function,
     $directorTable, $commission, $post, $minute,
-    $section, $type;
+    $section, $type, $session, $type_session;
     public function __construct(Tenant $tenant, 
                                 Legislature $legislature,
                                 Councilor $councilor,
@@ -35,6 +37,8 @@ class SiteController extends Controller
                                 Minute $minute,
                                 Section $section,
                                 TypeMinutes $type,
+                                Session $session,
+                                TypeSession $type_session,
                                 )
     {
         $this->tenant = $tenant;
@@ -47,6 +51,9 @@ class SiteController extends Controller
         $this->minute =  $minute;
         $this->section = $section;
         $this->type = $type;
+        $this->session = $session;
+        $this->type_session = $type_session;
+        
 
     }
 
@@ -65,9 +72,19 @@ class SiteController extends Controller
         }      
 
         $councilors = $this->councilor->where('atual', 1 )->get();
-       /// $now = Carbon::now();
-   
-       //recupera as noticias e mostra na tela as 6 utimas
+        
+        $now = Carbon::now(); //pega a data atual
+       //recupera os post em destaque (slide principal)
+        $posts_destaque = $this->post
+        ->where('destaque', '1')
+        ->where('data_expiracao', null)        
+        ->orWhere('data_expiracao', '>', $now)        
+        ->orderBy('created_at', 'DESC')
+        ->limit(6)
+        ->get();
+
+       
+       //recupera as noticias e mostra na tela as 6 utimas para a galeria de noticias
        $posts = $this->post->where('data_expiracao', null)->orWhere('data_expiracao', '>', '2021-05-12')
        ->orderBy('created_at', 'DESC')
        ->limit(6)
@@ -80,6 +97,7 @@ class SiteController extends Controller
             'membrosComissao' => $membrosComissao,
             'commissions' => $commissions,
             'councilors' => $councilors,
+            'posts_destaque' => $posts_destaque,
             'posts' => $posts,
             
         ]);
@@ -103,6 +121,43 @@ class SiteController extends Controller
         ]);
     }
 
+    public function noticiasTodas(){
+        $now = Carbon::now(); //pega a data atual
+        //recupera os post em destaque (slide principal)
+         $posts_destaque = $this->post
+         ->where('destaque', '1')
+         ->where('data_expiracao', null)        
+         ->orWhere('data_expiracao', '>', $now)        
+         ->orderBy('created_at', 'DESC')
+         ->limit(6)
+         ->get();
+
+        $tenants = $this->tenant->where('id', 3)->get();
+        $now = Carbon::now(); //pega a data atual
+        $posts = $this->post->where('data_expiracao', null)->orWhere('data_expiracao', '>', $now)
+       ->orderBy('created_at', 'DESC')
+       ->paginate(10);
+
+        return view('site.layouts.noticiasTodas',[
+            'posts' =>$posts,           
+            'tenants' =>  $tenants,
+            'posts_destaque' => $posts_destaque,
+        ]);
+    }
+    public function noticiasTodasPesquisar(Request $request)
+    {
+         $pesquisar = $request->except('_token');
+         //dd($pesquisar);
+         $posts = $this->post->noticiasTodasPesquisar($request->pesquisa);
+
+         $tenants = $this->tenant->where('id', 3)->get(); 
+        return view('site.layouts.noticiasTodas', [
+            'posts' => $posts,
+            'pesquisar' => $pesquisar,
+            'tenants' =>  $tenants,
+        ]);
+    }
+    
     public function noticiaShow($url){
 
         $post = $this->post->where('url', $url)->first();
@@ -125,6 +180,25 @@ class SiteController extends Controller
             'posts' =>$posts,           
             'tenants' =>  $tenants,
         ]);
+    }
+
+    public function sessoesIndex(){
+         $sessoes = $this->session->all();
+         $tenants = $this->tenant->where('id', 3)->get();
+         $tipos_sessao = $this->type_session->all();
+         $legislaturas = $this->legislature->all();
+
+
+         return view('site.layouts.sessoes',[
+            'sessoes' => $sessoes,
+            'tenants' =>  $tenants,
+            'tipos_sessao' => $tipos_sessao,
+            'legislaturas' => $legislaturas,
+
+            
+            
+        ]);
+
     }
 
     public function atasIndex(Request $request){

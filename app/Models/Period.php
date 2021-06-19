@@ -9,11 +9,12 @@ class Period extends Model
 {
     use HasFactory;
 
-    protected $table = 'legislative_periods';
-    protected $fillable =['id', 'legislature_section_id', 'descricao','ano'];
+    protected $table = 'periods';
+    protected $fillable =['id', 'nome',];
 
     public function section()
     {
         return $this->belongsTo(Period::class, 'legislature_section_id');
     }
+    
 }

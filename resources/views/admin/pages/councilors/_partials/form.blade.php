@@ -330,8 +330,8 @@
                 <select class="custom-select {{ $errors->has('atual') ? 'is-invalid' : '' }}" 
                     id="atual" name="atual">
                     <option value="" selected >Selecione uma opção</option>
-                    <option value="1"> Sim </option>
-                    <option value="0"> Não </option>
+                    <option value="1" {{isset($councilor) && $councilor->atual == '1' ? 'selected': ''}}> Sim </option>
+                    <option value="0" {{isset($councilor) && $councilor->atual == '0' ? 'selected': ''}}> Não </option>
                 </select>
                 @error('atual')
                     <small class="invalid-feedback">

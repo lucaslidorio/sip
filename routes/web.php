@@ -14,7 +14,9 @@ use App\Http\Controllers\Admin\LegislatureController;
 use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Admin\SecretaryController;
+use App\Http\Controllers\Admin\SessionController;
 use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AtaController;
@@ -42,12 +44,21 @@ Route::middleware(['auth'])->group(function () {
                 
                 Route::prefix('legislativo')
                     ->namespace('Legislativo')
-                    ->group(function(){
-
-
+                    ->group(function(){                      
                   
+
+                    //Rotas de Lesgislaturas x Vereadores
+                    Route::get('/legislatures/councilors/{id}', [LegislatureController::class, 'councilorsDestroy'])->name('legislatureCouncilorsDestroy.destroy');
+                    Route::post('/legislatures/{id}/councilors', [LegislatureController::class, 'councilorsStore'])->name('legislatureCouncilorsStore.store');
+                    Route::get('/legislatures/{id}/councilors/create', [LegislatureController::class, 'councilorsCreate'])->name('legislatureCouncilorsCreate.create');
+                    Route::get('/legislatures/{id}/councilors', [LegislatureController::class, 'councilors'])->name('legislatureCouncilors.index');
+                                   
+                    Route::get('/legislatures/show/{id}', [LegislatureController::class, 'show'])->name('legislatures.show');
+                    //Route::get('/legislatures/create', [LegislatureController::class, 'create'])->name('legislatures.create');
+                    Route::get('/legislatures/{id}', [LegislatureController::class, 'destroy'])->name('legislatures.destroy');
+                    Route::post('/legislatures', [LegislatureController::class, 'store'])->name('legislatures.store');
                     Route::get('/legislatures', [LegislatureController::class, 'index'])->name('legislatures.index');
-                  
+
                     //Rotas de Vereadores, admin/legislativo/councilors
                     Route::any('/councilors/search', [CouncilorController::class, 'search'])->name('councilors.search');
                     Route::put('/councilors/{id}', [CouncilorController::class, 'update'])->name('councilors.update');
@@ -57,8 +68,28 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/councilors/{id}', [CouncilorController::class, 'destroy'])->name('councilors.destroy');                 
                     Route::post('/councilors', [CouncilorController::class, 'store'])->name('councilors.store');
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
+                    //Rotas de Sessão             
+                    
+                    Route::any('/sessions/search', [SessionController::class, 'search'])->name('sessions.search');
+                    Route::put('/sessions/{id}', [SessionController::class, 'update'])->name('sessions.update');
+                    Route::get('/sessions/{id}/presentCreate', [SessionController::class, 'createPresentCouncilor'])->name('sessionPresentCreate.create');
+                    Route::post('/sessions/{id}/presentStore', [SessionController::class, 'storePresentCouncilor'])->name('sessionPresentStore.store');
+                    Route::get('/sessions/{id}/presentEdit', [SessionController::class, 'editPresentCouncilor'])->name('sessionPresentEdit.edit');
+                    Route::put('/sessions/{id}/presentUpdate', [SessionController::class, 'updatePresentCouncilor'])->name('sessionPresentUpdate.update');
+                    Route::get('/sessions/{id}/attachmentCreate', [SessionController::class, 'createAttachment'])->name('sessionAttachmentCreate.create');
+                    Route::post('/sessions/attachmentStore', [SessionController::class, 'storeAttachment'])->name('sessionAttachmentStore.store');
+                    Route::get('/sessions/attachmentDelete/{id}', [SessionController::class, 'deleteAttachment'])->name('sessionAttachmentDelete.delete');
+                    Route::get('/sessions/show/{id}', [SessionController::class, 'show'])->name('sessions.show');
+                    Route::get('/sessions/{id}/edit', [SessionController::class, 'edit'])->name('sessions.edit');
+                    Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
+                    //Route::get('/sessions/{id}', [SessionController::class, 'destroy'])->name('sessions.destroy');
+                    Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
+                    Route::get('/sessions', [SessionController::class, 'index'])->name('sessions.index');
 
-            });
+
+        
+           
+                });
             //Rotas de orgãos
             Route::any('/tenants/search', [TenantController::class, 'search'])->name('tenants.search');
             Route::put('/tenants/{id}', [TenantController::class, 'update'])->name('tenants.update');
@@ -69,19 +100,28 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/tenants', [TenantController::class, 'store'])->name('tenants.store');
             Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
 
+            //Rotas de proposituras             
+            Route::any('/propositions/search', [PropositionController::class, 'search'])->name('propositions.search');
+            Route::put('/propositions/{id}', [PropositionController::class, 'update'])->name('propositions.update');
+            Route::get('/propositions/deleteAttachment/{id}', [PropositionController::class, 'deleteAttachment'])->name('propositions.deleteAttachment');
+            Route::get('/propositions/show/{id}', [PropositionController::class, 'show'])->name('propositions.show');
+            Route::get('/propositions/{id}/edit', [PropositionController::class, 'edit'])->name('propositions.edit');
+            Route::get('/propositions/create', [PropositionController::class, 'create'])->name('propositions.create');
+            Route::get('/propositions/{id}', [PropositionController::class, 'destroy'])->name('propositions.destroy');
+            Route::post('/propositions', [PropositionController::class, 'store'])->name('propositions.store');
+            Route::get('/propositions', [PropositionController::class, 'index'])->name('propositions.index');
 
 
-
-           //Rotas de Atas             
-           Route::any('/minutes/search', [MinuteController::class, 'search'])->name('minutes.search');
-           Route::put('/minutes/{id}', [MinuteController::class, 'update'])->name('minutes.update');
-           Route::get('/minutes/deleteAttachment/{id}', [MinuteController::class, 'deleteAttachment'])->name('minutes.deleteAttachment');
-           Route::get('/minutes/show/{id}', [MinuteController::class, 'show'])->name('minutes.show');
-           Route::get('/minutes/{id}/edit', [MinuteController::class, 'edit'])->name('minutes.edit');
-           Route::get('/minutes/create', [MinuteController::class, 'create'])->name('minutes.create');
-           Route::get('/minutes/{id}', [MinuteController::class, 'destroy'])->name('minutes.destroy');
-           Route::post('/minutes', [MinuteController::class, 'store'])->name('minutes.store');
-           Route::get('/minutes', [MinuteController::class, 'index'])->name('minutes.index');
+            //Rotas de Atas             
+            Route::any('/minutes/search', [MinuteController::class, 'search'])->name('minutes.search');
+            Route::put('/minutes/{id}', [MinuteController::class, 'update'])->name('minutes.update');
+            Route::get('/minutes/deleteAttachment/{id}', [MinuteController::class, 'deleteAttachment'])->name('minutes.deleteAttachment');
+            Route::get('/minutes/show/{id}', [MinuteController::class, 'show'])->name('minutes.show');
+            Route::get('/minutes/{id}/edit', [MinuteController::class, 'edit'])->name('minutes.edit');
+            Route::get('/minutes/create', [MinuteController::class, 'create'])->name('minutes.create');
+            Route::get('/minutes/{id}', [MinuteController::class, 'destroy'])->name('minutes.destroy');
+            Route::post('/minutes', [MinuteController::class, 'store'])->name('minutes.store');
+            Route::get('/minutes', [MinuteController::class, 'index'])->name('minutes.index');
 
 
 
@@ -217,10 +257,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard.index');
 */
+
 Route::get('/', [SiteController::class, 'index'])->name('site.home');
+
+Route::get('noticias/todas', [SiteController::class, 'noticiasTodas'])->name('noticias.todas');
+Route::any('noticias/pesquisar', [SiteController::class, 'noticiasTodasPesquisar'])->name('noticiasTodas.pesquisar');
 Route::get('noticias/{url}', [SiteController::class, 'noticiaShow'])->name('noticias.show');
 Route::get('vereadores/{nome}', [SiteController::class, 'vereadoresShow'])->name('vereadores.show');
 Route::get('atas', [SiteController::class, 'atasIndex'])->name('atas.index');
+Route::get('sessoes', [SiteController::class, 'sessoesIndex'])->name('sessoes.index');
 
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');

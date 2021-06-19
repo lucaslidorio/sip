@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Comissões')
+@section('title', 'Atas')
 @section('content_header')
 @include('sweetalert::alert')
 

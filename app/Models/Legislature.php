@@ -23,5 +23,8 @@ class Legislature extends Model
         return $this->hasMany(Biennium::class, 'legislature_id');
     }
     
+    public function councilors(){
+        return $this->belongsToMany(Councilor::class, 'legislature_councilors');
+    }
 
 }

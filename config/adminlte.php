@@ -268,6 +268,11 @@ return [
             'url'  => 'admin/functions',
             'icon' => 'fas fa-plus-square',
         ],
+        [
+            'text' => 'Proposituras',
+            'url'  => 'admin/propositions',
+            'icon' => 'fas fa-file-invoice',
+        ],
 
         [
             'text' => 'Comissões',
@@ -306,6 +311,11 @@ return [
         ],                  
         
         ['header' => 'LEGISLATIVO'],
+        [
+            'text' => 'Sessão',
+            'url'  => 'admin/legislativo/sessions',
+            'icon' => 'fas fa-handshake',
+        ],
         [
             'text' => 'Partidos',
             'url'  => 'admin/parties',

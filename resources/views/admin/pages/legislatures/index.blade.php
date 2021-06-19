@@ -22,141 +22,104 @@
 @stop
 
 @section('content')
-
-
-
-
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"></h3>
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body">
-        <!-- we are adding the accordion ID so Bootstrap's collapse plugin detects it -->
-        @foreach ($legislatures as $legislature)
-        <div id="accordion">
-          <div class="card  {{ $loop->first ? 'card-primary' : 'card-secondary' }}">
-            <div class="card-header">
-              <h4 class="card-title w-100">                
-                  <a class="d-inline w-100" data-toggle="collapse" href="#collapseOne">
-                     {{$legislature->descricao}}  
-                    <span class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  
-                      DATA INÍCIO {{\Carbon\Carbon::parse($legislature->data_inicio)->format('d/m/Y')}} 
-                      &nbsp; &nbsp;   
-                      DATA  FIM  {{\Carbon\Carbon::parse($legislature->data_fim)->format('d/m/Y')}} 
-                  </span>      
-                  </a>                     
-                             
-              </h4>             
-            </div>
-            <div id="collapseOne" class="collapse  {{ $loop->first ? 'show' : 'border-light' }}" data-parent="#accordion">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="alert alert-light" role="alert">
-                      @foreach($legislature->bienniuns as $bienniun)
-                         <h6 class="mr-3">{{$bienniun->descricao}}
-                            <strong class=" ml-3 mr-3 "> DATA INÍCIO </strong>
-                            {{\Carbon\Carbon::parse($bienniun->data_inicio)->format('d/m/Y')}}
-                            <strong class="ml-3 mr-3 "> DATA FIM </strong>
-                            {{\Carbon\Carbon::parse($bienniun->data_fim)->format('d/m/Y')}}
-                          </h6>                    
-                        
-                          @endforeach
-                    </div>
-                       
-                  </div>
-                </div> 
-
-                
-               <table class="table table-bordered table-sm">
-                  <thead>
-                    <tr>
-                      <th scope="col">SESSÃO</th>
-                      <th scope="col">PERÍODO</th>                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($legislature->sections as $section)
-                    <tr>                      
-                        <td rowspan="2">{{$section->descricao}}</td>                      
-                      
-                        <td>                          
-                          @foreach ($section->periods as $period)
-                          <p>{{$period->descricao}}</p>                                                                         
-                          @endforeach
-                        </td>                
-                    </tr>
-                    <tr>                 
-                                   
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>      
-             
-            </div>
-              <div class="card-footer">
-                @if ($loop->first)
-                <span class="text-monospace">* Legislalatura Virgente</span>
-                    
-                @endif
-              </div>
-            </div>
-          </div>
-         
-         
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-8">
+          
+          {{-- <a href="{{route('legislatures.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
+          title="Cadastrar nova comissão" ><i
+              class="fas fa-plus"></i> Novo</a> --}}
         </div>
-        @endforeach
-      </div>
-      <!-- /.card-body -->
+        <div class="col-md-4">
+          <div class="card-tools">
+            {{-- <form action="{{route('legislatures.search')}}" method="post" class="form form-inline  float-right">
+              @csrf
+              <div class="input-group input-group-sm" style="width: 250px;">
+                <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Objetivo">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form> --}}
+          </div>
+        </div>
+      </div> 
+
     </div>
-    <!-- /.card -->
-  </div>  
+   
+ 
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Descrição</th>              
+            <th>Ordem</th>
+            <th>Data Início</th>
+            <th>Data Fim</th>
+            <th>Atual</th>
+                        
+            <th width="20%" class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($legislatures as $legislature)
+              
+         
+          <tr class="{{$legislature->atual == 1 ? 'text-primary' : ''}}">
+            <td>{{$legislature->descricao}}</td>              
+            <td>{{$legislature->ordem}}ª</td>
+            <td>{{\Carbon\Carbon::parse($legislature->data_inicio)->format('d/m/Y')}}</td>
+            <td>{{\Carbon\Carbon::parse($legislature->data_fim)->format('d/m/Y')}}</td>
+            <td>{{$legislature->atual == 1 ? 'Sim' : 'Não'}}</td>
+            
+              <td class="text-center">
+                <a href="{{route('legislatures.show', $legislature->id)}}" data-id="{{$legislature->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver Detalhes">
+                  <i class="fas fa-address-book" ></i>
+                </a>
+
+              <a href="{{route('legislatureCouncilors.index', $legislature->id )}}" data-id="{{$legislature->id}}"
+                class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                title="Vereadores">
+                <i class="fas fa-users" ></i>
+              </a>
+
+              {{-- <a href="{{route('legislatures.destroy', $legislature->id)}}" data-id="{{$legislature->id}}"
+                class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                title="Excluir">
+                <i class="fas fa-trash-alt" ></i>
+              </a> --}}
+              
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+      @if (isset($pesquisar))
+      {!!$legislatures->appends($pesquisar)->links()!!}
+      @else
+      {!!$legislatures->links()!!}
+      @endif
+    </div>
+  </div>
+  <!-- /.card -->
+</div>
+
+
+
 
   
 
 
 
 
-            {{-- @foreach ($legislatures as $legislature)
-            <div class="card {{ $loop->first ? 'border-success' : 'border-light' }}" style="border:1px solid;">
-              <h5 class="card-header "><strong> {{$legislature->descricao}} </strong></h5>
-              <div class="card-body ">
-                          
-                <table class="table table-bordered table-sm">
-                  <thead>
-                    <tr>
-                      <th scope="col">SESSÃO</th>
-                      <th scope="col">PERÍODO</th>                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($legislature->sections as $section)
-                    <tr>                      
-                        <td rowspan="2">{{$section->descricao}}</td>                      
-                      
-                        <td>
-                          
-                          @foreach ($section->periods as $period)
-                          <p>{{$period->descricao}}</p>                                               
-                          @endforeach
-                        </td>                
-                    </tr>
-                    <tr>                 
-                                   
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>                
-              </div>
-            </div>
-                        
-           
-            @endforeach --}}
-            {{-- {{ $loop->index % 2 == 0 ? 'text-white bg-success' : 'text-white bg-danger' }} --}}
 @stop
 
 @section('js')

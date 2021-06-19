@@ -18,6 +18,7 @@ class Post extends Model
         'url',
         'conteudo',
         'img_destaque',
+        'destaque',
         'data_publicacao',
         'data_expiracao',
     ];
@@ -36,5 +37,16 @@ class Post extends Model
 
     public function imagens(){
         return $this->hasMany(PostImg::class);
+    }
+
+    public function noticiasTodasPesquisar($pesquisar = null)
+    {
+        //dd($pesquisar);
+        $resultado = $this
+                    ->where('titulo', 'LIKE', "%{$pesquisar}%")
+                    ->orWhere('conteudo', 'LIKE', "%{$pesquisar}%")
+                    ->paginate(10);
+                    
+        return $resultado;
     }
 }

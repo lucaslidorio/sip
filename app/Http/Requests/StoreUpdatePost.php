@@ -30,6 +30,7 @@ class StoreUpdatePost extends FormRequest
             'data_expiracao' => ['nullable','date_format:Y-m-d','after_or_equal:today'],
             'categories' =>['required_without_all'],
             'img_destaque' => ['required','image','max:1024' ],
+            'destaque' => ['required'],
             'conteudo' => ['required', 'min:10'],
             //'img_galeria.*' => ['image|max:9000'] 
 

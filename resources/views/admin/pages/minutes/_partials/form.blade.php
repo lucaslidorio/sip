@@ -91,7 +91,7 @@
                     <option value="{{$period->id}}"
                         {{ (isset($minute) && $period->id == $minute->period->id ? 'selected' : (old('legislative_period_id') == $period->id ? 'selected' : '')) }} 
                           >
-                          {{$period->descricao}} - {{$period->ano}}           
+                          {{$period->nome}}          
                         </option>
                     @endforeach 
                 </select>

@@ -9,7 +9,19 @@
         </p>
       </div>
       <div class="row align-items-center ">
-  
+        <div class="col-md-4 col-sm-6">
+          <a href="{{route('sessoes.index')}}" class="text-decoration-none">
+            <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+              <div class="icon">
+                  <i class="fas fa-handshake"></i>
+              </div>
+              <h4 class="font-weight-bold text-dark" >sessoes</h4>
+              <p class="text-dark">Sessões Ordinárias, Extraodinárias, Solene e Audiências Públicas
+              </p>
+              
+            </div>
+          </a>
+          </div>
         <div class="col-md-4 col-sm-6">
         <a href="{{route('atas.index')}}" class="text-decoration-none">
           <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">

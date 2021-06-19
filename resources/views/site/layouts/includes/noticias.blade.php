@@ -1,3 +1,9 @@
+<style>
+    #btnVer:hover{
+   color: white !important;   
+   }
+</style>
+
 <section id="blog" class="section">
   <div class="container">
       <div class="section-header">
@@ -7,10 +13,8 @@
       </div>
       <div class="row">
         
-        @foreach ($posts as $noticia)        
-     
-            
-          <div class="col-lg-4 col-md-6 blog-item">
+        @foreach ($posts as $noticia)   
+        <div class="col-lg-4 col-md-6 blog-item">
             <div class="blog-item-wrapper mb-5">
                 <div class="blog-item-img">
                     <a href="single-post.html">
@@ -32,10 +36,14 @@
         </div>
             
         @endforeach
-
-       
-     
+        
+      </div>
+      <div class="row text-center">
+       <div class="col text-center font-weid">
           
+        <a href="{{route('noticias.todas')}}" class="btn btn-outline-primary btn-lg text-primary"
+          id="btnVer" >Ver Todas as Noticias</a>
+       </div>
       </div>
   </div>
 </section>

@@ -19,9 +19,7 @@
             <a class="filter btn btn-common" data-filter=".comissoes">
               Comissões
             </a>
-            <a class="filter btn btn-common" data-filter=".print">
-              Print
-            </a>
+            
           </div>
           <!-- Portfolio Controller/Buttons Ends-->
         </div>            

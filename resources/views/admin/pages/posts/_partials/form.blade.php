@@ -94,16 +94,23 @@
         @enderror  
         </div>
       </div> 
-             
+      <div class="row">
+        @isset($post)
+        <br>
+        <figure class="figure">
+            <figcaption class="figure-caption">Imagem de destaque atual.</figcaption>
+            <img src="{{config('app.aws_url')."{$post->img_destaque}" }}" alt="{{$post->titulo}}"
+             style="max-width: 200px;">
+          
+        </figure>    
+        @endisset
+          </div>       
       
       <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-8">
             <div class="form-group">                  
                 <label for="img_destaque" class="label-required">Imagem de Destaque:</label>
-                @isset($post)
-                <br>
-                    <img src="{{config('app.aws_url')."{$post->img_destaque}" }}" alt="{{$post->titulo}}" style="max-width: 200px; padding-bottom: 20px">
-                 @endisset
+               
                   <div class="input-group">
                       <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
@@ -118,6 +125,22 @@
                 </div>
             </div>
           </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+                <label for="destaque" class="label-required">Post em Destaque</label>
+                <select class="custom-select {{ $errors->has('destaque') ? 'is-invalid' : '' }}" 
+                    id="destaque" name="destaque">
+                    <option value=""  >Selecione uma opção</option>                    
+                    <option value="1" {{isset($post) && $post->destaque == '1' ? 'selected': ''}} > Sim </option>
+                    <option value="0" {{isset($post) && $post->destaque == '0' ? 'selected': ''}}> Não </option>
+                </select>
+                @error('destaque')
+                    <small class="invalid-feedback">
+                        {{ $message }}
+                    </small>
+                @enderror
+            </div>
+        </div>
       </div>          
     
     <div class="row border-danger">
