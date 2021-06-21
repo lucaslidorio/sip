@@ -189,6 +189,7 @@ class SiteController extends Controller
          $legislaturas = $this->legislature->all();
 
 
+
          return view('site.layouts.sessoes',[
             'sessoes' => $sessoes,
             'tenants' =>  $tenants,

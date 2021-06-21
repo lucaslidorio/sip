@@ -57,7 +57,7 @@
 
             <div class="card">
                 <div class="card-header bg-transparent">
-                    <form action="{{ route('atas.index') }}" method="get">
+                    <form action="{{ route('sessoes.index') }}" method="get">
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="sessao">Tipo:</label>
