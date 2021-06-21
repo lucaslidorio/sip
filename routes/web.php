@@ -266,6 +266,7 @@ Route::get('noticias/{url}', [SiteController::class, 'noticiaShow'])->name('noti
 Route::get('vereadores/{nome}', [SiteController::class, 'vereadoresShow'])->name('vereadores.show');
 Route::get('atas', [SiteController::class, 'atasIndex'])->name('atas.index');
 Route::get('sessoes', [SiteController::class, 'sessoesIndex'])->name('sessoes.index');
+Route::get('sessoes/{nome}', [SiteController::class, 'sessoesShow'])->name('sessões.show');
 
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');

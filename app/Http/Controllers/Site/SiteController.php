@@ -201,6 +201,7 @@ class SiteController extends Controller
 
     }
 
+
     public function atasIndex(Request $request){
         $tenants = $this->tenant->where('id', 3)->get();
         $types = $this->type->get();        
