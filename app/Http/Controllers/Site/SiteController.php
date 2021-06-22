@@ -182,12 +182,24 @@ class SiteController extends Controller
         ]);
     }
 
-    public function sessoesIndex(){
+    public function sessoesIndex(Request $request){
          $sessoes = $this->session->all();
          $tenants = $this->tenant->where('id', 3)->get();
          $tipos_sessao = $this->type_session->all();
          $legislaturas = $this->legislature->all();
+         $councilors = $this->councilor->all();
 
+
+         $filters = $request->except('_token');
+
+         $sessoes = $this->session
+         ->when($request->type_session_id, function($query, $role){
+            return $query->where('type_session_id', $role);
+        })
+        ->when($request->legislature_id, function($query, $role){
+            return $query->where('legislature_id', $role);
+        })
+        ->paginate(10);
 
 
          return view('site.layouts.sessoes',[
@@ -195,8 +207,8 @@ class SiteController extends Controller
             'tenants' =>  $tenants,
             'tipos_sessao' => $tipos_sessao,
             'legislaturas' => $legislaturas,
-
-            
+            'councilors' => $councilors,
+            'filters' => $filters,           
             
         ]);
 
@@ -224,7 +236,7 @@ class SiteController extends Controller
         ->when($request->legislature_section_id, function($query, $role){
             return $query->where('legislature_section_id', $role);
         })         
-        ->paginate(10);
+        ->paginate(3);
 
         return view('site.layouts.atas',[                         
             'tenants' =>  $tenants,

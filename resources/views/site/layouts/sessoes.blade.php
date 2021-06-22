@@ -105,11 +105,14 @@
                     <div class="accordion" id="sessao">
 
                         <div class="row pl-4 font-weight-bold">
-                            <div class="col-md-3">
-                                <h6>Ata</h6>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <h6>Sessão</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Data</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Tipo</h6>
                             </div>
                             <div class="col-md-3">
                                 <h6>Legislatura</h6>
@@ -124,17 +127,18 @@
                               <div class="card">
                                     <div class="card-header " style="background:white;" id="headingOne">
                                         <a class="btn  btn-link btn-block text-left text-dark" type="button"
+                                        style="margin-left: 0px; padding-left: 0px"
                                             data-toggle="collapse" data-target="#{{ $sessao->id }}"
                                             aria-expanded="false" aria-controls="collapseOne">
                                             <div class="row">
-                                                <div class="col-3">{{ $sessao->nome }}</div>
-                                                <div class="col-3 block">{{ $sessao->typeSession->nome }}</div>
+                                                <div class="col-2">{{ $sessao->nome }}</div>
+                                                <div class="col-2">{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}}</div>
+                                                <div class="col-2 block">{{ $sessao->typeSession->nome }}</div>
                                                 <div class="col-3">{{ $sessao->legislature->descricao }}</div>
                                                 <div class="col-3">{{ $sessao->section->descricao }} -
                                                     {{ $sessao->section->ano }}</div>
                                             </div>
                                         </a>
-
                                     </div>
 
                                     <div id="{{ $sessao->id }}" class="collapse" aria-labelledby="headingOne"
@@ -142,43 +146,69 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <p class="card-text"><strong>Nome: </strong>
-                                                        {{ $sessao->descricao }}</p>
-                                                    <p class="card-text"><strong>Tipo: </strong>
-                                                        {{ $sessao->typeSession->nome }}</p>
-                                                    <p class="card-text"><strong>Legislatura: </strong>
-                                                        {{ $sessao->legislature->descricao }}</p>
-                                                    <p class="card-text"><strong>Sessão: </strong>
-                                                        {{ $sessao->section->descricao }}</p>
-                                                    <p class="card-text"><strong>Descrição: </strong>
-                                                        {{ $sessao->descricao }}</p>
-
+                                                  <p class="card-text"><strong>Nome: </strong> {{$sessao->nome}}</p>  
+                                                  <p class="card-text"><strong>Tipo: </strong> {{$sessao->typeSession->nome}}</p>  
+                                                  <p class="card-text"><strong>Data: </strong>{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}}</p>
+                                                  <p class="card-text"><strong>Hora: </strong>  {{$sessao->hora}}</p>        
+                                                  <p class="card-text"><strong>Legislatura: </strong> {{$sessao->legislature->descricao}}</p>
+                                                  <p class="card-text"><strong>Sessão Legislativa: </strong> {{$sessao->section->descricao}}</p>
+                                                  <p class="card-text"><strong>Periódo Legislativo: </strong> {{$sessao->period->nome}}</p>
+                                                  <p class="card-text"><strong>Descrição: </strong> {{$sessao->descricao}}</p>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <p class="card-text"><strong>Vereadores Presentes: </strong></p>
-
-                                                    <p>
-                                                        {{-- @foreach ($sessao->councilors as $sessaoCouncilor)                                           
-                          {{$sessaoCouncilor->nome}}        
-                          @endforeach --}}
-                                                    </p>
-
-                                                </div>
-                                            </div>
-                                            <div class="row ">
-                                                <div class="col-sm-12 ">
-                                                    <p><strong>Anexos:</strong></p> ​
-                                                    @foreach ($sessao->attachments as $attachment)
-
-                                                        <a href="{{ config('app.aws_url') . "{$attachment->anexo}" }}"
-                                                            target="_blank" class="mb-2 text-reset">
-                                                            <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
-                                                            <span class="mr-2"> {{ $attachment->nome_original }}</span>
-                                                        </a>
-
+                                                     <h5 class="font-weight-bold"> Vereadores Presentes </h5>
+                                          
+                                                     @foreach ($sessao->legislature->councilors; as $councilor)          
+                                                     <div class="icheck-primary">
+                                                        <input type="checkbox" class="lista font-weight-bold" name="councilors[]" value="{{$councilor->id}}" id="{{$councilor->id}}"
+                                                         
+                                                                @foreach ($sessao->councilors_present as $sessionCouncilor)                                           
+                                                                        {{$councilor->id == $sessionCouncilor->id ? 'checked' : ''}}        
+                                                                @endforeach               
+                                                       
+                                                                disabled/>
+                                                      <label class="check font-weight-bold" for="{{$councilor->id}}"> {{$councilor->nome}}</label>     
+                                                    </div> 
+                                                          
                                                     @endforeach
+                                               
                                                 </div>
-                                            </div>
+                                              </div> 
+                                              <table class="table  table-hover table-borderless border-top mt-2 table-sm ">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Anexo</th>
+                                                    <th scope="col">Descrição</th>
+                                                    <th scope="col">Tipo de documento</th>
+                                                    
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  @foreach ($sessao->attachments as $attachment) 
+                                                  <tr>
+                                                      <th scope="row">{{$loop->iteration}}</th>
+                                                    <td>
+                                                       <a href="{{config('app.aws_url')."{$attachment->anexo}" }}" 
+                                                        target="_blank" class="mb-2 text-reset"
+                                                        data-toggle="tooltip" data-placement="top" 
+                                                            title="Clique para abrir o documento" >
+                                                          <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
+                                                          <span class="mr-2"> {{$attachment->nome_original}}</span>                
+                                                      </a>
+                                                    </td>
+                                                    <td>
+                                                      {{$attachment->descricao}}
+                                                    </td>
+                                                    <td>
+                                                      <span class="mr-2"> {{$attachment->type_document->nome}}</span> 
+                                                    </td>
+                                                    </tr>
+                                                  @endforeach  
+                                                
+                                                </tbody>
+                                              </table>
+                                       
                                         </div>
                                     </div>
                                 </div>
@@ -193,32 +223,18 @@
 
 
                 </div>
+                <div class="card-footer" style="background:white;">
+                    @if (!empty($filters))
+                    {!!$sessoes->appends($filters)->links()!!}
+                    @else
+                    {!!$sessoes->links()!!}
+                    @endif
+                </div>
             </div>
 
         </div>
     </section>
     <!-- Services Section End -->
-    {{-- Inicion Modal --}}
-    <div class="modal fade" id="sessaoShow" tabindex="-1" aria-labelledby="sessaoShow" aria-hidden="true">
-        <div class=" modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer Section Start -->
     <footer>
         <div class="container">

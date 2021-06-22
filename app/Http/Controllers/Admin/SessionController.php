@@ -54,7 +54,7 @@ class SessionController extends Controller
     public function index()
     {
         //dd('chegou no index');
-        $sessions = $this->repository->paginate(3);
+        $sessions = $this->repository->paginate(10);
         
         
         return view('admin.pages.sessions.index', compact('sessions'));  
