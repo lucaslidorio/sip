@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\AttachmentSession;
 use App\Models\Commission;
 use App\Models\CommissionMembers;
 use App\Models\Councilor;
@@ -15,9 +16,11 @@ use App\Models\Post;
 use App\Models\Section;
 use App\Models\Session;
 use App\Models\Tenant;
+use App\Models\TypeDocument;
 use App\Models\TypeMinutes;
 use App\Models\TypeSession;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PhpParser\Node\Expr\AssignOp\Concat;
@@ -26,7 +29,8 @@ class SiteController extends Controller
 {
     private $tenant, $legislature, $councilor, $function,
     $directorTable, $commission, $post, $minute,
-    $section, $type, $session, $type_session;
+    $section, $type, $session, $type_session,
+    $attachment_session, $type_document;
     public function __construct(Tenant $tenant, 
                                 Legislature $legislature,
                                 Councilor $councilor,
@@ -39,6 +43,8 @@ class SiteController extends Controller
                                 TypeMinutes $type,
                                 Session $session,
                                 TypeSession $type_session,
+                                AttachmentSession $attachment_session,
+                                TypeDocument $type_document,
                                 )
     {
         $this->tenant = $tenant;
@@ -53,6 +59,8 @@ class SiteController extends Controller
         $this->type = $type;
         $this->session = $session;
         $this->type_session = $type_session;
+        $this->attachment_session = $attachment_session;
+        $this->type_document = $type_document;
         
 
     }
@@ -189,7 +197,6 @@ class SiteController extends Controller
          $legislaturas = $this->legislature->all();
          $councilors = $this->councilor->all();
 
-
          $filters = $request->except('_token');
 
          $sessoes = $this->session
@@ -201,53 +208,50 @@ class SiteController extends Controller
         })
         ->paginate(10);
 
-
          return view('site.layouts.sessoes',[
             'sessoes' => $sessoes,
             'tenants' =>  $tenants,
             'tipos_sessao' => $tipos_sessao,
             'legislaturas' => $legislaturas,
             'councilors' => $councilors,
-            'filters' => $filters,           
-            
+            'filters' => $filters,         
         ]);
-
     }
+    public function documentosSessoesPesquisar(Request $request){
 
-
-    public function atasIndex(Request $request){
+        $sessoes = $this->session->all();
         $tenants = $this->tenant->where('id', 3)->get();
-        $types = $this->type->get();        
-        $councilors = $this->councilor->where('atual', 1)->get();
-        $legislatures = $this->legislature->get();
-        $sections = $this->section->get();
-
-
-        $filters = $request->except('_token');
+        $tipos_sessao = $this->type_session->all();
+        $legislaturas = $this->legislature->all();
+        $tipos_documento = $this->type_document->all();      
        
-    
-        $minutes = $this->minute        
-        ->when($request->type_minute_id, function($query, $role){
-            return $query->where('type_minute_id', $role);
-        })
-        ->when($request->legislature_id, function($query, $role){
-            return $query->where('legislature_id', $role);
-        })   
-        ->when($request->legislature_section_id, function($query, $role){
-            return $query->where('legislature_section_id', $role);
-        })         
-        ->paginate(3);
+      
+        $anexos_ordem_dia = $this->attachment_session
+        //->when('type_document_id', $request->type_document_id)
+        ->when($request->type_document_id, function($query, $role) {
+            return $query->where('type_document_id', $role);
+        })  
+        ->when($request->data_inicio, function($query, $role) {
+            return $query->where('created_at', '>=', $role);
+        })  
+        ->when($request->data_fim, function($query, $role) {
+            return $query->where('created_at', '<=', $role);
+        })  
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10);        
+   
+        $filters = $request->except('_token');
+            return view('site.layouts.documentosSessoes',[
+           'sessoes' => $sessoes,
+           'tenants' =>  $tenants,         
+           'filters' => $filters,  
+           'tipos_sessao' => $tipos_sessao,
+           'legislaturas' => $legislaturas, 
+           'anexos_ordem_dia' => $anexos_ordem_dia,
+           'tipos_documento' => $tipos_documento, 
+           
+       ]);
+   }
 
-        return view('site.layouts.atas',[                         
-            'tenants' =>  $tenants,
-            'minutes' => $minutes,
-            'councilors' =>$councilors,
-            'legislatures' => $legislatures,
-            'sections' => $sections,
-            'types' => $types,
-            'filters' => $filters,
-                
-        ]);
-
-    }
+   
 }
