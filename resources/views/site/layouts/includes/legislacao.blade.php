@@ -1,5 +1,5 @@
 <!-- Services Section Start -->
-<section id="legislacao" class="section">
+<section id="legislacao" class="section" >
     <div class="container">
       <div class="section-header">
         <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
@@ -23,7 +23,7 @@
           </a>
           </div>
         <div class="col-md-4 col-sm-6">
-        <a href="{{route('atas.index')}}" class="text-decoration-none">
+        <a href="{{route('documentosSessoes.pesquisar')}}" class="text-decoration-none">
           <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
             <div class="icon">
                 <i class="fas fa-book-open"></i>
@@ -38,20 +38,19 @@
     
     
         <div class="col-md-4 col-sm-6">
-            <a href="#" class="text-decoration-none">
+            <a  target="_blank" href="https://transparencia.seringueiras.ro.leg.br/portaltransparencia/licitacoes" class="text-decoration-none">
               <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
                 <div class="icon">
                     <i class="fas fa-file-invoice-dollar"></i>
                 </div>
                 <h4 class="font-weight-bold text-dark" >Licitações</h4>
                 <p class="text-dark">Licitações realizada <br> pelo Poder Legislativo
-                </p>
-                
+                </p>               
               </div>
             </a>
         </div>
         <div class="col-md-4 col-sm-6">
-            <a href="#" class="text-decoration-none">
+            <a href="{{route('documentosSessoes.pesquisar')}}" class="text-decoration-none">
               <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
                 <div class="icon">
                     <i class="fas fa-address-book"></i>
@@ -78,16 +77,20 @@
         </div>
         
         <div class="col-md-4 col-sm-6">
-          <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
-            <div class="icon">
+          <a target="" href="{{route('proposituraPesquisar.pesquisar')}}" class="text-decoration-none">
+            <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+              <div class="icon">
                 <i class="fas fa-balance-scale"></i>
+              </div>
+              <h4 class="font-weight-bold text-dark" >Projetos de lei</h4>
+              <p class="text-dark">proposta normativa submetida à deliberação 
+                de um órgão legislativo, com o objetivo de produzir uma lei.
+              </p>
+              
             </div>
-            <h4>Projeto de lei</h4>
-            <p>proposta normativa submetida à deliberação 
-            de um órgão legislativo, com o objetivo de produzir uma lei
-            </p>
-          </div>
-        </div>
+          </a>
+      </div>
+        
       </div>
     </div>
   </section>

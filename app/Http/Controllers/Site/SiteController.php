@@ -13,24 +13,44 @@ use App\Models\Functions;
 use App\Models\Legislature;
 use App\Models\Minute;
 use App\Models\Post;
+use App\Models\ProceedingSituation;
+use App\Models\Proposition;
 use App\Models\Section;
 use App\Models\Session;
 use App\Models\Tenant;
 use App\Models\TypeDocument;
 use App\Models\TypeMinutes;
+use App\Models\TypeProposition;
 use App\Models\TypeSession;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use PhpParser\Node\Expr\AssignOp\Concat;
+//use Mail;
+use App\Mail\contato;
 
 class SiteController extends Controller
 {
-    private $tenant, $legislature, $councilor, $function,
-    $directorTable, $commission, $post, $minute,
-    $section, $type, $session, $type_session,
-    $attachment_session, $type_document;
+    private 
+    $tenant, 
+    $legislature, 
+    $councilor, 
+    $function,
+    $directorTable, 
+    $commission, 
+    $post, 
+    $minute,
+    $section,
+    $type, 
+    $session, 
+    $type_session,
+    $attachment_session, 
+    $type_document, 
+    $proposition, 
+    $type_proposition,
+    $proceeding_situation;
     public function __construct(Tenant $tenant, 
                                 Legislature $legislature,
                                 Councilor $councilor,
@@ -45,6 +65,9 @@ class SiteController extends Controller
                                 TypeSession $type_session,
                                 AttachmentSession $attachment_session,
                                 TypeDocument $type_document,
+                                Proposition $proposition,
+                                TypeProposition $type_proposition,
+                                ProceedingSituation $proceeding_situation,
                                 )
     {
         $this->tenant = $tenant;
@@ -61,6 +84,9 @@ class SiteController extends Controller
         $this->type_session = $type_session;
         $this->attachment_session = $attachment_session;
         $this->type_document = $type_document;
+        $this->proposition = $proposition;
+        $this->type_proposition = $type_proposition;
+        $this->proceeding_situation = $proceeding_situation;
         
 
     }
@@ -97,6 +123,8 @@ class SiteController extends Controller
        ->orderBy('created_at', 'DESC')
        ->limit(6)
        ->get();
+        $sessoes_count =  $this->session->count();
+        $prositura_count = $this->proposition->count();
 
         return view('site.layouts.app',[
             'tenants' => $tenants,
@@ -107,6 +135,8 @@ class SiteController extends Controller
             'councilors' => $councilors,
             'posts_destaque' => $posts_destaque,
             'posts' => $posts,
+            'sessoes_count' => $sessoes_count,
+            'prositura_count' => $prositura_count,
             
         ]);
     }
@@ -252,6 +282,62 @@ class SiteController extends Controller
            
        ]);
    }
+   public function proposituraPesquisar(Request $request){
+    $tenants = $this->tenant->where('id', 3)->get();
+    $tipos_propositura = $this->type_proposition->all();
+    $situacoes = $this->proceeding_situation->all();
+    $tipos_documento = $this->type_document->all();  
 
+    $filters = $request->except('_token');
+    $proposituras = $this->proposition
+    ->when($request->type_proposition_id, function($query, $role) {
+        return $query->where('type_proposition_id', $role);
+    })
+    ->when($request->proceeding_situation_id, function($query, $role) {
+        return $query->where('proceeding_situation_id', $role);
+    }) 
+    ->paginate(10);
+    
+    return view('site.layouts.proposituras',[
+        'tenants' => $tenants,
+        'tipos_propositura' => $tipos_propositura,
+        'situacoes' => $situacoes,
+        'tipos_documento' => $tipos_documento, 
+        'proposituras' => $proposituras,
+        'filters' => $filters,
+    ]);  
+   }
+   public function proposituraShow($id){
+
+    $propositura =  $this->proposition->where('id', $id)->first();
+    
+    if(!$propositura)
+        return redirect()->back();
+    $tenants = $this->tenant->where('id', 3)->get(); 
    
+    
+    return view('site.layouts.proposituraShow',[
+        'propositura' =>$propositura,              
+        'tenants' =>  $tenants,
+    ]);
 }
+
+    public function contato(Request $request){
+      //formulário de contato  
+        $contato = new ContactForm($request);
+        
+        try {
+            $contato->sendMail();
+        } catch (\Throwable $th) {
+            toast("Erro ao enviar e-mail! {$th->getMessage()}",'error')->toToast('top') ;
+            return back();
+        }    
+        toast('E-mail enviado com sucesso!','success')->toToast('top') ;
+        return back();
+
+    }
+}
+
+ 
+   
+

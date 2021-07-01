@@ -11,7 +11,7 @@ class AttachmentSession extends Model
     protected $table ='attachment_sessions';
 
     protected $fillable =['user_id', 'session_id', 'type_document_id', 'anexo', 'nome_original','descricao'];
-
+  
 
     public function session()
     {

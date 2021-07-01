@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Councilor;
+use App\Models\Post;
+use App\Models\Session;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +17,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-      return view('dashboard');
+        $posts= Post::count();
+        $councilors = Councilor::count();
+        $sesssions = Session::count();
+
+      return view('dashboard', compact('posts', 'councilors', 'sesssions'));
+        
+      
     }
 
     /**

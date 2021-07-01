@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 //Grupo de roda para Middleware de autenticação
 Route::middleware(['auth'])->group(function () {
 
-    //Rota da dashboard (home)
+    //Rota da dashboard (home) 
     Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
     //Rotas de Permmissão X perfil
     Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
@@ -264,10 +264,12 @@ Route::get('noticias/todas', [SiteController::class, 'noticiasTodas'])->name('no
 Route::any('noticias/pesquisar', [SiteController::class, 'noticiasTodasPesquisar'])->name('noticiasTodas.pesquisar');
 Route::get('noticias/{url}', [SiteController::class, 'noticiaShow'])->name('noticias.show');
 Route::get('vereadores/{nome}', [SiteController::class, 'vereadoresShow'])->name('vereadores.show');
-Route::get('atas', [SiteController::class, 'atasIndex'])->name('atas.index');
 Route::get('sessoes', [SiteController::class, 'sessoesIndex'])->name('sessoes.index');
 Route::get('sessoes/{nome}', [SiteController::class, 'sessoesShow'])->name('sessões.show');
-
+Route::get('documentos-sessoes/', [SiteController::class, 'documentosSessoesPesquisar'])->name('documentosSessoes.pesquisar');
+Route::get('proposituras/', [SiteController::class, 'proposituraPesquisar'])->name('proposituraPesquisar.pesquisar');
+Route::get('proposituras/{id}', [SiteController::class, 'proposituraShow'])->name('propositura.show');
+Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');
 //     //toast('Success Toast','success');

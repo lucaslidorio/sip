@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
+    @foreach ($tenants as $tenant)      
+    @endforeach
+ 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Grayrids">
-    @foreach ($tenants as $tenant)      
-    @endforeach
+    <meta property="og:site_name" content="{{$tenant->nome}}">
+    <meta property="og:title" content=" {{$post->titulo}}">
+    <meta property="og:description" content="{{$post->titulo}}">
+    <meta property="og:image:secure_url" itemprop="url" content="{{config('app.aws_url').$post->img_destaque }}">
+    <meta property="og:type" content="website">
+  
     <title>{{$tenant->nome}}</title>
+     
+    
+
    
 
     <!-- Bootstrap CSS -->
@@ -40,7 +50,7 @@
         <div class="row justify-content-md-center">
           <div class="col-md-10">
             <div class="contents text-center">
-              <h1 class="wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
+              <h1 class="wow fadeIn" id="titulo" data-wow-duration="1000ms" data-wow-delay="0.3s">
                 {{$post->titulo}}
               </h1>
               <div class="post-meta">
@@ -69,7 +79,19 @@
           <div class="col-md-12">
             <div class="blog-post">
               <div class="post-thumb">
-                <img src="{{config('app.aws_url').$post->img_destaque }}" class="img-fluid" alt="Responsive image" style="max-height: 500px" alt="{{$post->titulo}}">
+                <figure class="bc-figure" itemprop="image" itemscope="itemscope" itemtype="http://schema.org/ImageObject">
+                  <img alt="Botão para compartilhamento de conteúdo no WhatsApp" data-original-height="480" data-original-width="960" height="480" src="https://2.bp.blogspot.com/-57BuH5XplqU/WvS983e3veI/AAAAAAAAH1g/bF3Ncqi_eB0trx0N4hrjpS6srR6ojh5iACLcBGAs/s1600/botao-do-whatsapp.png" width="960" />
+                  <meta content="https://2.bp.blogspot.com/-57BuH5XplqU/WvS983e3veI/AAAAAAAAH1g/bF3Ncqi_eB0trx0N4hrjpS6srR6ojh5iACLcBGAs/s1600/botao-do-whatsapp.png" itemprop="url" />
+                  <meta content="960" itemprop="width" />
+                  <meta content="480" itemprop="height" />
+              </figure>
+                {{-- <figure class="figure">
+                  <img src="{{config('app.aws_url').$post->img_destaque }}" class="img-fluid" alt="Responsive image" style="max-height: 500px" alt="{{$post->titulo}}">
+                    
+                      <meta content="{{config('app.aws_url').$post->img_destaque }}" itemprop="url" />
+                      <meta content="960" itemprop="width" />
+                      <meta content="480" itemprop="height" />
+                </figure> --}}
               </div>
               <div class="post-content">
                 @isset($post)
@@ -84,7 +106,20 @@
                     <img src="{{config('app.aws_url')."{$imagem->img}" }}" class="" style= "width:200px" >
                   </a>  
                  @endforeach
-              </div>          
+              </div>
+              <div class="row ml-3">
+                
+              </div>
+              <div class="row m-3">
+                <div class="col-md-12">
+                  <span>Compartilhar</span> <br>
+                  <a href="" id="whatsapp-share-btt" rel="nofollow" target="_blank"><i class="fab fa-whatsapp fa-2x text-success"></i></a>
+                </div>
+                
+                
+              </div>
+             
+                      
             </div>
           </div>
           <div class="container">
@@ -126,31 +161,9 @@
     </div>
     <!-- Blog Section End  -->
 
-  
-    <!-- Footer Section Start -->
-    <footer>          
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="social-icons">
-              <ul>
-                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                <li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-              </ul>
-            </div>
-            <div class="site-info">
-              <p>All copyrights reserved &copy; 2023 - Designed & Developed by <a rel="nofollow"
-                  href="https://uideck.com">UIdeck</a></p>
-            </div>  
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer Section End --> 
+  <!-- Rodapé -->
+  @include('site.layouts.includes.rodape')
+  <!-- Fim Rodapé -->
 
     <!-- Go To Top Link -->
     <a href="#" class="back-to-top">
@@ -189,6 +202,15 @@
 
    {{-- Scrip da galeria --}}
    <script>
+        //Constrói a URL depois que o DOM estiver pronto
+    document.addEventListener("DOMContentLoaded", function() {
+        //conteúdo que será compartilhado: Título da página + URL
+        var titulo = document.getElementById("titulo").innerHTML;
+        var conteudo = encodeURIComponent(titulo + " - "+ document.title + " " + window.location.href);
+        //altera a URL do botão
+        document.getElementById("whatsapp-share-btt").href = "https://api.whatsapp.com/send?text=" + conteudo;
+    }, false);
+
      lc_lightbox('.galeria_post', {
        wrap_class:'lcl_fade_oc',
        gallery:true,

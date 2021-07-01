@@ -236,23 +236,63 @@ return [
             'can'  => 'manage-blog',
         ],
       
-        ['header' => 'ADMINISTRAÇÃO'],
-        [
-            'text' => 'Orgão',
-            'url'  => 'admin/tenants',
-            'icon' => 'fas fa-university',
-        ],
+        ['header' => 'GERAL'],
+        
+       
+       
         [
             'text' => 'Posts',
             'url'  => 'admin/posts',
             'icon' => 'far fa-clipboard',
         ],
-        [
-            'text' => 'Atas',
-            'url'  => 'admin/minutes',
-            'icon' => 'fas fa-book-open',
-        ],
+       
         
+      
+        
+      
+                  
+        
+        ['header' => 'LEGISLATIVO'],
+        [
+            'text' => 'Sessão',
+            'url'  => 'admin/legislativo/sessions',
+            'icon' => 'fas fa-handshake',
+        ],
+        [
+            'text' => 'Proposituras',
+            'url'  => 'admin/propositions',
+            'icon' => 'fas fa-file-invoice',
+        ],
+
+      
+        [
+            'text' => 'Vereadores',
+            'url'  => 'admin/legislativo/councilors',
+            'icon' => 'fas fa-user-tie',
+        ],
+      
+        [
+            'text' => 'Legislaturas',
+            'url'  => 'admin/legislativo/legislatures',
+            'icon' => 'fas fa-university',
+        ],
+        [
+            'text' => 'Comissões',
+            'url'  => 'admin/commissions',
+            'icon' => 'fas fa-user-tag',
+        ],
+        [
+            'text' => 'Mesa Diretora',
+            'url'  => 'admin/directorTables',
+            'icon' => 'fas fa-tablets',
+        ],
+        ['header' => 'ADMINISTRAÇÃO'],
+        [
+            'text' => 'Orgão',
+            'url'  => 'admin/tenants',
+            'icon' => 'fas fa-university',
+            
+        ],
         [
             'text' => 'Secretarias',
             'url'  => 'admin/secretaries',
@@ -264,28 +304,16 @@ return [
             'icon' => 'fas fa-list',
         ],
         [
+            'text' => 'Partidos',
+            'url'  => 'admin/parties',
+            'icon' => 'fas fa-ad',
+        ],
+        [
             'text' => 'Funções',
             'url'  => 'admin/functions',
             'icon' => 'fas fa-plus-square',
         ],
-        [
-            'text' => 'Proposituras',
-            'url'  => 'admin/propositions',
-            'icon' => 'fas fa-file-invoice',
-        ],
-
-        [
-            'text' => 'Comissões',
-            'url'  => 'admin/commissions',
-            'icon' => 'fas fa-user-tag',
-        ],
-        [
-            'text' => 'Mesa Diretora',
-            'url'  => 'admin/directorTables',
-            'icon' => 'fas fa-tablets',
-        ],
-       
-
+        
         [
             'text'    => 'Segurança',
             'icon'    => 'fas fa-lock',                       
@@ -308,30 +336,8 @@ return [
                 ],               
                
             ],
-        ],                  
-        
-        ['header' => 'LEGISLATIVO'],
-        [
-            'text' => 'Sessão',
-            'url'  => 'admin/legislativo/sessions',
-            'icon' => 'fas fa-handshake',
         ],
-        [
-            'text' => 'Partidos',
-            'url'  => 'admin/parties',
-            'icon' => 'fas fa-ad',
-        ],
-        [
-            'text' => 'Vereadores',
-            'url'  => 'admin/legislativo/councilors',
-            'icon' => 'fas fa-user-tie',
-        ],
-      
-        [
-            'text' => 'Legislaturas',
-            'url'  => 'admin/legislativo/legislatures',
-            'icon' => 'fas fa-university',
-        ],
+       
     ],
 
     /*

@@ -25,25 +25,32 @@
         </div>            
         <div id="portfolio" class="row">  
           {{-- Mesa diretora    --}}
-             @foreach ($directorTables as $mesaDiretora)                        
-                @foreach ($mesaDiretora->members as $membro)
+             @foreach ($directorTables as $mesaDiretora)
+             <div class="row mix mesa" > 
+               <h2  class="text-primary"> <u> Objetivo</u></h2> 
+              <p class="text-justify" style="font-size: 16px">{{$mesaDiretora->objetivo}}</p>
+              <h2 class="text-primary text-center font-weight-bolder border-bottom border-primary "><span>Membros</span></h2>
+             </div>                       
+                @foreach ($mesaDiretora->members as $membro)                
                 <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa"> 
-                    <div class="portfolio-item ">
-                      <div class="shot-item text-center">
-                        <a class="overlay-portifolio overlay lightbox " href="{{config('app.aws_url').$membro->img }}" >
-                          <img src="{{config('app.aws_url').$membro->img }}" class="rounded-circle" alt="" style="width: 150px" >
-                          <i class="lnr lnr-plus-circle item-icon"></i>
-                        </a>
-                      </div>
+                  
+                  <div class="portfolio-item ">
+                    <div class="shot-item text-center">
+                      <a class="overlay-portifolio overlay lightbox " href="{{config('app.aws_url').$membro->img }}" >
+                        <img src="{{config('app.aws_url').$membro->img }}" class="rounded-circle" alt="" style="width: 150px" >
+                        <i class="lnr lnr-plus-circle item-icon"></i>
+                      </a>
                     </div>
-                      @foreach ($membro->functionTable as $funcao)
-                        <h6 class="text-primary text-center ">{{$funcao->nome}}</h6>   
-                      @endforeach       
-                        
-                  <h6 class="text-center">{{$membro->nome}} - {{$membro->party->sigla}}</h6>             
-                  <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
-                </div> 
+                  </div>
+                    @foreach ($membro->functionTable as $funcao)
+                      <h6 class="text-primary text-center ">{{$funcao->nome}}</h6>   
+                    @endforeach       
+                      
+                <h6 class="text-center">{{$membro->nome}} - {{$membro->party->sigla}}</h6>             
+                <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
+              </div> 
                 @endforeach
+               
               @endforeach
 
              {{-- Fim mesa diretora --}}
@@ -58,15 +65,24 @@
                           </a>
                         </li>
                   @endforeach
+                  
+                  
                 </ul>
 
             <div class="tab-content" id="myTabContent">
+            
                   @for ($i = 0; $i < count($membrosComissao); $i++)    
                     @foreach ($membrosComissao[$i] as $membros)
-                    @endforeach           
-                                        
+                    @endforeach         
+                            
                     <div class="tab-pane fade {{$i ==0 ? 'show active': ''}} " id="{{$membros->commission_id}}" role="tabpanel" aria-labelledby=" {{$membros->commission_id}}">  
-                      <div class="row text-center">                      
+                    
+                      <h5 class="text-primary pt-3"><u> Objetivo</u></h5>                    
+                      <p class="text-justify">{{$membros->commission->objetivo}}</p>
+                      <h2 class="text-primary text-center font-weight-bolder border-bottom border-primary "><span>Membros</span></h2>
+
+                      <div class="row text-center"> 
+                                             
                         @foreach ($membrosComissao[$i] as $membros)
                           <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                             <div class="portfolio-item display-inline">
