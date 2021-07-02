@@ -33,6 +33,6 @@ jobs:
           local_path: ./* # default is ./*
           # files will copy to under remote_path
           remote_path: /home
-          
+           
           # sftp args
           args: '-o ConnectTimeout=5'
