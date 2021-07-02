@@ -1,5 +1,4 @@
 on: push
-branches: master
 jobs:
   web-deploy:
     name: 🎉 Deploy
