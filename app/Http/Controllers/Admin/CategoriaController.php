@@ -18,7 +18,7 @@ class CategoriaController extends Controller
     }
     public function home(){
         return view('dashboard');
-    }
+    } 
 
     public function index()
     {
