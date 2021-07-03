@@ -15,5 +15,5 @@ jobs:
         port: 22122
         username: 'sip3'
         password: '@Fsp2011br'
-        localPath: './sip'
+        localPath: './'
         remotePath: './'
