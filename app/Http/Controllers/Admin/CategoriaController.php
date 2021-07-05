@@ -26,7 +26,7 @@ class CategoriaController extends Controller
         return view('admin.pages.categorias.index', [
             'categorias' => $categorias,
         ]);
-    }
+    } 
     public function create()
     {
         return view('admin.pages.categorias.create');
