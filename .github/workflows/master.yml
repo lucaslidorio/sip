@@ -13,7 +13,7 @@ jobs:
       with:
         host: 'ip-69-164-194-46.cloudezapp.io'
         port: 22122
-        username: 'sip3'
+        username: 'sip4'
         password: '@Fsp2011br'
         localPath: './'
-        remotePath: './'
+        remotePath: './srv/sip.45a4c22e.configr.cloud/www'
