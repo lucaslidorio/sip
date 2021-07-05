@@ -25,8 +25,9 @@ class CategoriaController extends Controller
         $categorias = $this->repository->paginate(10);
         return view('admin.pages.categorias.index', [
             'categorias' => $categorias,
-        ]);
+        ]); 
     } 
+    //
     public function create()
     {
         return view('admin.pages.categorias.create');
