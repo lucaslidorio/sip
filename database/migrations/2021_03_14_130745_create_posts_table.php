@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->text('conteudo')->nullable();
             $table->string('img_destaque')->nullable();
             $table->date('data_publicacao');
-            $table->date('data_expiracao');
+            $table->date('data_expiracao')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

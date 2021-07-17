@@ -5,11 +5,13 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\DirectorTableController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\LegislationController;
 use App\Http\Controllers\Admin\LegislatureController;
 use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\PartyController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AtaController;
 use App\Http\Controllers\Site\SiteController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -99,6 +102,19 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/tenants/{id}', [TenantController::class, 'destroy'])->name('tenants.destroy');
             Route::post('/tenants', [TenantController::class, 'store'])->name('tenants.store');
             Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
+
+            
+            //Rotas de leis             
+            Route::any('/legislations/search', [LegislationController::class, 'search'])->name('legislations.search');
+            Route::put('/legislations/{id}', [LegislationController::class, 'update'])->name('legislations.update');
+            Route::get('/legislations/deleteAttachment/{id}', [LegislationController::class, 'deleteAttachment'])->name('legislations.deleteAttachment');
+            Route::get('/legislations/show/{id}', [LegislationController::class, 'show'])->name('legislations.show');
+            Route::get('/legislations/{id}/edit', [LegislationController::class, 'edit'])->name('legislations.edit');
+            Route::get('/legislations/create', [LegislationController::class, 'create'])->name('legislations.create');
+            Route::get('/legislations/{id}', [LegislationController::class, 'destroy'])->name('legislations.destroy');
+            Route::post('/legislations', [LegislationController::class, 'store'])->name('legislations.store');
+            Route::get('/legislations', [LegislationController::class, 'index'])->name('legislations.index');
+
 
             //Rotas de proposituras             
             Route::any('/propositions/search', [PropositionController::class, 'search'])->name('propositions.search');
@@ -192,7 +208,17 @@ Route::middleware(['auth'])->group(function () {
              Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
              Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
              Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-                 
+             
+             
+             //Rotas de Carta ao cidadão
+             Route::put('/citizenLetters/{id}', [CitizenLetterController::class, 'update'])->name('citizenLetters.update');
+             Route::get('/citizenLetters/{id}/edit', [CitizenLetterController::class, 'edit'])->name('citizenLetters.edit');            
+             Route::get('/citizenLetters/show/{id}', [CitizenLetterController::class, 'show'])->name('citizenLetters.show');
+             Route::get('/citizenLetters/create', [CitizenLetterController::class, 'create'])->name('citizenLetters.create');
+             Route::get('/citizenLetters/{id}', [CitizenLetterController::class, 'destroy'])->name('citizenLetters.destroy');
+             Route::post('/citizenLetters', [CitizenLetterController::class, 'store'])->name('citizenLetters.store');
+             Route::get('/citizenLetters', [CitizenLetterController::class, 'index'])->name('citizenLetters.index');
+                     
 
             
             //Rotas de Secretarias

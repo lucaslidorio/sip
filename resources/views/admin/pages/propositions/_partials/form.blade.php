@@ -40,7 +40,7 @@
         
         <div class="col-sm-5">
             <div class="form-group">
-                <label  for="councilor_id" class="label-required" >Autor:</label>
+                <label  for="councilor_id" >Autor:</label>
                 <select class="form-control select2 {{ $errors->has('councilor_id') ? 'is-invalid' : '' }}" 
                     name="councilors[]" id="councilors[]" style="width: 100%;" multiple >
                     {{-- <option value="" selected >Selecione um autor</option>    --}}

@@ -78,20 +78,14 @@
         <div class="row justify-content-md-center">
           <div class="col-md-12">
             <div class="blog-post">
-              <div class="post-thumb">
-                <figure class="bc-figure" itemprop="image" itemscope="itemscope" itemtype="http://schema.org/ImageObject">
-                  <img alt="Botão para compartilhamento de conteúdo no WhatsApp" data-original-height="480" data-original-width="960" height="480" src="https://2.bp.blogspot.com/-57BuH5XplqU/WvS983e3veI/AAAAAAAAH1g/bF3Ncqi_eB0trx0N4hrjpS6srR6ojh5iACLcBGAs/s1600/botao-do-whatsapp.png" width="960" />
-                  <meta content="https://2.bp.blogspot.com/-57BuH5XplqU/WvS983e3veI/AAAAAAAAH1g/bF3Ncqi_eB0trx0N4hrjpS6srR6ojh5iACLcBGAs/s1600/botao-do-whatsapp.png" itemprop="url" />
-                  <meta content="960" itemprop="width" />
-                  <meta content="480" itemprop="height" />
-              </figure>
-                {{-- <figure class="figure">
+              <div class="post-thumb">              
+                <figure class="figure">
                   <img src="{{config('app.aws_url').$post->img_destaque }}" class="img-fluid" alt="Responsive image" style="max-height: 500px" alt="{{$post->titulo}}">
                     
                       <meta content="{{config('app.aws_url').$post->img_destaque }}" itemprop="url" />
                       <meta content="960" itemprop="width" />
                       <meta content="480" itemprop="height" />
-                </figure> --}}
+                </figure>
               </div>
               <div class="post-content">
                 @isset($post)

@@ -245,16 +245,25 @@ return [
             'url'  => 'admin/posts',
             'icon' => 'far fa-clipboard',
         ],
+        [
+            'text' => 'Leis',
+            'url'  => 'admin/legislations',
+            'icon' => 'fas fa-balance-scale',
+        ],
+        [
+            'text' => 'Carta ao Cidadão',
+            'url'  => 'admin/citizenLetters',
+            'icon' => 'far fa-envelope',
+        ],
        
-        
+           
       
-        
       
                   
         
         ['header' => 'LEGISLATIVO'],
         [
-            'text' => 'Sessão',
+            'text' => 'Sessões',
             'url'  => 'admin/legislativo/sessions',
             'icon' => 'fas fa-handshake',
         ],

@@ -30,12 +30,12 @@ class StoreUpadateCouncilor extends FormRequest
             'cpf' => ['nullable', 'min:2', 'max:14',"unique:councilors,cpf,{$id},id"],
             'estado_civil' => ['required', 'min:2', 'max:20'],
             'party_id' => ['required'],
-            'img' =>['nullable','image','max:500'],
+            'img' =>['nullable','image','max:1024'],
             'atual' => ['required'],
             
         ]; 
         if($this->method() =='PUT'){
-            $rules['img'] = ['nullable','image','max:500' ]; 
+            $rules['img'] = ['nullable','image','max:1024' ]; 
                     
         }        
         return $rules;
@@ -45,7 +45,7 @@ class StoreUpadateCouncilor extends FormRequest
         return [     
                   'nome.unique' => 'O nome, informado já esta cadastrado',   
                   'cpf.unique' => 'O CPF, informado já esta cadastrado',
-                  'img.max' => 'A imagem não pode ser superior a 500kb',
+                  'img.max' => 'A imagem não pode ser superior a 1MB',
                   'img.image' => 'O arquivo não é uma imagem válida',
                   'estado_civil.required' =>'O campo Estado Civil é obrigatório',
                   'estado_civil.max' =>'Nome muito longo, máximo de 20 caracteres',

@@ -108,7 +108,8 @@
       
       <div class="row">
           <div class="col-sm-8">
-            <div class="form-group">                  
+            <div class="form-group"> 
+                                 
                 <label for="img_destaque" class="label-required">Imagem de Destaque:</label>
                
                   <div class="input-group">
@@ -122,8 +123,11 @@
                           {{ $message }}
                       </small>
                   @enderror
+                  
                 </div>
+                <span class="text-danger">Dimensões recomendada 1024 x 1900, ultilize o site Iloveimg para redimensionar</span>
             </div>
+            
           </div>
           <div class="col-sm-4">
             <div class="form-group">

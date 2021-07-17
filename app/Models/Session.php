@@ -34,4 +34,6 @@ class Session extends Model
     public function councilors_present(){
         return $this->belongsToMany(Councilor::class, 'present_councilor_sessions');
     }
+
+ 
 }

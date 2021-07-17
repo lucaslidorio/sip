@@ -47,7 +47,7 @@
                     @endforeach       
                       
                 <h6 class="text-center">{{$membro->nome}} - {{$membro->party->sigla}}</h6>             
-                <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
+                <p class="text-center"><a class="btn btn-secondary" href="{{route('vereadores.show', $membro->nome)}}" role="button">Ver Detalhes &raquo;</a></p>
               </div> 
                 @endforeach
                
@@ -95,7 +95,7 @@
                           </div>                          
                             <h6 class="text-primary text-center ">{{$membros->functions->nome}}</h6>  
                             <h6 class="text-center">{{$membros->members->nome}} - {{$membros->members->party->sigla}}</h6>             
-                            <p class="text-center"><a class="btn btn-secondary" href="#" role="button">Ver Detalhes &raquo;</a></p>
+                            <p class="text-center"><a class="btn btn-secondary" href="{{route('vereadores.show', $membros->members->nome)}}" role="button">Ver Detalhes &raquo;</a></p>
                           </div>
                         @endforeach                      
                       </div>                   

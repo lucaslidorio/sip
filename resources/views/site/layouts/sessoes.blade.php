@@ -109,11 +109,12 @@
                                 <h6>Sessão</h6>
                             </div>
                             <div class="col-md-2">
-                                <h6>Data</h6>
-                            </div>
-                            <div class="col-md-2">
                                 <h6>Tipo</h6>
                             </div>
+                            <div class="col-md-2">
+                                <h6>Data</h6>
+                            </div>
+                            
                             <div class="col-md-3">
                                 <h6>Legislatura</h6>
                             </div>
@@ -132,8 +133,8 @@
                                             aria-expanded="false" aria-controls="collapseOne">
                                             <div class="row">
                                                 <div class="col-2">{{ $sessao->nome }}</div>
-                                                <div class="col-2">{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}}</div>
                                                 <div class="col-2 block">{{ $sessao->typeSession->nome }}</div>
+                                                <div class="col-2">{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}} - {{$sessao->hora}}</div>
                                                 <div class="col-3">{{ $sessao->legislature->descricao }}</div>
                                                 <div class="col-3">{{ $sessao->section->descricao }} -
                                                     {{ $sessao->section->ano }}</div>

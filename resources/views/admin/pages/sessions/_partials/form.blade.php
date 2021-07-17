@@ -59,7 +59,7 @@
           <div class="col-sm-3">
             <div class="form-group">
                 <label  for="type_session_id" class="label-required" >Tipo:</label>
-                <select class="form-control select2 {{ $errors->has('type_session_id') ? 'is-invalid' : '' }}" 
+                <select class="form-control{{ $errors->has('type_session_id') ? 'is-invalid' : '' }}" 
                     name="type_session_id" id="type_session_id" style="width: 100%;" >
                     <option value="" selected >Selecione um tipo</option>   
                     @foreach ($types_session as $type)                          
@@ -122,7 +122,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label  for="period_id" class="label-required" >Período:</label>
-                <select class="form-control select2 {{ $errors->has('period_id') ? 'is-invalid' : '' }}" 
+                <select class="form-control {{ $errors->has('period_id') ? 'is-invalid' : '' }}" 
                     name="period_id" id="period_id" style="width: 100%;" >
                     <option value="" selected >Selecione um periodo</option>   
                     @foreach ($periods as $period)                          

@@ -26,25 +26,60 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-8">
-            
+          <div class="col-md-4">            
+            <div class="input-group input-group-sm"> 
             <a href="{{route('sessions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Publicar noca sessão" ><i
-                class="fas fa-plus"></i> Novo</a>
-          </div>
-          <div class="col-md-4">
-            <div class="card-tools">
-              {{-- <form action="{{route('sessions.search')}}" method="post" class="form form-inline  float-right">
-                @csrf
-                <div class="input-group input-group-sm" style="width: 250px;">
-                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                  </div>
-                </div>
-              </form> --}}
+            title="Publicar nova sessão" >
+            <i  class="fas fa-plus"></i> Novo</a>
             </div>
           </div>
+          <div class="col-md-8">
+            <form action="{{route('sessions.search')}}" method="post" class="form form-inline  ">
+              @csrf             
+              <div class="col-3">
+                <select class="form-control" 
+                  name="type_session_id" id="type_session_id" style="width: 100%;" >
+                  <option value="" selected >Selecione um tipo</option>   
+                  @foreach ($types_session as $type)                          
+                  <option value="{{$type->id}}">
+                        {{$type->nome}}             
+                      </option>
+                  @endforeach 
+              </select>
+              </div>
+              <div class="col-3">
+                <select class="form-control " 
+                  name="period_id" id="period_id" style="width: 100%;" >
+                  <option value="" selected >Período</option>   
+                  @foreach ($periods as $period)                          
+                  <option value="{{$period->id}}">
+                        {{$period->nome}}           
+                      </option>
+                  @endforeach 
+              </select>
+              </div>
+              <div class="col-2">
+                <select class="form-control " 
+                  name="ano" id="ano" style="width: 100%;" >
+                  <option value="" selected >Ano</option> 
+                  <option value="2018">2018 </option> 
+                  <option value="2019">2019 </option>                       
+                  <option value="2020">2020 </option> 
+                  <option value="2021">2021 </option>      
+                 
+              </select>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input type="text" name="pesquisa" id="pesquisa" class="form-control" placeholder="Nome">
+                  <span class="input-group-append">
+                    <button type="submit" class="btn btn-info btn-flat" data-toggle="tooltip" data-placement="top"
+                    title="Pesquisar" ><i class="fas fa-search"></i></button>
+                  </span>
+                </div>
+              </div>            
+            </form>
+          </div>         
         </div>
       </div>    
    
@@ -53,23 +88,23 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Nome</th>              
-              <th>Data</th>
-              <th>Hora</th>
-              <th>Tipo</th>  
-              <th>Legislatura</th>         
-                          
+              <th>Nome</th> 
+              <th>Tipo</th> 
+              <th>Sessão Legislativa</th>            
+              <th>Data / Hora</th>   
+              <th>Legislatura</th>
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
+           
             @foreach ($sessions as $sessao)               
-            
             <tr >
-              <td>{{$sessao->nome}}</td>              
-              <td>{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}}</td> 
-              <td>{{$sessao->hora}}</td>   
+              <td>{{$sessao->nome}}</td> 
               <td>{{$sessao->typeSession->nome}}</td>
+              <td>{{$sessao->section->descricao}}</td>             
+              <td>{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}} - {{$sessao->hora}}</td> 
+                         
               <td>{{$sessao->legislature->descricao}}</td>  
               <td class="text-center">
                 <a href="{{route('sessions.edit', $sessao->id)}}" 
@@ -115,14 +150,15 @@
               </td>
             </tr>
             @endforeach
+           
           </tbody>
         </table>
        
       </div> 
       <!-- /.card-body -->
       <div class="card-footer">
-        @if (isset($pesquisar))
-        {!!$sessions->appends($pesquisar)->links()!!}
+        @if (isset($filters))
+        {!!$sessions->appends($filters)->links()!!}
         @else
         {!!$sessions->links()!!}
         @endif

@@ -236,6 +236,7 @@ class SiteController extends Controller
         ->when($request->legislature_id, function($query, $role){
             return $query->where('legislature_id', $role);
         })
+        ->orderBy('data', 'DESC')
         ->paginate(10);
 
          return view('site.layouts.sessoes',[
@@ -295,7 +296,8 @@ class SiteController extends Controller
     })
     ->when($request->proceeding_situation_id, function($query, $role) {
         return $query->where('proceeding_situation_id', $role);
-    }) 
+    })
+    ->orderBy('created_at', 'DESC') 
     ->paginate(10);
     
     return view('site.layouts.proposituras',[

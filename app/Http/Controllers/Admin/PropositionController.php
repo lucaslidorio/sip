@@ -44,7 +44,7 @@ class PropositionController extends Controller
     
     public function index()
     {
-        $propositions = $this->repository->paginate(10);
+        $propositions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);
         $councilors = $this->councilor->all();
         return view('admin.pages.propositions.index', compact('propositions', 'councilors'));
     }

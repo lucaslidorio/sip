@@ -21,6 +21,6 @@ class Section extends Model
     }
     //relacionamento de 1 para muitos entre legislature_sections e legislative_perios
     public function periods(){
-        return $this->hasMany(Period::class, 'legislature_section_id');
+        return $this->hasMany(LegislativePeriod::class, 'legislature_section_id');
     }
 }
