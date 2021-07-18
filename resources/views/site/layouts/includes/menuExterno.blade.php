@@ -32,6 +32,9 @@
                     <a class="nav-link page-scroll" href="{{route('site.home').'#legislacao'}}">Legislação</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link page-scroll" href="{{route('site.home').'#features'}}">Institucional</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link page-scroll text-nowrap" href="{{route('site.home').'#sobre'}}">A Câmara</a>
                   </li>
               

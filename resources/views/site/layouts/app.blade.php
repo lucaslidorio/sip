@@ -34,7 +34,7 @@
   @include('site.layouts.includes.legislacao')
   
  
-
+  @include('site.layouts.includes.institucional')
   <!-- Features Section Start -->
   
   <!-- Features Section End -->

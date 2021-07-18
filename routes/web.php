@@ -295,6 +295,10 @@ Route::get('sessoes/{nome}', [SiteController::class, 'sessoesShow'])->name('sess
 Route::get('documentos-sessoes/', [SiteController::class, 'documentosSessoesPesquisar'])->name('documentosSessoes.pesquisar');
 Route::get('proposituras/', [SiteController::class, 'proposituraPesquisar'])->name('proposituraPesquisar.pesquisar');
 Route::get('proposituras/{id}', [SiteController::class, 'proposituraShow'])->name('propositura.show');
+Route::get('carta-cidadao/{id}', [SiteController::class, 'cartaCidadaoShow'])->name('cartaCidadao.show');
+Route::get('legislacoes', [SiteController::class, 'legislacoes'])->name('legislacoes.index');
+Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name('legislacao.show');
+
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');
