@@ -14,8 +14,8 @@ return [
     |ADMIN LTE 3
     */
 
-    'title' => 'SIP',
-    'title_prefix' => '',
+    'title' => '  ',
+    'title_prefix' => 'SIP | ',
     'title_postfix' => 'Sistema Integrado de Publicações',
 
     /*
@@ -45,9 +45,9 @@ return [
     |
     */
 
-    'logo' => '<b>SIP</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>SIP</b> Publicações',
+    'logo_img' => 'vendor/adminlte/dist/img/logo-FPS.png',
+    'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'SIP',
@@ -67,8 +67,8 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -104,7 +104,7 @@ return [
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
+    'classes_auth_footer' => 'd-none',
     'classes_auth_icon' => '',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
@@ -226,8 +226,7 @@ return [
     'menu' => [
         [
             'text' => 'Pesquisar',
-            'search' => true,
-
+            'search' => false,
             'topnav' => true,
         ],
         [
@@ -238,8 +237,7 @@ return [
       
         ['header' => 'GERAL'],
         
-       
-       
+              
         [
             'text' => 'Posts',
             'url'  => 'admin/posts',
@@ -254,12 +252,7 @@ return [
             'text' => 'Carta ao Cidadão',
             'url'  => 'admin/citizenLetters',
             'icon' => 'far fa-envelope',
-        ],
-       
-           
-      
-      
-                  
+        ],              
         
         ['header' => 'LEGISLATIVO'],
         [

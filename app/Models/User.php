@@ -41,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //pode retornar a imagem do usuário
+    public function adminlte_image(){
+        return 'https://picsum.photos/300/300';
+    }
+    
+    //pode  ser implementado para retornar o cargo do usuário
+    public function adminlte_desc()
+    {
+        return 'Bem Vindo';
+    }
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
+    }
 }

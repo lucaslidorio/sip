@@ -81,7 +81,7 @@
                                   <span class="mr-2"> {{$legislacao->nome_original}}</span>                
                               </a></td> --}}
                             
-                            <td>{!!$legislacao->descricao!!}</td>
+                            <td>{{$legislacao->caput}}</td>
                                                     <td class="text-center">
                                 <a href="{{route('legislacao.show', $legislacao->id)}}" data-id=""
                                 class="btn  btn-info  " data-toggle="tooltip" data-placement="top"  

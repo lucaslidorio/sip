@@ -24,7 +24,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::JnHq9vrIS8AfS1bW',
+            '_route' => 'generated::ajLF62oSNyGtxIz3',
           ),
           1 => NULL,
           2 => 
@@ -765,31 +765,6 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/admin/citizenLetters/search' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'citizenLetters.search',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-            'POST' => 2,
-            'PUT' => 3,
-            'PATCH' => 4,
-            'DELETE' => 5,
-            'OPTIONS' => 6,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
       '/admin/citizenLetters' => 
       array (
         0 => 
@@ -1231,6 +1206,26 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/legislacoes' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislacoes.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/contato' => 
       array (
         0 => 
@@ -1273,7 +1268,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::x4Kus8u1qY31RZOz',
+            '_route' => 'generated::LBIZwLnIa5fUMl99',
           ),
           1 => NULL,
           2 => 
@@ -1309,7 +1304,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::Jy9XJDQZPXYaoTm4',
+            '_route' => 'generated::zoazd7Z6TOrlfQ7t',
           ),
           1 => NULL,
           2 => 
@@ -1439,7 +1434,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::hpqVoGKH6cEpiiIW',
+            '_route' => 'generated::iJajDpqOtTgpPh9y',
           ),
           1 => NULL,
           2 => 
@@ -1474,7 +1469,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/p(?|ro(?|file(?|/([^/]++)/permission(?|/([^/]++)/detach(*:63)|s(?|(*:74)|/create(*:88)))|s/([^/]++)/permissions(*:119))|posituras/([^/]++)(*:146))|ermissions/([^/]++)/profile(*:182))|/admin/(?|legislati(?|vo/(?|legislatures/(?|councilors/([^/]++)(*:254)|([^/]++)/councilors(?|(*:284)|/create(*:299)|(*:307))|show/([^/]++)(*:329)|([^/]++)(*:345))|councilors/(?|([^/]++)(?|(*:379)|/edit(*:392))|show/([^/]++)(*:414)|create(*:428)|([^/]++)(*:444))|sessions/(?|([^/]++)(?|(*:476)|/(?|present(?|Create(*:504)|Store(*:517)|Edit(*:529)|Update(*:543))|attachmentCreate(*:568)))|attachment(?|Store(*:596)|Delete/([^/]++)(*:619))|show/([^/]++)(*:641)|([^/]++)/edit(*:662)|create(*:676)))|ons/(?|([^/]++)(*:701)|deleteAttachment/([^/]++)(*:734)|show/([^/]++)(*:755)|([^/]++)/edit(*:776)|create(*:790)|([^/]++)(*:806)))|tenants/(?|([^/]++)(?|(*:838)|/edit(*:851))|show/([^/]++)(*:873)|create(*:887)|([^/]++)(*:903))|p(?|ro(?|positions/(?|([^/]++)(*:942)|deleteAttachment/([^/]++)(*:975)|show/([^/]++)(*:996)|([^/]++)/edit(*:1017)|create(*:1032)|([^/]++)(*:1049))|files/(?|([^/]++)(?|(*:1079)|/edit(*:1093))|create(*:1109)|([^/]++)(*:1126)))|arties/(?|([^/]++)(?|(*:1158)|/edit(*:1172))|create(*:1188)|([^/]++)(*:1205))|osts/(?|([^/]++)(?|(*:1234)|/edit(*:1248))|deleteImage/([^/]++)(*:1278)|show/([^/]++)(*:1300)|create(*:1315)|([^/]++)(*:1332))|ermissions/(?|([^/]++)(?|(*:1367)|/edit(*:1381))|create(*:1397)|([^/]++)(*:1414)))|minutes/(?|([^/]++)(*:1444)|deleteAttachment/([^/]++)(*:1478)|show/([^/]++)(*:1500)|([^/]++)/edit(*:1522)|create(*:1537)|([^/]++)(*:1554))|directorTables/(?|members/([^/]++)(*:1598)|([^/]++)(?|/(?|members(?|(*:1632)|/create(*:1648)|(*:1657))|edit(*:1671))|(*:1681))|create(*:1697)|([^/]++)(*:1714))|c(?|ommissions/(?|members/([^/]++)(*:1758)|([^/]++)(?|/(?|members(?|(*:1792)|/create(*:1808)|(*:1817))|edit(*:1831))|(*:1841))|create(*:1857)|([^/]++)(*:1874))|itizenLetters/(?|([^/]++)(?|(*:1912)|/edit(*:1926))|show/([^/]++)(*:1949)|create(*:1964)|([^/]++)(*:1981))|ategorias/(?|([^/]++)(?|(*:2015)|/edit(*:2029))|search(*:2045)|create(*:2060)|([^/]++)(*:2077)))|functions/(?|([^/]++)(?|(*:2112)|/edit(*:2126))|create(*:2142)|([^/]++)(*:2159))|secretaries/(?|([^/]++)(?|(*:2195)|/edit(*:2209))|show/([^/]++)(*:2232)|create(*:2247)|([^/]++)(*:2264))|users/(?|([^/]++)(?|(*:2294)|/edit(*:2308))|show/([^/]++)(*:2331)|create(*:2346)|([^/]++)(*:2363)))|/noticias/([^/]++)(*:2392)|/ver(?|eadores/([^/]++)(*:2424)|ify\\-email/([^/]++)/([^/]++)(*:2461))|/sessoes/([^/]++)(*:2488)|/reset\\-password/([^/]++)(*:2522))/?$}sDu',
+      0 => '{^(?|/p(?|ro(?|file(?|/([^/]++)/permission(?|/([^/]++)/detach(*:63)|s(?|(*:74)|/create(*:88)))|s/([^/]++)/permissions(*:119))|posituras/([^/]++)(*:146))|ermissions/([^/]++)/profile(*:182))|/admin/(?|legislati(?|vo/(?|legislatures/(?|councilors/([^/]++)(*:254)|([^/]++)/councilors(?|(*:284)|/create(*:299)|(*:307))|show/([^/]++)(*:329)|([^/]++)(*:345))|councilors/(?|([^/]++)(?|(*:379)|/edit(*:392))|show/([^/]++)(*:414)|create(*:428)|([^/]++)(*:444))|sessions/(?|([^/]++)(?|(*:476)|/(?|present(?|Create(*:504)|Store(*:517)|Edit(*:529)|Update(*:543))|attachmentCreate(*:568)))|attachment(?|Store(*:596)|Delete/([^/]++)(*:619))|show/([^/]++)(*:641)|([^/]++)/edit(*:662)|create(*:676)))|ons/(?|([^/]++)(*:701)|deleteAttachment/([^/]++)(*:734)|show/([^/]++)(*:755)|([^/]++)/edit(*:776)|create(*:790)|([^/]++)(*:806)))|tenants/(?|([^/]++)(?|(*:838)|/edit(*:851))|show/([^/]++)(*:873)|create(*:887)|([^/]++)(*:903))|p(?|ro(?|positions/(?|([^/]++)(*:942)|deleteAttachment/([^/]++)(*:975)|show/([^/]++)(*:996)|([^/]++)/edit(*:1017)|create(*:1032)|([^/]++)(*:1049))|files/(?|([^/]++)(?|(*:1079)|/edit(*:1093))|create(*:1109)|([^/]++)(*:1126)))|arties/(?|([^/]++)(?|(*:1158)|/edit(*:1172))|create(*:1188)|([^/]++)(*:1205))|osts/(?|([^/]++)(?|(*:1234)|/edit(*:1248))|deleteImage/([^/]++)(*:1278)|show/([^/]++)(*:1300)|create(*:1315)|([^/]++)(*:1332))|ermissions/(?|([^/]++)(?|(*:1367)|/edit(*:1381))|create(*:1397)|([^/]++)(*:1414)))|minutes/(?|([^/]++)(*:1444)|deleteAttachment/([^/]++)(*:1478)|show/([^/]++)(*:1500)|([^/]++)/edit(*:1522)|create(*:1537)|([^/]++)(*:1554))|directorTables/(?|members/([^/]++)(*:1598)|([^/]++)(?|/(?|members(?|(*:1632)|/create(*:1648)|(*:1657))|edit(*:1671))|(*:1681))|create(*:1697)|([^/]++)(*:1714))|c(?|ommissions/(?|members/([^/]++)(*:1758)|([^/]++)(?|/(?|members(?|(*:1792)|/create(*:1808)|(*:1817))|edit(*:1831))|(*:1841))|create(*:1857)|([^/]++)(*:1874))|itizenLetters/(?|([^/]++)(?|(*:1912)|/edit(*:1926))|show/([^/]++)(*:1949)|create(*:1964)|([^/]++)(*:1981))|ategorias/(?|([^/]++)(?|(*:2015)|/edit(*:2029))|search(*:2045)|create(*:2060)|([^/]++)(*:2077)))|functions/(?|([^/]++)(?|(*:2112)|/edit(*:2126))|create(*:2142)|([^/]++)(*:2159))|secretaries/(?|([^/]++)(?|(*:2195)|/edit(*:2209))|show/([^/]++)(*:2232)|create(*:2247)|([^/]++)(*:2264))|users/(?|([^/]++)(?|(*:2294)|/edit(*:2308))|show/([^/]++)(*:2331)|create(*:2346)|([^/]++)(*:2363)))|/noticias/([^/]++)(*:2392)|/ver(?|eadores/([^/]++)(*:2424)|ify\\-email/([^/]++)/([^/]++)(*:2461))|/sessoes/([^/]++)(*:2488)|/carta\\-cidadao/([^/]++)(*:2521)|/legislacoes/([^/]++)(*:2551)|/reset\\-password/([^/]++)(*:2585))/?$}sDu',
     ),
     3 => 
     array (
@@ -4046,7 +4041,53 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2522 => 
+      2521 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'cartaCidadao.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2551 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislacao.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2585 => 
       array (
         0 => 
         array (
@@ -4084,7 +4125,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::JnHq9vrIS8AfS1bW' => 
+    'generated::ajLF62oSNyGtxIz3' => 
     array (
       'methods' => 
       array (
@@ -4099,15 +4140,15 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:api',
         ),
-        'uses' => 'C:32:"Opis\\Closure\\SerializableClosure":289:{@3Z75GISPQYt1aUtpCiX8B4Qcg5IXPTuitE0NDZStajs=.a:5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
+        'uses' => 'C:32:"Opis\\Closure\\SerializableClosure":289:{@BFk+ylwtGfuwrtzPlTyBaCeNFV2dc3POJi44opTWqjU=.a:5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"000000001e87cf140000000026a66267";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000793df3f8000000004de08128";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::JnHq9vrIS8AfS1bW',
+        'as' => 'generated::ajLF62oSNyGtxIz3',
       ),
       'fallback' => false,
       'defaults' => 
@@ -8444,48 +8485,6 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'citizenLetters.search' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-        2 => 'POST',
-        3 => 'PUT',
-        4 => 'PATCH',
-        5 => 'DELETE',
-        6 => 'OPTIONS',
-      ),
-      'uri' => 'admin/citizenLetters/search',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\CitizenLetterController@search',
-        'controller' => 'App\\Http\\Controllers\\Admin\\CitizenLetterController@search',
-        'namespace' => 'Admin',
-        'prefix' => '/admin',
-        'where' => 
-        array (
-        ),
-        'as' => 'citizenLetters.search',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-    ),
     'citizenLetters.update' => 
     array (
       'methods' => 
@@ -10492,6 +10491,114 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
+    'cartaCidadao.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'carta-cidadao/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Site\\SiteController@cartaCidadaoShow',
+        'controller' => 'App\\Http\\Controllers\\Site\\SiteController@cartaCidadaoShow',
+        'namespace' => NULL,
+        'prefix' => NULL,
+        'where' => 
+        array (
+        ),
+        'as' => 'cartaCidadao.show',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'legislacoes.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'legislacoes',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Site\\SiteController@legislacoes',
+        'controller' => 'App\\Http\\Controllers\\Site\\SiteController@legislacoes',
+        'namespace' => NULL,
+        'prefix' => NULL,
+        'where' => 
+        array (
+        ),
+        'as' => 'legislacoes.index',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'legislacao.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'legislacoes/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Site\\SiteController@legislacaoShow',
+        'controller' => 'App\\Http\\Controllers\\Site\\SiteController@legislacaoShow',
+        'namespace' => NULL,
+        'prefix' => NULL,
+        'where' => 
+        array (
+        ),
+        'as' => 'legislacao.show',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
     'contato.enviar' => 
     array (
       'methods' => 
@@ -10564,7 +10671,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::x4Kus8u1qY31RZOz' => 
+    'generated::LBIZwLnIa5fUMl99' => 
     array (
       'methods' => 
       array (
@@ -10585,7 +10692,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::x4Kus8u1qY31RZOz',
+        'as' => 'generated::LBIZwLnIa5fUMl99',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10637,7 +10744,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::Jy9XJDQZPXYaoTm4' => 
+    'generated::zoazd7Z6TOrlfQ7t' => 
     array (
       'methods' => 
       array (
@@ -10658,7 +10765,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::Jy9XJDQZPXYaoTm4',
+        'as' => 'generated::zoazd7Z6TOrlfQ7t',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10969,7 +11076,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::hpqVoGKH6cEpiiIW' => 
+    'generated::iJajDpqOtTgpPh9y' => 
     array (
       'methods' => 
       array (
@@ -10990,7 +11097,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::hpqVoGKH6cEpiiIW',
+        'as' => 'generated::iJajDpqOtTgpPh9y',
       ),
       'fallback' => false,
       'defaults' => 
