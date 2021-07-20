@@ -29,7 +29,7 @@
           <div class="col-md-8">
             
             <a href="{{route('propositions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Publicar nova ata" ><i
+            title="Cadastrar nova propositura" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">

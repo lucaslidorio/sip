@@ -29,7 +29,7 @@
           <div class="col-md-8">
             
             <a href="{{route('directorTables.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar nova comissão" ><i
+            title="Cadastrar nova mesa" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
@@ -73,25 +73,25 @@
               <td>{{$directorTable->biennium->descricao}}</td>
               <td>{{$directorTable->atual == 1 ? 'Ativo' : 'Inativo'}}</td>
               
-                <td class="text-center">
-                <a href="{{route('directorTables.edit', $directorTable->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>
+                <td class="text-center">                  
+                  <a href="{{route('directorTableMembers.index', $directorTable->id )}}" data-id="{{$directorTable->id}}"
+                    class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Membros">
+                    <i class="fas fa-users" ></i>
+                  </a> 
+                  
+                  <a href="{{route('directorTables.edit', $directorTable->id)}}" 
+                    class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
+                    title="Editar">
+                    <i class="fas fa-edit" ></i>
+                  </a>
 
-                <a href="{{route('directorTableMembers.index', $directorTable->id )}}" data-id="{{$directorTable->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Membros">
-                  <i class="fas fa-users" ></i>
-                </a>
 
-                <a href="{{route('directorTables.destroy', $directorTable->id)}}" data-id="{{$directorTable->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                </a>
-                
+                  <a href="{{route('directorTables.destroy', $directorTable->id)}}" data-id="{{$directorTable->id}}"
+                    class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Excluir">
+                    <i class="fas fa-trash-alt" ></i>
+                  </a>                
               </td>
             </tr>
             @endforeach

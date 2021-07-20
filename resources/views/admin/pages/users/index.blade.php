@@ -70,16 +70,17 @@
               <td>{{$user->email}}</td>
               <td>{{$user->matricula}}
               <td class="text-center">
+                <a href="{{route('users.show', $user->id)}}" data-id="{{$user->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver Detalhes">
+                  <i class="far fa-eye"></i>
+                </a>
                 <a href="{{route('users.edit', $user->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
-                <a href="{{route('users.show', $user->id)}}" data-id="{{$user->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Ver Detalhes">
-                  <i class="fas fa-address-book" ></i>
-                </a>
+               
                 <a href="{{route('users.destroy', $user->id)}}" data-id="{{$user->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">

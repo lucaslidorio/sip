@@ -30,7 +30,7 @@
           <div class="col-md-8">
             
             <a href="{{route('tenants.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo perfil" ><i
+            title="Cadastrar novo orgão" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
@@ -73,17 +73,16 @@
               <td>{{$tenant->email}}</td>
              
                 <td class="text-center">
-                <a href="{{route('tenants.edit', $tenant->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>
-                <a href="{{route('tenants.show', $tenant->id)}}" data-id="{{$tenant->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Ver Detalhes">
-                  <i class="fas fa-address-book" ></i>
-                </a>               
-
+                    <a href="{{route('tenants.show', $tenant->id)}}" data-id="{{$tenant->id}}"
+                      class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                      title="Ver Detalhes">
+                      <i class="far fa-eye"></i>
+                    </a> 
+                    <a href="{{route('tenants.edit', $tenant->id)}}" 
+                      class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
+                      title="Editar">
+                      <i class="fas fa-edit" ></i>
+                    </a>                               
               </td>
             </tr>
             @endforeach

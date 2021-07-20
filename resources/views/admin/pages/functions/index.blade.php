@@ -29,7 +29,7 @@
           <div class="col-md-8">
             
             <a href="{{route('functions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo perfil" ><i
+            title="Cadastrar nova função" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">

@@ -29,7 +29,7 @@
           <div class="col-md-8">
             
             <a href="{{route('legislations.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Publicar nova ata" ><i
+            title="Publicar nova lei" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
@@ -85,16 +85,17 @@
               </td> 
 
                 <td class="text-center">
+                  
+                <a href="{{route('legislations.show', $legislation->id)}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver Detalhes">
+                  <i class="far fa-eye"></i>
+                </a>
+
                 <a href="{{route('legislations.edit', $legislation->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
-                </a>
-
-                <a href="{{route('legislations.show', $legislation->id)}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Ver Detalhes">
-                  <i class="fas fa-address-book" ></i>
                 </a>
 
 

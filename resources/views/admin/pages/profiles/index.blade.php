@@ -69,17 +69,18 @@
               
               <td>{{$profile->descricao}}</td>
               <td class="text-center">
-                <a href="{{route('profiles.edit', $profile->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>                
-
                 <a href="{{route('profiles.permissions', $profile->id)}}" data-id="{{$profile->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver permissões do perfil">
                   <i class="fas fa-lock" ></i>
                 </a>
+                
+                <a href="{{route('profiles.edit', $profile->id)}}" 
+                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
+                  title="Editar">
+                  <i class="fas fa-edit" ></i>
+                </a>             
+
                 <a href="{{route('profiles.destroy', $profile->id)}}" data-id="{{$profile->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">

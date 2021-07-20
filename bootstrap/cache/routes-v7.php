@@ -24,7 +24,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ajLF62oSNyGtxIz3',
+            '_route' => 'generated::D9QPv6t0XvneiNJJ',
           ),
           1 => NULL,
           2 => 
@@ -1268,7 +1268,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::LBIZwLnIa5fUMl99',
+            '_route' => 'generated::awIyGFljP3WBNNfR',
           ),
           1 => NULL,
           2 => 
@@ -1304,7 +1304,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::zoazd7Z6TOrlfQ7t',
+            '_route' => 'generated::WF32Q0ezTACVc5au',
           ),
           1 => NULL,
           2 => 
@@ -1434,7 +1434,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::iJajDpqOtTgpPh9y',
+            '_route' => 'generated::lnsmtmHw8IAk22tn',
           ),
           1 => NULL,
           2 => 
@@ -1469,11 +1469,1006 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/p(?|ro(?|file(?|/([^/]++)/permission(?|/([^/]++)/detach(*:63)|s(?|(*:74)|/create(*:88)))|s/([^/]++)/permissions(*:119))|posituras/([^/]++)(*:146))|ermissions/([^/]++)/profile(*:182))|/admin/(?|legislati(?|vo/(?|legislatures/(?|councilors/([^/]++)(*:254)|([^/]++)/councilors(?|(*:284)|/create(*:299)|(*:307))|show/([^/]++)(*:329)|([^/]++)(*:345))|councilors/(?|([^/]++)(?|(*:379)|/edit(*:392))|show/([^/]++)(*:414)|create(*:428)|([^/]++)(*:444))|sessions/(?|([^/]++)(?|(*:476)|/(?|present(?|Create(*:504)|Store(*:517)|Edit(*:529)|Update(*:543))|attachmentCreate(*:568)))|attachment(?|Store(*:596)|Delete/([^/]++)(*:619))|show/([^/]++)(*:641)|([^/]++)/edit(*:662)|create(*:676)))|ons/(?|([^/]++)(*:701)|deleteAttachment/([^/]++)(*:734)|show/([^/]++)(*:755)|([^/]++)/edit(*:776)|create(*:790)|([^/]++)(*:806)))|tenants/(?|([^/]++)(?|(*:838)|/edit(*:851))|show/([^/]++)(*:873)|create(*:887)|([^/]++)(*:903))|p(?|ro(?|positions/(?|([^/]++)(*:942)|deleteAttachment/([^/]++)(*:975)|show/([^/]++)(*:996)|([^/]++)/edit(*:1017)|create(*:1032)|([^/]++)(*:1049))|files/(?|([^/]++)(?|(*:1079)|/edit(*:1093))|create(*:1109)|([^/]++)(*:1126)))|arties/(?|([^/]++)(?|(*:1158)|/edit(*:1172))|create(*:1188)|([^/]++)(*:1205))|osts/(?|([^/]++)(?|(*:1234)|/edit(*:1248))|deleteImage/([^/]++)(*:1278)|show/([^/]++)(*:1300)|create(*:1315)|([^/]++)(*:1332))|ermissions/(?|([^/]++)(?|(*:1367)|/edit(*:1381))|create(*:1397)|([^/]++)(*:1414)))|minutes/(?|([^/]++)(*:1444)|deleteAttachment/([^/]++)(*:1478)|show/([^/]++)(*:1500)|([^/]++)/edit(*:1522)|create(*:1537)|([^/]++)(*:1554))|directorTables/(?|members/([^/]++)(*:1598)|([^/]++)(?|/(?|members(?|(*:1632)|/create(*:1648)|(*:1657))|edit(*:1671))|(*:1681))|create(*:1697)|([^/]++)(*:1714))|c(?|ommissions/(?|members/([^/]++)(*:1758)|([^/]++)(?|/(?|members(?|(*:1792)|/create(*:1808)|(*:1817))|edit(*:1831))|(*:1841))|create(*:1857)|([^/]++)(*:1874))|itizenLetters/(?|([^/]++)(?|(*:1912)|/edit(*:1926))|show/([^/]++)(*:1949)|create(*:1964)|([^/]++)(*:1981))|ategorias/(?|([^/]++)(?|(*:2015)|/edit(*:2029))|search(*:2045)|create(*:2060)|([^/]++)(*:2077)))|functions/(?|([^/]++)(?|(*:2112)|/edit(*:2126))|create(*:2142)|([^/]++)(*:2159))|secretaries/(?|([^/]++)(?|(*:2195)|/edit(*:2209))|show/([^/]++)(*:2232)|create(*:2247)|([^/]++)(*:2264))|users/(?|([^/]++)(?|(*:2294)|/edit(*:2308))|show/([^/]++)(*:2331)|create(*:2346)|([^/]++)(*:2363)))|/noticias/([^/]++)(*:2392)|/ver(?|eadores/([^/]++)(*:2424)|ify\\-email/([^/]++)/([^/]++)(*:2461))|/sessoes/([^/]++)(*:2488)|/carta\\-cidadao/([^/]++)(*:2521)|/legislacoes/([^/]++)(*:2551)|/reset\\-password/([^/]++)(*:2585))/?$}sDu',
+      0 => '{^(?|/admin/(?|legislati(?|vo/(?|legislatures/(?|councilors/([^/]++)(*:70)|([^/]++)/councilors(?|(*:99)|/create(*:113)|(*:121))|show/([^/]++)(*:143)|([^/]++)(*:159))|councilors/(?|([^/]++)(?|(*:193)|/edit(*:206))|show/([^/]++)(*:228)|create(*:242)|([^/]++)(*:258))|sessions/(?|([^/]++)(?|(*:290)|/(?|present(?|Create(*:318)|Store(*:331)|Edit(*:343)|Update(*:357))|attachmentCreate(*:382)))|attachment(?|Store(*:410)|Delete/([^/]++)(*:433))|show/([^/]++)(*:455)|([^/]++)/edit(*:476)|create(*:490)))|ons/(?|([^/]++)(*:515)|deleteAttachment/([^/]++)(*:548)|show/([^/]++)(*:569)|([^/]++)/edit(*:590)|create(*:604)|([^/]++)(*:620)))|tenants/(?|([^/]++)(?|(*:652)|/edit(*:665))|show/([^/]++)(*:687)|create(*:701)|([^/]++)(*:717))|p(?|ro(?|positions/(?|([^/]++)(*:756)|deleteAttachment/([^/]++)(*:789)|show/([^/]++)(*:810)|([^/]++)/edit(*:831)|create(*:845)|([^/]++)(*:861))|file(?|s/(?|([^/]++)(?|(*:893)|/edit(*:906))|create(*:921)|([^/]++)(?|(*:940)|/permissions(*:960)))|/([^/]++)/permission(?|/([^/]++)/detach(*:1009)|s(?|(*:1022)|/create(*:1038)))))|arties/(?|([^/]++)(?|(*:1072)|/edit(*:1086))|create(*:1102)|([^/]++)(*:1119))|osts/(?|([^/]++)(?|(*:1148)|/edit(*:1162))|deleteImage/([^/]++)(*:1192)|show/([^/]++)(*:1214)|create(*:1229)|([^/]++)(*:1246))|ermissions/(?|([^/]++)(?|(*:1281)|/edit(*:1295))|create(*:1311)|([^/]++)(?|(*:1331)|/profile(*:1348))))|minutes/(?|([^/]++)(*:1379)|deleteAttachment/([^/]++)(*:1413)|show/([^/]++)(*:1435)|([^/]++)/edit(*:1457)|create(*:1472)|([^/]++)(*:1489))|directorTables/(?|members/([^/]++)(*:1533)|([^/]++)(?|/(?|members(?|(*:1567)|/create(*:1583)|(*:1592))|edit(*:1606))|(*:1616))|create(*:1632)|([^/]++)(*:1649))|c(?|ommissions/(?|members/([^/]++)(*:1693)|([^/]++)(?|/(?|members(?|(*:1727)|/create(*:1743)|(*:1752))|edit(*:1766))|(*:1776))|create(*:1792)|([^/]++)(*:1809))|itizenLetters/(?|([^/]++)(?|(*:1847)|/edit(*:1861))|show/([^/]++)(*:1884)|create(*:1899)|([^/]++)(*:1916))|ategorias/(?|([^/]++)(?|(*:1950)|/edit(*:1964))|search(*:1980)|create(*:1995)|([^/]++)(*:2012)))|functions/(?|([^/]++)(?|(*:2047)|/edit(*:2061))|create(*:2077)|([^/]++)(*:2094))|secretaries/(?|([^/]++)(?|(*:2130)|/edit(*:2144))|show/([^/]++)(*:2167)|create(*:2182)|([^/]++)(*:2199))|users/(?|([^/]++)(?|(*:2229)|/edit(*:2243))|show/([^/]++)(*:2266)|create(*:2281)|([^/]++)(*:2298)))|/noticias/([^/]++)(*:2327)|/ver(?|eadores/([^/]++)(*:2359)|ify\\-email/([^/]++)/([^/]++)(*:2396))|/sessoes/([^/]++)(*:2423)|/proposituras/([^/]++)(*:2454)|/carta\\-cidadao/([^/]++)(*:2487)|/legislacoes/([^/]++)(*:2517)|/reset\\-password/([^/]++)(*:2551))/?$}sDu',
     ),
     3 => 
     array (
-      63 => 
+      70 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislatureCouncilorsDestroy.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      99 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislatureCouncilorsStore.store',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      113 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislatureCouncilorsCreate.create',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      121 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislatureCouncilors.index',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      143 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislatures.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      159 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislatures.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      193 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'councilors.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      206 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'councilors.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      228 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'councilors.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      242 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'councilors.create',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      258 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'councilors.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      290 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessions.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      318 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionPresentCreate.create',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      331 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionPresentStore.store',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      343 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionPresentEdit.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      357 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionPresentUpdate.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      382 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionAttachmentCreate.create',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      410 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionAttachmentStore.store',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      433 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessionAttachmentDelete.delete',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      455 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessions.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      476 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessions.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      490 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sessions.create',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      515 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislations.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      548 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislations.deleteAttachment',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      569 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislations.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      590 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislations.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      604 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislations.create',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      620 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'legislations.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      652 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'tenants.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      665 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'tenants.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      687 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'tenants.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      701 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'tenants.create',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      717 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'tenants.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      756 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositions.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      789 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositions.deleteAttachment',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      810 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositions.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      831 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositions.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      845 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositions.create',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      861 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositions.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      893 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'profiles.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      906 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'profiles.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      921 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'profiles.create',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      940 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'profiles.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      960 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'profiles.permissions',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1009 => 
       array (
         0 => 
         array (
@@ -1497,7 +2492,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      74 => 
+      1022 => 
       array (
         0 => 
         array (
@@ -1519,7 +2514,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      88 => 
+      1038 => 
       array (
         0 => 
         array (
@@ -1547,1048 +2542,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      119 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'profiles.permissions',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      146 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositura.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      182 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'permissions.profiles',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      254 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislatureCouncilorsDestroy.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      284 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislatureCouncilorsStore.store',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      299 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislatureCouncilorsCreate.create',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      307 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislatureCouncilors.index',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      329 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislatures.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      345 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislatures.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      379 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'councilors.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      392 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'councilors.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      414 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'councilors.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      428 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'councilors.create',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      444 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'councilors.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      476 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessions.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      504 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionPresentCreate.create',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      517 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionPresentStore.store',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      529 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionPresentEdit.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      543 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionPresentUpdate.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      568 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionAttachmentCreate.create',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      596 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionAttachmentStore.store',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      619 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessionAttachmentDelete.delete',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      641 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessions.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      662 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessions.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      676 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessions.create',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      701 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislations.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      734 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislations.deleteAttachment',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      755 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislations.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      776 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislations.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      790 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislations.create',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      806 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'legislations.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      838 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'tenants.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      851 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'tenants.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      873 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'tenants.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      887 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'tenants.create',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      903 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'tenants.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      942 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositions.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      975 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositions.deleteAttachment',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      996 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositions.show',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      1017 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositions.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      1032 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositions.create',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      1049 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'propositions.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      1079 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'profiles.update',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      1093 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'profiles.edit',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      1109 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'profiles.create',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      1126 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'profiles.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'id',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      1158 => 
+      1072 => 
       array (
         0 => 
         array (
@@ -2610,7 +2564,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1172 => 
+      1086 => 
       array (
         0 => 
         array (
@@ -2633,7 +2587,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1188 => 
+      1102 => 
       array (
         0 => 
         array (
@@ -2655,7 +2609,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1205 => 
+      1119 => 
       array (
         0 => 
         array (
@@ -2678,7 +2632,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1234 => 
+      1148 => 
       array (
         0 => 
         array (
@@ -2700,7 +2654,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1248 => 
+      1162 => 
       array (
         0 => 
         array (
@@ -2723,7 +2677,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1278 => 
+      1192 => 
       array (
         0 => 
         array (
@@ -2746,7 +2700,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1300 => 
+      1214 => 
       array (
         0 => 
         array (
@@ -2769,7 +2723,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1315 => 
+      1229 => 
       array (
         0 => 
         array (
@@ -2791,7 +2745,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1332 => 
+      1246 => 
       array (
         0 => 
         array (
@@ -2814,7 +2768,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1367 => 
+      1281 => 
       array (
         0 => 
         array (
@@ -2836,7 +2790,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1381 => 
+      1295 => 
       array (
         0 => 
         array (
@@ -2859,7 +2813,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1397 => 
+      1311 => 
       array (
         0 => 
         array (
@@ -2881,7 +2835,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1414 => 
+      1331 => 
       array (
         0 => 
         array (
@@ -2904,7 +2858,30 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1444 => 
+      1348 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'permissions.profiles',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1379 => 
       array (
         0 => 
         array (
@@ -2926,7 +2903,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1478 => 
+      1413 => 
       array (
         0 => 
         array (
@@ -2949,7 +2926,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1500 => 
+      1435 => 
       array (
         0 => 
         array (
@@ -2972,7 +2949,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1522 => 
+      1457 => 
       array (
         0 => 
         array (
@@ -2995,7 +2972,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1537 => 
+      1472 => 
       array (
         0 => 
         array (
@@ -3017,7 +2994,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1554 => 
+      1489 => 
       array (
         0 => 
         array (
@@ -3040,7 +3017,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1598 => 
+      1533 => 
       array (
         0 => 
         array (
@@ -3063,7 +3040,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1632 => 
+      1567 => 
       array (
         0 => 
         array (
@@ -3085,7 +3062,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1648 => 
+      1583 => 
       array (
         0 => 
         array (
@@ -3108,7 +3085,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1657 => 
+      1592 => 
       array (
         0 => 
         array (
@@ -3131,7 +3108,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1671 => 
+      1606 => 
       array (
         0 => 
         array (
@@ -3154,7 +3131,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1681 => 
+      1616 => 
       array (
         0 => 
         array (
@@ -3176,7 +3153,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1697 => 
+      1632 => 
       array (
         0 => 
         array (
@@ -3198,7 +3175,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1714 => 
+      1649 => 
       array (
         0 => 
         array (
@@ -3221,7 +3198,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1758 => 
+      1693 => 
       array (
         0 => 
         array (
@@ -3244,7 +3221,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1792 => 
+      1727 => 
       array (
         0 => 
         array (
@@ -3266,7 +3243,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1808 => 
+      1743 => 
       array (
         0 => 
         array (
@@ -3289,7 +3266,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1817 => 
+      1752 => 
       array (
         0 => 
         array (
@@ -3312,7 +3289,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1831 => 
+      1766 => 
       array (
         0 => 
         array (
@@ -3335,7 +3312,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1841 => 
+      1776 => 
       array (
         0 => 
         array (
@@ -3357,7 +3334,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1857 => 
+      1792 => 
       array (
         0 => 
         array (
@@ -3379,7 +3356,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1874 => 
+      1809 => 
       array (
         0 => 
         array (
@@ -3402,7 +3379,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1912 => 
+      1847 => 
       array (
         0 => 
         array (
@@ -3424,7 +3401,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1926 => 
+      1861 => 
       array (
         0 => 
         array (
@@ -3447,7 +3424,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1949 => 
+      1884 => 
       array (
         0 => 
         array (
@@ -3470,7 +3447,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1964 => 
+      1899 => 
       array (
         0 => 
         array (
@@ -3492,7 +3469,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1981 => 
+      1916 => 
       array (
         0 => 
         array (
@@ -3515,7 +3492,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2015 => 
+      1950 => 
       array (
         0 => 
         array (
@@ -3537,7 +3514,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2029 => 
+      1964 => 
       array (
         0 => 
         array (
@@ -3560,7 +3537,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2045 => 
+      1980 => 
       array (
         0 => 
         array (
@@ -3587,7 +3564,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2060 => 
+      1995 => 
       array (
         0 => 
         array (
@@ -3609,7 +3586,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2077 => 
+      2012 => 
       array (
         0 => 
         array (
@@ -3632,7 +3609,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2112 => 
+      2047 => 
       array (
         0 => 
         array (
@@ -3654,7 +3631,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2126 => 
+      2061 => 
       array (
         0 => 
         array (
@@ -3677,7 +3654,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2142 => 
+      2077 => 
       array (
         0 => 
         array (
@@ -3699,7 +3676,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2159 => 
+      2094 => 
       array (
         0 => 
         array (
@@ -3722,7 +3699,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2195 => 
+      2130 => 
       array (
         0 => 
         array (
@@ -3744,7 +3721,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2209 => 
+      2144 => 
       array (
         0 => 
         array (
@@ -3767,7 +3744,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2232 => 
+      2167 => 
       array (
         0 => 
         array (
@@ -3790,7 +3767,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2247 => 
+      2182 => 
       array (
         0 => 
         array (
@@ -3812,7 +3789,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2264 => 
+      2199 => 
       array (
         0 => 
         array (
@@ -3835,7 +3812,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2294 => 
+      2229 => 
       array (
         0 => 
         array (
@@ -3857,7 +3834,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2308 => 
+      2243 => 
       array (
         0 => 
         array (
@@ -3880,7 +3857,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2331 => 
+      2266 => 
       array (
         0 => 
         array (
@@ -3903,7 +3880,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2346 => 
+      2281 => 
       array (
         0 => 
         array (
@@ -3925,7 +3902,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2363 => 
+      2298 => 
       array (
         0 => 
         array (
@@ -3948,7 +3925,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2392 => 
+      2327 => 
       array (
         0 => 
         array (
@@ -3971,7 +3948,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2424 => 
+      2359 => 
       array (
         0 => 
         array (
@@ -3994,7 +3971,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2461 => 
+      2396 => 
       array (
         0 => 
         array (
@@ -4018,7 +3995,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2488 => 
+      2423 => 
       array (
         0 => 
         array (
@@ -4041,7 +4018,30 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2521 => 
+      2454 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'propositura.show',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2487 => 
       array (
         0 => 
         array (
@@ -4064,7 +4064,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2551 => 
+      2517 => 
       array (
         0 => 
         array (
@@ -4087,7 +4087,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2585 => 
+      2551 => 
       array (
         0 => 
         array (
@@ -4125,7 +4125,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::ajLF62oSNyGtxIz3' => 
+    'generated::D9QPv6t0XvneiNJJ' => 
     array (
       'methods' => 
       array (
@@ -4140,15 +4140,15 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:api',
         ),
-        'uses' => 'C:32:"Opis\\Closure\\SerializableClosure":289:{@BFk+ylwtGfuwrtzPlTyBaCeNFV2dc3POJi44opTWqjU=.a:5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
+        'uses' => 'C:32:"Opis\\Closure\\SerializableClosure":289:{@5h7D+jtBxCKK6u7lgmhq2QG/qAOR3TOTRoiA9tkyprY=.a:5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000793df3f8000000004de08128";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000056d40a5700000000100f1478";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::ajLF62oSNyGtxIz3',
+        'as' => 'generated::D9QPv6t0XvneiNJJ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4186,195 +4186,6 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'dashboard.index',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-    ),
-    'profile.permissions.detach' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'profile/{id}/permission/{idPermission}/detach',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@detachPermissionProfile',
-        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@detachPermissionProfile',
-        'namespace' => NULL,
-        'prefix' => NULL,
-        'where' => 
-        array (
-        ),
-        'as' => 'profile.permissions.detach',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-    ),
-    'profile.permissions.attach' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'POST',
-      ),
-      'uri' => 'profile/{id}/permissions',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@attachPermissionProfile',
-        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@attachPermissionProfile',
-        'namespace' => NULL,
-        'prefix' => NULL,
-        'where' => 
-        array (
-        ),
-        'as' => 'profile.permissions.attach',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-    ),
-    'profile.permissions.available' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-        2 => 'POST',
-        3 => 'PUT',
-        4 => 'PATCH',
-        5 => 'DELETE',
-        6 => 'OPTIONS',
-      ),
-      'uri' => 'profile/{id}/permissions/create',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissionsAvailable',
-        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissionsAvailable',
-        'namespace' => NULL,
-        'prefix' => NULL,
-        'where' => 
-        array (
-        ),
-        'as' => 'profile.permissions.available',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-    ),
-    'profiles.permissions' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'profiles/{id}/permissions',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissions',
-        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissions',
-        'namespace' => NULL,
-        'prefix' => NULL,
-        'where' => 
-        array (
-        ),
-        'as' => 'profiles.permissions',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-    ),
-    'permissions.profiles' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'permissions/{id}/profile',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@profiles',
-        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@profiles',
-        'namespace' => NULL,
-        'prefix' => NULL,
-        'where' => 
-        array (
-        ),
-        'as' => 'permissions.profiles',
       ),
       'fallback' => false,
       'defaults' => 
@@ -9864,6 +9675,195 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
+    'profile.permissions.detach' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/profile/{id}/permission/{idPermission}/detach',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@detachPermissionProfile',
+        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@detachPermissionProfile',
+        'namespace' => 'Admin',
+        'prefix' => '/admin',
+        'where' => 
+        array (
+        ),
+        'as' => 'profile.permissions.detach',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'profile.permissions.attach' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/profile/{id}/permissions',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@attachPermissionProfile',
+        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@attachPermissionProfile',
+        'namespace' => 'Admin',
+        'prefix' => '/admin',
+        'where' => 
+        array (
+        ),
+        'as' => 'profile.permissions.attach',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'profile.permissions.available' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+        2 => 'POST',
+        3 => 'PUT',
+        4 => 'PATCH',
+        5 => 'DELETE',
+        6 => 'OPTIONS',
+      ),
+      'uri' => 'admin/profile/{id}/permissions/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissionsAvailable',
+        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissionsAvailable',
+        'namespace' => 'Admin',
+        'prefix' => '/admin',
+        'where' => 
+        array (
+        ),
+        'as' => 'profile.permissions.available',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'profiles.permissions' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/profiles/{id}/permissions',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissions',
+        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@permissions',
+        'namespace' => 'Admin',
+        'prefix' => '/admin',
+        'where' => 
+        array (
+        ),
+        'as' => 'profiles.permissions',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'permissions.profiles' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/permissions/{id}/profile',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@profiles',
+        'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionProfileController@profiles',
+        'namespace' => 'Admin',
+        'prefix' => '/admin',
+        'where' => 
+        array (
+        ),
+        'as' => 'permissions.profiles',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
     'categorias.update' => 
     array (
       'methods' => 
@@ -10671,7 +10671,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::LBIZwLnIa5fUMl99' => 
+    'generated::awIyGFljP3WBNNfR' => 
     array (
       'methods' => 
       array (
@@ -10692,7 +10692,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::LBIZwLnIa5fUMl99',
+        'as' => 'generated::awIyGFljP3WBNNfR',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10744,7 +10744,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::zoazd7Z6TOrlfQ7t' => 
+    'generated::WF32Q0ezTACVc5au' => 
     array (
       'methods' => 
       array (
@@ -10765,7 +10765,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::zoazd7Z6TOrlfQ7t',
+        'as' => 'generated::WF32Q0ezTACVc5au',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11076,7 +11076,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::iJajDpqOtTgpPh9y' => 
+    'generated::lnsmtmHw8IAk22tn' => 
     array (
       'methods' => 
       array (
@@ -11097,7 +11097,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::iJajDpqOtTgpPh9y',
+        'as' => 'generated::lnsmtmHw8IAk22tn',
       ),
       'fallback' => false,
       'defaults' => 

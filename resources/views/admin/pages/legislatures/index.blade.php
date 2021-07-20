@@ -79,7 +79,7 @@
                 <a href="{{route('legislatures.show', $legislature->id)}}" data-id="{{$legislature->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
-                  <i class="fas fa-address-book" ></i>
+                  <i class="far fa-eye"></i>
                 </a>
 
               <a href="{{route('legislatureCouncilors.index', $legislature->id )}}" data-id="{{$legislature->id}}"

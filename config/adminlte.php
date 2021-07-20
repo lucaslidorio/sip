@@ -318,22 +318,25 @@ return [
         
         [
             'text'    => 'Segurança',
-            'icon'    => 'fas fa-lock',                       
+            'icon'    => 'fas fa-lock', 
+            'active' => ['admin/users*','admin/profiles*','admin/permissions*'] ,                              
             'submenu' => [
                 [
                     'text' => 'Usuários',
                     'url'  => 'admin/users',
+                    'active' => ['admin/users*' ],
                     'icon' => 'fas fa-users',
                 ],
                 [
                     'text' => 'Perfis',
                     'url'  => 'admin/profiles',
-                    'icon' => 'fas fa-id-badge',
-                    
+                    'active' => ['admin/profiles*'],
+                    'icon' => 'fas fa-id-badge',                    
                 ],
                 [
                     'text' => 'Permissões',
                     'url'  => 'admin/permissions',
+                    'active' => ['admin/permissions*'],
                     'icon' => 'fas fa-key',
                 ],               
                

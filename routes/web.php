@@ -32,14 +32,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Rota da dashboard (home) 
     Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
-    //Rotas de Permmissão X perfil
-    Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
-    Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
-    Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
-    Route::get( 'profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
-    Route::get( 'permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
-
-
+  
     Route::prefix('admin')
             ->namespace('Admin')                
             ->group(function () {
@@ -262,6 +255,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/profiles/{id}', [ProfileController::class, 'destroy'])->name('profiles.destroy');
             Route::post('/profiles', [ProfileController::class, 'store'])->name('profiles.store');
             Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
+
+                    //Rotas de Permmissão X perfil
+            Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
+            Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
+            Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
+            Route::get( 'profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
+            Route::get( 'permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
+
 
 
             //Rotas de Categorias

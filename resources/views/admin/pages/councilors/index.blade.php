@@ -30,7 +30,7 @@
           <div class="col-md-8">
             
             <a href="{{route('councilors.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo perfil" ><i
+            title="Cadastrar novo vereador" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
           <div class="col-md-4">
@@ -78,16 +78,18 @@
               <td>{{$councilor->atual == 1 ? 'Sim':'Não'}}
                 
                 <td class="text-center text-nowrap" >
+                  <a href="{{route('councilors.show', $councilor->id)}}" data-id="{{$councilor->id}}"
+                    class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Ver Detalhes">
+                    <i class="far fa-eye"></i>
+                  </a>
+
                   <a href="{{route('councilors.edit', $councilor->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
-                  <a href="{{route('councilors.show', $councilor->id)}}" data-id="{{$councilor->id}}"
-                    class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                    title="Ver Detalhes">
-                    <i class="fas fa-address-book" ></i>
-                  </a>
+                  
                   <a href="{{route('councilors.destroy', $councilor->id)}}" data-id="{{$councilor->id}}"
                     class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                     title="Excluir">

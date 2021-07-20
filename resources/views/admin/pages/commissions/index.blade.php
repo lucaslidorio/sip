@@ -73,23 +73,23 @@
               <td>{{$commission->tipo == 1 ? 'Permanente' : 'Temporária'}}</td>
               
                 <td class="text-center">
-                <a href="{{route('commissions.edit', $commission->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>
+                  <a href="{{route('comissionMembers.index', $commission->id )}}" data-id="{{$commission->id}}"
+                    class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Membros">
+                    <i class="fas fa-users" ></i>
+                  </a>
+                  
+                  <a href="{{route('commissions.edit', $commission->id)}}" 
+                    class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
+                    title="Editar">
+                    <i class="fas fa-edit" ></i>
+                  </a>                
 
-                <a href="{{route('comissionMembers.index', $commission->id )}}" data-id="{{$commission->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Membros">
-                  <i class="fas fa-users" ></i>
-                </a>
-
-                <a href="{{route('commissions.destroy', $commission->id)}}" data-id="{{$commission->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                </a>
+                  <a href="{{route('commissions.destroy', $commission->id)}}" data-id="{{$commission->id}}"
+                    class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Excluir">
+                    <i class="fas fa-trash-alt" ></i>
+                  </a>
                 
               </td>
             </tr>

@@ -107,17 +107,18 @@
                          
               <td>{{$sessao->legislature->descricao}}</td>  
               <td class="text-center">
-                <a href="{{route('sessions.edit', $sessao->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>
-
                 <a href="{{route('sessions.show', $sessao->id)}}" data-id="{{$sessao->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>
                 </a>
+
+                <a href="{{route('sessions.edit', $sessao->id)}}" 
+                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
+                  title="Editar">
+                  <i class="fas fa-edit" ></i>
+                </a>
+               
                 <a href="{{route('sessionAttachmentCreate.create', $sessao->id)}}" data-id="{{$sessao->id}}"
                   class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Anexar Arquivos">
@@ -127,7 +128,7 @@
                 
                  @if ($sessao->councilors_present()->count() > 0)
                 <a href="{{route('sessionPresentEdit.edit', $sessao->id)}}" data-id="{{$sessao->id}}"
-                  class="btn  bg-gradient-primary btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  class="btn  bg-gradient-secondary btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Editar presença">
                   <i class="fas fa-user-tie" ></i>
                 </a>
