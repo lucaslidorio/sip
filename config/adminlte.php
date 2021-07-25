@@ -328,6 +328,13 @@ return [
                     'icon' => 'fas fa-users',
                 ],
                 [
+                    'text' => 'Planos',
+                    'url'  => 'admin/plans',
+                    'active' => ['admin/plans*'],
+                    'icon' => 'far fa-address-card', 
+                                    
+                ],
+                [
                     'text' => 'Perfis',
                     'url'  => 'admin/profiles',
                     'active' => ['admin/profiles*'],

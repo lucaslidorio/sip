@@ -1,8 +1,10 @@
 <?php
 
+
 use App\Http\Controllers\Admin\CommissionMemberFunction;
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
+use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Admin\LegislationController;
 use App\Http\Controllers\Admin\LegislatureController;
 use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\PartyController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Admin\SecretaryController;
@@ -86,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
         
            
                 });
+
             //Rotas de orgãos
             Route::any('/tenants/search', [TenantController::class, 'search'])->name('tenants.search');
             Route::put('/tenants/{id}', [TenantController::class, 'update'])->name('tenants.update');
@@ -225,6 +229,22 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/secretaries', [SecretaryController::class, 'index'])->name('secretaries.index');
             
 
+            //Rotas de Planos
+            Route::any('/plans/search', [PlanController::class, 'search'])->name('plans.search');
+            Route::put('/plans/{id}', [PlanController::class, 'update'])->name('plans.update');
+            Route::get('/plans/{id}/edit', [PlanController::class, 'edit'])->name('plans.edit');
+            Route::get('/plans/show/{id}', [PlanController::class, 'show'])->name('plans.show');
+            Route::get('/plans/create', [PlanController::class, 'create'])->name('plans.create');
+            Route::get('/plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
+            Route::post('/plans', [PlanController::class, 'store'])->name('plans.store');
+            Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
+           
+            //Rotas de Planos X perfil        
+            Route::get( 'plans/{id}/profiles/{idProfile}/detach', [PlanProfileController::class, 'detachProfilesPlan'])->name('plans.profiles.detach');
+            Route::post('plans/{id}/profiles', [PlanProfileController::class, 'attachProfilesPlans'])->name('plans.profiles.attach');
+            Route::any( 'plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'])->name('plans.profiles.available');
+            Route::get( 'plans/{id}/profiles', [PlanProfileController::class, 'profiles'])->name('plans.profiles');
+
 
             //Rotas de Usuários
             Route::any('/users/search', [UserController::class, 'search'])->name('users.search');
@@ -256,7 +276,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/profiles', [ProfileController::class, 'store'])->name('profiles.store');
             Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
 
-                    //Rotas de Permmissão X perfil
+            //Rotas de Permmissão X perfil
             Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
             Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
             Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');

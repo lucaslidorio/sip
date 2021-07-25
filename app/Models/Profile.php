@@ -16,6 +16,9 @@ class Profile extends Model
 
         return $this->BelongsToMany(Permission::class, 'permission_profile');
     }
+    public function plans(){
+        return $this->BelongsToMany(Plan::class, 'plan_profile' );
+    }
     //Pega as permissões ainda não vinculada ao perfil
     public function permissionsAvailable( $filter = null){
 
