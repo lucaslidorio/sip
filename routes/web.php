@@ -29,13 +29,14 @@ use App\Http\Controllers\Site\SiteController;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\FuncCall;
 
 //Grupo de roda para Middleware de autenticação
 Route::middleware(['auth'])->group(function () {
 
     //Rota da dashboard (home) 
     Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
-  
+ 
     Route::prefix('admin')
             ->namespace('Admin')                
             ->group(function () {

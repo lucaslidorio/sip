@@ -229,12 +229,7 @@ return [
             'search' => false,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-      
+           
         ['header' => 'GERAL'],
         
               
@@ -319,13 +314,15 @@ return [
         [
             'text'    => 'Segurança',
             'icon'    => 'fas fa-lock', 
-            'active' => ['admin/users*','admin/profiles*','admin/permissions*'] ,                              
+            'active' => ['admin/users*','admin/profiles*','admin/permissions*'] ,
+            'can'    =>   'admin',                        
             'submenu' => [
                 [
                     'text' => 'Usuários',
                     'url'  => 'admin/users',
                     'active' => ['admin/users*' ],
                     'icon' => 'fas fa-users',
+                    'can' => 'admin',
                 ],
                 [
                     'text' => 'Planos',

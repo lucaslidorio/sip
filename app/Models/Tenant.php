@@ -14,4 +14,10 @@ class Tenant extends Model
     'celular', 'dia_atendimento','cnpj','email', 'facebook', 'youtube', 'instagram',
      'twiter', 'brasao', 'bandeira'];
 
+     public function users(){
+        return $this->hasMany(User::class);
+    }
+    public function plan(){
+        return $this->belongsTo(Plan::class);
+    }
 }

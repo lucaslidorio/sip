@@ -24,7 +24,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::aIEtlB2DkmoKczdz',
+            '_route' => 'generated::L1gIlsgibk5qBTQh',
           ),
           1 => NULL,
           2 => 
@@ -1329,7 +1329,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::d9Dgc16MU6qwQ8DG',
+            '_route' => 'generated::VTRH3XJFr65hxOVc',
           ),
           1 => NULL,
           2 => 
@@ -1365,7 +1365,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::a5wWZBxQar67Zw07',
+            '_route' => 'generated::HfodaPTxH3fYMFaW',
           ),
           1 => NULL,
           2 => 
@@ -1495,7 +1495,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::iNgNLz4dHbUZEAst',
+            '_route' => 'generated::GycUiYkenodTWQKu',
           ),
           1 => NULL,
           2 => 
@@ -4393,7 +4393,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::aIEtlB2DkmoKczdz' => 
+    'generated::L1gIlsgibk5qBTQh' => 
     array (
       'methods' => 
       array (
@@ -4408,15 +4408,15 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:api',
         ),
-        'uses' => 'C:32:"Opis\\Closure\\SerializableClosure":289:{@T0gAyZ3IN5sBEzfdClynIqNyWG4Jh7FoqTHQ27NMdVQ=.a:5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
+        'uses' => 'C:32:"Opis\\Closure\\SerializableClosure":289:{@z/C2yTAm4oEHixEGg1d8BDdaQfjDKaKm9E9ZK00rJik=.a:5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000053e0abde000000004a45e067";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000073404e780000000006888bc1";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::aIEtlB2DkmoKczdz',
+        'as' => 'generated::L1gIlsgibk5qBTQh',
       ),
       'fallback' => false,
       'defaults' => 
@@ -9889,6 +9889,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@search',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@search',
@@ -9925,6 +9926,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@update',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@update',
@@ -9962,6 +9964,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@edit',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@edit',
@@ -9999,6 +10002,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@create',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@create',
@@ -10036,6 +10040,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@destroy',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@destroy',
@@ -10072,6 +10077,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@store',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@store',
@@ -10109,6 +10115,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'can:admin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@index',
         'controller' => 'App\\Http\\Controllers\\Admin\\ACL\\PermissionController@index',
@@ -11390,7 +11397,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::d9Dgc16MU6qwQ8DG' => 
+    'generated::VTRH3XJFr65hxOVc' => 
     array (
       'methods' => 
       array (
@@ -11411,7 +11418,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::d9Dgc16MU6qwQ8DG',
+        'as' => 'generated::VTRH3XJFr65hxOVc',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11463,7 +11470,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::a5wWZBxQar67Zw07' => 
+    'generated::HfodaPTxH3fYMFaW' => 
     array (
       'methods' => 
       array (
@@ -11484,7 +11491,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::a5wWZBxQar67Zw07',
+        'as' => 'generated::HfodaPTxH3fYMFaW',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11795,7 +11802,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::iNgNLz4dHbUZEAst' => 
+    'generated::GycUiYkenodTWQKu' => 
     array (
       'methods' => 
       array (
@@ -11816,7 +11823,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::iNgNLz4dHbUZEAst',
+        'as' => 'generated::GycUiYkenodTWQKu',
       ),
       'fallback' => false,
       'defaults' => 

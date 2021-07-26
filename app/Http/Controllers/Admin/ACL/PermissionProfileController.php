@@ -16,6 +16,8 @@ class PermissionProfileController extends Controller
         $this->profile = $profile;
         $this->permission = $permission;
         
+        $this->middleware('can:admin');
+        
     }
 
     //recupera as permissão do perfil

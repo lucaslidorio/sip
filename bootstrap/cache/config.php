@@ -1,4 +1,11 @@
 <?php return array (
+  'acl' => 
+  array (
+    'admins' => 
+    array (
+      0 => 'lucaslidorio@hotmail.com',
+    ),
+  ),
   'adminlte' => 
   array (
     'title' => '  ',
@@ -77,107 +84,101 @@
       ),
       1 => 
       array (
-        'text' => 'blog',
-        'url' => 'admin/blog',
-        'can' => 'manage-blog',
-      ),
-      2 => 
-      array (
         'header' => 'GERAL',
       ),
-      3 => 
+      2 => 
       array (
         'text' => 'Posts',
         'url' => 'admin/posts',
         'icon' => 'far fa-clipboard',
       ),
-      4 => 
+      3 => 
       array (
         'text' => 'Leis',
         'url' => 'admin/legislations',
         'icon' => 'fas fa-balance-scale',
       ),
-      5 => 
+      4 => 
       array (
         'text' => 'Carta ao Cidadão',
         'url' => 'admin/citizenLetters',
         'icon' => 'far fa-envelope',
       ),
-      6 => 
+      5 => 
       array (
         'header' => 'LEGISLATIVO',
       ),
-      7 => 
+      6 => 
       array (
         'text' => 'Sessões',
         'url' => 'admin/legislativo/sessions',
         'icon' => 'fas fa-handshake',
       ),
-      8 => 
+      7 => 
       array (
         'text' => 'Proposituras',
         'url' => 'admin/propositions',
         'icon' => 'fas fa-file-invoice',
       ),
-      9 => 
+      8 => 
       array (
         'text' => 'Vereadores',
         'url' => 'admin/legislativo/councilors',
         'icon' => 'fas fa-user-tie',
       ),
-      10 => 
+      9 => 
       array (
         'text' => 'Legislaturas',
         'url' => 'admin/legislativo/legislatures',
         'icon' => 'fas fa-university',
       ),
-      11 => 
+      10 => 
       array (
         'text' => 'Comissões',
         'url' => 'admin/commissions',
         'icon' => 'fas fa-user-tag',
       ),
-      12 => 
+      11 => 
       array (
         'text' => 'Mesa Diretora',
         'url' => 'admin/directorTables',
         'icon' => 'fas fa-tablets',
       ),
-      13 => 
+      12 => 
       array (
         'header' => 'ADMINISTRAÇÃO',
       ),
-      14 => 
+      13 => 
       array (
         'text' => 'Orgão',
         'url' => 'admin/tenants',
         'icon' => 'fas fa-university',
       ),
-      15 => 
+      14 => 
       array (
         'text' => 'Secretarias',
         'url' => 'admin/secretaries',
         'icon' => 'fas fa-table',
       ),
-      16 => 
+      15 => 
       array (
         'text' => 'Categorias',
         'url' => 'admin/categorias',
         'icon' => 'fas fa-list',
       ),
-      17 => 
+      16 => 
       array (
         'text' => 'Partidos',
         'url' => 'admin/parties',
         'icon' => 'fas fa-ad',
       ),
-      18 => 
+      17 => 
       array (
         'text' => 'Funções',
         'url' => 'admin/functions',
         'icon' => 'fas fa-plus-square',
       ),
-      19 => 
+      18 => 
       array (
         'text' => 'Segurança',
         'icon' => 'fas fa-lock',
@@ -187,6 +188,7 @@
           1 => 'admin/profiles*',
           2 => 'admin/permissions*',
         ),
+        'can' => 'admin',
         'submenu' => 
         array (
           0 => 
@@ -198,6 +200,7 @@
               0 => 'admin/users*',
             ),
             'icon' => 'fas fa-users',
+            'can' => 'admin',
           ),
           1 => 
           array (

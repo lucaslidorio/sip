@@ -13,7 +13,7 @@ class UserController extends Controller
     private $repository;
     public function __construct(User $user)
     {
-        //Pega todos os planos atravé do injeção do model no contrutor
+        //Pega todos os planos através do injeção do model no contrutor
         $this->repository = $user;
     }
 
@@ -31,8 +31,13 @@ class UserController extends Controller
     }
     public function store(StoreUpdateUser $request)
     {
-       
-        $this->repository->create($request->all()); 
+        $tenant = auth()->user()->tenant;
+        
+        $data = $request->all();
+        $data['tenant_id'] = $tenant->id;
+        $data['password'] = bcrypt($data['password']); // criptografa a senha
+
+        $this->repository->create($data); 
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
         return redirect()->back();
         
@@ -58,8 +63,12 @@ class UserController extends Controller
             return redirect()->back();
                        
         }
+        $data = $request->only('name', 'email', 'matricula');
+        if($request->password){
+            $data['password'] = bcrypt($request->password);
+        }
 
-        $user->update($request->all());
+        $user->update($data);
         toast('Usuário atualizado com sucesso!','success')->toToast('top') ; 
         return redirect()->route('users.index');
         
