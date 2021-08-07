@@ -2,6 +2,7 @@
 
 
 <section id="sobre" class="section">
+  <br><br>
     <!-- Container Starts -->
     <div class="container">
       <div class="section-header">

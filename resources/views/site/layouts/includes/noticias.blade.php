@@ -5,6 +5,7 @@
 </style>
 
 <section id="blog" class="section">
+    <br><br>
   <div class="container">
       <div class="section-header">
           <h2 class="section-title">Utimas <span>Notícia</span></h2>

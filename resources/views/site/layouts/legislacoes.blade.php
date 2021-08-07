@@ -43,7 +43,7 @@
     <!-- Header Section Start -->
 
     <section id="sessoes" class="section mw-100 ">
-
+    
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
