@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * sdfds
      * @return \Illuminate\Http\Response
      */
     public function index()
