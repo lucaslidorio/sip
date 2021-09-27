@@ -8,7 +8,7 @@
     <br><br>
   <div class="container">
       <div class="section-header">
-          <h2 class="section-title">Utimas <span>Notícia</span></h2>
+          <h2 class="section-title">Útimas <span>Notícia</span></h2>
           <hr class="lines">
           <p class="section-subtitle"></p>
       </div>
@@ -43,7 +43,7 @@
        <div class="col text-center font-weid">
           
         <a href="{{route('noticias.todas')}}" class="btn btn-outline-primary btn-lg text-primary"
-          id="btnVer" >Ver Todas as Noticias</a>
+          id="btnVer" >Ver Todas as Noticías</a>
        </div>
       </div>
   </div>

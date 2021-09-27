@@ -26,7 +26,7 @@
       <div class="row ">
         <div class="col-md-12">
           <div class="site-info ">
-            <p class="text-center">Todos os direitos reservado &copy; 2021 - {{$tenant->nome}}. <span>desenvolvido por:</span>  <a target="_blank" rel="nofollow"
+            <p class="text-center">Todos os direitos reservados &copy; 2021 - {{$tenant->nome}}. <span>desenvolvido por:</span>  <a target="_blank" rel="nofollow"
                 href="https://fpstecnologia.com.br/">  FPS Tecnologia</a></p>
           </div>
         </div>

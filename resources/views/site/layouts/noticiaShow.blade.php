@@ -3,31 +3,25 @@
   <head>
     @foreach ($tenants as $tenant)      
     @endforeach
- 
+    <title>{{$tenant->nome}}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="{{$tenant->nome}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Grayrids">
-
-
     <meta property="og:site_name" content="{{$tenant->nome}}">
     <meta property="og:url" content="seringueiras.ro.leg.br">
     <meta property="og:title" content="{{$post->titulo}} -  {{$tenant->nome}}">
     <meta property="og:description" content="{{$post->conteudo}}">
-    <meta property="og:type" content="article">
+    <meta property="og:type" content="article">       
+    <meta property="og:image:secure_url" content="{{config('app.aws_url').$post->img_destaque}}" />
+    <meta property="og:image:url" content="{{config('app.aws_url').$post->img_destaque }}"/>
     <meta property="og:image" content="{{config('app.aws_url').$post->img_destaque }}" />
-    <meta property="og:image:url" content="{{config('app.aws_url').$post->img_destaque }}" />
-    <meta property="og:image:secure_url" content="{{config('app.aws_url').$post->img_destaque }}" />
     <meta property="og:image:type" content="image/jpg" />
     <meta property="og:image:width" content="300" />
     <meta property="og:image:height" content="300" />
-    <meta property="og:image:alt" content="{{$post->titulo}}" />
-      
-    <title>{{$tenant->nome}}</title>
-     
-    
+    <meta property="og:image:alt" content="{{$post->titulo}}" />         
 
    
 
