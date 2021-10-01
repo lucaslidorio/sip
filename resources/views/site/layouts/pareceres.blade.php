@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<br><br>
+<br>
+<br>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -47,47 +48,55 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-                    PROPOSITURAS DOS PODER <span>LEGISLATIVO </span>
+                    PARECERES DAS <span> COMISSÕES</span>
                 </h2>
                 <hr class="lines wow zoomIn" data-wow-delay="0.3s">
                 <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-                    Indicações, moções, pareceres, projetos de leis, etc...
+                    Pareceres das comissões legislativas
                 </p>
             </div>
 
             <div class="card">
                 <div class="card-header bg-transparent">
-                    <form action="{{ route('proposituraPesquisar.pesquisar') }}" method="get">
+                    <form action="{{ route('parecer.pesquisar') }}" method="get">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="sessao">Tipo de Documento:</label>
-                                <select class="custom-select " id="type_proposition_id" name="type_proposition_id">
+                                <label for="sessao">Comissão:</label>
+                                <select class="custom-select" id="commission_id" name="commission_id">
                                     <option value="" selected>Selecione uma opção</option>
-                                    @foreach ($tipos_propositura as $tipo)
-                                        <option value="{{ $tipo->id }}"
-                                            {{ request()->query('type_proposition_id') == $tipo->id ? 'selected' : '' }}>
-
-                                            {{ $tipo->nome }}
+                                    @foreach ($commissions as $commission)
+                                        <option value="{{ $commission->id }}"
+                                            {{ request()->query('commission_id') == $commission->id ? 'selected' : '' }}>
+                                            {{ $commission->nome }}
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
-                           
-                            <div class="col-md-3">
-                                <label for="sessao">Situação:</label>
-                                <select class="custom-select" id="proceeding_situation_id" name="proceeding_situation_id">
-                                    <option value="" selected>Selecione uma opção</option>
-                                    @foreach ($situacoes as $situacao)
-                                        <option value="{{ $situacao->id }}"
-                                            {{ request()->query('proceeding_situation_id') == $situacao->id ? 'selected' : '' }}>
-
-                                            {{ $situacao->nome }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            </div>                           
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="data_inicio" >Data Início:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="date" class="form-control" 
+                                          id="data_inicio" name="data_inicio"
+                                          value="">
+                                     </div>
+                                </div>
                             </div>
                             <div class="col-sm-3">
-                                
+                                <div class="form-group">
+                                    <label for="data_fim" >Data Fim:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="date" class="form-control " 
+                                          id="data_fim" name="data_fim"
+                                          value="">                                    
+                                  </div>
+                                </div>
                             </div>                         
                                                   
                            <div class="col-sm-3 text-right">
@@ -100,38 +109,40 @@
                     </form>
 
                 </div>
-                <div class="card-body  p-0 table-bordered">
+                <div class="card-body  p-0">
                     <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th scope="col">Número</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Comissão</th>
+                            <th scope="col">Propositura</th>
                             <th scope="col">Data</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Descrição</th>
-                            <th scope="col">Situação</th>
-                            <th scope="col" class="text-center">Ações</th>                                          
+                            <th scope="col">Autoria</th>
+                            <th scope="col">Anexo</th>
+                            <th scope="col" class="text-center">Ações</th>                 
                           </tr>
                         </thead>
                         <tbody>
-                        @foreach ($proposituras as $propositura)
+                        @foreach ($seemCommissions as $seemCommission)
                         <tr>
-                            <th scope="row">{{$propositura->numero}}</th>
-                            <td>{{\Carbon\Carbon::parse($propositura->data)->format('d/m/Y')}}</td>
-                            {{-- <td> <a href="{{config('app.aws_url')."{$propositura->propositura}" }}" 
-                                target="_blank" class="mb-2 text-reset"
-                                data-toggle="tooltip" data-placement="top" 
-                                    title="Clique para abrir o documento" >
-                                  <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
-                                  <span class="mr-2"> {{$propositura->nome_original}}</span>                
-                              </a></td> --}}
-                            <td>{{$propositura->type_proposition->nome}}</td>
-                            <td>{{$propositura->descricao}}</td>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$seemCommission->commission->nome}}</td>
                             <td>
-                                <span class="badge badge-pill badge-primary">{{$propositura->situation->nome}}</span>
-                                
+                                {{$seemCommission->proposition->type_proposition->nome}} 
+                                {{$seemCommission->proposition->numero}}/{{\Carbon\Carbon::parse($seemCommission->proposition->data)->format('Y')}}   
                             </td>
+                            <td>{{\Carbon\Carbon::parse($seemCommission->data)->format('d/m/Y')}}</td>
+                            <td>{{$seemCommission->autoria}}</td>
+                            <td> @foreach ($seemCommission->attachments as $attachment)                   
+                                <a href="{{config('app.aws_url')."{$attachment->anexo}" }}" 
+                                  target="_blank" class="mb-2 text-reset"
+                                  data-toggle="tooltip" data-placement="top" 
+                                      title={{$attachment->nome_original}} >
+                                    <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
+                                </a>                              
+                            @endforeach</td>                             
                             <td class="text-center">
-                                <a href="{{route('propositura.show', $propositura->id)}}" data-id=""
+                                <a href="{{route('parecer.show', $seemCommission->id)}}" data-id=""
                                 class="btn  btn-info  " data-toggle="tooltip" data-placement="top"  
                                 title="Ver Detalhes">
                                 <i class="far fa-eye "> Abrir</i>
@@ -143,17 +154,12 @@
                         
                         </tbody>
                       </table>
-
-                   
-
-
-
                 </div>
                 <div class="card-footer" style="background:white;">
                     @if (!empty($filters))
-                    {!!$proposituras->appends($filters)->links()!!}
+                    {!!$seemCommissions->appends($filters)->links()!!}
                     @else
-                    {!!$proposituras->links()!!}
+                    {!!$seemCommissions->links()!!}
                     @endif
                 </div>
             </div>
@@ -161,9 +167,10 @@
         </div>
     </section>
     <!-- Services Section End -->
-   <!-- Rodapé -->
-  @include('site.layouts.includes.rodape')
-  <!-- Fim Rodapé -->
+ <!-- Rodapé -->
+ @include('site.layouts.includes.rodape')
+ <!-- Fim Rodapé -->
+
     <!-- Go To Top Link -->
     <a href="#" class="back-to-top">
         <i class="lnr lnr-arrow-up"></i>

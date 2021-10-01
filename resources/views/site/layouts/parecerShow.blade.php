@@ -44,61 +44,55 @@
       <div class="container">        
         <div class="section-header">
           <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-              PROPOSITURAS DOS PODER <span>LEGISLATIVO </span>
+              PARECER DA COMISSÃO DE<span> {{$seemCommission->commission->nome}} </span>
           </h2>
           <hr class="lines wow zoomIn" data-wow-delay="0.3s">
           <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-              Indicações, moções, pareceres, projetos de leis, etc...
+              Pareceres das comissões do poder legislativo
           </p>
         </div>
         <div class="shadow-lg p-5 mb-15 bg-white rounded">
 
           <div class="card " >
             <div class="card-header"style="background:white;">
-            <h6>Propositura  -   <strong> {{$propositura->type_proposition->nome}} </strong> <h6>  
+            <h6>Parecer da comissão de     
+              <strong> {{$seemCommission->commission->nome}} </strong>
+              sobre <strong> 
+              {{$seemCommission->proposition->type_proposition->nome}} 
+              {{$seemCommission->proposition->numero}}/{{\Carbon\Carbon::parse($seemCommission->proposition->data)->format('Y')}}
+              </strong>
+            <h6>  
             </div>
            <div class="card-body p-0">
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Número</th>  
-                  <th scope="col">{{$propositura->numero}}</th>              
+                  <th scope="col">Data</th>  
+                  <th scope="col">{{\Carbon\Carbon::parse($seemCommission->data)->format('d/m/Y')}}</th>              
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">Autor(s)</th>
-                  <td>
-                    @foreach ($propositura->author as $autor)
-                    <p>{{$autor->nome}} - {{$autor->party->sigla}}</p>
-                        
-                    @endforeach
-                  </td>             
+                  <th scope="row">Autoria</th>
+                  <td>{{$seemCommission->autoria}}</td>          
                 </tr>
                 <tr>
-                  <th scope="row">Data</th>
-                  <td>{{\Carbon\Carbon::parse($propositura->data)->format('d/m/Y')}}</td>
+                  <th scope="row">Assunto</th>
+                  <td>{{$seemCommission->assunto}}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Descrição (caput)</th>
-                  <td colspan="2">{{$propositura->descricao}}</td>                
-                </tr>
-                <tr>
-                  <th scope="row">Situação</th>
-                  <td colspan="2">
-                    <span class="badge badge-pill badge-primary">{{$propositura->situation->nome}}</span>  
-                  </td>                
+                  <th scope="row">Descrição</th>
+                  <td colspan="2">{{$seemCommission->descricao}}</td>                
                 </tr>
                 <tr>
                   <th scope="row">Anexo(s)</th>
                   <td >
-                    @foreach ($propositura->attachments as $anexo)
+                    @foreach ($seemCommission->attachments as $anexo)
                     <a href="{{config('app.aws_url')."{$anexo->anexo}" }}" 
                       target="_blank" class="mb-2 text-reset"
                       data-toggle="tooltip" data-placement="top" 
                           title="Clique para abrir o documento" >
-                          <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
-                          
+                          <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>                          
                         <span class="mr-2"> {{$anexo->nome_original}}</span>                
                     </a>
                     @endforeach
@@ -110,7 +104,7 @@
            <div class="card-footer">
             <div class="row">
               <div class="col-sm-12">
-                <a href="{{route('proposituraPesquisar.pesquisar')}}" data-id=""
+                <a href="{{route('parecer.pesquisar')}}" data-id=""
                 class="btn  btn-primary  " data-toggle="tooltip" data-placement="top"  
                 title="Voltar">
                 <i class="fas fa-backward">  Voltar</i>
@@ -119,22 +113,12 @@
             </div>
 
            </div>
-          </div>
-
-
-
-          
-         
-        </div>
-         
-        </div>
-        
-      </div>
-     
+          </div>  
+        </div>         
+        </div>        
+      </div>     
     </div>
-    <!-- Blog Section End  -->
-
-  
+    <!-- Blog Section End  -->  
     <!-- Rodapé -->
   @include('site.layouts.includes.rodape')
   <!-- Fim Rodapé -->> 

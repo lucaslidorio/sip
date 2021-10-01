@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Admin\SecretaryController;
+use App\Http\Controllers\Admin\SeemCommissionController;
 use App\Http\Controllers\Admin\SessionController;
 use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\UserController;
@@ -112,6 +113,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/legislations/{id}', [LegislationController::class, 'destroy'])->name('legislations.destroy');
             Route::post('/legislations', [LegislationController::class, 'store'])->name('legislations.store');
             Route::get('/legislations', [LegislationController::class, 'index'])->name('legislations.index');
+
+            //Rotas de pareceres             
+            Route::any('/seemCommissions/search', [SeemCommissionController::class, 'search'])->name('seemCommissions.search');
+            Route::put('/seemCommissions/{id}', [SeemCommissionController::class, 'update'])->name('seemCommissions.update');
+            Route::get('/seemCommissions/deleteAttachment/{id}', [SeemCommissionController::class, 'deleteAttachment'])->name('seemCommissions.deleteAttachment');
+            Route::get('/seemCommissions/show/{id}', [SeemCommissionController::class, 'show'])->name('seemCommissions.show');
+            Route::get('/seemCommissions/{id}/edit', [SeemCommissionController::class, 'edit'])->name('seemCommissions.edit');
+            Route::get('/seemCommissions/create', [SeemCommissionController::class, 'create'])->name('seemCommissions.create');
+            Route::get('/seemCommissions/{id}', [SeemCommissionController::class, 'destroy'])->name('seemCommissions.destroy');
+            Route::post('/seemCommissions', [SeemCommissionController::class, 'store'])->name('seemCommissions.store');
+            Route::get('/seemCommissions', [SeemCommissionController::class, 'index'])->name('seemCommissions.index');
 
 
             //Rotas de proposituras             
@@ -320,6 +332,8 @@ Route::get('proposituras/{id}', [SiteController::class, 'proposituraShow'])->nam
 Route::get('carta-cidadao/{id}', [SiteController::class, 'cartaCidadaoShow'])->name('cartaCidadao.show');
 Route::get('legislacoes', [SiteController::class, 'legislacoes'])->name('legislacoes.index');
 Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name('legislacao.show');
+Route::get('pareceres', [SiteController::class, 'parecerPesquisar'])->name('parecer.pesquisar');
+Route::get('pareceres/{id}', [SiteController::class, 'parecerShow'])->name('parecer.show');
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 // Route::get('/', function () {

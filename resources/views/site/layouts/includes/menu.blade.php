@@ -7,7 +7,7 @@
             <nav class="navbar navbar-expand-lg mainmenu-area">
              
               @foreach($tenants as $tenant)
-                <a class="navbar-brand" href="{{route('site.home')}}">
+                <a class="navbar-brand d-none d-md-block" href="{{route('site.home')}}">
                   <img src="{{config('app.aws_url')."{$tenant->brasao}" }}" class="rounded img-fluid float-left" alt="Brasão"
                   style="max-width: 50px;">  </a>            
               <a class="navbar-brand" href="{{route('site.home')}}">  {{$tenant->nome}}</a>

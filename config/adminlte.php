@@ -279,6 +279,11 @@ return [
             'icon' => 'fas fa-user-tag',
         ],
         [
+            'text' => 'Pareceres',
+            'url'  => 'admin/seemCommissions',
+            'icon' => 'fab fa-searchengin',
+        ],
+        [
             'text' => 'Mesa Diretora',
             'url'  => 'admin/directorTables',
             'icon' => 'fas fa-tablets',

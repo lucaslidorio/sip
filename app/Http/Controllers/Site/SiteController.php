@@ -32,6 +32,7 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 use App\Mail\contato;
 use App\Models\CitizenLetter;
 use App\Models\Legislation;
+use App\Models\SeemCommission;
 
 class SiteController extends Controller
 {
@@ -54,7 +55,9 @@ class SiteController extends Controller
         $type_proposition,
         $proceeding_situation,
         $citizen_letter,
-        $legislation;
+        $legislation,
+        $seemCommission;
+
     public function __construct(
         Tenant $tenant,
         Legislature $legislature,
@@ -75,6 +78,7 @@ class SiteController extends Controller
         ProceedingSituation $proceeding_situation,
         CitizenLetter  $citizen_letter,
         Legislation $legislation,
+        SeemCommission $seemCommission,
     ) {
         $this->tenant = $tenant;
         $this->legislature = $legislature;
@@ -95,6 +99,7 @@ class SiteController extends Controller
         $this->proceeding_situation = $proceeding_situation;
         $this->citizen_letter = $citizen_letter; //carta ao cidadão
         $this->legislation = $legislation;
+        $this->seemCommission = $seemCommission;
 
 
     }
@@ -341,7 +346,49 @@ class SiteController extends Controller
             'tenants' =>  $tenants,
         ]);
     }
+    public function parecerPesquisar(Request $request){
+        
+        $commissions = $this->commission->all();
+        $tenants = $this->tenant->where('id', 3)->get(); 
 
+        $seemCommissions = $this->seemCommission->orderBy('created_at', 'DESC')->paginate(10);
+
+        $filters = $request->except('_token');
+        $seemCommissions = $this->seemCommission
+            ->when($request->commission_id, function ($query, $role) {
+                return $query->where('commission_id', $role);
+            })
+            ->when($request->data_inicio, function ($query, $role) {
+                return $query->where('created_at', '>=', $role);
+            })
+            ->when($request->data_fim, function ($query, $role) {
+                return $query->where('created_at', '<=', $role);
+            })
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+          
+        return view('site.layouts.pareceres',[
+            'tenants' => $tenants,
+            'seemCommissions'=> $seemCommissions,
+            'commissions' => $commissions,
+            'filters' => $filters,
+        ]);
+    }
+    public function parecerShow($id){
+        $tenants = $this->tenant->where('id', 3)->get(); 
+        $seemCommission =  $this->seemCommission->where('id', $id)->first();
+
+        if (!$seemCommission)
+            return redirect()->back();
+        $tenants = $this->tenant->where('id', 3)->get();
+
+
+        return view('site.layouts.parecerShow', [
+            'seemCommission' => $seemCommission,
+            'tenants' =>  $tenants,
+        ]);
+
+    }
     public function cartaCidadaoShow($id)
     {
 

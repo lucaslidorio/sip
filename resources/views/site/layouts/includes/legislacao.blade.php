@@ -37,15 +37,14 @@
         </a>
         </div>
     
-    
         <div class="col-md-4 col-sm-6">
-            <a  target="_blank" href="https://transparencia.seringueiras.ro.leg.br/portaltransparencia/licitacoes" class="text-decoration-none">
+            <a  href="{{route('parecer.pesquisar')}}" class="text-decoration-none">
               <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
                 <div class="icon">
-                    <i class="fas fa-file-invoice-dollar"></i>
+                  <i class="fab fa-searchengin"></i>
                 </div>
-                <h4 class="font-weight-bold text-dark" >Licitações</h4>
-                <p class="text-dark">Licitações realizada <br> pelo Poder Legislativo
+                <h4 class="font-weight-bold text-dark" >Parecer</h4>
+                <p class="text-dark">Pareceres <br>das comissões legislativas
                 </p>               
               </div>
             </a>
