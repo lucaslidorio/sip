@@ -10,20 +10,21 @@
     <meta name="keywords" content="{{$tenant->nome}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Grayrids">
-    <meta property="og:site_name" content="{{$tenant->nome}}">
-    <meta property="og:url" content="seringueiras.ro.leg.br">
-    <meta property="og:title" content="{{$post->titulo}} -  {{$tenant->nome}}">
-    <meta property="og:description" content="{{$post->conteudo}}">
-    <meta property="og:type" content="article">       
-    <meta property="og:image:secure_url" content="{{config('app.aws_url').$post->img_destaque}}" />
-    <meta property="og:image:url" content="{{config('app.aws_url').$post->img_destaque }}"/>
-    <meta property="og:image" content="{{config('app.aws_url').$post->img_destaque }}" />
-    <meta property="og:image:type" content="image/jpg" />
-    <meta property="og:image:width" content="300" />
-    <meta property="og:image:height" content="300" />
-    <meta property="og:image:alt" content="{{$post->titulo}}" />         
 
-   
+        <meta itemprop="name" content="{{$post->titulo}}"/>
+        <meta itemprop="description" content="{{$post->conteudo}}"/>
+        <meta itemprop="image" content="{{config('app.aws_url').$post->img_destaque }}"/>
+        {{-- <meta itemprop="url" content="https://www.seringueiras.ro.leg.br/noticias/{{$post->titulo}}"/> --}}
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="{{$post->titulo}}"/>
+        {{-- <meta property="og:description" content=""/> --}}
+        <meta property="og:image:secure_url" content="{{config('app.aws_url').$post->img_destaque}}" />
+        <meta property="og:image" content="{{config('app.aws_url').$post->img_destaque}}"/>
+        <meta property="og:image:alt" content="{{$post->titulo}}"/>
+        {{-- <meta property="og:url" content="https://www.seringueiras.ro.leg.br/noticias/{{$post->titulo}}"/> --}}
+        <meta property="og:site_name" content="CAMARA MUNICIPAL DE SERINGUEIRAS-RO"/>
+        <meta property="og:locale" content="pt_BR"/>    
 
     <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="{{url('../site/css/bootstrap.min.css')}}">
@@ -112,6 +113,8 @@
                 <div class="col-md-12">
                   <span>Compartilhar</span> <br>
                   <a href="" id="whatsapp-share-btt" rel="nofollow" target="_blank"><i class="fab fa-whatsapp fa-2x text-success"></i></a>
+                  <a href="" id="facebook-share-btt" rel="nofollow" target="_blank" class="facebook-share-button"><i class="fab fa-facebook fa-2x"></i></a>
+
                 </div>
                 
                 
@@ -200,14 +203,19 @@
 
    {{-- Scrip da galeria --}}
    <script>
-        //Constrói a URL depois que o DOM estiver pronto
+        //Constrói a URL depois que o DOM estiver pronto compartilhamento whatsapp
     document.addEventListener("DOMContentLoaded", function() {
         //conteúdo que será compartilhado: Título da página + URL
         var titulo = document.getElementById("titulo").innerHTML;
         var conteudo = encodeURIComponent(titulo + " - "+ document.title + " " + window.location.href);
         //altera a URL do botão
         document.getElementById("whatsapp-share-btt").href = "https://api.whatsapp.com/send?text=" + conteudo;
-    }, false);
+        document.getElementById("facebook-share-btt").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
+    }, false);   
+
+
+
+
 
      lc_lightbox('.galeria_post', {
        wrap_class:'lcl_fade_oc',
