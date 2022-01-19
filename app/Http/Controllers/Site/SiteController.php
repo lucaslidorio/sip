@@ -202,6 +202,16 @@ class SiteController extends Controller
     }
     public function noticiasTodasPesquisar(Request $request)
     {
+        $now = Carbon::now(); //pega a data atual
+        //recupera os post em destaque (slide principal)
+        $posts_destaque = $this->post
+            ->where('destaque', '1')
+            ->where('data_expiracao', null)
+            ->orWhere('data_expiracao', '>', $now)
+            ->orderBy('created_at', 'DESC')
+            ->limit(6)
+            ->get();
+            
         $pesquisar = $request->except('_token');
         //dd($pesquisar);
         $posts = $this->post->noticiasTodasPesquisar($request->pesquisa);
@@ -211,6 +221,7 @@ class SiteController extends Controller
             'posts' => $posts,
             'pesquisar' => $pesquisar,
             'tenants' =>  $tenants,
+            'posts_destaque' => $posts_destaque,
         ]);
     }
 

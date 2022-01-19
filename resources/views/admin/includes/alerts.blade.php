@@ -4,6 +4,6 @@
     <h5><i class="icon fas fa-ban"></i> Atenção!</h5>
     @foreach ($errors->all() as $error)
             <p>{{$error}}</p>    
-        @endforeach
+    @endforeach
   </div>     
 @endif

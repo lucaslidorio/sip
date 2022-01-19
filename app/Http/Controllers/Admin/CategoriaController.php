@@ -13,7 +13,7 @@ class CategoriaController extends Controller
     private $repository;
     public function __construct(Categoria $categoria)
     {
-        //Pega todos os planos atravé do injeção do model no contrutor
+        //Pega todos os planos através do injeção do model no contrutor
         $this->repository = $categoria;
     }
     public function home(){

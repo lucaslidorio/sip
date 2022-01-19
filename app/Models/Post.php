@@ -39,6 +39,15 @@ class Post extends Model
         return $this->hasMany(PostImg::class);
     }
 
+    public function search($pesquisar =null){
+
+        $resultado = $this      
+                    ->where('titulo', 'LIKE', )
+                    ->orWhere('conteudo', 'LIKE', "%{$pesquisar}%")
+                    ->paginate(10);
+        return $resultado;
+    }
+    
     public function noticiasTodasPesquisar($pesquisar = null)
     {
         //dd($pesquisar);

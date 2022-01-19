@@ -43,9 +43,8 @@ class PostController extends Controller
     }
     
     public function store(StoreUpdatePost $request)
-    {
-               
-        
+    {         
+       
         $dadosPost = new Post();
         //Pega os dados dos input especificos do post
         $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque', 'destaque');
@@ -209,5 +208,16 @@ class PostController extends Controller
         toast('Post excluida com sucesso!','success')->toToast('top');            
         return redirect()->route('posts.index');        
         
+    }
+
+    public function search (Request $request){
+
+        $pesquisar = $request->except('_token');
+        $posts = $this->repository->search($request->pesquisa);
+
+        return view('admin.pages.posts.index', [
+            'posts' =>$posts,
+            'pesquisar' =>$pesquisar
+        ]);
     }
 }
