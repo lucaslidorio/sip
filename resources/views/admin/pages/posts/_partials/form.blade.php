@@ -91,7 +91,7 @@
             <small class="invalid-feedback">
                 {{ $message }}
             </small>
-        @enderror  
+            @enderror  
         </div>
       </div> 
       <div class="row">
