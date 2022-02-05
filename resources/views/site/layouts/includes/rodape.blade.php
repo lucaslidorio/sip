@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">        
           <div class="col-md-6  text-white text-left">
-            <h6 class="" >CÂMARA MUNICIPAL DE SERINGUEIRAS -RO</h6>
+            <h6 class="" >CÂMARA MUNICIPAL DE SERINGUEIRAS -RO AMBIENTE DE TESTE</h6>
             <p>
               Av. Capitão Silvio, s/n – Bairro Cristo Rei 
               Seringueiras – RO, 76934-000<br>
