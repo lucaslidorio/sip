@@ -1,4 +1,4 @@
-name: CD DEPLOY PRODUCAO SERINGUEIRAS
+name: CD DEPLOY SERINGUEIRAS
  
 # Controls when the action will run. 
 on:
