@@ -26,7 +26,7 @@ jobs:
           username: sip5
           server: ip-69-164-194-46.cloudezapp.io
           port: 22122 # default is 22
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_SIP }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
           
           # will put all file under this path
