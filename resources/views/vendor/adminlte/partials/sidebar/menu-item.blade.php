@@ -5,10 +5,10 @@
     {{-- Header --}}
     @include('adminlte::partials.sidebar.menu-item-header')
 
-@elseif ($menuItemHelper->isLegacySearch($item))
+{{-- @elseif ($menuItemHelper->isLegacySearch($item))  comentei para parar o erro--}} 
 
     {{-- Search form --}}
-    @include('adminlte::partials.sidebar.menu-item-search-form')
+    {{-- @include('adminlte::partials.sidebar.menu-item-search-form') comentei para parar o erro --}}
 
 @elseif ($menuItemHelper->isSubmenu($item))
 
