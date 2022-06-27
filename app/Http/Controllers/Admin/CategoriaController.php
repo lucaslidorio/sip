@@ -19,7 +19,7 @@ class CategoriaController extends Controller
     public function home(){
         return view('dashboard');
     } 
-
+//
     public function index() 
     {
         $categorias = $this->repository->paginate(10);
