@@ -86,7 +86,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-md-3 col-sm-6">
                                 <label for="ano">Ano:</label>
                                 <select class="custom-select" id="ano" name="ano">
                                     <option value="" selected >Ano</option> 
