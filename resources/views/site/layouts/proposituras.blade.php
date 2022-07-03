@@ -86,12 +86,33 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3">
-                                
-                            </div>                         
-                                                  
-                           <div class="col-sm-3 text-right">
-                                <br>
+                            <div class="col-sm-6">
+                                <label for="ano">Ano:</label>
+                                <select class="custom-select" id="ano" name="ano">
+                                    <option value="" selected >Ano</option> 
+                                    <option value="2018" {{ request()->query('ano') == '2018' ? 'selected': ''}}>2018 </option> 
+                                    <option value="2019" {{ request()->query('ano') == '2019' ? 'selected': ''}}>2019 </option>                       
+                                    <option value="2020" {{ request()->query('ano') == '2020' ? 'selected': ''}}>2020 </option> 
+                                    <option value="2021" {{ request()->query('ano') == '2021' ? 'selected': ''}}>2021 </option>  
+                                    <option value="2022" {{ request()->query('ano') == '2022' ? 'selected': ''}}>2022 </option>  
+                                    <option value="2023" {{ request()->query('ano') == '2023' ? 'selected': ''}}>2023 </option>  
+                                    <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option>                              
+                                </select>
+                               
+                            </div> 
+                            <div class="col-sm-6 col-md-3 ">
+                                <label for="ordenacao">Ordenar por:</label>
+                                <select class="custom-select" id="ordenacao" name="ordenacao">
+                                    <option value="" selected >Nenhum</option> 
+                                    <option value="ASC" {{ request()->query('ordenacao') == 'ASC' ? 'selected': ''}} >Número crescente </option> 
+                                    <option value="DESC" {{ request()->query('ordenacao') == 'DESC' ? 'selected': ''}}>Número decrescente </option>                       
+                                                           
+                                </select>
+                               
+                            </div> 
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-12 text-right pt-2 pr-3">                                
                                 <button class="btn btn-primary text-right" type="submit">
                                     <i class="fas fa-filter"></i>
                                     Filtrar</button>
@@ -101,7 +122,8 @@
 
                 </div>
                 <div class="card-body  p-0 table-bordered">
-                    <table class="table table-hover">
+                    <div class="table-responsive">
+                    <table class="table table-hover ">
                         <thead>
                           <tr>
                             <th scope="col">Número</th>
@@ -117,13 +139,6 @@
                         <tr>
                             <th scope="row">{{$propositura->numero}}</th>
                             <td>{{\Carbon\Carbon::parse($propositura->data)->format('d/m/Y')}}</td>
-                            {{-- <td> <a href="{{config('app.aws_url')."{$propositura->propositura}" }}" 
-                                target="_blank" class="mb-2 text-reset"
-                                data-toggle="tooltip" data-placement="top" 
-                                    title="Clique para abrir o documento" >
-                                  <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
-                                  <span class="mr-2"> {{$propositura->nome_original}}</span>                
-                              </a></td> --}}
                             <td>{{$propositura->type_proposition->nome}}</td>
                             <td>{{$propositura->descricao}}</td>
                             <td>
@@ -143,10 +158,7 @@
                         
                         </tbody>
                       </table>
-
-                   
-
-
+                    </div>
 
                 </div>
                 <div class="card-footer" style="background:white;">

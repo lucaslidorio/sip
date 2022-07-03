@@ -330,6 +330,13 @@ class SiteController extends Controller
             ->when($request->proceeding_situation_id, function ($query, $role) {
                 return $query->where('proceeding_situation_id', $role);
             })
+            ->when($request->ano, function ($query, $role) {
+                return $query->whereYear('data', $role);
+            })
+            ->when($request->ordenacao, function ($query, $role) {
+                return $query->orderBy('numero', $role);
+            })
+            //->orderBy('numero', 'ASC')
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
 
