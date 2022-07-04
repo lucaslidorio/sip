@@ -127,7 +127,8 @@ Route::middleware(['auth'])->group(function () {
 
 
             //Rotas de proposituras             
-            Route::any('/propositions/search', [PropositionController::class, 'search'])->name('propositions.search');
+            //Route::any('/propositions/search', [PropositionController::class, 'search'])->name('propositions.search');
+            Route::get('/propositions', [PropositionController::class, 'index'])->name('propositions.index');
             Route::put('/propositions/{id}', [PropositionController::class, 'update'])->name('propositions.update');
             Route::get('/propositions/deleteAttachment/{id}', [PropositionController::class, 'deleteAttachment'])->name('propositions.deleteAttachment');
             Route::get('/propositions/show/{id}', [PropositionController::class, 'show'])->name('propositions.show');
@@ -135,7 +136,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/propositions/create', [PropositionController::class, 'create'])->name('propositions.create');
             Route::get('/propositions/{id}', [PropositionController::class, 'destroy'])->name('propositions.destroy');
             Route::post('/propositions', [PropositionController::class, 'store'])->name('propositions.store');
-            Route::get('/propositions', [PropositionController::class, 'index'])->name('propositions.index');
+           
 
 
             //Rotas de Atas             

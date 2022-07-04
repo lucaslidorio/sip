@@ -26,27 +26,63 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-8">
-            
+          <div class="col-md-3">            
             <a href="{{route('propositions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova propositura" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
-          <div class="col-md-4">
-            <div class="card-tools">
-              {{-- <form action="{{route('propositions.search')}}" method="post" class="form form-inline  float-right">
-                @csrf
-                <div class="input-group input-group-sm" style="width: 250px;">
-                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+          <div class="col-md-9">            
+                <form action="{{route('propositions.index')}}" method="get" class="form form-inline">
+                  @csrf             
+                  <div class="col-4">
+                    <select class="form-control" 
+                      name="proceeding_situation_id" id="proceeding_situation_id" style="width: 100%;" >
+                      <option value="" selected >Selecione uma situacao</option>   
+                      @foreach ($situacoes as $situacao)                          
+                      <option value="{{$situacao->id}}"
+                        {{ request()->query('proceeding_situation_id') == $situacao->id ? 'selected' : '' }}>
+                            {{$situacao->nome}}             
+                          </option>
+                      @endforeach 
+                  </select>
+                  </div>                 
+                  <div class="col-2">
+                    <select class="form-control " 
+                      name="ano" id="ano" style="width: 100%;" >
+                      <option value="" selected >Ano</option> 
+                      <option value="2018" {{ request()->query('ano') == '2018' ? 'selected': ''}}>2018 </option> 
+                      <option value="2019" {{ request()->query('ano') == '2019' ? 'selected': ''}}>2019 </option>                       
+                      <option value="2020" {{ request()->query('ano') == '2020' ? 'selected': ''}}>2020 </option> 
+                      <option value="2021" {{ request()->query('ano') == '2021' ? 'selected': ''}}>2021 </option>  
+                      <option value="2022" {{ request()->query('ano') == '2022' ? 'selected': ''}}>2022 </option>  
+                      <option value="2023" {{ request()->query('ano') == '2023' ? 'selected': ''}}>2023 </option>  
+                      <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option>    
+                     
+                  </select>
                   </div>
-                </div>
-              </form> --}}
-            </div>
+                  <div class="col-2">
+                    <select class="form-control " 
+                      name="ordenacao" id="ordenacao" style="width: 100%;" >
+                      <option value="" selected >Ordenar por</option> 
+                      <option value="ASC" {{ request()->query('ordenacao') == 'ASC' ? 'selected': ''}}>Número crescente </option> 
+                      <option value="DESC" {{ request()->query('ordenacao') == 'DESC' ? 'selected': ''}}>Número decrescente </option>                 
+                                         
+                  </select>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <input type="text" name="pesquisa" id="pesquisa" class="form-control" placeholder="Pesquisar pela descrição">
+                      <span class="input-group-append">
+                        <button type="submit" class="btn btn-info btn-flat" data-toggle="tooltip" data-placement="top"
+                        title="Pesquisar" ><i class="fas fa-search"></i></button>
+                      </span>
+                    </div>
+                  </div>            
+                </form>
+              </div>            
           </div>
         </div>
-      </div>    
+        
    
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
@@ -133,8 +169,8 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        @if (isset($pesquisar))
-        {!!$propositions->appends($pesquisar)->links()!!}
+        @if (isset($filters))
+        {!!$propositions->appends($filters)->links()!!}
         @else
         {!!$propositions->links()!!}
         @endif

@@ -23,15 +23,16 @@ class PropositionController extends Controller
         $type_proposition,
         $type_document,
         $situation,
-        $councilor;
+        $councilor,
+        $proceeding_situation;
 
     public function __construct(
         Proposition $proposition,
         TypeProposition $type_proposition,
         TypeDocument $type_document,
         ProceedingSituation $situation,
-        Councilor $councilor
-     
+        Councilor $councilor,
+        ProceedingSituation $proceeding_situation
      )
     {
         $this->repository = $proposition;
@@ -39,14 +40,43 @@ class PropositionController extends Controller
         $this->type_document = $type_document;
         $this->situation = $situation;
         $this->councilor = $councilor;
+        $this->proceeding_situation = $proceeding_situation;
         
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $propositions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);
+        
+        //dd('Chegou aqui');
         $councilors = $this->councilor->all();
-        return view('admin.pages.propositions.index', compact('propositions', 'councilors'));
+        $situacoes = $this->proceeding_situation->all();
+        $filters = $request->except('_token');
+       
+        $propositions = $this->repository            
+            ->when($request->proceeding_situation_id, function ($query, $role) {
+                return $query->where('proceeding_situation_id', $role);
+            })
+            ->when($request->ano, function ($query, $role) {
+                return $query->whereYear('data', $role);
+            })
+            ->when($request->pesquisa, function($query, $role) {
+                return $query->where('descricao', 'LIKE', "%$role%");
+            })
+            ->when($request->ordenacao, function ($query, $role) {
+                return $query->orderBy('numero', $role);
+            })
+            //->orderBy('numero', 'ASC')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+
+        
+        
+        
+        
+        
+        // ->orderBy('created_at', 'DESC')->paginate(10);
+        
+        return view('admin.pages.propositions.index', compact('propositions', 'councilors', 'situacoes', 'filters'));
     }
 
     /**
