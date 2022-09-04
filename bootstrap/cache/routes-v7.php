@@ -161,7 +161,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::xKukX4RlFkT7GhB5',
+            '_route' => 'generated::2Hm2FuCBk4SAlw7f',
           ),
           1 => NULL,
           2 => 
@@ -285,31 +285,6 @@ app('router')->setCompiledRoutes(
           array (
             'GET' => 0,
             'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/admin/legislativo/sessions/search' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sessions.search',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-            'POST' => 2,
-            'PUT' => 3,
-            'PATCH' => 4,
-            'DELETE' => 5,
-            'OPTIONS' => 6,
           ),
           3 => NULL,
           4 => false,
@@ -1522,7 +1497,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::NfNTcgO39WXrSRzs',
+            '_route' => 'generated::jngxhQw1J1DeAQRn',
           ),
           1 => NULL,
           2 => 
@@ -1558,7 +1533,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::HRn0KZFPv1TaG0wO',
+            '_route' => 'generated::cWKXafYT2nx9Op0V',
           ),
           1 => NULL,
           2 => 
@@ -1688,7 +1663,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ipzUI86xtfrkhK51',
+            '_route' => 'generated::DYJ9MRCa11UJvc2t',
           ),
           1 => NULL,
           2 => 
@@ -5126,7 +5101,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::xKukX4RlFkT7GhB5' => 
+    'generated::2Hm2FuCBk4SAlw7f' => 
     array (
       'methods' => 
       array (
@@ -5143,13 +5118,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:297:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:79:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"000000000f0fd804000000002f99cddf";}";s:4:"hash";s:44:"gJ3tUxi8RuyL4SRkJC1U/XN3jq1Z0yvj3g9OnBjYAb4=";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"000000003b0b90490000000020957f1b";}";s:4:"hash";s:44:"zBemeHiwwTrQArhN1d0TcBW+irk22KlL0Iyoet2Hy5U=";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::xKukX4RlFkT7GhB5',
+        'as' => 'generated::2Hm2FuCBk4SAlw7f',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5797,49 +5772,6 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'councilors.index',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'sessions.search' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-        2 => 'POST',
-        3 => 'PUT',
-        4 => 'PATCH',
-        5 => 'DELETE',
-        6 => 'OPTIONS',
-      ),
-      'uri' => 'admin/legislativo/sessions/search',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-        ),
-        'uses' => 'App\\Http\\Controllers\\Admin\\SessionController@search',
-        'controller' => 'App\\Http\\Controllers\\Admin\\SessionController@search',
-        'namespace' => 'Admin\\Legislativo',
-        'prefix' => 'admin/legislativo',
-        'where' => 
-        array (
-        ),
-        'as' => 'sessions.search',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12687,7 +12619,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::NfNTcgO39WXrSRzs' => 
+    'generated::jngxhQw1J1DeAQRn' => 
     array (
       'methods' => 
       array (
@@ -12708,7 +12640,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::NfNTcgO39WXrSRzs',
+        'as' => 'generated::jngxhQw1J1DeAQRn',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12762,7 +12694,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::HRn0KZFPv1TaG0wO' => 
+    'generated::cWKXafYT2nx9Op0V' => 
     array (
       'methods' => 
       array (
@@ -12783,7 +12715,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::HRn0KZFPv1TaG0wO',
+        'as' => 'generated::cWKXafYT2nx9Op0V',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13103,7 +13035,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::ipzUI86xtfrkhK51' => 
+    'generated::DYJ9MRCa11UJvc2t' => 
     array (
       'methods' => 
       array (
@@ -13124,7 +13056,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::ipzUI86xtfrkhK51',
+        'as' => 'generated::DYJ9MRCa11UJvc2t',
       ),
       'fallback' => false,
       'defaults' => 
