@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
                     //Rotas de Sessão             
                     
-                    Route::any('/sessions/search', [SessionController::class, 'search'])->name('sessions.search');
+                    //Route::any('/sessions/search', [SessionController::class, 'search'])->name('sessions.search');
                     Route::put('/sessions/{id}', [SessionController::class, 'update'])->name('sessions.update');
                     Route::get('/sessions/{id}/presentCreate', [SessionController::class, 'createPresentCouncilor'])->name('sessionPresentCreate.create');
                     Route::post('/sessions/{id}/presentStore', [SessionController::class, 'storePresentCouncilor'])->name('sessionPresentStore.store');

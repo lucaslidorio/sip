@@ -68,13 +68,6 @@ class PropositionController extends Controller
             //->orderBy('numero', 'ASC')
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
-
-        
-        
-        
-        
-        
-        // ->orderBy('created_at', 'DESC')->paginate(10);
         
         return view('admin.pages.propositions.index', compact('propositions', 'councilors', 'situacoes', 'filters'));
     }

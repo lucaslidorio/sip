@@ -51,13 +51,42 @@ class SessionController extends Controller
         $this->councilor = $councilor;
         $this->councilorLegislature = $councilorLegislature;
     }
-    public function index()
+    public function index(Request $request)
     {
-        //dd('chegou no index');
-        $sessions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);       
+
+        
         $types_session = $this->type_session->get();
         $periods = $this->period->get();
-        return view('admin.pages.sessions.index', compact('sessions', 'types_session', 'periods'));  
+        
+        $filters = $request->except('_token');
+        $sessions = $this->repository
+        ->when($request->type_session_id, function($query, $role) {
+            return $query->where('type_session_id', $role);
+        })  
+        ->when($request->period_id, function($query, $role) {
+            return $query->where('period_id', $role);
+        })  
+        ->when($request->ano, function($query, $role) {
+            return $query->whereYear('data', $role);
+        })
+        ->when($request->ordenacao, function ($query, $role) {
+            return $query->orderBy('nome', $role);
+        })
+        ->when($request->pesquisa, function($query, $role) {
+            return $query->where('nome', 'LIKE', "%$role%");
+        })           
+        ->orderBy('created_at', 'DESC')->paginate(10);    
+     
+        return view('admin.pages.sessions.index', 
+        compact('sessions', 'types_session', 'periods', 'filters'));
+
+
+
+        //dd('chegou no index');
+        // $sessions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);       
+        // $types_session = $this->type_session->get();
+        // $periods = $this->period->get();
+        // return view('admin.pages.sessions.index', compact('sessions', 'types_session', 'periods'));  
     }
 
     public function create()
@@ -288,30 +317,33 @@ class SessionController extends Controller
         }
 
 
-        public function search(Request $request){
+    //     public function search(Request $request){
                
-            $types_session = $this->type_session->get();
-            $periods = $this->period->get();
+    //         $types_session = $this->type_session->get();
+    //         $periods = $this->period->get();
             
-            $filters = $request->except('_token');
-            $sessions = $this->repository
-            ->when($request->type_session_id, function($query, $role) {
-                return $query->where('type_session_id', $role);
-            })  
-            ->when($request->period_id, function($query, $role) {
-                return $query->where('period_id', $role);
-            })  
-            ->when($request->ano, function($query, $role) {
-                return $query->whereYear('data', $role);
-            })
-            ->when($request->pesquisa, function($query, $role) {
-                return $query->where('nome', 'LIKE', "%$role%");
-            })           
-            ->orderBy('created_at', 'DESC')->paginate(10);    
+    //         $filters = $request->except('_token');
+    //         $sessions = $this->repository
+    //         ->when($request->type_session_id, function($query, $role) {
+    //             return $query->where('type_session_id', $role);
+    //         })  
+    //         ->when($request->period_id, function($query, $role) {
+    //             return $query->where('period_id', $role);
+    //         })  
+    //         ->when($request->ano, function($query, $role) {
+    //             return $query->whereYear('data', $role);
+    //         })
+    //         ->when($request->ordenacao, function ($query, $role) {
+    //             return $query->orderBy('nome', $role);
+    //         })
+    //         ->when($request->pesquisa, function($query, $role) {
+    //             return $query->where('nome', 'LIKE', "%$role%");
+    //         })           
+    //         ->orderBy('created_at', 'DESC')->paginate(10);    
          
-            return view('admin.pages.sessions.index', 
-            compact('sessions', 'types_session', 'periods', 'filters'));
-       }
+    //         return view('admin.pages.sessions.index', 
+    //         compact('sessions', 'types_session', 'periods', 'filters'));
+    //    }
 
         
 }
