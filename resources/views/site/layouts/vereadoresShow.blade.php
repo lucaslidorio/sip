@@ -68,11 +68,12 @@
                           <p class="card-text"><strong>Ocupação Profissional : </strong> {{$vereador->ocupacao_profissional}}</p>
                           <p class="card-text"><strong>Escolaridade : </strong> {{$vereador->escolaridade}}</p>
                           <p class="card-text"><strong>Endereço do Parlamentar : </strong> {{$vereador->endereco}}</p>
+                          <p class="card-text"><strong>Endereço do Gabinete : </strong> {{$vereador->endereco_gabinete}}</p>
                           <p class="card-text"><strong>Atual : </strong> {{$vereador->atual == 1 ? 'Sim':'Não'}}</p>
 
                       </div>
                       <div class="col-md-6">
-                        <p class="card-text"><strong>Endereço do Gabinete : </strong> {{$vereador->endereco_gabinete}}</p>
+                        <p class="card-text"><strong>E-mail : </strong> {{$vereador->email}}</p>
                         <p class="card-text"><strong>Telefone Pessoal : </strong> {{$vereador->telefone}}</p>
                         <p class="card-text"><strong>Telefone do Gabinete : </strong> {{$vereador->telefone_gabinete}}</p>
                         <p class="card-text"><strong>Facebook : </strong>
@@ -84,7 +85,7 @@
                           <a href="{{$vereador->instagram}}" class="link link-primary" target="_blank"
                             data-toggle="tooltip" data-placement="top" title="Visitar perfil no instagram">
                             <i class="fab fa-instagram-square" style="font-size: 30px; color: #dd2a7b;"></i>
-                          </a>         
+                          </a>        
                           
                           
                         <p class="card-text"><strong>Partido Político : </strong> </p>
