@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\SessionController;
 use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AtaController;
+use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
 
 use Illuminate\Support\Facades\Auth;
@@ -308,6 +309,9 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
             Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
+
+            
+
         
     });
 
@@ -335,6 +339,16 @@ Route::get('legislacoes', [SiteController::class, 'legislacoes'])->name('legisla
 Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name('legislacao.show');
 Route::get('pareceres', [SiteController::class, 'parecerPesquisar'])->name('parecer.pesquisar');
 Route::get('pareceres/{id}', [SiteController::class, 'parecerShow'])->name('parecer.show');
+
+//Rotas de ouvidoria
+Route::any('/ouvidoria/search', [OuvidoriaSiteController::class, 'search'])->name('ouvidoria.search');
+Route::put('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'update'])->name('ouvidoria.update');
+Route::get('/ouvidoria/{id}/edit', [OuvidoriaSiteController::class, 'edit'])->name('ouvidoria.edit');
+Route::get('/ouvidoria/create', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
+Route::get('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'destroy'])->name('ouvidoria.destroy');
+Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
+
+Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');            
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 // Route::get('/', function () {
