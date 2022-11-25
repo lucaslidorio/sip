@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tenant;
+use App\Models\TipoOvidoria;
 use Illuminate\Http\Request;
 
 class OuvidoriaSiteController extends Controller
 {
-    private $tenant;
-    public function __construct(Tenant $tenant)
+    private $tenant, $tipos_ouvidorias;
+    public function __construct(Tenant $tenant, TipoOvidoria $tipo_ouvidoria)
     {
         $this->tenant = $tenant;
+        $this->tipos_ouvidorias = $tipo_ouvidoria;
     }
 
     /**
@@ -23,13 +25,15 @@ class OuvidoriaSiteController extends Controller
     {
             $tenants = $this->tenant->where('id', 3)->get();
             $cliente = $this->tenant->first();
-          
-            //por enquanto só esta pegando o regimento interno id = 5
+            $tipos_ouvidoria = $this->tipos_ouvidorias->get();
+
+                     
               
             return view('site.layouts..ouvidoria.index', [
                 //'legislacoes' => $legislacoes,
                 'cliente' => $cliente,
-                'tenants' =>  $tenants
+                'tenants' =>  $tenants,
+                'tipos_ouvidoria' =>$tipos_ouvidoria,
             ]);
      
     }
@@ -40,8 +44,10 @@ class OuvidoriaSiteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {  $tenants = $this->tenant->where('id', 3)->get();
+        $cliente = $this->tenant->first();
+        $tipos_ouvidoria = $this->tipos_ouvidorias->get();
+        return view('site.layouts..ouvidoria.form', compact('cliente',  'tenants', 'tipos_ouvidoria'));
     }
 
     /**

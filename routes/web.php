@@ -344,7 +344,7 @@ Route::get('pareceres/{id}', [SiteController::class, 'parecerShow'])->name('pare
 Route::any('/ouvidoria/search', [OuvidoriaSiteController::class, 'search'])->name('ouvidoria.search');
 Route::put('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'update'])->name('ouvidoria.update');
 Route::get('/ouvidoria/{id}/edit', [OuvidoriaSiteController::class, 'edit'])->name('ouvidoria.edit');
-Route::get('/ouvidoria/create', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
+Route::get('/ouvidoria/create/{tipo}', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
 Route::get('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'destroy'])->name('ouvidoria.destroy');
 Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
 
