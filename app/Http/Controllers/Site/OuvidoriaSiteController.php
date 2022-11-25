@@ -30,7 +30,6 @@ class OuvidoriaSiteController extends Controller
                      
               
             return view('site.layouts..ouvidoria.index', [
-                //'legislacoes' => $legislacoes,
                 'cliente' => $cliente,
                 'tenants' =>  $tenants,
                 'tipos_ouvidoria' =>$tipos_ouvidoria,
@@ -43,11 +42,14 @@ class OuvidoriaSiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {  $tenants = $this->tenant->where('id', 3)->get();
+    public function create($id_ouvidoria)
+    {  
+        
+        $tenants = $this->tenant->where('id', 3)->get();
         $cliente = $this->tenant->first();
-        $tipos_ouvidoria = $this->tipos_ouvidorias->get();
-        return view('site.layouts..ouvidoria.form', compact('cliente',  'tenants', 'tipos_ouvidoria'));
+        $tipo_ouvidoria = $this->tipos_ouvidorias->findOrfail($id_ouvidoria);
+        
+        return view('site.layouts..ouvidoria.form', compact('cliente',  'tenants', 'tipo_ouvidoria'));
     }
 
     /**

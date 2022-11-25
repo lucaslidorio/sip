@@ -60,7 +60,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create','RECLAMACAO')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 1)}}"> {{-- 1 = Reclamação --}}                                    
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
                                             src="{{ url('../site/img/portfolio/img2.jpg') }}" alt="imagem de sugestão">
@@ -77,7 +77,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.index')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create',2)}}">{{-- 2 = ELOGIO --}} 
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
                                             src="{{ url('../site/img/portfolio/img3.jpg') }}" alt="imagem de sugestão">
@@ -94,7 +94,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.index')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 3)}}">{{--3 = SOLICITAÇÃO --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
                                             src="{{ url('../site/img/portfolio/img3.jpg') }}" alt="imagem de sugestão">
@@ -110,7 +110,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.index')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 4)}}">{{--4 = SUGESTÃO --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
                                             src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
@@ -127,7 +127,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.index')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 5)}}">{{--5 = MANIFESTAÇÃO --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
                                             src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
@@ -159,7 +159,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.index')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 6)}}">{{--6 = DENÚNCIA --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
                                             src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
