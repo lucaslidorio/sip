@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('anexo_ouvidoria', function (Blueprint $table) {
+        Schema::create('anexos_ouvidoria', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ouvidoria_id');
             $table->foreign('ouvidoria_id')->references('id')->on('ouvidorias');
             $table->string('anexo')->nullable();
+            $table->string('nome_original')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anexo_ouvidorias');
+        Schema::dropIfExists('anexos_ouvidoria');
     }
 };

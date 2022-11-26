@@ -10,7 +10,7 @@ class AnexoOuvidoria extends Model
     use HasFactory;
     protected $table = 'anexos_ouvidoria';
 
-    protected $fillable = ['ouvidoria_id', 'anexo'];
+    protected $fillable = ['ouvidoria_id', 'anexo', 'nome_original'];
 
     public function ouvidoria()
     {

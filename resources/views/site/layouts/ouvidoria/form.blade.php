@@ -53,8 +53,9 @@
                 <h2 class="section-title">Ouvidoria - Registrar <span>{{$tipo_ouvidoria->nome}} </span></h2>
                 <hr class="lines">
               </div>
-              <form id="" action="{{route('contato.enviar')}}" method="POST">
+              <form id="" action="{{route('ouvidoria.store')}}" method="POST"  enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="tipo_id" value="{{$tipo_ouvidoria->id}}">
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
@@ -90,8 +91,7 @@
                 </div>
 
                 <div id="ocultar" class="p-0 m-0">
-                  <h6 class="border-bottom">Dados Pessoais</h6>
-                  
+                  <h6 class="border-bottom">Dados Pessoais</h6>                  
                   <div class="row">
                     <div class="col-sm-8">
                       <div class="form-group">
@@ -122,10 +122,10 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label for="e-mail" class="label-required">E-Mail:</label>
-                        <input type="mail" class="form-control  {{ $errors->has('e-mail') ? 'is-invalid' : '' }}"
-                          id="e-mail" name="e-mail" placeholder="e-mail " value="">
-                        @error('e-mail')
+                        <label for="email" class="label-required">E-Mail:</label>
+                        <input type="mail" class="form-control  {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                          id="email" name="email" placeholder="email " value="">
+                        @error('email')
                         <small class="invalid-feedback">
                           {{ $message }}
                         </small>
@@ -253,15 +253,201 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                  <h6 class="border-bottom"> </h6>
                   <div class="row">
-
-                    <div class="submit-button text-center">
-                      <button class="btn btn-common" id="submit" type="submit">Enviar</button>
-                      <div id="msgSubmit" class="h3 text-center hidden"></div>
-                      <div class="clearfix"></div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="genero" class="label-required">Genero:<span
+                            class="text-danger">*</span></label>
+                        <select class="custom-select {{ $errors->has('genero') ? 'is-invalid' : '' }}" id="genero"
+                          name="genero">
+                          <option value="1"> MASCULINO  </option>
+                          <option value="2"> FEMININO </option>
+                        </select>
+                        @error('genero')
+                        <small class="invalid-feedback">
+                          {{ $message }}
+                        </small>
+                        @enderror
+                      </div>
                     </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                          <label  for="perfil_ouvidoria_id" class="label-required" >Perfil:</label>
+                          <select class="custom-select select2 {{ $errors->has('perfil_ouvidoria_id') ? 'is-invalid' : '' }}" name="orgao_ouvidoria_id" style="width: 100%;" >
+                              <option value="" selected >NÃO INFORMADO</option>              
+                              @foreach ($perfis_ouvidoria as $perfil)                          
+                              <option value="{{$perfil->id}}" 
+                                    {{old('perfil_ouvidoria_id') == $perfil->id ? 'selected' : '' }}>
+                                    {{$perfil->nome }}              
+                                  </option>
+                              @endforeach 
+                          </select>
+                          @error('perfil_ouvidoria_id')
+                          <small class="invalid-feedback">
+                              {{ $message }}
+                          </small>
+                          @enderror
+                        </div>
+                      </div>
+                        <div class="col-sm-2">
+                          <div class="form-group">
+                            <label for="idade" class="label-required">Idade:</label>
+                            <input type="text"
+                              class="form-control  {{ $errors->has('idade') ? 'is-invalid' : '' }}"
+                              id="idade" name="idade" placeholder=" " value="">
+                            @error('idade')
+                            <small class="invalid-feedback">
+                              {{ $message }}
+                            </small>
+                            @enderror
+    
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="form-group">
+                            <label for="quant_filhos" class="label-required">Quant. filhos:</label>
+                            <input type="text"
+                              class="form-control  {{ $errors->has('quant_filhos') ? 'is-invalid' : '' }}"
+                              id="quant_filhos" name="quant_filhos" placeholder=" " value="">
+                            @error('quant_filhos')
+                            <small class="invalid-feedback">
+                              {{ $message }}
+                            </small>
+                            @enderror
+    
+                          </div>
+                        </div>                
                   </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="estado_civil" class="label-required">Estado Civil:<span
+                            class="text-danger">*</span></label>
+                        <select class="custom-select {{ $errors->has('estado_civil') ? 'is-invalid' : '' }}" id="estado_civil"
+                          name="estado_civil">
+                          <option value="0"> NÃO INFORMADO </option>
+                          <option value="1"> SOLTEIRO(a) </option>
+                          <option value="2"> CASADO(a) </option>
+                          <option value="3"> DIVORCIADO(a) OU SEPARADO(a) </option>
+                          <option value="4"> UNIÃO ESTÁVEL </option>
+                          <option value="5"> VIÚVO(a) </option>
+                        </select>
+                        @error('estado_civil')
+                        <small class="invalid-feedback">
+                          {{ $message }}
+                        </small>
+                        @enderror
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="ocupacao" class="label-required">Ocupação:<span
+                            class="text-danger">*</span></label>
+                        <select class="custom-select {{ $errors->has('ocupacao') ? 'is-invalid' : '' }}" id="ocupacao"
+                          name="ocupacao">
+                          <option value="0"> NÃO INFORMADO </option>
+                          <option value="1"> TRABALHA NO SETOR PÚBLICO </option>
+                          <option value="2"> TRABALHA NO SETOR PRIVADO </option>
+                          <option value="3"> TRABALHA NO SETOR INFORMAL </option>
+                          <option value="4"> DO LAR </option>
+                          <option value="5"> DESENPREGADO </option>
+                          <option value="5"> APOSENTADO </option>
+                          <option value="5"> OUTROS </option>
+                        </select>
+                        @error('ocupacao')
+                        <small class="invalid-feedback">
+                          {{ $message }}
+                        </small>
+                        @enderror
+                      </div>
+                    </div>
+                  </div>                
+
+                </div>
+                <div class="p-0 m-0">                  
+                    <h6 class="border-bottom">Dados da Manifestação</h6>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label  for="orgao_ouvidoria_id" class="label-required" >Orgão:</label>
+                            <select class="custom-select select2 {{ $errors->has('orgao_ouvidoria_id') ? 'is-invalid' : '' }}" name="orgao_ouvidoria_id" style="width: 100%;" >
+                                <option value="" selected >Selecione</option>              
+                                @foreach ($orgaos_ouvidoria as $orgao)                          
+                                <option value="{{$orgao->id}}" 
+                                      {{old('orgao_ouvidoria_id') == $orgao->id ? 'selected' : '' }}>
+                                      {{$orgao->nome }}              
+                                    </option>
+                                @endforeach 
+                            </select>
+                            @error('orgao_ouvidoria_id')
+                            <small class="invalid-feedback">
+                                {{ $message }}
+                            </small>
+                            @enderror
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label  for="assunto_ouvidoria_id" class="label-required" >Assunto:</label>
+                              <select class="custom-select select2 {{ $errors->has('assunto_ouvidoria_id') ? 'is-invalid' : '' }}" name="assunto_ouvidoria_id" style="width: 100%;" >
+                                  <option value="" selected >NÃO INFORMADO</option>              
+                                  @foreach ($assuntos_ouvidoria as $assunto)                          
+                                  <option value="{{$assunto->id}}" 
+                                        {{old('assunto_ouvidoria_id') == $assunto->id ? 'selected' : '' }}>
+                                        {{$assunto->nome }}              
+                                      </option>
+                                  @endforeach 
+                              </select>
+                              @error('assunto_ouvidoria_id')
+                              <small class="invalid-feedback">
+                                  {{ $message }}
+                              </small>
+                              @enderror
+                            </div>
+                          </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label for="manifestacao">Manifestação:<span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                        <textarea class="form-control {{ $errors->has('manifestacao') ? 'is-invalid' : '' }} " name="manifestacao" id="manifestacao" cols="30" rows="2" 
+                            placeholder="Deixe aqui sua manifestação."></textarea>
+                            @error('manifestacao')
+                            <small class="invalid-feedback">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                     <div class="col-sm-12">
+                      <label for="anexo">Anexo </label> 
+                      <div class="input-group mb-3">                                                
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="anexo" name="anexo[]" multiple>
+                          <label class="custom-file-label" for="anexo">Clique aqui para selecionar os anexos</label>
+                        </div>
+                        
+                      </div>
+                      <strong >Tamanho máximo do anexo: 10 MB</strong>
+                     
+                     </div>
+                    
+                    </div>                      
+                    <div class="row mt-3 ">
+                      <div class="col-sm-12">
+                        <div class="submit-button text-center">
+                          <button class="btn btn-common" id="submit" type="submit">Enviar</button>
+                          <div id="msgSubmit" class="h3 text-center hidden"></div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                 
                 
             </div>
             </form>

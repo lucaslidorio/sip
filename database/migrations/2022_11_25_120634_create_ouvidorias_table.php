@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('ouvidorias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tipo_id');
+            $table->unsignedBigInteger('tipo_id')->nullable();
             $table->foreign('tipo_id')->references('id')->on('tipos_ouvidoria');
-            $table->unsignedBigInteger('perfil_ouvidoria_id');
+            $table->unsignedBigInteger('perfil_ouvidoria_id')->nullable();
             $table->foreign('perfil_ouvidoria_id')->references('id')->on('perfis_ouvidorias');
             $table->unsignedBigInteger('assunto_ouvidoria_id');
             $table->foreign('assunto_ouvidoria_id')->references('id')->on('assuntos_ouvidoria');
@@ -26,12 +26,12 @@ return new class extends Migration
             $table->boolean('anonimo')->default(false);
             $table->boolean('sigiloso')->default(false);            
             $table->string('nome')->nullable();
-            $table->char('cpf', 14)->unique()->nullable();
+            $table->char('cpf', 14)->nullable();
             $table->string('email')->nullable();
             $table->char('telefone', 15)->nullable();
             $table->char('celular', 15)->nullable();
             $table->string('endereco')->nullable();
-            $table->char('mumero_endereco', 6)->nullable();
+            $table->char('numero_endereco', 6)->nullable();
             $table->string('bairro')->nullable();
             $table->string('municipio')->nullable();
             $table->char('uf', 2)->nullable();

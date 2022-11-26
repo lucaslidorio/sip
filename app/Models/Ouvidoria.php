@@ -13,7 +13,7 @@ class Ouvidoria extends Model
     protected $fillable = [
         'tipo_id',  'perfil_ouvidoria_id',   'assunto_ouvidoria_id',
         'orgao_ouvidoria_id', 'anonimo', 'sigiloso','nome','cpf',
-        'email', 'telefone', 'celular', 'endereco', 'mumero_endereco',
+        'email', 'telefone', 'celular', 'endereco', 'numero_endereco',
         'bairro', 'municipio', 'uf','cep', 'complemento', 'genero',
         'idade','quant_filhos', 'ocupacao', 'manifestacao'        
     ];
