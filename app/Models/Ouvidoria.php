@@ -15,7 +15,7 @@ class Ouvidoria extends Model
         'orgao_ouvidoria_id', 'anonimo', 'sigiloso','nome','cpf',
         'email', 'telefone', 'celular', 'endereco', 'numero_endereco',
         'bairro', 'municipio', 'uf','cep', 'complemento', 'genero',
-        'idade','quant_filhos', 'ocupacao', 'manifestacao'        
+        'idade','quant_filhos', 'ocupacao', 'manifestacao', 'codigo'        
     ];
 
     const ESTADO_CIVIL = [

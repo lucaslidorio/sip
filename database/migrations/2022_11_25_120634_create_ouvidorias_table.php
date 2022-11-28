@@ -42,6 +42,7 @@ return new class extends Migration
             $table->integer('quant_filhos')->nullable();
             $table->integer('ocupacao')->nullable();
             $table->text('manifestacao')->nullable();
+            $table->string('codigo',8)->nullable();
              $table->timestamps();
         });
     }

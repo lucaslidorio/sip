@@ -97,7 +97,7 @@
                       <div class="form-group">
                         <label for="nome" class="label-required">Nome</label>
                         <input type="text" class="form-control  {{ $errors->has('nome') ? 'is-invalid' : '' }}"
-                          id="nome" name="nome" placeholder="Nome do parlamentar" value="">
+                          id="nome" name="nome" placeholder="Nome" value="">
                         @error('nome')
                         <small class="invalid-feedback">
                           {{ $message }}

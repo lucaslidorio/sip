@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateOuvidoriaSite;
 use App\Models\AnexoOuvidoria;
 use App\Models\AssuntoOuvidoria;
 use App\Models\OrgaoOuvidoria;
@@ -91,12 +92,23 @@ class OuvidoriaSiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateOuvidoriaSite $request)
     {
                  
-        $ouvidoria = $this->repository->create($request->all());   
+        $cliente = $this->tenant->first();   
+        $tenants = $this->tenant->where('id', 3)->get();
 
         //captura e percorre o array de anexo para fazer os registro e upload
+        $codigo =Str::upper( Str::random(8));       
+        $existe_codigo = $this->repository->where('codigo', $codigo )->first();      
+        if($existe_codigo != null){
+            $codigo=Str::upper( Str::random(8));
+        }
+        $request->merge(['codigo' => $codigo]);     
+
+        $ouvidoria = $this->repository->create($request->all());
+
+
         $anexo = $request->only('anexo');
         if ($request->hasFile('anexo')) {
             for ($i=0; $i < count($anexo['anexo']) ; $i++) { 
@@ -110,21 +122,16 @@ class OuvidoriaSiteController extends Controller
                 unset($anexoOuvidoria);
             }
         }
+        return view('site.layouts..ouvidoria.confirmacao', compact(
+            'ouvidoria',
+            'cliente',
+            'tenants',           
+        
+        ));
 
-        toast('Manifestação enviada com sucesso!', 'success')->toToast('top');
-        return back();
+       
+              
 
-
-        // try {
-
-
-        //     $ouvidoria = $this->repository->create($request->all());
-        // } catch (\Throwable $th) {
-        //     toast("Erro ao enviar o formulário!", 'error')->toToast('top');
-        //     return back();
-        // }
-        // toast('Manifestação enviada com sucesso!', 'success')->toToast('top');
-        // return back();
     }
 
     /**

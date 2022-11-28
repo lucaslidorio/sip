@@ -347,6 +347,7 @@ Route::get('/ouvidoria/{id}/edit', [OuvidoriaSiteController::class, 'edit'])->na
 Route::get('/ouvidoria/create/{tipo}', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
 Route::get('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'destroy'])->name('ouvidoria.destroy');
 Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
+Route::get('/ouvidoria/confirmacao', [OuvidoriaSiteController::class, 'confirmacao'])->name('ouvidoria.confirmacao');
 
 Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');            
 
