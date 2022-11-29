@@ -134,6 +134,21 @@ class OuvidoriaSiteController extends Controller
 
     }
 
+    public function acompanhamento(Request $request)
+    {  
+        $tenants = $this->tenant->where('id', 3)->get();
+        $cliente = $this->tenant->first();  
+        $ouvidoria = $this->repository->where('codigo', $request->codigo)->first();    
+        
+      
+        return view('site.layouts..ouvidoria.acompanhamento', compact(
+            'cliente',  
+            'tenants',
+            'ouvidoria',             
+        
+        ));
+    }
+
     /**
      * Display the specified resource.
      *

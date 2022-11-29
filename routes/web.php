@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LegislationController;
 use App\Http\Controllers\Admin\LegislatureController;
 use App\Http\Controllers\Admin\MinuteController;
+use App\Http\Controllers\Admin\OuvidoriaController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PostController;
@@ -309,6 +310,15 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
             Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
+            //Rotas de Ouvidoria             
+            Route::any('/ouvidorias/search', [OuvidoriaController::class, 'search'])->name('ouvidorias.search');
+            Route::put('/ouvidorias/{id}', [OuvidoriaController::class, 'update'])->name('ouvidorias.update');          
+            Route::get('/ouvidorias/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidorias.show');
+            Route::get('/ouvidorias/{id}/edit', [OuvidoriaController::class, 'edit'])->name('ouvidorias.edit');
+            Route::get('/ouvidorias/create', [OuvidoriaController::class, 'create'])->name('ouvidorias.create');
+            Route::get('/ouvidorias/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidorias.destroy');
+            Route::post('/ouvidorias', [OuvidoriaController::class, 'store'])->name('ouvidorias.store');
+            Route::get('/ouvidorias', [OuvidoriaController::class, 'index'])->name('ouvidorias.index');
 
             
 
@@ -341,15 +351,13 @@ Route::get('pareceres', [SiteController::class, 'parecerPesquisar'])->name('pare
 Route::get('pareceres/{id}', [SiteController::class, 'parecerShow'])->name('parecer.show');
 
 //Rotas de ouvidoria
-Route::any('/ouvidoria/search', [OuvidoriaSiteController::class, 'search'])->name('ouvidoria.search');
-Route::put('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'update'])->name('ouvidoria.update');
-Route::get('/ouvidoria/{id}/edit', [OuvidoriaSiteController::class, 'edit'])->name('ouvidoria.edit');
+
+Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
 Route::get('/ouvidoria/create/{tipo}', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
-Route::get('/ouvidoria/{id}', [OuvidoriaSiteController::class, 'destroy'])->name('ouvidoria.destroy');
 Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
 Route::get('/ouvidoria/confirmacao', [OuvidoriaSiteController::class, 'confirmacao'])->name('ouvidoria.confirmacao');
-
-Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');            
+Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');
+            
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 // Route::get('/', function () {

@@ -127,16 +127,27 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 5)}}">{{--5 = MANIFESTAÇÃO --}}
-                                    <div class="card ">
-                                        <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
-                                        <div class="card-body">
-                                            <p class="font-weight-bold" style="font-size: 150%">MANIFESTAÇÃO</p>
+                                {{-- <a class="  rounded" href="{{route('ouvidoria.acompanhamentoIndex')}}">5 = MANIFESTAÇÃO --}}
+                                    <div class="card p-2 text-center">
+                                        {{-- <img class="card-img-top img-fluid"
+                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão"> --}}
+                                            <p class="font-weight-bold" style="font-size: 150%">CONSULTAR PROTOCOLO</p>
                                             <p class="card-text">Consulte suas Manifestações. <br>&nbsp;</p>
+                                        <div class="card-body">
+                                            <form action="{{route('ouvidoria.acompanhamento')}}" method="get">
+                                                @csrf
+                                                <div class="row">
+                                                    <input class="form-control" name="codigo" type="text" placeholder="Protocolo">
+                                                </div>
+                                                <div class="row">
+                                                    <button type="subimit" class="btn btn-primary btn-block">Consultar</button>
+                                                </div>                                               
+
+                                            </form>
+                                            
                                         </div>
                                     </div>
-                                </a>
+                                {{-- </a> --}}
                             </div>
                         </div>
                     </div>

@@ -43,13 +43,13 @@ class Ouvidoria extends Model
         return $this->belongsTo(TipoOvidoria::class, 'tipo_id', 'id');
     }
     public function perfil_ouvidoria(){
-        return $this->belongsTo(TipoOvidoria::class, 'perfil_ouvidoria_id', 'id');
+        return $this->belongsTo(perfil_ouvidoria::class, 'perfil_ouvidoria_id', 'id');
     }
     public function assunto_ouvidoria(){
-        return $this->belongsTo(TipoOvidoria::class, 'assunto_ouvidoria_id', 'id');
+        return $this->belongsTo(AssuntoOuvidoria::class, 'assunto_ouvidoria_id', 'id');
     }
     public function orgao_ouvidoria(){
-        return $this->belongsTo(TipoOvidoria::class, 'orgao_ouvidoria_id', 'id');
+        return $this->belongsTo(OrgaoOuvidoria::class, 'orgao_ouvidoria_id', 'id');
     }
     
     public function anexos(){

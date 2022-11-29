@@ -247,7 +247,13 @@ return [
             'text' => 'Carta ao Cidadão',
             'url'  => 'admin/citizenLetters',
             'icon' => 'far fa-envelope',
-        ],              
+        ],   
+        [
+            'text' => 'Ouvidoria',
+            'url'  => 'admin/ouvidorias',
+            'icon' => 'fas fa-phone-alt',
+        ], 
+        
         
         ['header' => 'LEGISLATIVO'],
         [
