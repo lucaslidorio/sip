@@ -11,7 +11,7 @@ class Ouvidoria extends Model
     protected $table = 'ouvidorias';
 
     protected $fillable = [
-        'tipo_id',  'perfil_ouvidoria_id',   'assunto_ouvidoria_id',
+        'ouvidoria_id',  'perfil_ouvidoria_id',   'assunto_ouvidoria_id',
         'orgao_ouvidoria_id', 'anonimo', 'sigiloso','nome','cpf',
         'email', 'telefone', 'celular', 'endereco', 'numero_endereco',
         'bairro', 'municipio', 'uf','cep', 'complemento', 'genero',
@@ -43,7 +43,7 @@ class Ouvidoria extends Model
         return $this->belongsTo(TipoOvidoria::class, 'tipo_id', 'id');
     }
     public function perfil_ouvidoria(){
-        return $this->belongsTo(perfil_ouvidoria::class, 'perfil_ouvidoria_id', 'id');
+        return $this->belongsTo(PerfilOuvidoria::class, 'perfil_ouvidoria_id', 'id');
     }
     public function assunto_ouvidoria(){
         return $this->belongsTo(AssuntoOuvidoria::class, 'assunto_ouvidoria_id', 'id');
@@ -53,6 +53,9 @@ class Ouvidoria extends Model
     }
     
     public function anexos(){
-        return $this->hasMany(AnexoOuvidoria::class, 'id', 'ouvidoria_id');
+        return $this->hasMany(AnexoOuvidoria::class, 'ouvidoria_id', 'id');
+    }    
+    public function resposta_ouvidoria(){
+        return $this->hasMany(RespostaOuvidoria::class, 'ouvidoria_id', 'id');
     }
 }

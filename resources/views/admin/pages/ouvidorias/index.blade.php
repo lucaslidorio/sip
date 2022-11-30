@@ -97,15 +97,16 @@
               <th scope="col">Data</th>
               <th scope="col">Descrição</th>               
               <th scope="col">Arquivo</th>
+              <th scope="col">Situação</th>
               <th scope="col" width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($ouvidorias as $ouvidoria)               
-           
+          
             <tr >
               <th scope="row">{{$loop->iteration}}</th>
-              <td class="text-bol">{{$ouvidoria->codigo}}</td>
+              <td class="text-bold">{{$ouvidoria->codigo}}</td>
               <td class="{{$ouvidoria->sigiloso ? 'text-danger': ''}}">{{$ouvidoria->sigiloso ? 'Sim': 'Não'}}</td>
               <td>{{$ouvidoria->assunto_ouvidoria ? $ouvidoria->assunto_ouvidoria->nome : ''}}</td> 
               <td>{{$ouvidoria->tipo_ouvidoria ? $ouvidoria->tipo_ouvidoria->nome : ''}}</td>    
@@ -124,11 +125,22 @@
                   </a>                             
                   @endforeach                 
               </td> 
+              <td>
+                @if (count($ouvidoria->resposta_ouvidoria) > 0)
+                  <div class="alert alert-success pb-0 pt-0 mb-0" role="alert">
+                    Respondido <i class="fas fa-check float-right mt-1"></i>
+                  </div>
+                @else
+                  <div class="alert alert-secondary pb-0 pt-0 mb-0" role="alert">
+                    Pendendente <i class="fas fa-question float-right mt-1"></i>
+                  </div>
+                @endif
+              </td>
                 <td class="text-center">
                 <a href="{{route('ouvidorias.edit', $ouvidoria->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
+                  title="Responder">
+                  <i class="fas fa-reply" ></i>
                 </a>
 
                 <a href="{{route('ouvidorias.show', $ouvidoria->id)}}" data-id="{{$ouvidoria->id}}"
@@ -137,11 +149,11 @@
                   <i class="fas fa-address-book" ></i>
                 </a>
 
-                <a href="{{route('ouvidorias.destroy', $ouvidoria->id)}}" data-id="{{$ouvidoria->id}}"
+                {{-- <a href="{{route('ouvidorias.destroy', $ouvidoria->id)}}" data-id="{{$ouvidoria->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
-                </a>
+                </a> --}}
                 
               </td>
             </tr>

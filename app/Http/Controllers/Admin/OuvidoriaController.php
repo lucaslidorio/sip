@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ouvidoria;
+use App\Models\RespostaOuvidoria;
 use Illuminate\Http\Request;
 
 class OuvidoriaController extends Controller
 {
-    private $repository;
-    public function __construct(Ouvidoria $repository){
+    private $repository, $resposta;
+    public function __construct(Ouvidoria $repository, RespostaOuvidoria $resposta){
         $this->repository = $repository;
+        $this->resposta = $resposta;
 
      }
     /**
@@ -20,7 +22,7 @@ class OuvidoriaController extends Controller
      */
     public function index()
     {
-        $ouvidorias = $this->repository->paginate(10);
+        $ouvidorias = $this->repository->paginate(10);   
         return view('admin.pages.ouvidorias.index', compact('ouvidorias'));
     }
 
@@ -53,7 +55,11 @@ class OuvidoriaController extends Controller
      */
     public function show($id)
     {
-        //
+        $ouvidoria= $this->repository->findOrFail($id);
+        $ocupacao = $this->repository::OCUPACAO; 
+
+       
+        return view('admin.pages.ouvidorias.show', compact('ouvidoria','ocupacao'));
     }
 
     /**
@@ -64,7 +70,9 @@ class OuvidoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ouvidoria= $this->repository->findOrFail($id);
+        $ocupacao = $this->repository::OCUPACAO; 
+        return view('admin.pages.ouvidorias.edit', compact('ouvidoria','ocupacao'));
     }
 
     /**
@@ -76,7 +84,18 @@ class OuvidoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ouvidoria = $this->repository->findOrFail($id);
+
+        $user = auth()->user();
+        $dadosRequest = $request->all();
+        $dadosRequest['user_id'] = $user->id;
+        $dadosRequest['ouvidoria_id'] = $ouvidoria->id;        
+     
+        $this->resposta->create($dadosRequest);         
+
+        toast('Ouvidoria respondida com sucesso!','success')->toToast('top') ;     
+        return redirect()->route('ouvidorias.index');
+
     }
 
     /**

@@ -6,13 +6,13 @@
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Editar Propositura -  <strong>{{$proposition->type_proposition->nome}} - {{$proposition->numero}}</strong></h1>
+        <h1>Responder a ouvidoria de protocolo  <strong>{{$ouvidoria->codigo}}</strong></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-          <li class="breadcrumb-item "> <a href="{{route('propositions.index')}}">Proposituras </a></li>
-          <li class="breadcrumb-item ">Editar a Propositura</li>          
+          <li class="breadcrumb-item "> <a href="{{route('ouvidorias.index')}}">Proposituras </a></li>
+          <li class="breadcrumb-item ">Responder manifestacao</li>          
         </ol>
       </div>
     </div>
@@ -23,10 +23,10 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form action="{{route('propositions.update', $proposition->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('ouvidorias.update', $ouvidoria->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            @include('admin.pages.propositions._partials.form')
+            @include('admin.pages.ouvidorias._partials.form')
         </form>
     </div>
 </div>
