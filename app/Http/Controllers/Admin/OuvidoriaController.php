@@ -20,9 +20,7 @@ class OuvidoriaController extends Controller
      */
     public function index()
     {
-        $ouvidorias = $this->repository->get();
-
-
+        $ouvidorias = $this->repository->paginate(10);
         return view('admin.pages.ouvidorias.index', compact('ouvidorias'));
     }
 

@@ -90,11 +90,11 @@
           <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Protocolo</th>
+              <th scope="col">Sigiloso</th> 
+              <th scope="col">Assunto</th>  
               <th scope="col">Tipo</th>
-              {{-- <th scope="col">Número</th>   --}}
-              <th scope="col">Data</th>            
-              <th scope="col">Situação</th>
-              <th scope="col">Autor(s)</th>
+              <th scope="col">Data</th>
               <th scope="col">Descrição</th>               
               <th scope="col">Arquivo</th>
               <th scope="col" width="20%" class="text-center">Ações</th>
@@ -105,18 +105,15 @@
            
             <tr >
               <th scope="row">{{$loop->iteration}}</th>
-              <td>{{$ouvidoria->codigo}}</td>
-              {{-- <td>{{$ouvidoria->numero}}</td>  --}}
-              <td>{{\Carbon\Carbon::parse($ouvidoria->created_at)->format('d/m/Y')}}</td>               
-              {{-- <td>{{$ouvidoria->situation->nome}}</td>              --}}
-             
-              <td>               
-                 <button type="button" class="btn btn-outline-info popover-dismiss" 
-                  data-container="body" data-toggle="popover" data-placement="top" 
-                  data-content="{{$ouvidoria->descricao}}">
-                    Ver
-                 </button> 
-              </td>            
+              <td class="text-bol">{{$ouvidoria->codigo}}</td>
+              <td class="{{$ouvidoria->sigiloso ? 'text-danger': ''}}">{{$ouvidoria->sigiloso ? 'Sim': 'Não'}}</td>
+              <td>{{$ouvidoria->assunto_ouvidoria ? $ouvidoria->assunto_ouvidoria->nome : ''}}</td> 
+              <td>{{$ouvidoria->tipo_ouvidoria ? $ouvidoria->tipo_ouvidoria->nome : ''}}</td>    
+              <td>{{\Carbon\Carbon::parse($ouvidoria->created_at)->format('d/m/Y')}}</td>            
+              
+              <td>
+              {{Str::of($ouvidoria->manifestacao)->limit(30, '...')}}  
+              </td>           
               <td>                
                   @foreach ($ouvidoria->anexos as $anexo)                   
                   <a href="{{config('app.aws_url')."{$anexo->anexo}" }}" 
@@ -127,7 +124,6 @@
                   </a>                             
                   @endforeach                 
               </td> 
-
                 <td class="text-center">
                 <a href="{{route('ouvidorias.edit', $ouvidoria->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
@@ -135,11 +131,11 @@
                   <i class="fas fa-edit" ></i>
                 </a>
 
-                {{-- <a href="{{route('ouvidorias.show', $ouvidoria->id)}}" data-id="{{$ouvidoria->id}}"
+                <a href="{{route('ouvidorias.show', $ouvidoria->id)}}" data-id="{{$ouvidoria->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
                   <i class="fas fa-address-book" ></i>
-                </a> --}}
+                </a>
 
                 <a href="{{route('ouvidorias.destroy', $ouvidoria->id)}}" data-id="{{$ouvidoria->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
@@ -154,13 +150,13 @@
         </table>
       </div>
       <!-- /.card-body -->
-      {{-- <div class="card-footer">
+      <div class="card-footer">
         @if (isset($filters))
         {!!$ouvidorias->appends($filters)->links()!!}
         @else
         {!!$ouvidorias->links()!!}
         @endif
-      </div> --}}
+      </div>
     </div>
     <!-- /.card -->
   </div>
