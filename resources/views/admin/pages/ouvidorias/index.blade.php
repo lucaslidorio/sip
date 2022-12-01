@@ -128,7 +128,12 @@
               <td>
                 @if (count($ouvidoria->resposta_ouvidoria) > 0)
                   <div class="alert alert-success pb-0 pt-0 mb-0" role="alert">
-                    Respondido <i class="fas fa-check float-right mt-1"></i>
+                    Respondido 
+                    @if($ouvidoria->resposta_ouvidoria[0]->visualizado)
+                     <i class="fas fa-check-double float-right mt-1"></i>
+                    @else
+                    <i class="fas fa-check float-right mt-1"></i>
+                    @endif
                   </div>
                 @else
                   <div class="alert alert-secondary pb-0 pt-0 mb-0" role="alert">

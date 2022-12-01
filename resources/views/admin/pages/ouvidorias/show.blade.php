@@ -27,7 +27,8 @@
 
 @section('content')
 
-<div class="card mb-3 m-3">  
+<div class="card mb-3 m-3">
+  <div class="card-body">
   <div class="row no-gutters border-bottom pb-2 pt-2 pl-3">
     <h5 class="text-bold mr-5">Dados Pessoais</h5>
     @if (count($ouvidoria->resposta_ouvidoria) > 0)
@@ -85,16 +86,30 @@
     <p class="card-text text-justify"><strong>Manifestação:</strong><br>
       {{$ouvidoria->manifestacao}}</p>       
   </div>
+  <div class="pl-3">
+    <p>Anexos</p>   
+    @foreach ($ouvidoria->anexos as $anexo) 
+                      
+                  <a href="{{config('app.aws_url')."{$anexo->anexo}" }}" 
+                    target="_blank" class="mb-2 text-reset"
+                    data-toggle="tooltip" data-placement="top" 
+                        title={{$anexo->nome_original}} >
+                      <i class="fas fa-paperclip fa-2x  mr-2"></i>
+                     
+                  </a>                             
+                  @endforeach 
+  </div>
   @foreach ($ouvidoria->resposta_ouvidoria as $resposta)
-  <div class="row pr-3 m-3" style="padding-right:20px" >
-    <p class="card-text text-justify"><strong>Resposta:</strong><br>
-      <span class="font-italic">{{{$resposta->resposta}}}</span></p>            
-  </div>
-  <div class="">
-    {{$resposta->user->name}}
-  </div>
+    <div class="row pr-3 m-3" style="padding-right:20px" >
+      <p class="card-text text-justify"><strong>Resposta:</strong><br>
+        <span class="font-italic">{{{$resposta->resposta}}}</span></p>            
+    </div>
+    <div class="row float-right d-inline pr-5">
+      <span class="float-right">Respondido por: {{$resposta->user->name}},
+         em {{\Carbon\Carbon::parse(  $resposta->created_at)->format('d/m/Y h:m')}} </span>
+    </div>
   @endforeach 
-
+  </div>
   <div class="card-footer">
     <a class="btn btn-secondary" href={{route('ouvidorias.index')}} role="button" data-toggle="tooltip" 
       data-placement="top" title="Voltar">

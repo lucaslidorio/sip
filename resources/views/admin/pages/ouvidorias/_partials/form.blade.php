@@ -1,5 +1,5 @@
       
-      
+     
       <div class="row no-gutters border-bottom pb-2 pt-2 pl-3">
         <h5 class="text-bold">Dados da Manifestação</h5> 
        </div>
@@ -20,15 +20,30 @@
 
       <div class="row no-gutters">
         <div class="col-sm-12 pb-2 pt-2 pl-3">
-            <label for="resposta">Resposta:</label>
-            <div class="form-group">
-            <textarea class="form-control {{ $errors->has('resposta') ? 'is-invalid' : '' }} " name="resposta" id="resposta" cols="30" rows="2" 
-                placeholder="Descrição da Ata">{{$ouvidoria->resposta ?? old('resposta')}}</textarea>
+            {{-- <label for="resposta">Resposta:</label>
+            @foreach($ouvidoria->resposta_ouvidoria as $key => $resposta)
+            <div class="row pl-2 border-bottom">
+              <p class="pb-0" >{{$resposta->resposta}}</p>
+              <span class="font-weight-bold pt-0">Respondido por: {{$resposta->user->name}},
+                em {{\Carbon\Carbon::parse(  $resposta->created_at)->format('d/m/Y h:m')}} </span>
+            </div>
+            @endforeach --}}
+
+            <div class="form-group pt-2">
+            <textarea class="form-control {{ $errors->has('resposta') ? 'is-invalid' : '' }} "
+               {{-- @if($ouvidoria->resposta_ouvidoria[0]->visualizado)  
+               @disabled(true)             
+                @endif  --}}
+                name="resposta" id="resposta" cols="30" rows="2" 
+                placeholder="Descrição da Ata">{{$ouvidoria->resposta_ouvidoria[0]->resposta ?? old('resposta')}}</textarea>
                 @error('resposta')
                 <small class="invalid-feedback">
                     {{ $message }}
                 </small>
-            @enderror
+               @enderror
+               {{-- @if($ouvidoria->resposta_ouvidoria[0]->visualizado)  
+                <span class="text-danger">A resposta foi visualizada pelo manifestante, não é possível editar.</span>          
+               @endif                --}}
             </div>
         </div>
     </div>  

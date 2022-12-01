@@ -66,11 +66,15 @@
                         <h6><strong>MANIFESTAÇÃO</strong></h6>
                         <p>{{$ouvidoria->manifestacao}}</p>
                     </div>
+                    
+                    @foreach($ouvidoria->resposta_ouvidoria as $key => $resposta_ouvidoria)
                     <div class="ml-5 alert alert-info" role="alert">
                         <h6><strong>RESPOSTA</strong></h6>
-                        <p>SADFASSAFSAFASFASDFASDFSADSADF</p>
-                        <p class="text-right">Data:</p>
+                        <p>{{$resposta_ouvidoria->resposta}}</p>
+                        <p class="text-right">Respondido por: {{$resposta_ouvidoria->user->name}} em {{\Carbon\Carbon::parse(  $resposta_ouvidoria->created_at)->format('d/m/Y h:m')}}</p>
                     </div>
+                    @endforeach
+                    
 
              
                 

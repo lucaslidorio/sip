@@ -7,6 +7,8 @@ use App\Models\Ouvidoria;
 use App\Models\RespostaOuvidoria;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class OuvidoriaController extends Controller
 {
     private $repository, $resposta;
@@ -56,9 +58,7 @@ class OuvidoriaController extends Controller
     public function show($id)
     {
         $ouvidoria= $this->repository->findOrFail($id);
-        $ocupacao = $this->repository::OCUPACAO; 
-
-       
+        $ocupacao = $this->repository::OCUPACAO;        
         return view('admin.pages.ouvidorias.show', compact('ouvidoria','ocupacao'));
     }
 
@@ -85,14 +85,19 @@ class OuvidoriaController extends Controller
     public function update(Request $request, $id)
     {
         $ouvidoria = $this->repository->findOrFail($id);
-
+       
         $user = auth()->user();
         $dadosRequest = $request->all();
         $dadosRequest['user_id'] = $user->id;
         $dadosRequest['ouvidoria_id'] = $ouvidoria->id;        
-     
-        $this->resposta->create($dadosRequest);         
-
+        
+        if($ouvidoria->resposta_ouvidoria->isEmpty()){
+            $this->resposta->create($dadosRequest);
+        }else{
+            $id_resposta = $ouvidoria->resposta_ouvidoria->first()->id;
+            $resposta = $this->resposta->where('id', $id_resposta)->first();
+            $resposta->update($dadosRequest);
+        }
         toast('Ouvidoria respondida com sucesso!','success')->toToast('top') ;     
         return redirect()->route('ouvidorias.index');
 

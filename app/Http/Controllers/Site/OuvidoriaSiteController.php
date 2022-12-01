@@ -9,6 +9,7 @@ use App\Models\AssuntoOuvidoria;
 use App\Models\OrgaoOuvidoria;
 use App\Models\Ouvidoria;
 use App\Models\PerfilOuvidoria;
+use App\Models\RespostaOuvidoria;
 use App\Models\Tenant;
 use App\Models\TipoOvidoria;
 use Illuminate\Http\Request;
@@ -20,13 +21,16 @@ class OuvidoriaSiteController extends Controller
             $perfis_ouvidoria, 
             $orgaos_ouvidoria, 
             $assuntos_ouvidoria,
+            $respostas_ouvidoria,
             $repository;
+
     public function __construct(
             Tenant $tenant, 
             TipoOvidoria $tipo_ouvidoria, 
             PerfilOuvidoria $perfis_ouvidoria,
             OrgaoOuvidoria $orgao_ouvidoria,
             AssuntoOuvidoria $assunto_ouvidoria,
+            RespostaOuvidoria $respostas_ouvidoria,
             Ouvidoria $repository,
         )
     {
@@ -35,6 +39,7 @@ class OuvidoriaSiteController extends Controller
         $this->perfis_ouvidoria = $perfis_ouvidoria;
         $this->orgaos_ouvidoria = $orgao_ouvidoria;
         $this->assuntos_ouvidoria = $assunto_ouvidoria;
+        $this->respostas_ouvidoria = $respostas_ouvidoria;
         $this->repository = $repository;
     }
 
@@ -129,9 +134,6 @@ class OuvidoriaSiteController extends Controller
         
         ));
 
-       
-              
-
     }
 
     public function acompanhamento(Request $request)
@@ -139,8 +141,19 @@ class OuvidoriaSiteController extends Controller
         $tenants = $this->tenant->where('id', 3)->get();
         $cliente = $this->tenant->first();  
         $ouvidoria = $this->repository->where('codigo', $request->codigo)->first();    
-        
       
+        //Ler mensagem
+        $respostas_nao_lida = $this->respostas_ouvidoria
+            ->where('ouvidoria_id', $ouvidoria->id)
+            ->where('visualizado', false)
+            ->get();
+
+            for ($i=0; $i < count($respostas_nao_lida) ; $i++) {           
+                $respostas_nao_lida[$i]->visualizado = true;
+                $respostas_nao_lida[$i]->save();            
+            } 
+        
+
         return view('site.layouts..ouvidoria.acompanhamento', compact(
             'cliente',  
             'tenants',
