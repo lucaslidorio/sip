@@ -79,7 +79,7 @@ class OuvidoriaSiteController extends Controller
         $orgaos_ouvidoria = $this->orgaos_ouvidoria->where('situacao', true)->get();
         $assuntos_ouvidoria = $this->assuntos_ouvidoria->where('situacao', true)->get();
         
-        return view('site.layouts..ouvidoria.form', compact(
+        return view('site.layouts.ouvidoria.form', compact(
             'cliente',  
             'tenants', 
             'tipo_ouvidoria', 
@@ -126,7 +126,7 @@ class OuvidoriaSiteController extends Controller
                 unset($anexoOuvidoria);
             }
         }
-        return view('site.layouts..ouvidoria.confirmacao', compact(
+        return view('site.layouts.ouvidoria.confirmacao', compact(
             'ouvidoria',
             'cliente',
             'tenants',           
@@ -152,7 +152,7 @@ class OuvidoriaSiteController extends Controller
                 $respostas_nao_lida[$i]->save();            
             }         
 
-        return view('site.layouts..ouvidoria.acompanhamento', compact(
+        return view('site.layouts.ouvidoria.acompanhamento', compact(
             'cliente',  
             'tenants',
             'ouvidoria',             
