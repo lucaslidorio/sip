@@ -350,13 +350,14 @@ Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name(
 Route::get('pareceres', [SiteController::class, 'parecerPesquisar'])->name('parecer.pesquisar');
 Route::get('pareceres/{id}', [SiteController::class, 'parecerShow'])->name('parecer.show');
 
-//Rotas de ouvidoria
+//Rotas de ouvidoria do site
 
 Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
 Route::get('/ouvidoria/create/{tipo}', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
 Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
 Route::get('/ouvidoria/confirmacao', [OuvidoriaSiteController::class, 'confirmacao'])->name('ouvidoria.confirmacao');
 Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');
+Route::get('/ouvidoria/duvidas', [OuvidoriaSiteController::class, 'duvidas'])->name('ouvidoriaSite.duvidas');
             
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');

@@ -413,7 +413,7 @@
                         <label for="manifestacao">Manifestação:<span class="text-danger">*</span> </label>
                         <div class="form-group">
                         <textarea class="form-control {{ $errors->has('manifestacao') ? 'is-invalid' : '' }} " name="manifestacao" id="manifestacao" cols="30" rows="2" 
-                            placeholder="Deixe aqui sua manifestação."></textarea>
+                            placeholder="Deixe aqui sua manifestação."> {{old('manifestacao')}}</textarea>
                             @error('manifestacao')
                             <small class="invalid-feedback">
                                 {{ $message }}

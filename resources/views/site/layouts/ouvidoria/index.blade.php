@@ -55,15 +55,40 @@
 
             <div class="card">
             </div>
-            <div class="row">             
+            <div class="row">                             
                 <div id="portfolio" class="row">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
+                        <div class="portfolio-item">
+                            <div class="shot-item rounded-circle">
+                                {{-- <a class="  rounded" href="{{route('ouvidoria.acompanhamentoIndex')}}">5 = MANIFESTAÇÃO --}}
+                                    <div class="card p-2 text-center border-primary">
+                                        {{-- <img class="card-img-top img-fluid"
+                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão"> --}}
+                                            <p class="font-weight-bold" style="font-size: 150%">CONSULTAR PROTOCOLO</p>
+                                            <p class="card-text">Consulte suas Manifestações. <br>&nbsp;</p>
+                                        <div class="card-body">
+                                            <form action="{{route('ouvidoria.acompanhamento')}}" method="get">
+                                                @csrf
+                                                <div class="row">
+                                                    <input class="form-control" name="codigo" type="text" placeholder="Protocolo">
+                                                </div>
+                                                <div class="row">
+                                                    <button type="subimit" class="btn btn-primary btn-block">Consultar</button>
+                                                </div>
+                                            </form>                                           
+                                        </div>
+                                    </div>
+                                {{-- </a> --}}
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
                                 <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 1)}}"> {{-- 1 = Reclamação --}}                                    
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img2.jpg') }}" alt="imagem de sugestão">
+                                            src="{{ url('../site/img/portfolio/img2.png') }}" alt="imagem de sugestão">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="font-size: 150%">RECLAMAÇÃO</p>
                                             <p class="card-text">Envie sua insatisfação com o serviço público.
@@ -80,7 +105,7 @@
                                 <a class="overlay lightbox rounded" href="{{route('ouvidoria.create',2)}}">{{-- 2 = ELOGIO --}} 
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img3.jpg') }}" alt="imagem de sugestão">
+                                            src="{{ url('../site/img/portfolio/img3.png') }}" alt="imagem de elogio">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="font-size: 150%">ELOGIO</p>
                                             <p class="card-text">Expresse se você está satisfeito com o atendimento
@@ -97,7 +122,7 @@
                                 <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 3)}}">{{--3 = SOLICITAÇÃO --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img3.jpg') }}" alt="imagem de sugestão">
+                                            src="{{ url('../site/img/portfolio/img4.png') }}" alt="imagem de solicitacao">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="font-size: 150%">SOLICITAÇÃO</p>
                                             <p class="card-text">Peça atendimento ou uma prestação de serviço. <br>&nbsp;</p>
@@ -113,7 +138,7 @@
                                 <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 4)}}">{{--4 = SUGESTÃO --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
+                                            src="{{ url('../site/img/portfolio/img1.png') }}" alt="imagem de sugestão">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="font-size: 150%">SUGESTÃO</p>
                                             <p class="card-text">Envie uma ideia ou proposta de melhoria dos serviços
@@ -124,40 +149,14 @@
                             </div>
                         </div>
                     </div>
+                 
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
                         <div class="portfolio-item">
                             <div class="shot-item rounded-circle">
-                                {{-- <a class="  rounded" href="{{route('ouvidoria.acompanhamentoIndex')}}">5 = MANIFESTAÇÃO --}}
-                                    <div class="card p-2 text-center">
-                                        {{-- <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão"> --}}
-                                            <p class="font-weight-bold" style="font-size: 150%">CONSULTAR PROTOCOLO</p>
-                                            <p class="card-text">Consulte suas Manifestações. <br>&nbsp;</p>
-                                        <div class="card-body">
-                                            <form action="{{route('ouvidoria.acompanhamento')}}" method="get">
-                                                @csrf
-                                                <div class="row">
-                                                    <input class="form-control" name="codigo" type="text" placeholder="Protocolo">
-                                                </div>
-                                                <div class="row">
-                                                    <button type="subimit" class="btn btn-primary btn-block">Consultar</button>
-                                                </div>                                               
-
-                                            </form>
-                                            
-                                        </div>
-                                    </div>
-                                {{-- </a> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
-                        <div class="portfolio-item">
-                            <div class="shot-item rounded-circle">
-                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.index')}}">
+                                <a class="overlay lightbox rounded" href="{{route('ouvidoriaSite.duvidas')}}">
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
+                                            src="{{ url('../site/img/portfolio/img5.png') }}" alt="imagem de sugestão">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="font-size: 150%">DÚVIDAS</p>
                                             <p class="card-text">FAQ com perguntas frequentes.</p>
@@ -173,7 +172,7 @@
                                 <a class="overlay lightbox rounded" href="{{route('ouvidoria.create', 6)}}">{{--6 = DENÚNCIA --}}
                                     <div class="card ">
                                         <img class="card-img-top img-fluid"
-                                            src="{{ url('../site/img/portfolio/img1.jpg') }}" alt="imagem de sugestão">
+                                            src="{{ url('../site/img/portfolio/img6.png') }}" alt="imagem de sugestão">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="font-size: 150%">DENÚNCIA</p>
                                             <p class="card-text">Comunique um ato ilícito pratica por agentes públicos.

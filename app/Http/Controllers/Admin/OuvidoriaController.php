@@ -24,7 +24,7 @@ class OuvidoriaController extends Controller
      */
     public function index()
     {
-        $ouvidorias = $this->repository->paginate(10);   
+        $ouvidorias = $this->repository->orderBy('created_at', 'desc')->paginate(10);   
         return view('admin.pages.ouvidorias.index', compact('ouvidorias'));
     }
 
@@ -96,7 +96,14 @@ class OuvidoriaController extends Controller
         }else{
             $id_resposta = $ouvidoria->resposta_ouvidoria->first()->id;
             $resposta = $this->resposta->where('id', $id_resposta)->first();
-            $resposta->update($dadosRequest);
+           
+            if(!$resposta->visualizado){
+                $resposta->update($dadosRequest);
+            }else{
+                toast('Mensagem visualizada pelo usuário, não é possível editar!','error')->toToast('top') ;
+                return redirect()->route('ouvidorias.index');
+            }
+            
         }
         toast('Ouvidoria respondida com sucesso!','success')->toToast('top') ;     
         return redirect()->route('ouvidorias.index');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Councilor;
+use App\Models\Ouvidoria;
 use App\Models\Post;
 use App\Models\Session;
 use Illuminate\Http\Request;
@@ -20,8 +21,9 @@ class HomeController extends Controller
         $posts= Post::count();
         $councilors = Councilor::count();
         $sesssions = Session::count();
+        $ouvidorias = Ouvidoria::count();
 
-      return view('dashboard', compact('posts', 'councilors', 'sesssions'));
+      return view('dashboard', compact('posts', 'councilors', 'sesssions', 'ouvidorias'));
         
       
     }

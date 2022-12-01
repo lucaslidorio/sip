@@ -57,20 +57,19 @@
         </div>
       </div>
       <!-- ./col -->
-      {{-- <div class="col-lg-3 col-6">
+      <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-danger">
+        <div class="small-box bg-primary">
           <div class="inner">
-            <h3>65</h3>
-
-            <p>Unique Visitors</p>
-          </div>
+            <h3>{{$ouvidorias}}</h3>
+            <p>Manifestações da ouvidoria</p>
+          </div>                    
           <div class="icon">
-            <i class="ion ion-pie-graph"></i>
+            <i class="ion ion-person-add"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{route('ouvidorias.index')}}" class="small-box-footer">Detalhar <i class="fas fa-arrow-circle-right"></i></a>
         </div>
-      </div> --}}
+      </div>
       <!-- ./col -->
     </div>
     <!-- /.row -->

@@ -52,12 +52,11 @@ class OuvidoriaSiteController extends Controller
     {
             $tenants = $this->tenant->where('id', 3)->get();
             $cliente = $this->tenant->first();
-            $tipos_ouvidoria = $this->tipos_ouvidorias->get();
-            
+            $tipos_ouvidoria = $this->tipos_ouvidorias->get();           
 
                      
               
-            return view('site.layouts..ouvidoria.index', [
+            return view('site.layouts.ouvidoria.index', [
                 'cliente' => $cliente,
                 'tenants' =>  $tenants,
                 'tipos_ouvidoria' =>$tipos_ouvidoria,
@@ -151,8 +150,7 @@ class OuvidoriaSiteController extends Controller
             for ($i=0; $i < count($respostas_nao_lida) ; $i++) {           
                 $respostas_nao_lida[$i]->visualizado = true;
                 $respostas_nao_lida[$i]->save();            
-            } 
-        
+            }         
 
         return view('site.layouts..ouvidoria.acompanhamento', compact(
             'cliente',  
@@ -161,16 +159,17 @@ class OuvidoriaSiteController extends Controller
         
         ));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+   
+    public function duvidas()
     {
-        //
+        $tenants = $this->tenant->where('id', 3)->get();
+        $cliente = $this->tenant->first();
+                            
+          
+        return view('site.layouts.ouvidoria.duvidas', [
+            'cliente' => $cliente,
+            'tenants' =>  $tenants,         
+        ]);
     }
 
     /**

@@ -11,7 +11,7 @@ class Ouvidoria extends Model
     protected $table = 'ouvidorias';
 
     protected $fillable = [
-        'ouvidoria_id',  'perfil_ouvidoria_id',   'assunto_ouvidoria_id',
+        'tipo_id','ouvidoria_id',  'perfil_ouvidoria_id',   'assunto_ouvidoria_id',
         'orgao_ouvidoria_id', 'anonimo', 'sigiloso','nome','cpf',
         'email', 'telefone', 'celular', 'endereco', 'numero_endereco',
         'bairro', 'municipio', 'uf','cep', 'complemento', 'genero',
