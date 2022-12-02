@@ -223,7 +223,7 @@
                 </p>
                 <p class="pt-3">Consulte sua manifestação <br>
                     Se você já fez uma manifestação e guardou o número de protocolo, pode acompanhar o andamento.
-                     Para isso, clique em <strong>Manifestação</strong>. 
+                     Para isso, digite o protocolo em  <strong>CONSULTAR PROTOCOLO</strong> no início da página. 
                 </p>
             </div>
         </div>
