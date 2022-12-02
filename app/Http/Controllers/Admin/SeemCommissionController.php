@@ -50,7 +50,8 @@ class SeemCommissionController extends Controller
             return $query->whereYear('data', $role);
         })
         ->when($request->pesquisa, function($query, $role) {
-            return $query->where('descricao', 'LIKE', "%$role%");
+            return $query->where('descricao', 'LIKE', "%$role%")
+                        ->orWhere('assunto', 'LIKE', "%$role%");
         })
         ->when($request->ordenacao, function ($query, $role) {
             return $query->orderBy('data', $role);
