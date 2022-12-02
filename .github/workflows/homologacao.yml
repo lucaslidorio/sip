@@ -1,4 +1,4 @@
-name: CI-SFTP HOMOLOGACAO SIP
+name: CI-SFTP SIP SAVEINCLOUD
 
 # Controls when the action will run. 
 on:
@@ -24,7 +24,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: 121635-18073
-          server: gate.jelastic.saveincloud.net
+          server: 121635-18073@gate.jelastic.saveincloud.net:3022/var/www/webroot/ROOT
           port: 3022 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -32,7 +32,7 @@ jobs:
           # will put all file under this path
           local_path: ./* # default is ./*
           # files will copy to under remote_path
-          remote_path: /gate.jelastic.saveincloud.net/var/www/webroot
+          remote_path: /var/www/webroot/ROOT
           #remote_path: /var/www/webroot
           
           # sftp args
