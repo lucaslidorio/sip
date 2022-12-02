@@ -26,7 +26,7 @@ jobs:
           username: 121635-18073
           server: 121635-18073@gate.jelastic.saveincloud.net:3022/var/www/webroot/ROOT
           port: 3022 # default is 22
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_SAVEINCLOUD }}
 
           
           # will put all file under this path
