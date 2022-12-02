@@ -22,7 +22,8 @@ class SeemCommissionController extends Controller
      */
     private $repository, $proposition, $type_document, $commission;
 
-    public function __construct(SeemCommission $seemCommission, 
+    public function __construct(
+        SeemCommission $seemCommission, 
         Proposition $proposition,
         TypeDocument $type_document,
         Commission $commission,
@@ -34,10 +35,33 @@ class SeemCommissionController extends Controller
         $this->commission = $commission;
         
     }
-    public function index()
+    public function index(Request $request)
     {   
-        $seemCommissions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);        
-        return view('admin.pages.seemCommissions.index', compact('seemCommissions'));
+        $commissions =  $this->commission::get();
+        //$seemCommissions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);
+        $filters = $request->except('_token');
+       
+        //dd($request->comission_id);
+        $seemCommissions = $this->repository            
+        ->when($request->commission_id, function ($query, $role) {
+            return $query->where('commission_id', $role);
+        })
+        ->when($request->ano, function ($query, $role) {
+            return $query->whereYear('data', $role);
+        })
+        ->when($request->pesquisa, function($query, $role) {
+            return $query->where('descricao', 'LIKE', "%$role%");
+        })
+        ->when($request->ordenacao, function ($query, $role) {
+            return $query->orderBy('data', $role);
+        })
+        //->orderBy('numero', 'ASC')
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10);
+
+
+
+        return view('admin.pages.seemCommissions.index', compact('seemCommissions', 'commissions','filters'));
     }
 
     /**

@@ -47,7 +47,7 @@ class PropositionController extends Controller
     public function index(Request $request)
     {
         
-        //dd('Chegou aqui');
+        
         $councilors = $this->councilor->all();
         $situacoes = $this->proceeding_situation->all();
         $filters = $request->except('_token');
