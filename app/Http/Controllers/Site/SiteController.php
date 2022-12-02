@@ -382,6 +382,9 @@ class SiteController extends Controller
             ->when($request->data_fim, function ($query, $role) {
                 return $query->where('created_at', '<=', $role);
             })
+            ->when($request->ano, function ($query, $role) {
+                return $query->whereYear('data', $role);
+            })
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
           

@@ -111,7 +111,7 @@
                                
                             </div> 
                         </div>
-                        <div class="row ">
+                        <div class="row">
                             <div class="col-sm-12 text-right pt-2 pr-3">                                
                                 <button class="btn btn-primary text-right" type="submit">
                                     <i class="fas fa-filter"></i>

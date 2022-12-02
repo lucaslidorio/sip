@@ -99,8 +99,23 @@
                                 </div>
                             </div>                         
                                                   
-                           <div class="col-sm-3 text-right">
-                                <br>
+                            <div class="col-md-3 col-sm-6">
+                                <label for="ano">Ano:</label>
+                                <select class="custom-select" id="ano" name="ano">
+                                    <option value="" selected >Ano</option> 
+                                    <option value="2018" {{ request()->query('ano') == '2018' ? 'selected': ''}}>2018 </option> 
+                                    <option value="2019" {{ request()->query('ano') == '2019' ? 'selected': ''}}>2019 </option>                       
+                                    <option value="2020" {{ request()->query('ano') == '2020' ? 'selected': ''}}>2020 </option> 
+                                    <option value="2021" {{ request()->query('ano') == '2021' ? 'selected': ''}}>2021 </option>  
+                                    <option value="2022" {{ request()->query('ano') == '2022' ? 'selected': ''}}>2022 </option>  
+                                    <option value="2023" {{ request()->query('ano') == '2023' ? 'selected': ''}}>2023 </option>  
+                                    <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option>                              
+                                </select>
+                               
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-right pr-3">                                
                                 <button class="btn btn-primary text-right" type="submit">
                                     <i class="fas fa-filter"></i>
                                     Filtrar</button>
