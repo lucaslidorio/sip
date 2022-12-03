@@ -1,4 +1,4 @@
-name: CI-SFTP HOMOLOGACAO SIP
+name: CI-SFTP SIP SAVEINCLOUD
 
 # Controls when the action will run. 
 on:
@@ -32,7 +32,7 @@ jobs:
           # will put all file under this path
           local_path: ./* # default is ./*
           # files will copy to under remote_path
-          remote_path: /gate.jelastic.saveincloud.net/var/www/webroot
+          remote_path: /var/www/webroot/ROOT
           #remote_path: /var/www/webroot
           
           # sftp args
