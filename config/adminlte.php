@@ -294,6 +294,13 @@ return [
             'url'  => 'admin/directorTables',
             'icon' => 'fas fa-tablets',
         ],
+        [
+            'text' => ' Agenda',
+            'url'  => 'admin/agenda',
+            'icon' => 'far fa-calendar-alt',
+        ],
+
+      
         ['header' => 'ADMINISTRAÇÃO'],
         [
             'text' => 'Orgão',
