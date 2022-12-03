@@ -4,6 +4,97 @@
 @section('plugins.Sweetalert2', false)
 @include('sweetalert::alert')
 
+  @section('css')
+    <style>
+      html, body{
+        margin: 0; padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+      #calendar{
+        max-width: 900px; margin: 40px auto;
+      }
+
+    </style>
+  @stop
+  @section('js')
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+         // defaultDate:new Date(2022,8,1), //Inicializa em uma data especifica
+          //initialView: ['dayGridMonth' ]
+          
+         headerToolbar: {
+            left:'prev,next today myCustomButton',
+            center:'title',
+            right:'dayGridMonth,timeGridWeek, timeGridDay'
+            //center: 'dayGridMonth,timeGridFourDay' // buttons for switching between views
+          },
+          //botão customizado
+          customButtons: {
+            myCustomButton: {
+              text: 'botao',
+              hint:  'botao teste',
+              click: function() {
+                alert('clicked the custom button!');
+              }
+            }
+          }, 
+          dateClick: function(info) {
+            $('#exampleModal').modal();
+            console.log(info);
+            calendar.addEvent({
+              title:"Evento x", date:info.dateStr
+            });
+
+          },
+          events:[
+            {
+              title:"Meu evento 1",
+              start:"2022-12-03 08:30:00",
+              end:"2022-12-03 10:30:00",
+              color:"#00FF7F",
+              textColor:"#000000",
+            },{
+              title:"Meu evento 2",
+              start:"2022-12-03 07:30:00",
+              end:"2022-12-09 12:30:00",
+              color:"#FFCCAA",
+              textColor:"#000000",
+            }
+          ],
+       
+
+          
+
+          
+          views: {
+            timeGridFourDay: {
+              type: 'timeGrid',
+              duration: { days: 7 },
+              buttonText: 'semana'
+            }           
+          }
+
+          
+
+
+
+        });
+        
+
+
+        calendar.setOption('locale', 'pt-br');//Traduz para português
+
+        
+        calendar.render();
+      });
+
+    </script>
+  @endsection
+
+
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
@@ -27,64 +118,53 @@
         <div class="row">
           <div class="col-md-8">
             
-            {{-- <a href="{{route('parties.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo Partido" ><i
-                class="fas fa-plus"></i> Novo</a> --}}
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              {{-- <form action="{{route('parties.search')}}" method="post" class="form form-inline  float-right">
-                @csrf
-                <div class="input-group input-group-sm" style="width: 250px;">
-                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Sigla">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                  </div>
-                </div>
-              </form> --}}
+             
             </div>
           </div>
         </div> 
       </div>     
    
       <!-- /.card-header -->
-      <div class="card-body table-responsive p-0">
-        {{-- <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>              
-              <th>Nome</th>
-              <th>Sigla</th>
-              <th>imagem</th>              
-              <th width="20%" class="text-center">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($parties as $party)
-            
-            <tr >
-              <td>{{$party->id}}</td>              
-              <td>{{$party->nome}}</td>
-              <td>{{$party->sigla}}</td>
-              <td><img src="{{config('app.aws_url')."{$party->img}" }}" alt="{{$party->nome}}" style="max-width: 100px;;"></td>
-              <td class="text-center">
-                <a href="{{route('parties.edit', $party->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>
+      <div class="card-body ">
+        
+        <div class="row ">          
+          <div class="col-12" id='calendar'>
 
-                <a href="{{route('parties.destroy', $party->id)}}" data-id="{{$party->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                </a>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table> --}}
+          </div>
+        </div>
+        {{-- <div id='calendar'></div> --}}
+       
       </div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
       <!-- /.card-body -->
       <div class="card-footer">
         {{-- @if (isset($pesquisar))
@@ -101,6 +181,12 @@
 
 @section('js')
 <script>
+
+
+
+
+
+
 //Swal.fire('Any fool can use a computer');  
   //Inicia os tooltip
     $(function () {

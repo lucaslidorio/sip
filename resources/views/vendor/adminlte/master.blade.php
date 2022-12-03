@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         {{-- Folha de estilo personalizavel --}}
         <link rel="stylesheet" href="{{ asset('dashboard/css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('dashboard/css/fullcalendar/main.css') }}">
         {{-- Configured Stylesheets --}}
         @include('adminlte::plugins', ['type' => 'css'])
 
@@ -86,6 +87,7 @@
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
         {{-- Script personalizavel --}}
         <script src="{{ asset('dashboard/js/main.js') }}"></script>
+        <script src="{{ asset('dashboard/js/fullcalendar/main.js') }}"></script>    
         
        
         {{-- Configured Scripts --}}
