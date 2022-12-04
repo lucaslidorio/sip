@@ -42,26 +42,41 @@
             }
           }, 
           dateClick: function(info) {
-            $('#exampleModal').modal();
+            $('#modalStore').modal();
             console.log(info);
             calendar.addEvent({
               title:"Evento x", date:info.dateStr
             });
 
           },
+          eventClick:function(info){
+            console.log(info);
+            console.log(info.event.title);
+            console.log(info.event.start);
+
+            console.log(info.event.end);
+            console.log(info.event.textColor);
+            console.log(info.event.backgroundColor);
+
+            console.log(info.event.extendedProps.descricao);//informação externa
+          },
+
+
           events:[
             {
               title:"Meu evento 1",
               start:"2022-12-03 08:30:00",
-              end:"2022-12-03 10:30:00",
-              color:"#00FF7F",
-              textColor:"#000000",
+              descricao :"Descrição do evento 1",
+              // end:"2022-12-03 10:30:00",
+              // color:"#00FF7F",
+              // textColor:"#000000",
             },{
               title:"Meu evento 2",
               start:"2022-12-03 07:30:00",
               end:"2022-12-09 12:30:00",
               color:"#FFCCAA",
               textColor:"#000000",
+              descricao :"Descrição do evento 2",
             }
           ],
        
@@ -128,7 +143,7 @@
       </div>     
    
       <!-- /.card-header -->
-      <div class="card-body ">
+      <div class="card-body">
         
         <div class="row ">          
           <div class="col-12" id='calendar'>
@@ -138,25 +153,62 @@
         {{-- <div id='calendar'></div> --}}
        
       </div>
-<!-- Button trigger modal -->
+
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalStore" tabindex="-1" role="dialog" aria-labelledby="modalStoreModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="modalStoreModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+          ID:
+          <input type="text" class="form-control" name="txtID" id="txtID"> <br>
+          Fecha:
+          <input type="text" class="form-control" name="txtFecha" id="txtFecha">
+       
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="txtTitulo">Titulo</label>
+              <input type="text" class="form-control" name="txtTitulo" id="txtTitulo">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="txtHora">Hora</label>
+              <input type="text" class="form-control" name="txtHora" id="txtHora">
+            </div>
+          </div>          
+          <div class="col-12">
+            <div class="col-12">
+              <label for="sobre">Descricao:</label>
+              <div class="form-group">
+              <textarea class="form-control" name="txtDescricao" id="txtDescricao" cols="1" rows="3" 
+                  placeholder="Sobre a secretaia"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtCor">Cor</label>
+              <input type="color" class="form-control" name="txtCor" id="txtCor">
+            </div>
+          </div>
+        </div>
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="btnSalvar" class="btn btn-primary">Salvar</button>
+        <button id="btnAlterar" class="btn btn-warning">Alterar</button>
+        <button id="btnExcluir" class="btn btn-danger">Excluir</button>
+        <button id="btnCancelar" class="btn btn-secondary">Cancelar</button>
+        
       </div>
     </div>
   </div>
