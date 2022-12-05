@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -14,6 +15,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
+
+
         return view('admin.pages.schedule.index');
     }
 
@@ -35,7 +38,8 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = request()->all();
+        $dados = request()->except([ '_token', '_method']);
+        Schedule::create($dados);
         print_r($dados);
     }
 
@@ -45,9 +49,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $dados['eventos'] = Schedule::all();
+        return response()->json($dados['eventos']);
     }
 
     /**

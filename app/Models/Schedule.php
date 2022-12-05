@@ -10,7 +10,7 @@ class Schedule extends Model
     use HasFactory;
     protected $table = 'schedules';
     protected $fillable = ['tenant_id', 'user_id', 'councilor_id', 'title',
-                            'description', 'color', 'textColor', 'start', 'end'];
+                            'description', 'color', 'textColor', 'start', 'end', 'backgroundColor'];
 
                             
 }

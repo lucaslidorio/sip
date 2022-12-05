@@ -22,6 +22,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+          timeZone: 'local',
          // defaultDate:new Date(2022,8,1), //Inicializa em uma data especifica
           //initialView: ['dayGridMonth' ]
           
@@ -42,9 +43,10 @@
             }
           }, 
           dateClick: function(info) {
-            $('#modalStore').modal();
-
             $('#txtFechar').val(info.dateStr);
+
+            $('#modalStore').modal();
+            
             console.log(info);
             calendar.addEvent({
               title:"Evento x", date:info.dateStr
@@ -55,33 +57,43 @@
             console.log(info);
             console.log(info.event.title);
             console.log(info.event.start);
-
             console.log(info.event.end);
             console.log(info.event.textColor);
             console.log(info.event.backgroundColor);
-
             console.log(info.event.extendedProps.descricao);//informação externa
+
+            $('#txtID').val(info.event.id);
+            $('#txtTitulo').val(info.event.title);
+
+            $('#txtFechar').val(info.event.start);
+            $('#txtHora').val(info.event.start);
+            $('#txtColor').val(info.event.backgroundColor);
+
+            $('#txtDescricao').val(info.event.extendedProps.description);
+
+            $('#modalStore').modal();
           },
 
 
-          events:[
-            {
-              title:"Meu evento 1",
-              start:"2022-12-03 08:30:00",
-              descricao :"Descrição do evento 1",
-              // end:"2022-12-03 10:30:00",
-              // color:"#00FF7F",
-              // textColor:"#000000",
-            },{
-              title:"Meu evento 2",
-              start:"2022-12-03 07:30:00",
-              end:"2022-12-09 12:30:00",
-              color:"#FFCCAA",
-              textColor:"#000000",
-              descricao :"Descrição do evento 2",
-            }
-          ],
-       
+          // events:[
+          //   {
+          //     title:"Meu evento 1",
+          //     start:"2022-12-03 08:30:00",
+          //     descricao :"Descrição do evento 1",
+          //     // end:"2022-12-03 10:30:00",
+          //     // color:"#00FF7F",
+          //     // textColor:"#000000",
+          //   },{
+          //     title:"Meu evento 2",
+          //     start:"2022-12-03 07:30:00",
+          //     end:"2022-12-09 12:30:00",
+          //     color:"#FFCCAA",
+          //     textColor:"#000000",
+          //     descricao :"Descrição do evento 2",
+          //   }
+          // ],
+          
+          events:"{{url('/admin/agenda/show')}}",
 
           
 
@@ -111,8 +123,9 @@
             id:$('#txtID').val(),
             title:$('#txtTitulo').val(),
             description:$('#txtDescricao').val(),
-            color:$('#txtCor').val(),
+            color:$('#backgroundColor').val(),
             textColor:'#FFFFFF',
+            backgroundColor:$('#backgroundColor').val(),
             start:$('#txtFechar').val()+" "+$('#txtHora').val(),
             end:$('#txtFechar').val()+" "+$('#txtHora').val(),
             '_token':$("meta[name='csrf-token']").attr("content"),
@@ -229,8 +242,8 @@
           </div>
           <div class="col-6">
             <div class="form-group">
-              <label for="txtCor">Cor</label>
-              <input type="color" class="form-control" name="txtCor" id="txtCor">
+              <label for="color">Cor</label>
+              <input type="color" class="form-control" name="txtColor" id="txtColor">
             </div>
           </div>
         </div>

@@ -324,6 +324,7 @@ Route::middleware(['auth'])->group(function () {
             //Rotas de Agenda 
             Route::get('/agenda', [ScheduleController::class, 'index'])->name('schedule.index');
             Route::post('/agenda', [ScheduleController::class, 'store'])->name('schedule.index');
+            Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
             
             
 
