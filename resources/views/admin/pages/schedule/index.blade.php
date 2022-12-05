@@ -43,6 +43,8 @@
           }, 
           dateClick: function(info) {
             $('#modalStore').modal();
+
+            $('#txtFechar').val(info.dateStr);
             console.log(info);
             calendar.addEvent({
               title:"Evento x", date:info.dateStr
@@ -91,19 +93,50 @@
               buttonText: 'semana'
             }           
           }
-
-          
-
-
-
         });
         
-
-
         calendar.setOption('locale', 'pt-br');//Traduz para português
-
         
         calendar.render();
+
+        $('#btnSalvar').click(function(){
+          ObjEvento =  getDados("POST");
+
+          enviarDados('', ObjEvento);
+
+        })
+
+        function getDados(method){
+          novoEvento={
+            id:$('#txtID').val(),
+            title:$('#txtTitulo').val(),
+            description:$('#txtDescricao').val(),
+            color:$('#txtCor').val(),
+            textColor:'#FFFFFF',
+            start:$('#txtFechar').val()+" "+$('#txtHora').val(),
+            end:$('#txtFechar').val()+" "+$('#txtHora').val(),
+            '_token':$("meta[name='csrf-token']").attr("content"),
+            '_method':method
+          }
+          return (novoEvento);
+        }
+        function enviarDados(action, objEvento){
+          $.ajax(
+            {
+              type:"POST",
+              url:"{{url('/admin/agenda')}}"+action,
+              data:objEvento,
+              success:function(msg){
+                console.log(msg);
+              },
+              error:function(){
+                alert('Ocorreu um erro', error);
+              }
+            }
+          );
+        }
+
+
       });
 
     </script>
@@ -170,7 +203,7 @@
           ID:
           <input type="text" class="form-control" name="txtID" id="txtID"> <br>
           Fecha:
-          <input type="text" class="form-control" name="txtFecha" id="txtFecha">
+          <input type="text" class="form-control" name="txtFechar" id="txtFechar">
        
         <div class="row">
           <div class="col-12">

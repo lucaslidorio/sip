@@ -35,7 +35,8 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = request()->all();
+        print_r($dados);
     }
 
     /**
