@@ -19,6 +19,8 @@
   @stop
   @section('js')
   <script>
+
+      $("#txtHora").inputmask("99:99");
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -43,6 +45,7 @@
             }
           }, 
           dateClick: function(info) {
+            limparFormulario();
             $('#txtFechar').val(info.dateStr);
 
             $('#modalStore').modal();
@@ -66,7 +69,7 @@
             $('#txtTitulo').val(info.event.title);
 
             mes = (info.event.start.getMonth()+1);
-            dia = (info.event.start.getDay());
+            dia = (info.event.start.getDate());
             ano = (info.event.start.getFullYear());
 
             mes = (mes < 10) ? "0" + mes : mes; // se o mês for menor que 10 coloca o 0
@@ -75,9 +78,7 @@
             hora = info.event.start.getHours();
             minuto = info.event.start.getMinutes();
             hora = (hora < 10) ? "0" + hora : hora;
-            minuto = (minuto < 10) ? "0" + minuto : minuto;
-
-           
+            minuto = (minuto < 10) ? "0" + minuto : minuto;           
 
             $('#txtFechar').val(ano+"-"+mes+"-"+dia);
             $('#txtHora').val(hora+":"+minuto);
@@ -108,10 +109,7 @@
           // ],
           
           events:"{{url('/admin/agenda/show')}}",
-
-          
-
-          
+ 
           views: {
             timeGridFourDay: {
               type: 'timeGrid',
@@ -130,7 +128,20 @@
 
           enviarDados('', ObjEvento);
 
-        })
+        });
+        $('#btnAlterar').click(function(){
+          ObjEvento =  getDados("PUT");
+         
+          enviarDados('/'+$('#txtID').val(), ObjEvento);
+        });
+        $('#btnExcluir').click(function(){
+          ObjEvento =  getDados("DELETE");
+         
+          enviarDados('/'+$('#txtID').val(), ObjEvento);
+        });
+        $('#btnCancelar').click(function(){
+          $('#modalStore').modal('toggle');
+        });
 
         function getDados(method){
           novoEvento={
@@ -164,6 +175,16 @@
               }
             }
           );
+        }
+        function limparFormulario(){
+            $('#txtID').val("");
+            $('#txtTitulo').val("");           
+
+            $('#txtFechar').val("");
+            $('#txtHora').val("");
+
+            $('#txtColor').val("");
+            $('#txtDescricao').val("");
         }
 
 
@@ -224,40 +245,39 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalStoreModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="modalStoreModalLabel">Agendar</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-          ID:
-          <input type="text" class="form-control" name="txtID" id="txtID"> <br>
-          Fecha:
-          <input type="date" class="form-control" name="txtFechar" id="txtFechar">
+      <div class="modal-body">         
+          <input type="text" class="form-control" name="txtID" id="txtID" hidden> <br>         
+          <input type="text" class="form-control" name="txtFechar" id="txtFechar" >
        
         <div class="row">
-          <div class="col-12">
+          <div class="col-md-8">
             <div class="form-group">
               <label for="txtTitulo">Titulo</label>
-              <input type="text" class="form-control" name="txtTitulo" id="txtTitulo">
+              <input type="text" class="form-control" name="txtTitulo" id="txtTitulo" required>
             </div>
           </div>
-          <div class="col-12">
+          <div class="col-4">
             <div class="form-group">
               <label for="txtHora">Hora</label>
               <input type="text" class="form-control" name="txtHora" id="txtHora">
             </div>
-          </div>          
-          <div class="col-12">
+          </div>  
+        </div>
+        <div class="row">
             <div class="col-12">
               <label for="sobre">Descricao:</label>
               <div class="form-group">
               <textarea class="form-control" name="txtDescricao" id="txtDescricao" cols="1" rows="3" 
-                  placeholder="Sobre a secretaia"></textarea>
+                  placeholder="Descrição do evento"></textarea>
               </div>
             </div>
-          </div>
-          <div class="col-6">
+        
+          <div class="col-md-6 col-sm-12">
             <div class="form-group">
               <label for="color">Cor</label>
               <input type="color" class="form-control" name="txtColor" id="txtColor">

@@ -325,6 +325,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/agenda', [ScheduleController::class, 'index'])->name('schedule.index');
             Route::post('/agenda', [ScheduleController::class, 'store'])->name('schedule.index');
             Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
+            Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+            Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
             
             
 
