@@ -22,7 +22,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          timeZone: 'local',
+          
          // defaultDate:new Date(2022,8,1), //Inicializa em uma data especifica
           //initialView: ['dayGridMonth' ]
           
@@ -47,10 +47,10 @@
 
             $('#modalStore').modal();
             
-            console.log(info);
-            calendar.addEvent({
-              title:"Evento x", date:info.dateStr
-            });
+            // console.log(info);
+            // calendar.addEvent({
+            //   title:"Evento x", date:info.dateStr
+            // });
 
           },
           eventClick:function(info){
@@ -65,10 +65,24 @@
             $('#txtID').val(info.event.id);
             $('#txtTitulo').val(info.event.title);
 
-            $('#txtFechar').val(info.event.start);
-            $('#txtHora').val(info.event.start);
-            $('#txtColor').val(info.event.backgroundColor);
+            mes = (info.event.start.getMonth()+1);
+            dia = (info.event.start.getDay());
+            ano = (info.event.start.getFullYear());
 
+            mes = (mes < 10) ? "0" + mes : mes; // se o mês for menor que 10 coloca o 0
+            dia = (dia < 10) ? "0" + dia : dia;
+
+            hora = info.event.start.getHours();
+            minuto = info.event.start.getMinutes();
+            hora = (hora < 10) ? "0" + hora : hora;
+            minuto = (minuto < 10) ? "0" + minuto : minuto;
+
+           
+
+            $('#txtFechar').val(ano+"-"+mes+"-"+dia);
+            $('#txtHora').val(hora+":"+minuto);
+
+            $('#txtColor').val(info.event.backgroundColor);
             $('#txtDescricao').val(info.event.extendedProps.description);
 
             $('#modalStore').modal();
@@ -123,9 +137,9 @@
             id:$('#txtID').val(),
             title:$('#txtTitulo').val(),
             description:$('#txtDescricao').val(),
-            color:$('#backgroundColor').val(),
+            color:$('#txtColor').val(),
             textColor:'#FFFFFF',
-            backgroundColor:$('#backgroundColor').val(),
+            backgroundColor:$('#txtColor').val(),
             start:$('#txtFechar').val()+" "+$('#txtHora').val(),
             end:$('#txtFechar').val()+" "+$('#txtHora').val(),
             '_token':$("meta[name='csrf-token']").attr("content"),
@@ -141,6 +155,9 @@
               data:objEvento,
               success:function(msg){
                 console.log(msg);
+
+                $('#modalStore').modal('toggle');
+                calendar.refetchEvents();
               },
               error:function(){
                 alert('Ocorreu um erro', error);
@@ -216,7 +233,7 @@
           ID:
           <input type="text" class="form-control" name="txtID" id="txtID"> <br>
           Fecha:
-          <input type="text" class="form-control" name="txtFechar" id="txtFechar">
+          <input type="date" class="form-control" name="txtFechar" id="txtFechar">
        
         <div class="row">
           <div class="col-12">
