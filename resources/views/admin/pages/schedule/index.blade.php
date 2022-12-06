@@ -24,46 +24,37 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          
-         // defaultDate:new Date(2022,8,1), //Inicializa em uma data especifica
-          //initialView: ['dayGridMonth' ]
-          
+          timeZone: 'UTC-4',
+          locale: 'pt-br',
          headerToolbar: {
-            left:'prev,next today myCustomButton',
+            left:'prev,next today',
             center:'title',
-            right:'dayGridMonth,timeGridWeek, timeGridDay'
-            //center: 'dayGridMonth,timeGridFourDay' // buttons for switching between views
+            right:'dayGridMonth,timeGridWeek, timeGridDay'            
           },
-          //botão customizado
-          customButtons: {
-            myCustomButton: {
-              text: 'botao',
-              hint:  'botao teste',
-              click: function() {
-                alert('clicked the custom button!');
-              }
-            }
-          }, 
+           
           dateClick: function(info) {
             limparFormulario();
             $('#txtFechar').val(info.dateStr);
 
-            $('#modalStore').modal();
-            
-            // console.log(info);
-            // calendar.addEvent({
-            //   title:"Evento x", date:info.dateStr
-            // });
+            $("#btnSalvar").prop('disabled', false);
+            $("#btnAlterar").prop('disabled', true);
+            $("#btnExcluir").prop('disabled', true);
 
+            $('#modalStore').modal();
+          
           },
           eventClick:function(info){
-            console.log(info);
-            console.log(info.event.title);
-            console.log(info.event.start);
-            console.log(info.event.end);
-            console.log(info.event.textColor);
-            console.log(info.event.backgroundColor);
-            console.log(info.event.extendedProps.descricao);//informação externa
+            $("#btnSalvar").prop('disabled', true);
+            $("#btnAlterar").prop('disabled', false);
+            $("#btnExcluir").prop('disabled', false);
+
+            //console.log(info);
+            //console.log(info.event.title);
+            //console.log(info.event.start);
+            //console.log(info.event.end);
+            //console.log(info.event.textColor);
+            //console.log(info.event.backgroundColor);
+            //console.log(info.event.extendedProps.descricao);//informação externa
 
             $('#txtID').val(info.event.id);
             $('#txtTitulo').val(info.event.title);
@@ -139,9 +130,7 @@
          
           enviarDados('/'+$('#txtID').val(), ObjEvento);
         });
-        $('#btnCancelar').click(function(){
-          $('#modalStore').modal('toggle');
-        });
+        
 
         function getDados(method){
           novoEvento={
@@ -181,7 +170,7 @@
             $('#txtTitulo').val("");           
 
             $('#txtFechar').val("");
-            $('#txtHora').val("");
+            $('#txtHora').val("07:00");
 
             $('#txtColor').val("");
             $('#txtDescricao').val("");
@@ -252,7 +241,7 @@
       </div>
       <div class="modal-body">         
           <input type="text" class="form-control" name="txtID" id="txtID" hidden> <br>         
-          <input type="text" class="form-control" name="txtFechar" id="txtFechar" >
+          <input type="text" class="form-control" name="txtFechar" id="txtFechar" hidden>
        
         <div class="row">
           <div class="col-md-8">
@@ -264,7 +253,7 @@
           <div class="col-4">
             <div class="form-group">
               <label for="txtHora">Hora</label>
-              <input type="text" class="form-control" name="txtHora" id="txtHora">
+              <input type="time" step="600" class="form-control" name="txtHora" id="txtHora">
             </div>
           </div>  
         </div>
@@ -290,7 +279,7 @@
         <button id="btnSalvar" class="btn btn-primary">Salvar</button>
         <button id="btnAlterar" class="btn btn-warning">Alterar</button>
         <button id="btnExcluir" class="btn btn-danger">Excluir</button>
-        <button id="btnCancelar" class="btn btn-secondary">Cancelar</button>
+        <button id="btnCancelar" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
         
       </div>
     </div>

@@ -8,5 +8,5 @@ $(document).ready(function(){
 
   
   //Inicia o plugin select2 na onde possuir a classe select2
- // $('.select2').select2();
+  $('.select2').select2();
 });
