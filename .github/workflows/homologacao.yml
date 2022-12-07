@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 name: CI-SFTP HOMOLOGACAO SAVE SIP
 
@@ -8,16 +9,18 @@ on:
      branches: [ homologacao ]
 #  pull_request:
 #    branches: [ master ]
+=======
+name: Teste Nova versão
+push:
+    branches: [ homologacao ]
+>>>>>>> 9179e1556b6de5898b1346013b8b5519f2a21685
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "SFTP"
-  deploy-via-sftp:
+    deploy_job:
     runs-on: ubuntu-latest
+    name: deploy
     steps:
+<<<<<<< HEAD
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
@@ -40,3 +43,17 @@ jobs:
           
           # sftp args
           args: '-o ConnectTimeout=5'
+=======
+        - name: Checkout
+        uses: actions/checkout@v2
+        - name: deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+            username: 121635-18073
+            server: gate.jelastic.saveincloud.net
+            port:3022
+            ssh_private_key: {{ secrets.SSH_PRIVATE_KEY }} 
+            local_path: ./*
+            remote_path: /var/www/webroot/ROOT
+            sftpArgs: '-o ConnectTimeout=5'
+>>>>>>> 9179e1556b6de5898b1346013b8b5519f2a21685
