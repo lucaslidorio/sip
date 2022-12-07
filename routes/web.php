@@ -357,6 +357,8 @@ Route::get('legislacoes', [SiteController::class, 'legislacoes'])->name('legisla
 Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name('legislacao.show');
 Route::get('pareceres', [SiteController::class, 'parecerPesquisar'])->name('parecer.pesquisar');
 Route::get('pareceres/{id}', [SiteController::class, 'parecerShow'])->name('parecer.show');
+Route::get('agenda', [SiteController::class, 'agendaIndex'])->name('agenda.index');
+Route::get('/agenda/show', [SiteController::class, 'agendaShow'])->name('agenda.show');
 
 //Rotas de ouvidoria do site
 

@@ -1,3 +1,5 @@
+
+ 
  <!-- Features Section Start -->
  <section id="features" class="section" data-stellar-background-ratio="0.2">
   <br><br>
@@ -47,18 +49,31 @@
           </div>
         </div>
         <div class="col-lg-4 col-sm-6">
-            <a href="{{route('legislacoes.index')}}" class= "text-decoration-none">
-          <div class="content-right text-left">
-            <div class="box-item right">
-              <span class="icon">
-                <i class="fas fa-balance-scale"></i>
-              </span>
-              <div class="text mt-3">
-                <h4>Regimento Interno</h4>
-                <p>Clique para visualizar o regimento interno</p>
+            <a href="{{route('agenda.index')}}" class= "text-decoration-none">
+              <div class="content-right text-left">
+                <div class="box-item right">
+                  <span class="icon">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                  <div class="text mt-3">
+                    <h4>Agenda Legislativa</h4>
+                    <p>Clique para visualizar a agenda Legislativa</p>
+                  </div>
+                </div>        
               </div>
-            </div>        
-          </div>
+            </a>
+            <a href="{{route('legislacoes.index')}}" class= "text-decoration-none">
+              <div class="content-right text-left">
+                <div class="box-item right">
+                  <span class="icon">
+                    <i class="fas fa-balance-scale"></i>
+                  </span>
+                  <div class="text mt-3">
+                    <h4>Regimento Interno</h4>
+                    <p>Clique para visualizar o regimento interno</p>
+                  </div>
+                </div>        
+              </div>
             </a>
         </div>
       </div>
