@@ -1,0 +1,21 @@
+name: Teste Nova versão
+push:
+    branches: [ homologacao ]
+
+jobs:
+    deploy_job:
+    runs-on: ubuntu-latest
+    name: deploy
+    steps:
+        - name: Checkout
+        uses: actions/checkout@v2
+        - name: deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+            username: 121635-18073
+            server: gate.jelastic.saveincloud.net
+            port:3022
+            ssh_private_key: {{ secrets.SSH_PRIVATE_KEY }} 
+            local_path: ./*
+            remote_path: /var/www/webroot/ROOT
+            sftpArgs: '-o ConnectTimeout=5'
