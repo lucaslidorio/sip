@@ -1,12 +1,13 @@
-name: CI-SFTP SIP SAVEINCLOUD
+
+name: CI-SFTP HOMOLOGACAO SAVE SIP
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ homologacao ]
+     branches: [ homologacao ]
 #  pull_request:
-#    branches: [ homologacao ]
+#    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -35,7 +36,7 @@ jobs:
           local_path: ./* # default is ./*
           # files will copy to under remote_path
           remote_path: /var/www/webroot/ROOT
-          #remote_path: /var/www/webroot
+          #remote_path: /var/www
           
           # sftp args
           args: '-o ConnectTimeout=5'
