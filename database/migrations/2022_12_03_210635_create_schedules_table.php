@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('councilor_id')->nullable();
             $table->foreign('councilor_id')->references('id')->on('councilors');
             $table->string('title', 255);
-            $table->testringxt('description',255)->nullable();
+            $table->string('description',255)->nullable();
             $table->string('color', 7)->nullable();
             $table->string('textColor', 7)->nullable();
             $table->string('backgroundColor', 7)->nullable();
