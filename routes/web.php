@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PropositionController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\SeemCommissionController;
 use App\Http\Controllers\Admin\SessionController;
@@ -320,6 +321,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/ouvidorias', [OuvidoriaController::class, 'store'])->name('ouvidorias.store');
             Route::get('/ouvidorias', [OuvidoriaController::class, 'index'])->name('ouvidorias.index');
 
+            //Rotas de Agenda 
+            Route::get('/agenda', [ScheduleController::class, 'index'])->name('schedule.index');
+            Route::post('/agenda', [ScheduleController::class, 'store'])->name('schedule.index');
+            Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
+            Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+            Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+            
             
 
         
