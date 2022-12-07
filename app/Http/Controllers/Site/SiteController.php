@@ -32,6 +32,7 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 use App\Mail\contato;
 use App\Models\CitizenLetter;
 use App\Models\Legislation;
+use App\Models\Schedule;
 use App\Models\SeemCommission;
 
 class SiteController extends Controller
@@ -458,5 +459,24 @@ class SiteController extends Controller
         }
         toast('E-mail enviado com sucesso!', 'success')->toToast('top');
         return back();
+    }
+
+    public  function agendaIndex(){
+        
+        $tenants = $this->tenant->where('id', 3)->get();      
+        $cliente = $this->tenant->first(); 
+        //por enquanto só esta pegando o regimento interno id = 5      
+
+        return view('site.layouts.agenda.index', [
+            'tenants' =>  $tenants,
+            'cliente' => $cliente,
+        ]);
+    }
+    public function agendaShow()
+    {
+        $dados['eventos'] = Schedule::all();
+      
+        return response()->json($dados['eventos']);
+       
     }
 }

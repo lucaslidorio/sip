@@ -118,7 +118,6 @@
   <script src="site/js/form-validator.min.js"></script>
   <script src="site/js/contact-form-script.js"></script>
   <script src="site/js/main.js"></script>
-
   
 
 </body>
