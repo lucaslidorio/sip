@@ -88,6 +88,7 @@
         {{-- Script personalizavel --}}
         <script src="{{ asset('dashboard/js/main.js') }}"></script>
         <script src="{{ asset('dashboard/js/fullcalendar/main.js') }}"></script>    
+        <script src="{{ asset('dashboard/js/fullcalendar/pt-br.js') }}"></script> 
         
        
         {{-- Configured Scripts --}}

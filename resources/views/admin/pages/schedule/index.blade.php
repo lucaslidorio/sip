@@ -24,8 +24,8 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          timeZone: 'UTC-4',
-          locale: 'pt-br',
+          //timeZone: 'UTC-4',
+          //locale: 'pt-br',
          headerToolbar: {
             left:'prev,next today',
             center:'title',

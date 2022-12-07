@@ -25,6 +25,7 @@ return new class extends Migration
             $table->testringxt('description',255)->nullable();
             $table->string('color', 7)->nullable();
             $table->string('textColor', 7)->nullable();
+            $table->string('backgroundColor', 7)->nullable();
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();         
 
