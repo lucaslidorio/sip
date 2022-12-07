@@ -20,8 +20,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
+      #- name: SFTP Deploy
+      #  uses: wlixcc/SFTP-Deploy-Action@v1.2.1
       - name: SFTP Deploy
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: 121635-18073
           server: gate.jelastic.saveincloud.net
