@@ -54,7 +54,14 @@
 
   </style>
 <script>
+    protocolo = window.location.protocol,    
+    url_host = window.location.host;
+    url_atual = protocolo+'//'+url_host+'/admin/agenda/show'; //monta a rota que retorna os dados em json
     
+
+    // console.log(window.location.protocol);
+    // console.log(window.location.pathname);
+   
    
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -70,13 +77,13 @@
          
           eventClick:function(info){          
 
-            console.log(info);
-            console.log(info.event.title);
-            console.log(info.event.start);
-            console.log(info.event.end);
-            console.log(info.event.textColor);
-            console.log(info.event.backgroundColor);
-            console.log(info.event.extendedProps.descricao);//informação externa
+            // console.log(info);
+            // console.log(info.event.title);
+            // console.log(info.event.start);
+            // console.log(info.event.end);
+            // console.log(info.event.textColor);
+            // console.log(info.event.backgroundColor);
+            // console.log(info.event.extendedProps.descricao);//informação externa
 
             // $('#txtID').val(info.event.id);
             // $('#txtTitulo').val(info.event.title);
@@ -102,8 +109,9 @@
 
             $('#modalDetalhes').modal();
           },
-
-          events:"{{url('/admin/agenda/show')}}",
+          
+          //events: url_atual + '/admin/show',
+          events:url_atual,
  
           views: {
             timeGridFourDay: {
@@ -112,14 +120,10 @@
               buttonText: 'semana'
             }           
           }
-        });
+        });        
         
-        calendar.setOption('locale', 'pt-br');//Traduz para português
-        
+        calendar.setOption('locale', 'pt-br');//Traduz para português        
         calendar.render();
-
-
-
       });
 </script>
 

@@ -21,6 +21,11 @@
   <script>
 
       $("#txtHora").inputmask("99:99");
+      protocolo = window.location.protocol,    
+      url_host = window.location.host;
+      url_atual = protocolo+'//'+url_host ; //monta a url principal, usado para resolver o problema de https do ajax
+    
+
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -79,27 +84,8 @@
 
             $('#modalStore').modal();
           },
-
-
-          // events:[
-          //   {
-          //     title:"Meu evento 1",
-          //     start:"2022-12-03 08:30:00",
-          //     descricao :"Descrição do evento 1",
-          //     // end:"2022-12-03 10:30:00",
-          //     // color:"#00FF7F",
-          //     // textColor:"#000000",
-          //   },{
-          //     title:"Meu evento 2",
-          //     start:"2022-12-03 07:30:00",
-          //     end:"2022-12-09 12:30:00",
-          //     color:"#FFCCAA",
-          //     textColor:"#000000",
-          //     descricao :"Descrição do evento 2",
-          //   }
-          // ],
           
-          events:"{{url('/admin/agenda/show')}}",
+          events: url_atual +'/admin/agenda/show',
  
           views: {
             timeGridFourDay: {
@@ -151,7 +137,7 @@
           $.ajax(
             {
               type:"POST",
-              url:"{{url('/admin/agenda')}}"+action,
+              url:url_atual +'/admin/agenda'+action,
               data:objEvento,
               success:function(msg){
                 console.log(msg);
