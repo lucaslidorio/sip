@@ -85,7 +85,8 @@
             $('#modalStore').modal();
           },
           
-          events: url_atual +'/admin/agenda/show',
+          //events: url_atual +'/admin/agenda/show',
+          events: {{url('/admin/agenda/show')}}
  
           views: {
             timeGridFourDay: {
