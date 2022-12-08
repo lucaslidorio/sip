@@ -6,7 +6,5 @@ $(document).ready(function(){
   $(".cpf").inputmask("999.999.999-99");
   $(".cnpj").inputmask("99.999.999/9999-99");
   
-  //Inicia o plugin select2 na onde possuir a classe select2
-  //desabilitado
-  //$('.select2').select2();
+ 
 });
