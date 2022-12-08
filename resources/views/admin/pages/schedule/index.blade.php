@@ -86,7 +86,7 @@
           },
           
           events: url_atual +'/admin/agenda/show',
-          events:"{{url('/admin/agenda/show')}}",
+          //events:"{{url('/admin/agenda/show')}}",
  
           views: {
             timeGridFourDay: {
@@ -141,7 +141,7 @@
               url:url_atual +'/admin/agenda'+action,
               data:objEvento,
               success:function(msg){
-                console.log({{url('/admin/agenda/show')}});
+               
                 console.log(msg);
 
                 $('#modalStore').modal('toggle');
