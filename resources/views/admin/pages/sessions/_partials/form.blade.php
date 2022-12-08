@@ -142,6 +142,25 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">                  
+                <label for="link_transmissao" class="label-required">Link de Transmissão </label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-play"></i></span>
+                      </div> 
+                  <input type="text" class="form-control {{ $errors->has('link_transmissao') ? 'is-invalid' : '' }}" id="link_transmissao"
+                      name="link_transmissao" placeholder="Nome sessão" value="{{ $session->link_transmissao ?? old('link_transmissao') }}">
+                  @error('link_transmissao')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-sm-12">
             <label for="descricao">Descrição:</label>
             <div class="form-group">

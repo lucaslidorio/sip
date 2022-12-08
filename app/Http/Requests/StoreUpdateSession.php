@@ -32,6 +32,7 @@ class StoreUpdateSession extends FormRequest
             'legislature_id' => ['required'],
             'legislature_section_id' => ['required'],
             'period_id' => ['required'],
+            'link_transmissao' => ['max:255']
            
                      
           

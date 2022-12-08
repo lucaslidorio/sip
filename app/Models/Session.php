@@ -12,7 +12,7 @@ class Session extends Model
 
     protected $fillable = [
         'user_id', 'nome', 'data', 'hora', 'type_session_id', 'legislature_id',
-        'legislature_section_id', 'period_id','descricao'
+        'legislature_section_id', 'period_id','descricao', 'link_transmissao'
     ];    
     public function typeSession(){
         return $this->belongsTo(TypeSession::class, 'type_session_id', 'id');
