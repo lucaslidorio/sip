@@ -87,7 +87,7 @@
           
           //events: url_atual +'/admin/agenda/show',
           events:"{{url('/admin/agenda/show')}}",
- ,
+ 
           views: {
             timeGridFourDay: {
               type: 'timeGrid',
