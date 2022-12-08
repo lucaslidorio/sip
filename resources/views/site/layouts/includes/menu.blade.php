@@ -22,7 +22,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                    <a class="nav-link page-scroll" href="#slider-area">Início teste</a>
+                    <a class="nav-link page-scroll" href="#slider-area">Início</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#legislacao">Legislação</a>
