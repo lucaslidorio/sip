@@ -146,6 +146,7 @@
                                     <div id="{{ $sessao->id }}" class="collapse" aria-labelledby="headingOne"
                                         data-parent="#sessao">
                                         <div class="card-body">
+                                           
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                   <p class="card-text"><strong>Nome: </strong> {{$sessao->nome}}</p>  
@@ -173,9 +174,17 @@
                                                     </div> 
                                                           
                                                     @endforeach
-                                               
+                                                    @if($sessao->link_transmissao)
+                                                    <a target="__blank" href="{{$sessao->link_transmissao}}">
+                                                        <div class="alert alert-primary d-inline-flex " role="alert">
+                                                            <h6><i class="fas fa-video text-danger" ></i> Assistir Transmissão</h6> 
+                                                          </div>
+                                                        </a> 
+                                                    @endif
                                                 </div>
+                                               
                                               </div> 
+                                              
                                               <table class="table  table-hover table-borderless border-top mt-2 table-sm ">
                                                 <thead>
                                                   <tr>

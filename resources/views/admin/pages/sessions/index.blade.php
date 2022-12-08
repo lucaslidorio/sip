@@ -119,11 +119,17 @@
               <td>{{$sessao->section->descricao}}</td>             
               <td>{{\Carbon\Carbon::parse($sessao->data)->format('d/m/Y')}} - {{$sessao->hora}}</td> 
                          
-              <td>{{$sessao->legislature->descricao}}</td>  
+              <td>{{$sessao->legislature->descricao}} </td>  
               <td class="text-center">
+                <a target="__blank" href="{{$sessao->link_transmissao}}"
+                  class="btn  bg-gradient-warning btn-flat mt-0 {{$sessao->link_transmissao ? '' : 'disabled'}}" data-toggle="tooltip" data-placement="top"  
+                  title="Assistir Transmissão">
+                  <i class="fas fa-play "></i>               
+                </a>               
+
                 <a href="{{route('sessions.show', $sessao->id)}}" data-id="{{$sessao->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Ver Detalhes">
+                  class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"  
+                  title="Ver Detalhes">                
                   <i class="far fa-eye"></i>
                 </a>
 

@@ -35,6 +35,7 @@
         <p class="card-text"><strong>Sessão Legislativa: </strong> {{$session->section->descricao}}</p>
         <p class="card-text"><strong>Periódo Legislativo: </strong> {{$session->period->nome}}</p>
         <p class="card-text"><strong>Descrição: </strong> {{$session->descricao}}</p>
+        <p class="card-text"><strong>Link: <a target="__blank" href="{{$session->link_transmissao}}">{{$session->link_transmissao}}</a> </strong> </p>
       </div>
       <div class="col-sm-6">
            <h5><strong> Vereadores Presentes </strong></h5>
