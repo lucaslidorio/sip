@@ -1,12 +1,13 @@
-name: CI-SFTP HOMOLOGACAO SIP TESTE SAVE
+
+name: SIP-SERINGUEIRAS-PRODUCAO SAVEINCLOUD
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-   # branches: [ master ]
+     branches: [ homologacao ]
 #  pull_request:
-#    branches: [ master ]
+#    branches: [ seringueiras ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,10 +21,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
+      #- name: SFTP Deploy
+      #  uses: wlixcc/SFTP-Deploy-Action@v1.2.1
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          username: 121635-18073
+          username: 122238-18073
           server: gate.jelastic.saveincloud.net
           port: 3022 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -33,7 +36,7 @@ jobs:
           local_path: ./* # default is ./*
           # files will copy to under remote_path
           remote_path: /var/www/webroot/ROOT
-          #remote_path: /var/www/webroot/ROOT
+          #remote_path: /var/www
           
           # sftp args
           args: '-o ConnectTimeout=5'

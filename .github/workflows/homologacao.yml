@@ -1,5 +1,5 @@
 
-name: CI-SFTP HOMOLOGACAO SAVE SIP
+name: SIP HOMOLOGACAO SAVEINCLOUD
 
 # Controls when the action will run. 
 on:
