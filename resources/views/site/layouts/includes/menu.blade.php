@@ -22,7 +22,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                    <a class="nav-link page-scroll" href="#slider-area">Home</a>
+                    <a class="nav-link page-scroll" href="#slider-area">Início</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#legislacao">Legislação</a>
@@ -51,3 +51,13 @@
       </div>
     </div>
 
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
