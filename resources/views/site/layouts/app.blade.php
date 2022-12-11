@@ -25,9 +25,28 @@
   <!-- Header Section Start -->
   <header id="slider-area">
     <!-- Menu-->
-    @include('site.layouts.includes.menu')
+    <div class="container">
+      @include('site.layouts.includes.menu')
+    </div>
+   
     <!-- Fim Menu -->
-    @include('site.layouts.includes.slide')
+    <div class="row">
+      <hr>
+     
+    </div>
+    <div class="container    mt-5 pt-2 " >
+      <div class="row pt-3">
+        <div class="col-sm-12 col-md-6 col-lg-6  shadow-sm p-3 mb-2 bg-white rounded">
+          @include('site.layouts.includes.slide')
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="row">
+            
+          </div>
+        </div>
+      </div>  
+    </div>
+    
   </header>
   <!--Section Legislacao -->
   

@@ -1,8 +1,8 @@
 <!-- Services Section Start -->
-<section id="legislacao" class="section" >
+<section id="legislacao" class="section pt-0" >
   <br><br>
-    <div class="container">
-      <div class="section-header">
+    <div class="container ">
+      <div class="section-header ">
         <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
           <span>Legislação</span></h2>
         <hr class="lines wow zoomIn" data-wow-delay="0.3s">

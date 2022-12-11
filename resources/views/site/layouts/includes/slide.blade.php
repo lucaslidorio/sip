@@ -1,21 +1,19 @@
 
     <!-- Main Carousel Section -->
-    <div id="carousel-area">
+    <div id="carousel-area  ">
         <div id="carousel-slider" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             @foreach($posts_destaque as $key => $noticia)
             <li data-target="#carousel-slider" data-slide-to="{{$loop->index}}" class="{{ $loop->first ? 'active' : '' }}"></li>
             @endforeach
           </ol>
-          <div class="carousel-inner" role="listbox" style="height: 650px">
+          <div class="carousel-inner" role="listbox" style="height: 450px">
             @foreach($posts_destaque as $key => $noticia)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
               <img src="{{config('app.aws_url').$noticia->img_destaque }}" alt="{{$noticia->titulo}}"  style="width: 100%" >
               <div class="carousel-caption" style="margin-top: -50px">
-                <h1>{{$noticia->titulo}}</h1>
-                {{-- <p>High-quality Responsive Website Template Based on Bootstrap 4 to Create Complete Website in Minutes</p> --}}
-                {{-- <a href="#" class="btn btn-lg btn-common">Download</a> --}}
-                <a href="{{route('noticias.show', $noticia->url)}}" class="btn btn-lg btn-border">Leia Mais</a>
+                <h1>{{$noticia->titulo}}</h1>              
+                <a href="{{route('noticias.show', $noticia->url)}}" class="btn btn btn-border">Leia Mais</a>
               </div>
             </div>
               
