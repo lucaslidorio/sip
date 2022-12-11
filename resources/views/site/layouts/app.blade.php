@@ -25,30 +25,27 @@
   <!-- Header Section Start -->
   <header id="slider-area">
     <!-- Menu-->
-    <div class="container">
+    <div class="container text-center">
       @include('site.layouts.includes.menu')
     </div>
 
-    <!-- Fim Menu -->
-    <div class="row">
-      <hr>
-      <div class="midia-social">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-          <span>Facebook</span>
-        </a>
-      </div> 
+    <!-- Fim Menu -->    
+  </header>
+  <!--Midias Social Flutuante -->  
+  @include('site.layouts.includes.midias-social-flutuante')
 
-    </div>
-    
-    <div class="container    mt-5 pt-2 ">
+  <!--Fim Midias Social Flutuante --> 
+
+  <section class="pt-2">
+    <div class="container mt-5 pt-2">
       <div class="row pt-3">
         <div class="col-sm-12 col-md-6 col-lg-6  shadow-sm p-3 mb-2 bg-white rounded">
+          {{-- @include('site.layouts.includes.slide') --}}
           @include('site.layouts.includes.slide')
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
           <div class="row">
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 col-6">
               <a target="__blank" href="https://transparencia.seringueiras.ro.leg.br/portaltransparencia/esic"
                 class="text-decoration-none ">
                 <div class="item-boxes wow fadeInDown pb-0" data-wow-delay="0.2s">
@@ -61,7 +58,7 @@
                 </div>
               </a>
             </div>
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 col-6">
               <a href="{{route('ouvidoriaSite.index')}}" class="text-decoration-none">
                 <div class="item-boxes wow fadeInDown pb-0 mb-0" data-wow-delay="0.2s">
                   <span class="icon border-info">
@@ -73,7 +70,7 @@
                 </div>
               </a>
             </div>
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 col-6">
               <a target="_blank" href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm"
                 class="text-decoration-none">
                 <div class="item-boxes wow fadeInDown pb-0 mb-0" data-wow-delay="0.2s">
@@ -82,14 +79,12 @@
                   </span>
                   <h4 class="font-weight-bold text-dark">LAI</h4>
                   </h4>
-                  <p class="text-dark">Reclamação, Sugestão, Solicitação etc... </p>
-
+                  <p class="text-dark">Lei de Acesso a Informação </p>
                 </div>
               </a>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 col-sm-6">
+          
+            <div class="col-md-4 col-sm-6 col-6">
               <a target="__blank" href="https://transparencia.seringueiras.ro.leg.br/" class="text-decoration-none">
                 <div class="item-boxes wow fadeInDown  pb-0 mb-0" data-wow-delay="0.2s">
                   <div class="icon">
@@ -100,7 +95,7 @@
                 </div>
               </a>
             </div>
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 col-6">
               <a  href="{{route('agenda.index')}}" class="text-decoration-none">
                 <div class="item-boxes wow fadeInDown  pb-0 mb-0" data-wow-delay="0.2s">
                   <div class="icon border-info">
@@ -111,24 +106,27 @@
                 </div>
               </a>
             </div>
+            <div class="col-md-4 col-sm-6 col-6">
+              <a  href="https://www.facebook.com/camara.seringueiras" class="text-decoration-none">
+                <div class="item-boxes wow fadeInDown  pb-0 mb-0" data-wow-delay="0.2s">
+                  <div class="icon border-danger">
+                    <i class="fab fa-youtube-square text-danger mt-0"></i>
+                  </div>
+                  <h4 class="font-weight-bold text-dark">Camara ao Vivo</h4>
+                  <p class="text-dark">Acompanhe as trasmissão ao vivo.</p>
+                </div>
+              </a>
+            </div>
+            
           </div>       
         </div>
       </div>
     </div>
-
-  </header>
-  <!--Section Legislacao -->
-  <section>    
-      <div class="midia-social">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-          <span>Facebook</span>
-        </a>
-      </div> 
   </section>
+  <!--Section Legislacao -->
   @include('site.layouts.includes.legislacao')
-
-
+  
+  <!--Section institucional -->
   @include('site.layouts.includes.institucional')
   <!-- Features Section Start -->
 
@@ -169,7 +167,7 @@
   <!-- blog Section End -->
 
   <!-- Contact Section Start -->
-  @include('site.layouts.includes.contato')
+  {{-- @include('site.layouts.includes.contato') --}}
   <!-- Contact Section End -->
 
   <!-- Subcribe Section Start -->

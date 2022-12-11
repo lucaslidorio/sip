@@ -1,8 +1,8 @@
 <!-- Services Section Start -->
-<section id="legislacao" class="section pt-0" >
+<section id="services" class="section mt-2 " >
   <br><br>
-    <div class="container ">
-      <div class="section-header ">
+    <div class="container mx-auto ">
+      <div class="section-header  ">
         <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
           <span>Legislação</span></h2>
         <hr class="lines wow zoomIn" data-wow-delay="0.3s">
@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="row align-items-center ">
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6 col-6">
           <a href="{{route('sessoes.index')}}" class="text-decoration-none">
             <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
               <div class="icon">
@@ -22,8 +22,8 @@
               
             </div>
           </a>
-          </div>
-        <div class="col-md-4 col-sm-6">
+        </div>
+        <div class="col-md-4 col-sm-6 col-6">
         <a href="{{route('documentosSessoes.pesquisar')}}" class="text-decoration-none">
           <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
             <div class="icon">
@@ -37,7 +37,7 @@
         </a>
         </div>
     
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6 col-6">
             <a  href="{{route('parecer.pesquisar')}}" class="text-decoration-none">
               <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
                 <div class="icon">
@@ -49,7 +49,7 @@
               </div>
             </a>
         </div>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6 col-6">
             <a href="{{route('documentosSessoes.pesquisar')}}" class="text-decoration-none">
               <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
                 <div class="icon">
@@ -61,22 +61,8 @@
                 
               </div>
             </a>
-        </div>
-     {{-- <div class="col-md-4 col-sm-6">
-            <a target="__blank" href="https://transparencia.seringueiras.ro.leg.br/" class="text-decoration-none">
-              <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
-                <div class="icon">
-                    <i class="fas fa-search-dollar"></i>
-                </div>
-                <h4 class="font-weight-bold text-dark" >Portal da Transparência</h4>
-                <p class="text-dark">Acesso à informação <br> Links do Serviço de Informação ao Cidadão.
-                </p>
-                
-              </div>
-            </a>
-      </div> --}}
-        
-        <div class="col-md-4 col-sm-6">
+        </div>        
+        <div class="col-md-4 col-sm-6 col-6">
           <a target="" href="{{route('proposituraPesquisar.pesquisar')}}" class="text-decoration-none">
             <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
               <div class="icon">

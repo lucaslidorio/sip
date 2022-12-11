@@ -4,7 +4,7 @@
    }
 </style>
 
-<section id="blog" class="section">
+<section id="portfolios" class="section">
     <br><br>
   <div class="container">
       <div class="section-header">
