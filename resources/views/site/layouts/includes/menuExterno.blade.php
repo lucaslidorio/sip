@@ -25,7 +25,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                    <a class="nav-link page-scroll" href="{{route('site.home')}}">Home</a>
+                    <a class="nav-link page-scroll" href="{{route('site.home')}}">Início</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="{{route('site.home').'#legislacao'}}">Legislação</a>
@@ -43,9 +43,9 @@
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="{{route('site.home').'#blog'}}">Notícias</a>
                   </li>
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                     <a class="nav-link page-scroll" href="{{route('site.home').'#contato'}}">Contato</a>
-                  </li>
+                  </li> --}}
                
                 </ul>
               </div>

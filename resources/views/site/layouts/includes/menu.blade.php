@@ -39,9 +39,9 @@
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#blog">Notícias</a>
                   </li>
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                     <a class="nav-link page-scroll" href="#contato">Contato</a>
-                  </li>
+                  </li> --}}
                  
                 </ul>
               </div>

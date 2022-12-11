@@ -1,7 +1,7 @@
 <!-- Portfolio Section -->
 
 
-<section id="sobre" class="section">
+<section id="portfolios" class="section">
   <br><br>
     <!-- Container Starts -->
     <div class="container">

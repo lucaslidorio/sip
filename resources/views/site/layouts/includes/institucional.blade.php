@@ -24,17 +24,7 @@
                     </div>
                   </div>  
               </a>
-              <a href="{{route('ouvidoriaSite.index')}}" class="text-decoration-none">
-                <div class="box-item left">
-                  <span class="icon">
-                    <i class="fas fa-phone"></i>
-                  </span>
-                  <div class="text mt-3">
-                    <h4>Ouvidoria</h4>
-                    <p>Clique para abrir a ouvidoria</p>
-                  </div>
-                </div>
-              </a>         
+                     
               </div>
             
         </div>
@@ -49,19 +39,7 @@
           </div>
         </div>
         <div class="col-lg-4 col-sm-6">
-            <a href="{{route('agenda.index')}}" class= "text-decoration-none">
-              <div class="content-right text-left">
-                <div class="box-item right">
-                  <span class="icon">
-                    <i class="fas fa-calendar-alt"></i>
-                  </span>
-                  <div class="text mt-3">
-                    <h4>Agenda Legislativa</h4>
-                    <p>Clique para visualizar a agenda Legislativa</p>
-                  </div>
-                </div>        
-              </div>
-            </a>
+           
             <a href="{{route('legislacoes.index')}}" class= "text-decoration-none">
               <div class="content-right text-left">
                 <div class="box-item right">
