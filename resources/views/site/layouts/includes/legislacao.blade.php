@@ -62,7 +62,7 @@
               </div>
             </a>
         </div>
-     <div class="col-md-4 col-sm-6">
+     {{-- <div class="col-md-4 col-sm-6">
             <a target="__blank" href="https://transparencia.seringueiras.ro.leg.br/" class="text-decoration-none">
               <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
                 <div class="icon">
@@ -74,7 +74,7 @@
                 
               </div>
             </a>
-        </div>
+      </div> --}}
         
         <div class="col-md-4 col-sm-6">
           <a target="" href="{{route('proposituraPesquisar.pesquisar')}}" class="text-decoration-none">
