@@ -41,8 +41,58 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
           <div class="row">
-            
+            <div class="col-md-4 col-sm-6">
+              <a target="__blank" href="https://transparencia.seringueiras.ro.leg.br/portaltransparencia/esic" class="text-decoration-none">
+                <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+                  <div class="icon border-warning">
+                    <img class="card-img-top img-fluid"
+                    src="{{ url('../site/img/portfolio/informacao-ico.png') }}" alt="imagem de sugestão">
+                  </div>
+                  <h4 class="font-weight-bold text-dark" >E-Sic</h4>
+                  <p class="text-dark">Acesso a informação </p>
+                  
+                </div>
+              </a>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <a  href="{{route('ouvidoriaSite.index')}}" class="text-decoration-none">
+                  <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+                    <span class="icon border-info">
+                      <i class="fas fa-phone text-info"></i>
+                    </span>
+                    <h4 class="font-weight-bold text-dark" >Ouvidoria</h4></h4>
+                    <p class="text-dark">Reclamação, Sugestão, Solicitação etc... </p>
+                    
+                  </div>
+                </a>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <a target="_blank" href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm" class="text-decoration-none">
+                    <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+                      <span class="icon">
+                        <i class="fas fa-balance-scale"></i>
+                      </span>
+                      <h4 class="font-weight-bold text-dark" >LAI</h4></h4>
+                      <p class="text-dark">Reclamação, Sugestão, Solicitação etc... </p>
+                      
+                    </div>
+                  </a>
+                  </div>
           </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <h6 class="text-center"><u>SIGA - NOS NAS REDES SOCIAIS</u></h6>              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="social-icons border">
+              <ul>
+                <li class="facebook"><a  target="_blank" href="https://www.facebook.com/camara.seringueiras"><i class="fab fa-facebook"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          
         </div>
       </div>  
     </div>
