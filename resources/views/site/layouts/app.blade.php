@@ -71,7 +71,7 @@
               </a>
             </div>
             <div class="col-md-4 col-sm-6 col-6">
-              <a target="_blank" href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm"
+              <a target="_blank" href="https://transparencia.seringueiras.ro.leg.br/portaltransparencia-api/api/files/arquivo/4684?legado=false"
                 class="text-decoration-none">
                 <div class="item-boxes wow fadeInDown pb-0 mb-0" data-wow-delay="0.2s">
                   <span class="icon">
@@ -123,6 +123,8 @@
       </div>
     </div>
   </section>
+  <!--Section Link Uteis -->
+    @include('site.layouts.includes.link-uteis')
   <!--Section Legislacao -->
   @include('site.layouts.includes.legislacao')
   
