@@ -36,7 +36,7 @@
 
   <!--Fim Midias Social Flutuante --> 
 
-  <section class="pt-2">
+  <section class="pt-5 mt-3">
     <div class="container mt-5 pt-2">
       <div class="row pt-3">
         <div class="col-sm-12 col-md-6 col-lg-6  shadow-sm p-3 mb-2 bg-white rounded">
