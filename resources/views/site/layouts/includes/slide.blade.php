@@ -11,11 +11,10 @@
             @foreach($posts_destaque as $key => $noticia)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }} w-100 h-100">
               <img src="{{config('app.aws_url').$noticia->img_destaque }}" alt="{{$noticia->titulo}}"  
-              class="w-100 h-100"
-               >
+              class="w-100 h-100" >
               <div class="carousel-caption" style="margin-top: -50px">
-                <h5 class="text-uppercase font-weight-bold  "
-                style="text-shadow: #000 -3px 3px 2px;">
+                <h5 class="text-uppercase font-weight-bold    "
+                style="text-shadow: #fff -1px 2px 2px; color:black">
                   {{$noticia->titulo}}</h5>              
                 <a href="{{route('noticias.show', $noticia->url)}}" 
                   class="btn btn-border font-weight-bold  "
