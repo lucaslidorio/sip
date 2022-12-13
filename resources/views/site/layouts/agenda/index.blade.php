@@ -57,7 +57,7 @@
     protocolo = window.location.protocol,    
     url_host = window.location.host;
     url_atual = protocolo+'//'+url_host+'/agenda/show'; //monta a rota que retorna os dados em json
-    
+    console.log(url_atual);
 
     // console.log(window.location.protocol);
     // console.log(window.location.pathname);

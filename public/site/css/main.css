@@ -1051,6 +1051,7 @@ button:focus {
 .counters {
   background: url(../img/bg1.jpg) fixed;
   position: relative;
+  width: 100%;
 }
 .counters .facts-item {
   text-align: center;
