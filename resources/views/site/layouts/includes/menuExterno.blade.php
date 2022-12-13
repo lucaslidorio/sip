@@ -25,28 +25,27 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                    <a class="nav-link page-scroll" href="{{route('site.home')}}">Início</a>
+                    <a class="nav-link page-scroll" href="#slider-area">Início</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{route('site.home').'#legislacao'}}">Legislação</a>
+                    <a class="nav-link page-scroll" href="#services">Legislação</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{route('site.home').'#features'}}">Institucional</a>
+                    <a class="nav-link page-scroll" href="#features">Institucional</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll text-nowrap" href="{{route('site.home').'#sobre'}}">A Câmara</a>
-                  </li>
-              
+                    <a class="nav-link page-scroll text-nowrap" href="#portfolios">A Câmara</a>
+                  </li>                
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{route('site.home').'#vereadores'}}">Vereadores</a>
+                    <a class="nav-link page-scroll" href="#vereadores">Vereadores</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{route('site.home').'#blog'}}">Notícias</a>
+                    <a class="nav-link page-scroll" href="#contact">Notícias</a>
                   </li>
                   {{-- <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{route('site.home').'#contato'}}">Contato</a>
+                    <a class="nav-link page-scroll" href="#contato">Contato</a>
                   </li> --}}
-               
+                 
                 </ul>
               </div>
             </nav>
