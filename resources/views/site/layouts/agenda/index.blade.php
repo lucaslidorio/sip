@@ -111,7 +111,8 @@
           },
           
           //events: url_atual + '/admin/show',
-          events:url_atual,
+          //events:url_atual,
+          events:'https://www.seringueiras.ro.leg.br/agenda/show',
  
           views: {
             timeGridFourDay: {
