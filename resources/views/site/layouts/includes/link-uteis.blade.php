@@ -1,6 +1,5 @@
-<div id="clients" class="section pt-3 mt-3 mb-5 pb-1">
-
-    <div class="container">
+<div id="clients" class="section pt-3 mt-3 mb-5 pb-1 clients " style="">
+    <div class="container ">
         <div class="section-header mb-1 ">
             <h5 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
               <span>Links Úteis</span></h5>

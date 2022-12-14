@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url('../site/css/colors/preset.css') }}" media="screen" />
 
 </head>
+
 <style>
   a:not([href]):not([tabindex]) {
     color: #212529;
@@ -129,7 +130,7 @@
 
 <body class="container-fluid">
     @include('site.layouts.includes.menuExterno')
-
+   
     <!-- Modal -->
 <div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modalDetalhes" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -178,6 +179,8 @@
 
         </div>
     </section>
+    
+
     <!-- Services Section End -->
     <!-- Rodapé -->
     @include('site.layouts.includes.rodape')

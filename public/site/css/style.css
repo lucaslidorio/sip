@@ -103,3 +103,125 @@
   color:white;
   visibility: visible;
 }
+
+/* Acessibilidade */
+
+
+/* body{
+  font-family: sans-serif;
+} */
+
+.fabe{
+  position: fixed;
+  top:300px;
+  right:50px;
+}
+
+.fabe button{
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 30px;
+  background-color: #cb60b3;
+  border: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,.4);
+  font-size: 24px;
+  color: white;
+    
+  -webkit-transition: .5s ease-out;
+  -moz-transition: .5s ease-out;
+  transition: .5s ease-out;
+}
+
+.fabe button:focus{
+  outline: none;
+}
+
+.fabe button.main{
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: #4676fa;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+}
+
+/* .fabe button.main:before{
+  content: '⏚';
+} */
+
+.fabe ul{
+  position:absolute;
+  bottom: 0;
+  right: 0;
+  padding:0;
+  padding-right:5px;
+  margin:0;
+  list-style:none;
+  z-index:10;
+  
+  -webkit-transition: .5s ease-out;
+  -moz-transition: .5s ease-out;
+  transition: .5s ease-out;
+}
+
+.fabe ul li{
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  margin-bottom: -10%;
+  opacity: 0;
+  
+  -webkit-transition: .5s ease-out;
+  -moz-transition: .5s ease-out;
+  transition: .5s ease-out;
+}
+
+.fabe ul li label{
+  margin-right:10px;
+  white-space: nowrap;
+  display: block;
+  margin-top: 10px;
+  padding: 5px 8px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  border-radius:1px;
+  height: 18px;
+  font-size: 16px;
+  pointer-events: none;
+  opacity:0;
+  
+  -webkit-transition: .5s ease-out;
+  -moz-transition: .5s ease-out;
+  transition: .5s ease-out;
+}
+
+.fabe button.main:active,
+.fabe button.main:focus{
+  outline: none;
+  background-color: #4676fa;
+  box-shadow: 0 3px 8px rgba(0,0,0,.5);
+ }
+ 
+.fabe button.main:active:before,
+/* .fabe button.main:focus:before{
+  content: '↑';
+} */
+
+.fabe button.main:active + ul,
+.fabe button.main:focus + ul{
+  bottom: 70px;
+}
+
+.fabe button.main:active + ul li,
+.fabe button.main:focus + ul li{
+  margin-bottom: 10px;
+  opacity: 1;
+}
+
+.fabe button.main:active + ul li:hover label,
+.fabe button.main:focus + ul li:hover label{
+  opacity: 1;
+}

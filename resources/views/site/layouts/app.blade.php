@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,8 +14,50 @@
   @include('site.layouts.css')
 
 </head>
+<style>
+  
+ 
 
-<body>
+</style>
+<script>
+
+    
+  function contraste(){
+    // let elemento = document.getElementByClassName('constraste');
+     
+     const elemento = document.body;
+     elemento.classList.add("contraste");
+
+     let elemento_cont = document.getElementsByClassName('contraste');
+      console.log(elemento_cont);
+
+
+
+
+      protocolo = window.location.protocol,    
+      url_host = window.location.host;
+      url_atual = protocolo+'//'+url_host ;
+
+      const headElement  = document.getElementsByTagName('head')[0];
+      const link  = document.createElement('link');
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      link.id ='link-contraste';
+      link.href = url_atual+'/site/css/contraste.css';
+      headElement.appendChild(link);
+
+      css = document.getElementById('link_contraste');
+  }
+
+
+</script>
+<body class=""> 
+  <div class="row row-header ">
+    <div class="container">
+      
+    </div>
+    <!-- End - .container-->
+  </div>
   {{-- Loop para para mostra a legislatura atual --}}
   @foreach ($legislatures as $legislature)
 
@@ -28,15 +69,15 @@
     <div class="container text-center">
       @include('site.layouts.includes.menu')
     </div>
-
     <!-- Fim Menu -->    
   </header>
   <!--Midias Social Flutuante -->  
   @include('site.layouts.includes.midias-social-flutuante')
+  @include('site.layouts.includes.acessibilidade')
 
   <!--Fim Midias Social Flutuante --> 
 
-  <section class="pt-5 mt-3">
+  <section class="pt-5 mt-3 ">
     <div class="container mt-5 pt-2">
       <div class="row pt-3">
         <div class="col-sm-12 col-md-6 col-lg-6  shadow-sm p-3 mb-2 bg-white rounded">
@@ -123,6 +164,8 @@
       </div>
     </div>
   </section>
+  
+ 
   <!--Section Link Uteis -->
     @include('site.layouts.includes.link-uteis')
   <!--Section Legislacao -->
@@ -214,7 +257,20 @@
   <script src="site/js/contact-form-script.js"></script>
   <script src="site/js/main.js"></script>
 
+  <script src="site/js/contraste.js"></script>
+
+  <script>
+    // $('#btn-acessibilidade').tooltip({ boundary: 'window' });
+    // $('#btn-constraste').tooltip(options);
+
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+   
+  </script>
+
 
 </body>
+
 
 </html>
