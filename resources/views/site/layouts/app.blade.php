@@ -15,39 +15,67 @@
 
 </head>
 <style>
-  
+  .contraste{
+    background-color: black;
+    color:white;
+    
+  }
  
 
 </style>
 <script>
 
+
+  function constraste(){
+    const elemento = document.body;
+    const slider_area = document.getElementById('slider-area');
     
-  function contraste(){
-    // let elemento = document.getElementByClassName('constraste');
-     
-    //  const elemento = document.body;
-    //  elemento.classList.add("contraste");
-
-    //  let elemento_cont = document.getElementsByClassName('contraste');
-    //   console.log(elemento_cont);
-
-
-
-
-      protocolo = window.location.protocol,    
-      url_host = window.location.host;
-      url_atual = protocolo+'//'+url_host ;
-
-      const headElement  = document.getElementsByTagName('head')[0];
-      const link  = document.createElement('link');
-      link.rel  = 'stylesheet';
-      link.type = 'text/css';
-      link.id ='link-contraste';
-      link.href =url_atual+'/site/css/contraste.css';
-      headElement.appendChild(link);
-
-      console.log(link.href);
+    const menu = document.getElementById('menu');
+    const legislacao = document.getElementById('legislacao');
+    const institucional = document.getElementById('institucional');
+    const acamara = document.getElementById('acamara');
+    const links_uteis = document.getElementById('links_uteis');
+    
+    elemento.classList.add("contraste");
+    slider_area .classList.add("contraste");
+    menu.classList.add("contraste");
+    legislacao.classList.add("contraste");
+    institucional.classList.add("contraste");
+    acamara.classList.add("contraste");
+    links_uteis.classList.add("contraste");
+    
+    console.log(menu);
   }
+
+  // function contraste(){
+  //   const elemento = document.body;
+  //   elemento
+
+  //   // let elemento = document.getElementByClassName('constraste');
+     
+  //   //  const elemento = document.body;
+  //   //  elemento.classList.add("contraste");
+
+  //   //  let elemento_cont = document.getElementsByClassName('contraste');
+  //   //   console.log(elemento_cont);
+
+
+
+
+  //     protocolo = window.location.protocol,    
+  //     url_host = window.location.host;
+  //     url_atual = protocolo+'//'+url_host ;
+
+  //     const headElement  = document.getElementsByTagName('head')[0];
+  //     const link  = document.createElement('link');
+  //     link.rel  = 'stylesheet';
+  //     link.type = 'text/css';
+  //     link.id ='link-contraste';
+  //     link.href =url_atual+'/site/css/contraste.css';
+  //     headElement.appendChild(link);
+
+  //     console.log(link.href)aa
+  // }
 
 
 </script>

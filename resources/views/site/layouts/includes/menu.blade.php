@@ -1,7 +1,7 @@
 
 
-    <div class="navbar-area w-100 bg-white fixed-top  ">
-      <div class="container ">
+    <div   class="navbar-area w-100 bg-white fixed-top  ">
+      <div class="container " id="menu" >
         <div class="row">
           <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg mainmenu-area">
