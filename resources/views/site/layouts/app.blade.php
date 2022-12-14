@@ -25,11 +25,11 @@
   function contraste(){
     // let elemento = document.getElementByClassName('constraste');
      
-     const elemento = document.body;
-     elemento.classList.add("contraste");
+    //  const elemento = document.body;
+    //  elemento.classList.add("contraste");
 
-     let elemento_cont = document.getElementsByClassName('contraste');
-      console.log(elemento_cont);
+    //  let elemento_cont = document.getElementsByClassName('contraste');
+    //   console.log(elemento_cont);
 
 
 
@@ -43,7 +43,7 @@
       link.rel  = 'stylesheet';
       link.type = 'text/css';
       link.id ='link-contraste';
-      link.href = 'https://www.seringueiras.ro.leg.br/site/css/contraste.css';
+      link.href ='https://www.seringueiras.ro.leg.br/site/css/contraste.css';
       headElement.appendChild(link);
 
       css = document.getElementById('link_contraste');
