@@ -257,7 +257,7 @@
   <script src="site/js/contact-form-script.js"></script>
   <script src="site/js/main.js"></script>
 
-  <script src="site/js/contraste.js"></script>
+  {{-- <script src="site/js/contraste.js"></script> --}}
 
   <script>
     // $('#btn-acessibilidade').tooltip({ boundary: 'window' });
