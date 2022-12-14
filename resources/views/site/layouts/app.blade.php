@@ -43,10 +43,10 @@
       link.rel  = 'stylesheet';
       link.type = 'text/css';
       link.id ='link-contraste';
-      link.href ='https://www.seringueiras.ro.leg.br/site/css/contraste.css';
+      link.href =url_atual+'/site/css/contraste.css';
       headElement.appendChild(link);
 
-      css = document.getElementById('link_contraste');
+      console.log(link.href);
   }
 
 
