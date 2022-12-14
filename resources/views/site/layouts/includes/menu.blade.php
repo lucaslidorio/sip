@@ -25,19 +25,19 @@
                     <a class="nav-link page-scroll" href="#slider-area">Início</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#legislacao">Legislação</a>
+                    <a class="nav-link page-scroll" href="#services">Legislação</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#features">Institucional</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll text-nowrap" href="#sobre">A Câmara</a>
+                    <a class="nav-link page-scroll text-nowrap" href="#portfolios">A Câmara</a>
                   </li>                
                   <li class="nav-item">
                     <a class="nav-link page-scroll" href="#vereadores">Vereadores</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#blog">Notícias</a>
+                    <a class="nav-link page-scroll" href="#contact">Notícias</a>
                   </li>
                   {{-- <li class="nav-item">
                     <a class="nav-link page-scroll" href="#contato">Contato</a>
