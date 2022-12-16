@@ -30,7 +30,7 @@
     const elemento = document.body;
     const slider_area = document.getElementById('slider-area');
     
-    const menu = document.getElementById('menu');
+    const menu = document.getElementById('menu-c');
     const legislacao = document.getElementById('legislacao');
     const institucional = document.getElementById('institucional');
     const acamara = document.getElementById('acamara');
@@ -44,7 +44,7 @@
     acamara.classList.add("contraste");
     links_uteis.classList.add("contraste");
     
-    console.log(menu);
+   
   }
 
   // function contraste(){
