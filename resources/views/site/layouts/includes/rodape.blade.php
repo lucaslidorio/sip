@@ -15,9 +15,9 @@
           <div class="col-md-6">
             <h6 class="text-white">Responsável para assegurar o cumprimento da Lei de Acesso à Informação</h6>
             <p class="text-white text-left">
-              Nome: SARA MARQUES NASCIMENTO SILVA AGUIAR <br>
+              Nome: KAROLINE DA SILVA CAMILO <br>
               E-Mail: transparencia.camara@hotmail.com <br>
-              Fone: (69)98464-1114
+              Fone: (69)99283-4391
             </p>          
             <div class="social-icons">
               <ul>               
