@@ -132,7 +132,9 @@ class SiteController extends Controller
 
 
         //recupera as noticias e mostra na tela as 6 utimas para a galeria de noticias
-        $posts = $this->post->where('data_expiracao', null)->orWhere('data_expiracao', '>', '2021-05-12')
+        $posts = $this->post->where('data_expiracao', null)
+                            ->orWhere('data_expiracao', '>', '2021-05-12')
+                            ->orWhere('destaque', 1)
             ->orderBy('created_at', 'DESC')
             ->limit(6)
             ->get();
