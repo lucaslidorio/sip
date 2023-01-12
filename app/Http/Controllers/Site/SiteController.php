@@ -125,8 +125,7 @@ class SiteController extends Controller
         $posts_destaque = $this->post
             ->where('destaque', '1')
             ->where('data_expiracao', null)
-            ->orWhere('data_expiracao', '>', $now)
-            ->orWhere('destaque', 1)
+            ->orWhere('data_expiracao', '>', $now)            
             ->orderBy('created_at', 'DESC')
             ->limit(6)
             ->get();
