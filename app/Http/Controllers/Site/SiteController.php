@@ -112,6 +112,8 @@ class SiteController extends Controller
         $legislatures = $this->legislature->where('atual', 1)->get();
         //pega as mesa diretoras
         $directorTables = $this->directorTable->where('atual', 1)->get();
+        $directorTableMemberFuncion = DirectorTableMemberFunctions::get();
+        $functions = Functions::get();
         $commissions = $this->commission->get();
         //pega os membros das comissões        
         foreach ($commissions as $comissao) {
@@ -147,6 +149,8 @@ class SiteController extends Controller
             'tenants' => $tenants,
             'legislatures' => $legislatures,
             'directorTables' => $directorTables,
+            'directorTableMemberFuncion' => $directorTableMemberFuncion,
+            'functions' => $functions,
             'membrosComissao' => $membrosComissao,
             'commissions' => $commissions,
             'councilors' => $councilors,

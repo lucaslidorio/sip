@@ -31,8 +31,12 @@
                <h2  class="text-primary"> <u> Objetivo</u></h2> 
               <p class="text-justify" style="font-size: 16px">{{$mesaDiretora->objetivo}}</p>
               <h2 class="text-primary text-center font-weight-bolder border-bottom border-primary "><span>Membros</span></h2>
-             </div>                       
-                @foreach ($mesaDiretora->members as $membro)                
+             </div>       
+                         
+                @foreach ($mesaDiretora->members as $membro)  
+                
+                {{-- {{$teste = $directorTableMemberFuncion->where('director_table_id', $mesaDiretora->id)->where('councilor_id',$membro->id)->pluck('function_id')->first()}} --}}
+                
                 <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix mesa"> 
                   
                   <div class="portfolio-item ">
@@ -43,9 +47,12 @@
                       </a>
                     </div>
                   </div>
-                    @foreach ($membro->functionTable as $funcao)
-                      <h6 class="text-primary text-center ">{{$funcao->nome}}</h6>   
-                    @endforeach       
+                  
+                  <h6 class="text-primary text-center ">{{$functions->where('id', $directorTableMemberFuncion->where('director_table_id', $mesaDiretora->id)->where('councilor_id',$membro->id)->pluck('function_id')->first())->pluck('nome')->first()}}</h6>   
+                    {{-- @foreach ($membro->functionTable as $funcao)
+                   
+                      <h6 class="text-primary text-center ">{{$functions->where('id', $directorTableMemberFuncion->where('director_table_id', $mesaDiretora->id)->where('councilor_id',$membro->id)->pluck('function_id')->first())->pluck('nome')->first()}}</h6>   
+                    @endforeach        --}}
                       
                 <h6 class="text-center">{{$membro->nome}} - {{$membro->party->sigla}}</h6>             
                 <p class="text-center"><a class="btn btn-secondary" href="{{route('vereadores.show', $membro->nome)}}" role="button">Ver Detalhes &raquo;</a></p>
