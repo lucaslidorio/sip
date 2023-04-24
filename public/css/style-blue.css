@@ -1,0 +1,17 @@
+
+   
+  .bg-color-1 {
+    background: #0b468e;
+  }
+  .bg-color-2 {
+    background: #0b2d56;
+  }
+  .btn-toggle { 
+    color:#0b468e;    
+  }
+  
+  .btn-toggle:hover,
+  .btn-toggle:focus {
+      color: white;
+      background-color: #0b2d56;
+  }

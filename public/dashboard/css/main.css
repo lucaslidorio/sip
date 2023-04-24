@@ -1,0 +1,10 @@
+.label-required:after {
+    content: "*";
+    color: red;
+}
+
+ .opacity:hover{       
+        opacity: 0.3;
+        transition: all 0.3s;              
+        }
+
