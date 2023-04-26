@@ -138,7 +138,7 @@ class PagesController extends Controller
                 $anexoPage = new AttachmentPage();
                 //$anexoPage->user_id = $user->id;
                 $anexoPage->page_id = $page->id;
-                $anexoPage->anexo = $file->store('attachments_legislations');
+                $anexoPage->anexo = $file->store('attachments_pages');
                 $anexoPage->type_document_id =$type_document;
                 $anexoPage->nome_original = $nome_original;
                 $anexoPage->save();

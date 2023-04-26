@@ -16,7 +16,7 @@
                     
                     @foreach ($page->attachments as $attachment)
                     <div class="row">
-                      <a href="{{config('app.aws_url')." {$attachment->anexo}" }}" target="_blank" class="mb-2 text-reset" >
+                      <a href="{{config('app.aws_url')."{$attachment->anexo}" }}" target="_blank" class="mb-2 text-reset" >
                         <i class="bi bi-paperclip fs-4 text-danger"></i>
                         <span class="mr-2"> {{$attachment->nome_original}}</span></a>                  
                     </div>
