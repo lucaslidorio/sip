@@ -206,17 +206,15 @@
               {{$tenant->cidade}}
             </h6>
             <h6 class="fs-6">Telefone: {{$tenant->telefone}}</h6>
-            <h6 class="fs-6">E-mail: {{$tenant->telefone}}</h6>
+            <h6 class="fs-6">E-mail: {{$tenant->email}}</h6>
             <h6 class="fs-6">Atendimento: {{$tenant->dia_atendimento}}</h6>
           </div>
 
           <div class="col-6 col-md-4 mb-3">
-            <h5>Responsável para assegurar o cumprimento da Lei de Acesso à Informação</h5>
-            <h6>{{$tenant->endereco}}, {{$tenant->numero}}, {{$tenant->bairro}}
-              {{$tenant->cidade}}
-            </h6>
+            <h5>Responsável para assegurar o cumprimento da Lei de Acesso à Informação</h5>       
+                   
             <h6 class="fs-6">Nome: KAROLINE DA SILVA CAMILO</h6>
-            <h6 class="fs-6">E-Mail: transparencia.camara@hotmail.com {{$tenant->telefone}}</h6>
+            <h6 class="fs-6">E-Mail: transparencia.camara@hotmail.com</h6>
             <h6 class="fs-6">Fone: (69)99283-4391</h6>
 
           </div>

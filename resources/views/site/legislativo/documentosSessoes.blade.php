@@ -70,7 +70,7 @@
         @foreach ($anexos as $anexo)
         <tr>
           <th scope="row">{{\Carbon\Carbon::parse($anexo->created_at)->format('d/m/Y')}}</th>
-          <td> <a href="{{config('app.aws_url')." {$anexo->anexo}" }}"
+          <td> <a href="{{config('app.aws_url')."{$anexo->anexo}" }}"
               target="_blank" class="mb-2 text-reset"
               data-toggle="tooltip" data-placement="top"
               title="Clique para abrir o documento" >
@@ -80,7 +80,6 @@
           <td>{{$anexo->type_document->nome}}</td>
           <td>{{$anexo->descricao}}</td>
           <td>{{$anexo->session->nome}} - {{$anexo->session->legislature->descricao}}</td>
-
         </tr>
         @endforeach
 
