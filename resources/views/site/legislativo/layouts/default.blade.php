@@ -81,15 +81,15 @@
       <a href="/" class="d-flex align-items-center mt-0  mb-md-0 me-md-auto text-dark text-decoration-none ">
         <span class="fs-1 text-white mb-5">{{$tenant->nome}}</span>
       </a>
-      <form class="col-12 col-lg-auto mb-3 mt-lg-4" role="search">
+      <form class="col-12 col-lg-auto mb-3 mt-lg-4" action="{{ route('site.pesquisar') }}" method="get" role="pesquisar">
+       @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
-            aria-describedby="button-addon2" hidden>
-          <button class="btn btn-outline-light" type="button" id="button-addon2" hidden><i class="bi bi-search"></i></button>
+          <input type="text" name="pesquisar" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+            aria-describedby="button-addon2" >
+          <button class="btn btn-outline-light" type="submit" id="button-addon2" ><i class="bi bi-search"></i></button>
         </div>
       </form>
     </header>
-
   </div>
   <div class="d-flex justify-content-end bg-color-2 pe-5 mt-0 mb-0 ">
     <ul class="nav text-white fw-semibold font-14">

@@ -37,6 +37,7 @@ use App\Models\Menu;
 use App\Models\Page;
 use App\Models\Schedule;
 use App\Models\SeemCommission;
+use Illuminate\Pagination\LengthAwarePaginator; 
 
 class SiteController extends Controller
 {
@@ -661,6 +662,110 @@ class SiteController extends Controller
             'servicosOnline' => $servicosOnline,
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis
+        ]);
+    }
+
+
+    public function pesquisar(Request $request){
+
+        $tenant = $this->tenant->first();            
+        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $servicosOnline = $this->link->where('tipo', 2)->get();
+        $linksDireita = $this->link
+                ->where('posicao', 3)
+                ->where('tipo', 1) //Tipo = Banner
+                ->orderby('ordem', 'ASC')
+                ->orderby('created_at')
+                ->take(4)
+                ->get();
+        $linksUteis = $this->link                            
+                    ->where('tipo', 2) //Tipo = Links Úteis
+                    ->orderby('ordem', 'ASC')
+                    ->orderby('created_at')                            
+                    ->get();
+            
+        $pesquisar = $request->pesquisar;
+
+       
+           
+        // $posts = $this->post->noticiasPesquisar($request->pesquisar);      
+        // $posts->each(function (&$post) {
+        //     $post['conteudo_trucado'] = Str::of($post->conteudo)->limit(400);
+        //     return $post;
+        // });
+
+        $resultadoPosts = Post::where(function ($query) use ($pesquisar) {
+                        $query->where('titulo', 'like', '%'.$pesquisar.'%')
+                            ->orWhere('conteudo', 'like', '%'.$pesquisar.'%');
+                        })
+                        ->get()
+                        ->map(function ($registro) {
+                            $registro['tabela'] = 'Notícias';
+                            $registro['conteudo'] = Str::limit($registro['conteudo'], 10);
+                            $registro['url'] = '/posts/' . $registro['id'];
+                            return $registro;
+                       });       
+       
+        $resultadoSessions = Session::where('nome', 'like', '%' . $pesquisar . '%')
+                        ->get()
+                        ->map(function ($registro) {
+                            $registro['tabela'] = 'Sessões';
+                            $registro['url'] = '/sessoes/' . $registro['id'];
+                            return $registro;
+                        });
+                        
+        $resultadoCouncilors = Councilor::where('nome', 'like', '%' . $pesquisar . '%')
+                            ->orWhere('nome_parlamentar', 'like', '%'.$pesquisar.'%')
+                            ->get()
+                            ->map(function ($registro) {
+                                $registro['tabela'] = 'Vereadores';
+                                $registro['biografia'] = Str::limit($registro['conteudo'], 200);
+                                $registro['url'] = '/vereadores/' . $registro['id'];
+                                return $registro;
+                            });
+                           
+        $resultadoPropositions = Proposition::where('descricao', 'like', '%' . $pesquisar . '%')
+                                ->get()
+                                ->map(function ($registro) {
+                                    $registro['tabela'] = 'Proposituras';
+                                    $registro['url'] = '/proposituras/' . $registro['id'];
+                                    return $registro;
+                                });
+                                
+       $resultadoLegislations = Legislation::where('caput', 'like', '%' . $pesquisar . '%')
+                                ->orWhere('descricao', 'like', '%'.$pesquisar.'%')
+                                ->get()
+                                ->map(function ($registro) {
+                                    $registro['tabela'] = 'Legislação';
+                                    $registro['url'] = '/proposituras/' . $registro['id'];
+                                    return $registro;
+                                });                       
+       $resultadoLesgilatures = Proposition::where('descricao', 'like', '%' . $pesquisar . '%')
+                                ->get()
+                                ->map(function ($registro) {
+                                    $registro['tabela'] = 'Legislatura';
+                                    $registro['url'] = '/proposituras/' . $registro['id'];
+                                    return $registro;
+                                });   
+
+            $resultados = $resultadoPosts
+            ->concat($resultadoSessions)
+            ->concat($resultadoCouncilors)
+            ->concat($resultadoLegislations)
+            ->concat($resultadoLesgilatures)
+            ->concat($resultadoPropositions);
+            
+        
+        // return $resultados;
+        // $tenants = $this->tenant->where('id', 3)->get();
+        return view('site.legislativo.pesquisas', [
+            'resultados' => $resultados,
+            'tenant' =>$tenant,     
+            'menus' => $menus,  
+            'linksDireita' => $linksDireita,
+            'linksUteis' => $linksUteis,
+            'servicosOnline' => $servicosOnline,
+            'filters' => $pesquisar,
         ]);
     }
 

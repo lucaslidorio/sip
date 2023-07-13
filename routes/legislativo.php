@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteLegislativoController::class, 'index'])->name('site.home');
 
+
 // Route::get('noticias/todas', [SiteLegislativoController::class, 'noticiasTodas'])->name('camara.noticias');
 // Route::get('noticias/{todas}', [SiteLegislativoController::class, 'noticiasTodas'])->name('camara.noticias');
 // taaaa
