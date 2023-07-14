@@ -26,7 +26,7 @@
           <p>Nenhum resultado encontrado.</p>
           @else          
             @foreach($resultados as $resultado)
-            <a href="#" class="text-decoration-none">                         
+            <a href="{{$resultado['url']}}" class="text-decoration-none">                         
               <div class="d-flex text-body-secondary pt-3 " >      
               <div class="row">
                   <h5 class="text-dark" >{{ $resultado['tabela'] }}</h5>

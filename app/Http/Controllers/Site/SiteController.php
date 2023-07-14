@@ -702,7 +702,7 @@ class SiteController extends Controller
                         ->map(function ($registro) {
                             $registro['tabela'] = 'Notícias';
                             $registro['conteudo'] = Str::limit($registro['conteudo'], 10);
-                            $registro['url'] = '/posts/' . $registro['id'];
+                            $registro['url'] = 'noticias/' . $registro['url'];
                             return $registro;
                        });       
        
@@ -710,7 +710,7 @@ class SiteController extends Controller
                         ->get()
                         ->map(function ($registro) {
                             $registro['tabela'] = 'Sessões';
-                            $registro['url'] = '/sessoes/' . $registro['id'];
+                            $registro['url'] = 'camara/sessoes';
                             return $registro;
                         });
                         
@@ -720,7 +720,7 @@ class SiteController extends Controller
                             ->map(function ($registro) {
                                 $registro['tabela'] = 'Vereadores';
                                 $registro['biografia'] = Str::limit($registro['conteudo'], 200);
-                                $registro['url'] = '/vereadores/' . $registro['id'];
+                                $registro['url'] = '/vereadores/show/' . $registro['id'];
                                 return $registro;
                             });
                            
