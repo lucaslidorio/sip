@@ -707,6 +707,7 @@ class SiteController extends Controller
                        });       
        
         $resultadoSessions = Session::where('nome', 'like', '%' . $pesquisar . '%')
+                         ->orWhere('descricao', 'like', '%'.$pesquisar.'%')
                         ->get()
                         ->map(function ($registro) {
                             $registro['tabela'] = 'Sessões';
