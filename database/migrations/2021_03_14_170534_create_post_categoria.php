@@ -21,7 +21,7 @@ class CreatePostCategoria extends Migration
 
 
             
-            $table->foreign('category_id')
+            $table->foreign('categoria_id')
             ->references('id')
             ->on('categorias')
             ->onDelete('cascade')
