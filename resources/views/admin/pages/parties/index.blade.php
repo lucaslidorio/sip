@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Partidos')
 @section('content_header')
-@section('plugins.Sweetalert2', false)
+@section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
 <div class="container-fluid">
