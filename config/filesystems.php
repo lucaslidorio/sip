@@ -49,7 +49,7 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'endpoint' => env('AWS_END_POINT'),
-            'use_path_style_endpoint' => true,
+            'use_path_style_endpoint' =>env('USE_PATH_STYLE_ENDPOINT', false),
         ]
 
 
