@@ -26,9 +26,9 @@ class MenuController extends Controller
     public function index()
     {
 
-       
+        $posicao = $this->menu::POSICAO;
         $menus = $this->menu->paginate(10);
-        return view('admin.pages.menus.index', compact('menus'));
+        return view('admin.pages.menus.index', compact('menus', 'posicao'));
     }
 
     /**

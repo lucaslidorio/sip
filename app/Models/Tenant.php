@@ -12,7 +12,7 @@ class Tenant extends Model
 
     protected $fillable = ['nome', 'endereco', 'numero', 'bairro', 'cidade', 'telefone',
     'celular', 'dia_atendimento','cnpj','email', 'facebook', 'youtube', 'instagram',
-     'twiter', 'brasao', 'bandeira'];
+     'twiter', 'brasao', 'bandeira','nome_resp_transparencia', 'telefone_resp_transparencia', 'email_resp_transparencia'];
 
      public function users(){
         return $this->hasMany(User::class);

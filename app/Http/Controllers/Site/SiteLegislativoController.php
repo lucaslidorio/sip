@@ -67,8 +67,17 @@ class SiteLegislativoController extends Controller
 
     public function index(){
 
-        $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $tenant = $this->tenant->first();       
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
+                             
+
         $servicosOnline = $this->link->where('tipo', 2)->get();
         //pega os 4 link cadastrado para o topo ordenado pela ordem   
         $linksTopo = $this->link
@@ -77,8 +86,16 @@ class SiteLegislativoController extends Controller
                             ->orderby('ordem', 'ASC')
                             ->orderby('created_at')
                             ->take(4)
-                            ->get(); 
-        //pega os 5 link cadastrado para o lado direito ordenado pela ordem   
+                            ->get();
+        //pega os 4 link cadastrado para o inferiorao slide
+        $linksInferior = $this->link
+                            ->where('posicao', 4) // link inferior ao slide
+                            ->where('tipo', 1) //Tipo = Banner
+                            ->orderby('ordem', 'ASC')
+                            ->orderby('created_at')
+                            ->take(4)
+                            ->get();  
+        //pega os 6 link cadastrado para o lado direito ordenado pela ordem   
         $linksDireita = $this->link
                             ->where('posicao', 3)
                             ->where('tipo', 1) //Tipo = Banner
@@ -100,6 +117,7 @@ class SiteLegislativoController extends Controller
 
 
         $ultimasNoticias = $this->post->take(4)->orderBy('created_at', 'DESC')->get();
+        
 
         return view('site.legislativo.index',[
             'tenant' => $tenant,
@@ -110,13 +128,21 @@ class SiteLegislativoController extends Controller
             'posts_destaque' => $posts_destaque,
             'linksUteis' => $linksUteis,
             'ultimasNoticias' => $ultimasNoticias,
+            'menusSuperior' => $menusSuperior,
+            'linksInferior' => $linksInferior,
         ]);
     }
   
 
     public function legislaturas(){ // rota = camara.legislatura
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -137,12 +163,16 @@ class SiteLegislativoController extends Controller
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
-            'legislatures' => $legislatures
+            'legislatures' => $legislatures,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
     public function legislatura($id){ // rota = camara.legislatura
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -173,7 +203,10 @@ class SiteLegislativoController extends Controller
 
        
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -181,7 +214,10 @@ class SiteLegislativoController extends Controller
                 ->orderby('ordem', 'ASC')
                 ->orderby('created_at')
                 ->take(4)
-                ->get(); 
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $linksUteis = $this->link                            
                 ->where('tipo', 2) //Tipo = Links Úteis
                 ->orderby('ordem', 'ASC')
@@ -195,13 +231,21 @@ class SiteLegislativoController extends Controller
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
-            'vereador' => $vereador
+            'vereador' => $vereador,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
     public function sessoes(Request $request)
     {
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
+				
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -241,6 +285,7 @@ class SiteLegislativoController extends Controller
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
             'filters' => $filters,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
 
@@ -248,7 +293,13 @@ class SiteLegislativoController extends Controller
      {
  
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -297,6 +348,7 @@ class SiteLegislativoController extends Controller
              'linksDireita' => $linksDireita,
              'linksUteis' => $linksUteis,
              'filters' => $filters,
+             'menusSuperior' => $menusSuperior,
  
          ]);
      }
@@ -304,7 +356,13 @@ class SiteLegislativoController extends Controller
      {
 
          $tenant = $this->tenant->first();            
-         $menus = $this->menu->where('menu_pai_id', null)->get();
+         $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
          $servicosOnline = $this->link->where('tipo', 2)->get();
          $linksDireita = $this->link
                  ->where('posicao', 3)
@@ -350,12 +408,16 @@ class SiteLegislativoController extends Controller
              'linksDireita' => $linksDireita,
              'linksUteis' => $linksUteis,
              'filters' => $filters,
+             'menusSuperior' => $menusSuperior,
          ]);
      }
 
      public function parecerShow($id){
          $tenant = $this->tenant->first();            
-         $menus = $this->menu->where('menu_pai_id', null)->get();
+         $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
          $servicosOnline = $this->link->where('tipo', 2)->get();
          $linksDireita = $this->link
                  ->where('posicao', 3)
@@ -364,6 +426,9 @@ class SiteLegislativoController extends Controller
                  ->orderby('created_at')
                  ->take(4)
                  ->get(); 
+        $menusSuperior = $this->menu               
+                 ->where('posicao', 2) // Menu superior
+                 ->get();
          $linksUteis = $this->link                            
                  ->where('tipo', 2) //Tipo = Links Úteis
                  ->orderby('ordem', 'ASC')
@@ -388,7 +453,8 @@ class SiteLegislativoController extends Controller
             'commissions' => $commissions,
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
-            'linksUteis' => $linksUteis,            
+            'linksUteis' => $linksUteis,  
+            'menusSuperior' => $menusSuperior,          
         ]);
 
     }
@@ -396,7 +462,13 @@ class SiteLegislativoController extends Controller
     public function comissoes(){
       
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+                $menusSuperior = $this->menu               
+        ->where('posicao', 2) // Menu superior
+                ->get();
         $linksDireita = $this->link
             ->where('posicao', 3)
             ->where('tipo', 1) //Tipo = Banner
@@ -426,12 +498,19 @@ class SiteLegislativoController extends Controller
             'linksUteis' => $linksUteis,
             'commissions' => $commissions,
             'membrosComissao' => $membrosComissao,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
     public function mesaDiretora(){    
        
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $linksDireita = $this->link
             ->where('posicao', 3)
             ->where('tipo', 1) //Tipo = Banner
@@ -459,6 +538,7 @@ class SiteLegislativoController extends Controller
             'linksUteis' => $linksUteis,
             'directorTables' => $directorTables,  
             'membrosMesaDiretora' => $membrosMesaDiretora,  
+            'menusSuperior' => $menusSuperior,
            
         ]);
     }

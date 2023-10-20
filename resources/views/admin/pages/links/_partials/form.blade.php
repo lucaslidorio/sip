@@ -96,8 +96,8 @@
                 <option value="1" {{isset($link) && $link->posicao == '1' ? 'selected': ''}}> Esquerda </option>
                 <option value="2" {{isset($link) && $link->posicao == '2' ? 'selected': ''}}> Topo </option>
                 <option value="3" {{isset($link) && $link->posicao == '3' ? 'selected': ''}}> Direita </option>
-                <option value="4" {{isset($link) && $link->posicao == '4' ? 'selected': ''}}> Rodape </option>
-                <option value="5" {{isset($link) && $link->posicao == '5' ? 'selected': ''}}> Centro </option>
+                <option value="4" {{isset($link) && $link->posicao == '4' ? 'selected': ''}}> Inferior </option>
+                {{-- <option value="5" {{isset($link) && $link->posicao == '5' ? 'selected': ''}}> Centro </option> --}}
 
             </select>
             @error('posicao')
@@ -122,7 +122,8 @@
                   </small>
               @enderror
             </div>
-            <span class="text-danger">Arquivos do tipo .svg</span>
+            <span class="text-danger">Tamanhos recomendado:</span><br>
+            <span class="text-danger">Banner topo e direito: 296 x 100 px</span>
         </div>
       </div>
       <div class="col-sm-4">

@@ -90,6 +90,41 @@
         @enderror
           </div>
     </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label  for="posicao" class="label-required" >Posição:</label>
+            <select class="custom-select {{ $errors->has('posicao') ? 'is-invalid' : '' }}" 
+                id="posicao" name="posicao">
+                <option value=""  >Selecione uma opção</option>                    
+                <option value="1" {{isset($menu) && $menu->posicao == '1' ? 'selected': ''}}> Lateral Esquerda </option>
+                <option value="2" {{isset($menu) && $menu->posicao == '2' ? 'selected': ''}}> Barra Superior </option>
+            </select>
+            @error('posicao')
+            <small class="invalid-feedback">
+                {{ $message }}
+            </small>
+        @enderror
+          </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">                  
+            <label for="icone" >Icone</label>
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-icons"></i></span>
+                  </div>                   
+              <input type="text" class="form-control {{ $errors->has('icone') ? 'is-invalid' : '' }}" id="icone"
+                  name="icone" placeholder="icone " value="{{ $menu->icone ?? old('icone') }}">
+              @error('icone')
+                  <small class="invalid-feedback">
+                      {{ $message }}
+                  </small>
+              @enderror
+              
+            </div>
+            <span class="text-danger">icone do icons.getbootstrap.com </span>
+        </div>
+    </div>
 
 </div>
             

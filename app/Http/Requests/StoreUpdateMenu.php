@@ -29,6 +29,7 @@ class StoreUpdateMenu extends FormRequest
         $rules = [           
             'nome' => ['required', 'min:2','max:255', "unique:menus,nome,{$id},id"],           
             'target' =>['required','boolean'], 
+            'posicao' => ['required',  'numeric'],
             
             
         ]; 
@@ -43,7 +44,10 @@ class StoreUpdateMenu extends FormRequest
     {
         return [        
                    'target.required' => 'Campo obrigatório',
-                   'target.boolean' => 'O valor deve ser do tipo boolean'
+                   'target.boolean' => 'O valor deve ser do tipo boolean',
+                   'posicao.required' => 'Campo obrigatório',
+                   'posicao.numeric' => 'Campo deve ser um valor númerico',
+                   
         ];
     }
 }

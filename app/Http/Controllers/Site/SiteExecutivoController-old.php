@@ -27,7 +27,10 @@ class SiteExecutivoController extends Controller
     public function index(){
 
         $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksUteis = $this->link->where('tipo', 1)->orderby('ordem', 'ASC')->get();
         $posts =  $this->post->where('destaque', 1)->get();
@@ -57,7 +60,10 @@ class SiteExecutivoController extends Controller
             ->paginate(12);
         } 
         $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();     
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();     
         $categories =  $this->category->get();
           
 
@@ -80,7 +86,10 @@ class SiteExecutivoController extends Controller
             redirect()->back();
         }      
         $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
         // $servicosOnline = $this->link->where('tipo', 2)->get();
         // $linksUteis = $this->link->where('tipo', 1)->orderby('ordem', 'ASC')->get();
         $posts = $this->post

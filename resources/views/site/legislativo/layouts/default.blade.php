@@ -92,23 +92,29 @@
     </header>
   </div>
   <div class="d-flex justify-content-end bg-color-2 pe-5 mt-0 mb-0 ">
+
     <ul class="nav text-white fw-semibold font-14">
+      @foreach ($menusSuperior as $item)  
       <li class="nav-item ">
-        <a href="/" class="nav-link link-texto " title="Ir para a página Inicial" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para a página inicial">
-          <i class="bi bi-house-door-fill"></i> 
-          Página Inicial 
+
+        @if ($item->pagina_interna == 1 && $item->url == null)
+        <a href="{{route('pagina', $item->slug)}}" class="nav-link link-texto " title="{{$item->nome}} " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">
+          <i class="{{$item->icone}}"></i> 
+         {{$item->nome}} 
         </a>
-      </li>
-      <li class="nav-item">
-        <a href="{{route('ouvidoriaSite.index')}}" class="nav-link link-texto" title="Ouvidoria" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Acessar a Ouvidoria"> 
-          <i class="bi bi-telephone-fill"></i> 
-          Ouvidoria
-        </a>
-      </li>
-      <li class="nav-item"><a href="{{route('ouvidoriaSite.duvidas')}}" class="nav-link link-texto" title="Perguntas Frequentes" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Perguntas Frequentes"> 
-        <i class="bi bi-question-square-fill"></i> 
-        Perguntas Frequentes</a>
-      </li>
+        @elseif($item->pagina_interna == 1 && $item->url != null)
+        <a href="{{route($item->url)}}" class="nav-link link-texto " title="{{$item->nome}} " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">
+          <i class="{{$item->icone}}"></i> 
+          {{$item->nome}} 
+        </a> 
+       @else
+      <a href="{{$item->url}}" class="nav-link link-texto " title="{{$item->nome}} " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">
+        <i class="{{$item->icone}}"></i> 
+        {{$item->nome}}  
+      </a> 
+      @endif
+      </li>  
+      @endforeach    
     </ul>
   </div>
       {{-- VLibras --}}
@@ -132,16 +138,15 @@
                  @if(count($menu->submenu) > 0 )
                  <div class="expand collapse show " id="{{$menu->slug}}">
                   <ul class="btn-toggle-nav  list-unstyled fw-normal pb-1  small ">
-                    @foreach ($menu->submenu as $item)
-
-                   
+                    @foreach ($menu->submenu as $item)                   
                       @if ($item->pagina_interna == 1 && $item->url == null)
                         <li><a href="{{route('pagina', $item->slug)}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
                       @elseif($item->pagina_interna == 1 && $item->url != null)
                        <li><a href="{{route($item->url)}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
                       @else
                         <li><a href="{{$item->url}}" target="{{$item->target ? '__blank': ''}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
-                      @endif                                           
+                      @endif
+
                   @endforeach                   
                   </ul>
                 </div>      
@@ -213,9 +218,9 @@
           <div class="col-6 col-md-4 mb-3">
             <h5>Responsável para assegurar o cumprimento da Lei de Acesso à Informação</h5>       
                    
-            <h6 class="fs-6">Nome: ANEIDE DE SOUSA DE ASSIS</h6>
-            <h6 class="fs-6">E-Mail: portaltx2017@gmail.com</h6>
-            <h6 class="fs-6">Fone: (69)99326 6709</h6>
+            <h6 class="fs-6">Nome: {{$tenant->nome_resp_transparencia}}</h6>
+            <h6 class="fs-6">E-Mail: {{$tenant->email_resp_transparencia}}</h6>
+            <h6 class="fs-6">Fone: {{$tenant->telefone_resp_transparencia}}</h6>
 
           </div>
         </div>

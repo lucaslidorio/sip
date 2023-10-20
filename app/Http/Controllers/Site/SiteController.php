@@ -132,10 +132,16 @@ class SiteController extends Controller
                redirect()->back();               
             }          
       
-            $tenant = $this->tenant->first();
-            
-            $menus = $this->menu->where('menu_pai_id', null)->get();
-            $servicosOnline = $this->link->where('tipo', 2)->get();
+            $tenant = $this->tenant->first();            
+           
+            $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();   
+             $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();     
+                       
             $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -156,6 +162,7 @@ class SiteController extends Controller
                 'menus' => $menus,  
                 'linksDireita' => $linksDireita,
                 'linksUteis' => $linksUteis,
+                'menusSuperior' => $menusSuperior,
             ]);
         
     }
@@ -237,7 +244,13 @@ class SiteController extends Controller
        
            
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -273,6 +286,7 @@ class SiteController extends Controller
             'linksUteis' => $linksUteis,
             'servicosOnline' => $servicosOnline,
             'filters' => $pesquisar,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
 
@@ -285,7 +299,13 @@ class SiteController extends Controller
             return redirect()->back();
 
             $tenant = $this->tenant->first();            
-            $menus = $this->menu->where('menu_pai_id', null)->get();            
+            $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+            $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();           
             $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -317,6 +337,7 @@ class SiteController extends Controller
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
+            'menusSuperior' => $menusSuperior,
             
         ]);
     }
@@ -390,7 +411,13 @@ class SiteController extends Controller
     {
       
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();            
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get(); 
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();           
         $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -398,7 +425,7 @@ class SiteController extends Controller
                     ->orderby('created_at')
                     ->take(6)
                     ->get(); 
-            $linksUteis = $this->link                            
+        $linksUteis = $this->link                            
                     ->where('tipo', 2) //Tipo = Links Úteis
                     ->orderby('ordem', 'ASC')
                     ->orderby('created_at')                            
@@ -435,6 +462,7 @@ class SiteController extends Controller
             'tipos_documento' => $tipos_documento,
             'proposituras' => $proposituras,
             'filters' => $filters,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
     public function proposituraShow($id)
@@ -443,7 +471,13 @@ class SiteController extends Controller
         if (!$propositura)
             return redirect()->back();      
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();            
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();            
         $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -464,7 +498,8 @@ class SiteController extends Controller
             'tenant' => $tenant,
             'menus' => $menus,
             'linksDireita' => $linksDireita,
-            'linksUteis' => $linksUteis
+            'linksUteis' => $linksUteis,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
     // public function parecerPesquisar(Request $request){
@@ -566,7 +601,13 @@ class SiteController extends Controller
     public  function agendaIndex(){
         
         $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         //pega os 4 link cadastrado para o topo ordenado pela ordem   
         $linksTopo = $this->link
@@ -599,6 +640,7 @@ class SiteController extends Controller
             'linksTopo' => $linksTopo,
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
 
@@ -612,7 +654,13 @@ class SiteController extends Controller
     public function acessibilidade()
     {
         $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
             ->where('posicao', 3)
@@ -633,14 +681,21 @@ class SiteController extends Controller
             'menus' => $menus,
             'servicosOnline' => $servicosOnline,
             'linksDireita' => $linksDireita,
-            'linksUteis' => $linksUteis
+            'linksUteis' => $linksUteis,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
 
     public function mapasite()
     {
         $tenant = $this->tenant->first();
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();       
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
             ->where('posicao', 3)
@@ -661,7 +716,8 @@ class SiteController extends Controller
             'menus' => $menus,
             'servicosOnline' => $servicosOnline,
             'linksDireita' => $linksDireita,
-            'linksUteis' => $linksUteis
+            'linksUteis' => $linksUteis,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
 
@@ -669,7 +725,13 @@ class SiteController extends Controller
     public function pesquisar(Request $request){
 
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -686,13 +748,7 @@ class SiteController extends Controller
             
         $pesquisar = $request->pesquisar;
 
-       
-           
-        // $posts = $this->post->noticiasPesquisar($request->pesquisar);      
-        // $posts->each(function (&$post) {
-        //     $post['conteudo_trucado'] = Str::of($post->conteudo)->limit(400);
-        //     return $post;
-        // });
+    
 
         $resultadoPosts = Post::where(function ($query) use ($pesquisar) {
                         $query->where('titulo', 'like', '%'.$pesquisar.'%')
@@ -767,6 +823,7 @@ class SiteController extends Controller
             'linksUteis' => $linksUteis,
             'servicosOnline' => $servicosOnline,
             'filters' => $pesquisar,
+            'menusSuperior' => $menusSuperior,
         ]);
     }
 

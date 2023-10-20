@@ -59,7 +59,13 @@ class OuvidoriaSiteController extends Controller
     public function index()
     {
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -88,6 +94,7 @@ class OuvidoriaSiteController extends Controller
                 'menus' => $menus,  
                 'linksDireita' => $linksDireita,
                 'linksUteis' => $linksUteis,
+                'menusSuperior' => $menusSuperior,
             ]);
      
     }
@@ -100,7 +107,13 @@ class OuvidoriaSiteController extends Controller
     public function create($id_ouvidoria)
     {  
         
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -133,7 +146,7 @@ class OuvidoriaSiteController extends Controller
             'perfis_ouvidoria',
             'orgaos_ouvidoria',
             'assuntos_ouvidoria',
-            
+            'menusSuperior',            
         
         ));
     }
@@ -147,7 +160,13 @@ class OuvidoriaSiteController extends Controller
     public function store(StoreUpdateOuvidoriaSite $request)
     {
                  
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -194,7 +213,8 @@ class OuvidoriaSiteController extends Controller
             'linksDireita',
             'linksUteis',
             'ouvidoria',            
-            'tenant',           
+            'tenant',   
+            'menusSuperior',        
         
         ));
 
@@ -203,7 +223,13 @@ class OuvidoriaSiteController extends Controller
     public function acompanhamento(Request $request)
     {  
         $tenant = $this->tenant->first();            
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -241,14 +267,21 @@ class OuvidoriaSiteController extends Controller
             'linksDireita',
             'linksUteis',
             'tenant',
-            'ouvidoria',             
+            'ouvidoria',
+            'menusSuperior'          
         
         ));
     }
    
     public function duvidas()
     {
-        $menus = $this->menu->where('menu_pai_id', null)->get();
+        $menus = $this->menu
+                ->where('menu_pai_id', null)
+                ->where('posicao', 1) // Menu lateral
+                ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -270,7 +303,8 @@ class OuvidoriaSiteController extends Controller
             'servicosOnline',
             'linksDireita',
             'linksUteis',                  
-            'tenant',           
+            'tenant', 
+            'menusSuperior',          
         
         ));    
     }

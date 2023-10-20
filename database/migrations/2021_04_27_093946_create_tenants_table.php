@@ -24,11 +24,11 @@ class CreateTenantsTable extends Migration
             $table->char('celular',16)->nullable();
             $table->string('dia_atendimento')->nullable();
             $table->char('cnpj',18)->nullable();
-            $table->string('email')->nullable();;
-            $table->string('facebook')->nullable();;
-            $table->string('youtube')->nullable();;
-            $table->string('instagram')->nullable();;
-            $table->string('twitter')->nullable();;
+            $table->string('email')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
             $table->string('brasao')->nullable();
             $table->string('bandeira')->nullable();
             $table->timestamps();

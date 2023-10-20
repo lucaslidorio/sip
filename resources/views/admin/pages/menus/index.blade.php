@@ -57,7 +57,8 @@
               <th>Pai</th>
               <th>Slug</th>
               <th>Target</th>   
-              <th>Url</th>           
+              <th>Url</th>    
+              <th>Posicao</th>       
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
@@ -71,6 +72,7 @@
               <td>{{$menu->slug}}</td>
               <td>{{($menu->target ? 'Sim': 'Não')}}</td>
               <td>{{$menu->url}}</td>
+              <td>{{$posicao[$menu->posicao]}}</td>
              <td class="text-center">
                 <a href="{{route('menus.edit', $menu->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 

@@ -11,7 +11,13 @@ class Menu extends Model
 
     protected $table = 'menus';
 
-    protected $fillable = ['tenant_id', 'menu_pai_id', 'nome', 'url','slug','pagina_interna', 'target' ];
+    protected $fillable = ['tenant_id', 'menu_pai_id', 'nome', 'url','slug','pagina_interna', 'target',
+    'posicao', 'icone' ];
+
+    const POSICAO = [
+        1 => 'Esquerda',
+        2 => 'Barra Superior',
+    ];
 
 
     public function getMenuPai($id = null){          

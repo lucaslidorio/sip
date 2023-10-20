@@ -10,8 +10,8 @@
               </a>            
             </div>
           @endforeach
-        </div>
-            <div id="carouselDestaque" class="carousel carousel-dark slide shadow p-2 mb-4 bg-body rounded "
+        </div>       
+            <div id="carouselDestaque" class="carousel carousel-dark slide shadow p-3 mb-4 bg-body rounded "
               data-bs-ride="carousel">
               <div class="carousel-indicators">
              @foreach($posts_destaque as $key => $noticia)
@@ -22,7 +22,7 @@
                 </div>
                 <div class="carousel-inner">
                   @foreach($posts_destaque as $key => $noticia)
-                  <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="10000" style="height: 600px;">
+                  <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="10000" style="height: 500px;">
                    <a href="{{route('noticias.show',$noticia->url) }}">
                     <img src="{{config('app.aws_url').$noticia->img_destaque }}" class="d-block w-100 h-100 img-fluid "
                       alt="{{$noticia->titulo}}">
@@ -42,6 +42,19 @@
                 <span class="visually-hidden">Próximo</span>
               </button>
             </div>
+
+          {{-- Banner abaixo do  Slide --}}
+            <div class="row">
+              @foreach ($linksInferior as $link)
+                <div class="col-sm-6 col-md-3 mb-sm-2 banner" >
+                  <a href="{{$link->url}}" target="{{$link->target ==1 ? '__blank': ''}}" class="">
+                    <img  src="{{config('app.aws_url').$link->icone }}" class="img-fluid w-100 h-75 " alt="{{$link->nome}}" >
+                  </a>            
+                </div>
+              @endforeach
+            </div>
+
+
             <h4 class="font-blue">Últimas Notícias</h4>
             @foreach ($ultimasNoticias as $noticia)
             <a href="{{route('noticias.show', $noticia->url)}}" class="text-decoration-none" >

@@ -311,6 +311,62 @@
             </div>                
         </div>
     </div>  
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group">                  
+                <label for="nome_resp_transparencia" class="label-required">Nome Resp. Transparência </label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-user"></i></span>
+                      </div> 
+                  <input type="text" class="form-control {{ $errors->has('nome_resp_transparencia') ? 'is-invalid' : '' }}" id="nome_resp_transparencia"
+                      name="nome_resp_transparencia" placeholder="Nome da entidade" value="{{ $tenant->nome_resp_transparencia ?? old('nome_resp_transparencia') }}">
+                  @error('nome_resp_transparencia')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label for="email_resp_transparencia">E-mail Resp. Transparência:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-at"></i></span>
+                        </div>    
+                    <input type="email_resp_transparencia" class="form-control {{ $errors->has('email_resp_transparencia') ? 'is-invalid' : '' }}"
+                        id="email_resp_transparencia" name="email_resp_transparencia" placeholder="Email"
+                        value="{{ $tenant->email_resp_transparencia ?? old('email_resp_transparencia') }}">
+                    @error('email_resp_transparencia')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label for="telefone_resp_transparencia">Telefone Resp. Transparência:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                  </div>
+                  <input type="text" class="form-control telefone_resp_transparencia_fixo {{ $errors->has('telefone_resp_transparencia') ? 'is-invalid' : '' }}" 
+                      data-inputmask-clearmaskonlostfocus="false"
+                      id="telefone_resp_transparencia" name="telefone_resp_transparencia" placeholder="Número de tefefone"
+                      value="{{ $tenant->telefone_resp_transparencia ?? old('telefone_resp_transparencia') }}">
+                  @error('telefone_resp_transparencia')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror
+              </div>
+            </div>
+        </div>
+    </div>
       
     <div class="col-sm-12 text-center" >
         <div class="form-group">

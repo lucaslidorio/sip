@@ -72,6 +72,7 @@
               <td>{{$tipo[$link->tipo]}}</td>
               <td>{{$link->ordem}}</td>
               <td>{{$posicao[$link->posicao]}}</td>  
+              
               <td><img src="{{config('app.aws_url')."{$link->icone}" }}" alt="{{$link->nome}}" style="max-width: 100px;;"></td>
              <td class="text-center">
                 <a href="{{route('links.edit', $link->id)}}" 
