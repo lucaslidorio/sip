@@ -46,7 +46,7 @@
           {{-- Banner abaixo do  Slide --}}
             <div class="row">
               @foreach ($linksInferior as $link)
-                <div class="col-sm-6 col-md-3 mb-sm-2 banner" >
+                <div class="col-sm-6 col-md-6 mb-sm-2 banner" >
                   <a href="{{$link->url}}" target="{{$link->target ==1 ? '__blank': ''}}" class="">
                     <img  src="{{config('app.aws_url').$link->icone }}" class="img-fluid w-100 h-75 " alt="{{$link->nome}}" >
                   </a>            
