@@ -162,9 +162,9 @@
       </div>
 
       {{-- Fim conteúdo --}}
-      <div class="col-md-3 col-lg-2  m-0 p-sm-5  ">
+      <div class="col-md-3 col-lg-2  m-0 pt-md-0 p-md-3 p-sm-5  ">    
         @foreach ($linksDireita as $link)
-        <div class="row  pt-0 mb-2   banner ">
+        <div class="row  pt-0 mb-2   banner  ">
             <a href="{{$link->url}} ">
               <img src="{{config('app.aws_url').$link->icone }}" class="img-fluid w-100 h-100" alt="{{$link->nome}}">
             </a>            
@@ -213,9 +213,9 @@
           <div class="col-6 col-md-4 mb-3">
             <h5>Responsável para assegurar o cumprimento da Lei de Acesso à Informação</h5>       
                    
-            <h6 class="fs-6">Nome: KAROLINE DA SILVA CAMILO</h6>
-            <h6 class="fs-6">E-Mail: transparencia.camara@hotmail.com</h6>
-            <h6 class="fs-6">Fone: (69)99283-4391</h6>
+            <h6 class="fs-6">Nome: ANEIDE DE SOUSA DE ASSIS</h6>
+            <h6 class="fs-6">E-Mail: portaltx2017@gmail.com</h6>
+            <h6 class="fs-6">Fone: (69)99326 6709</h6>
 
           </div>
         </div>
@@ -224,7 +224,7 @@
     <div class="d-flex flex-column flex-sm-row justify-content-between bg-color-2 pe-5 ps-5 pt-1   border-top">
       <p class="text-center text-white font-14">Todos os direitos reservados &copy; {{ date("Y") }} - {{$tenant->nome}}.
         <span>desenvolvido por:</span>
-        <a target="_blank" rel="nofollow" class="text-white" href="https://fpstecnologia.com.br/"> FPS Tecnologia</a>
+        <a target="_blank" rel="nofollow" class="text-white" href="https://swdesign.com.br/"> SWDESIGN</a>
       </p>
       <ul class="list-unstyled d-flex">
         <li class="ms-3"><a class="link-dark" target="__blank" href="{{$tenant->youtube}}"><i

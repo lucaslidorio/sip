@@ -9,7 +9,7 @@
   <meta name="author" content="Grayrids">
   @foreach ($tenants as $tenant)
   @endforeach
-  <link rel="shortcut icon" href="./faveiconcms.ico" type="image/x-icon">
+  {{-- <link rel="shortcut icon" href="./faveiconcms.ico" type="image/x-icon"> --}}
   <title>{{$tenant->nome}}</title>
   @include('site.layouts.css')
 
@@ -46,38 +46,7 @@
     
    
   }
-
-  // function contraste(){
-  //   const elemento = document.body;
-  //   elemento
-
-  //   // let elemento = document.getElementByClassName('constraste');
-     
-  //   //  const elemento = document.body;
-  //   //  elemento.classList.add("contraste");
-
-  //   //  let elemento_cont = document.getElementsByClassName('contraste');
-  //   //   console.log(elemento_cont);
-
-
-
-
-  //     protocolo = window.location.protocol,    
-  //     url_host = window.location.host;
-  //     url_atual = protocolo+'//'+url_host ;
-
-  //     const headElement  = document.getElementsByTagName('head')[0];
-  //     const link  = document.createElement('link');
-  //     link.rel  = 'stylesheet';
-  //     link.type = 'text/css';
-  //     link.id ='link-contraste';
-  //     link.href =url_atual+'/site/css/contraste.css';
-  //     headElement.appendChild(link);
-
-  //     console.log(link.href)aa
-  // }
-
-
+  
 </script>
 <body class=""> 
   <div class="row row-header ">

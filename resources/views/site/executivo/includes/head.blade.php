@@ -4,7 +4,7 @@
     <title>{{$tenant->nome}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="executiassets/img/icon/favicon.png">
+    {{-- <link rel="shortcut icon" type="image/x-icon" href="executiassets/img/icon/favicon.png"> --}}
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">

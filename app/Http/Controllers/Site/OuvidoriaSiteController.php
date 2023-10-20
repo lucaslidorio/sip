@@ -66,7 +66,7 @@ class OuvidoriaSiteController extends Controller
                 ->where('tipo', 1) //Tipo = Banner
                 ->orderby('ordem', 'ASC')
                 ->orderby('created_at')
-                ->take(4)
+                ->take(6)
                 ->get(); 
         $linksUteis = $this->link                            
                 ->where('tipo', 2) //Tipo = Links Úteis
@@ -107,7 +107,7 @@ class OuvidoriaSiteController extends Controller
                 ->where('tipo', 1) //Tipo = Banner
                 ->orderby('ordem', 'ASC')
                 ->orderby('created_at')
-                ->take(4)
+                ->take(6)
                 ->get(); 
         $linksUteis = $this->link                            
                 ->where('tipo', 2) //Tipo = Links Úteis
@@ -154,7 +154,7 @@ class OuvidoriaSiteController extends Controller
                 ->where('tipo', 1) //Tipo = Banner
                 ->orderby('ordem', 'ASC')
                 ->orderby('created_at')
-                ->take(4)
+                ->take(6)
                 ->get(); 
         $linksUteis = $this->link
             ->where('tipo', 2) //Tipo = Links Úteis
@@ -210,7 +210,7 @@ class OuvidoriaSiteController extends Controller
                 ->where('tipo', 1) //Tipo = Banner
                 ->orderby('ordem', 'ASC')
                 ->orderby('created_at')
-                ->take(4)
+                ->take(6)
                 ->get(); 
         $linksUteis = $this->link                            
                 ->where('tipo', 2) //Tipo = Links Úteis
@@ -255,7 +255,7 @@ class OuvidoriaSiteController extends Controller
                 ->where('tipo', 1) //Tipo = Banner
                 ->orderby('ordem', 'ASC')
                 ->orderby('created_at')
-                ->take(4)
+                ->take(6)
                 ->get(); 
         $linksUteis = $this->link
             ->where('tipo', 2) //Tipo = Links Úteis
