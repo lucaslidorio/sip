@@ -10,9 +10,28 @@ class Tenant extends Model
     use HasFactory;
     protected $table = 'tenants';
 
-    protected $fillable = ['nome', 'endereco', 'numero', 'bairro', 'cidade', 'telefone',
-    'celular', 'dia_atendimento','cnpj','email', 'facebook', 'youtube', 'instagram',
-     'twiter', 'brasao', 'bandeira','nome_resp_transparencia', 'telefone_resp_transparencia', 'email_resp_transparencia'];
+    protected $fillable = [
+    'nome', 
+    'endereco', 
+    'numero', 
+    'bairro', 
+    'cidade', 
+    'telefone',
+    'celular', 
+    'dia_atendimento',
+    'cnpj',
+    'email', 
+    'facebook', 
+    'youtube', 
+    'instagram',
+    'twiter', 
+    'brasao', 
+    'bandeira',
+    'nome_resp_transparencia', 
+    'telefone_resp_transparencia',
+    'email_resp_transparencia',
+    'arquivo_cor_css'
+    ];
 
      public function users(){
         return $this->hasMany(User::class);

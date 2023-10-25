@@ -52,10 +52,10 @@
             <option value="2023" {{ request()->query('ano') == '2023' ? 'selected': ''}}>2023 </option>  
             <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option>                              
         </select>
-       
+        {{-- bg-color-1 --}}
     </div>      
         <div class="col-sm-4 col-lg-2 pt-lg-4 mt-2">              
-          <button class="btn  rounded-0 text-white " type="submit" style="background-color: #0b468e">
+          <button class="btn  rounded-0 text-white btn-color" type="submit">
             <i class="bi bi-funnel"></i>
             Filtrar
           </button>
@@ -97,8 +97,8 @@
           @endforeach</td>                             
           <td class="text-center">
               <a href="{{route('camara.parecerShow', $seemCommission->id)}}" data-id=""
-              class="btn  rounded-0 text-light " data-toggle="tooltip" data-placement="top"  
-              title="Ver Detalhes" style="background-color: #0b468e">
+              class="btn  rounded-0 text-light btn-color " data-toggle="tooltip" data-placement="top"  
+              title="Ver Detalhes" >
               <i class="bi bi-eye"></i> Abrir</i>
             </a>
           </td>

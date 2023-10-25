@@ -1,43 +1,43 @@
 
    
   .bg-color-1 {
-    background: #0b468e;
-    background-color:#0b468e ;
+    background: #328d36;
+    
   }
   .bg-color-2 {
-    background: #0b2d56;
+    background: #07720d;
   }
   .btn-toggle { 
-    color:#0b468e;    
+    color:#328d36;    
   }
   .btn-color{
-    background-color:#0b468e ;
+    background-color:#328d36 ;
   }
   .btn-color:hover  {    
-    background-color:#0b2d56 ;
+    background-color:#07720d ;
   }
   
   .btn-toggle:hover,
   .btn-toggle:focus {
       color: white;
-      background-color: #0b2d56;
+      background-color: #328d36;
   }
 
   .font-blue{
-    color: #0b468e;
+    color: #328d36;
   }
 
   .bg-blue{
-    background-color: #0b468e;
+    background-color: #328d36;
   }
 
   .btn-toggle-nav a:hover,
   .btn-toggle-nav a:focus {
   border-radius:0px !important;
-  border-left: solid #0b2d56;
+  border-left: solid #07720d;
   background-color: #dcdcdc;
  
 }
- 
 
-  
+ 
+ 

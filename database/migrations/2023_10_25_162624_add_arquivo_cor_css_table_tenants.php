@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('menus', function (Blueprint $table) {
-            $table->integer('posicao')->nullable();
-            $table->string('icone')->nullable();
-            
+        Schema::table('tenants', function (Blueprint $table) {
+            $table->string('arquivo_cor_css', 45)->default('style-blue.css'); 
         });
     }
 
@@ -23,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('menus', function (Blueprint $table) {
-            $table->dropColumn('posicao');
-            $table->dropColumn('icone');
+        Schema::table('tenants', function (Blueprint $table) {
+            $table->dropColumn('arquivo_cor_css'); 
         });
     }
 };

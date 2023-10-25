@@ -1,12 +1,8 @@
-.font-blue{
-  color: #0b468e;
-}
+
 .font-14 {
  font-size: 14px;
 }
-.bg-blue{
-  background-color: #0b468e;
-}
+
 .banner img{
   transition: 0.2s ease-in-out;
 }
@@ -84,13 +80,13 @@ main {
   margin-top: .125rem;
   margin-left: 1.25rem;
 }
-.btn-toggle-nav a:hover,
+/* .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
   border-radius:0px !important;
   border-left: solid #0b2d56;
   background-color: #dcdcdc;
  
-}
+} */
 
 .scrollarea {
   overflow-y: auto;

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
   
-  <link id="link-cor" rel="stylesheet" href="{{asset('css/style-blue.css')}}">  
+  <link id="link-cor" rel="stylesheet" href="{{asset('css')}}/{{$tenant->arquivo_cor_css}}">  
   <link rel="stylesheet" href="{{asset('css/style-legislativo.css')}}">
   <link rel="stylesheet" href="{{asset('css/nivo-lightbox.css')}}"> 
   <link rel="stylesheet" href="{{asset('css/lc_lightbox.min.css')}}"> 
@@ -18,7 +18,6 @@
 
   
 </head>
-
 <body class="bg-color-0">
   <div class="container-fluid   bg-color-1 bg-gradient  ps-5 pe-5 ">
     <div class=" justify-content-end d-none d-md-flex">

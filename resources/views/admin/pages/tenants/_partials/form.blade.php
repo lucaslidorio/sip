@@ -354,7 +354,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-phone"></i></span>
                   </div>
-                  <input type="text" class="form-control telefone_resp_transparencia_fixo {{ $errors->has('telefone_resp_transparencia') ? 'is-invalid' : '' }}" 
+                  <input type="text" class="form-control  {{ $errors->has('telefone_resp_transparencia') ? 'is-invalid' : '' }}" 
                       data-inputmask-clearmaskonlostfocus="false"
                       id="telefone_resp_transparencia" name="telefone_resp_transparencia" placeholder="Número de tefefone"
                       value="{{ $tenant->telefone_resp_transparencia ?? old('telefone_resp_transparencia') }}">
@@ -366,6 +366,25 @@
               </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+
+                <label  for="arquivo_cor_css" class="label-required" >Estilo CSS:</label>
+                <select class="custom-select {{ $errors->has('arquivo_cor_css') ? 'is-invalid' : '' }}" 
+                    id="arquivo_cor_css" name="arquivo_cor_css">                                       
+                    <option value="style-blue.css" {{isset($tenant) && $tenant->arquivo_cor_css == 'style-blue.css' ? 'selected': ''}}> Azul </option>
+                    <option value="style-green.css" {{isset($tenant) && $tenant->arquivo_cor_css == 'style-green.css' ? 'selected': ''}}> Verde </option>
+                </select>
+                @error('arquivo_cor_css')
+                <small class="invalid-feedback">
+                    {{ $message }}
+                </small>
+            @enderror
+              </div>
+        </div>
+        
     </div>
       
     <div class="col-sm-12 text-center" >
