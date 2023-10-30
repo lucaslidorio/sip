@@ -13,12 +13,20 @@ return new class extends Migration
     {
         Schema::create('development_settings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('tenant_id')->nullable();
             $table->string('nome_empresa', 45)->nullable(); 
             $table->string('slogam', 45)->nullable(); 
             $table->string('logo_principal', 100)->nullable(); 
             $table->string('logo_secundario', 100)->nullable(); 
             $table->string('site', 100)->nullable();
             $table->timestamps();
+
+
+            $table->foreign('tenant_id')
+            ->references('id')
+            ->on('tenants')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

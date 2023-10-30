@@ -228,7 +228,7 @@
     <div class="d-flex flex-column flex-sm-row justify-content-between bg-color-2 pe-5 ps-5 pt-1   border-top">
       <p class="text-center text-white font-14">Todos os direitos reservados &copy; {{ date("Y") }} - {{$tenant->nome}}.
         <span>desenvolvido por:</span>
-        <a target="_blank" rel="nofollow" class="text-white" href="https://swdesign.com.br/"> SWDESIGN</a>
+        <a target="_blank"  class="text-white" href="{{$tenant->developmentSettings->site}}"> {{$tenant->developmentSettings->nome_empresa}}</a>
       </p>
       <ul class="list-unstyled d-flex">
         <li class="ms-3"><a class="link-dark" target="__blank" href="{{$tenant->youtube}}"><i

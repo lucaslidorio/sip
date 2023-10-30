@@ -39,4 +39,8 @@ class Tenant extends Model
     public function plan(){
         return $this->belongsTo(Plan::class);
     }
+    public function developmentSettings()
+    {
+        return $this->belongsTo(DevelopmentSetting::class, 'id', 'tenant_id'); 
+    }
 }
