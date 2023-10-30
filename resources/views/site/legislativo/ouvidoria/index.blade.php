@@ -33,7 +33,7 @@
                         <a class="banner text-decoration-none link font-blue" href="{{route('ouvidoria.create', 1)}}"> {{-- 1 = Reclamação --}}                                    
                             <div class="card rounded-0 border-1 mb-2">
                                 <img class=" img-fluid"
-                                    src="{{ url('../site/img/portfolio/img2.png') }}" alt="imagem de reclamação">
+                                    src="{{ url('../site/img/ouvidoria/reclamacao.png') }}" alt="imagem de reclamação">
                                 <div class="card-body">
                                     <p class="font-weight-bold" style="font-size: 150%">RECLAMAÇÃO</p>
                                     <p class="card-text ">Envie sua insatisfação com o serviço público.
@@ -48,7 +48,7 @@
                         <a class="banner text-decoration-none link font-blue" href="{{route('ouvidoria.create',2)}}">{{-- 2 = ELOGIO --}} 
                             <div class="card  rounded-0 border-1 mb-2 ">
                                 <img class="img-fluid"
-                                    src="{{ url('../site/img/portfolio/img3.png') }}" alt="imagem de elogio">
+                                    src="{{ url('../site/img/ouvidoria/elogio.png') }}" alt="imagem de elogio">
                                 <div class="card-body">
                                     <p class="font-weight-bold" style="font-size: 150%">ELOGIO</p>
                                     <p class="card-text">Expresse se você está satisfeito com o atendimento
@@ -63,7 +63,7 @@
                         <a class="banner text-decoration-none link font-blue" href="{{route('ouvidoria.create', 3)}}">{{--3 = SOLICITAÇÃO --}}
                             <div class="card  rounded-0 border-1 mb-2">
                                 <img class="img-fluid"
-                                    src="{{ url('../site/img/portfolio/img4.png') }}" alt="imagem de solicitacao">
+                                    src="{{ url('../site/img/ouvidoria/solicitacao.png') }}" alt="imagem de solicitacao">
                                 <div class="card-body">
                                     <p class="font-weight-bold" style="font-size: 150%">SOLICITAÇÃO</p>
                                     <p class="card-text">Peça atendimento ou uma prestação de serviço. <br>&nbsp;</p>
@@ -77,7 +77,7 @@
                         <a class="banner text-decoration-none link font-blue" href="{{route('ouvidoria.create', 4)}}">{{--4 = SUGESTÃO --}}
                             <div class="card rounded-0 border-1 mb-2">
                                 <img class=" img-fluid"
-                                    src="{{ url('../site/img/portfolio/img1.png') }}" alt="imagem de sugestão">
+                                    src="{{ url('../site/img/ouvidoria/sugestao.png') }}" alt="imagem de sugestão">
                                 <div class="card-body">
                                     <p class="font-weight-bold" style="font-size: 150%">SUGESTÃO</p>
                                     <p class="card-text">Envie uma ideia ou proposta de melhoria dos serviços
@@ -93,7 +93,7 @@
                         <a class="banner text-decoration-none link font-blue" href="{{route('ouvidoriaSite.duvidas')}}">
                             <div class="card rounded-0 border-1 mb-2">
                                 <img class=" img-fluid"
-                                    src="{{ url('../site/img/portfolio/img5.png') }}" alt="imagem de dúvida">
+                                    src="{{ url('../site/img/ouvidoria/duvidas.png') }}" alt="imagem de dúvida">
                                 <div class="card-body">
                                     <p class="font-weight-bold" style="font-size: 150%">DÚVIDAS</p>
                                     <p class="card-text">FAQ com perguntas frequentes.</p>
@@ -107,7 +107,7 @@
                         <a class="banner text-decoration-none link font-blue" href="{{route('ouvidoria.create', 6)}}">{{--6 = DENÚNCIA --}}
                             <div class="card rounded-0 border-1 mb-2">
                                 <img class=" img-fluid"
-                                    src="{{ url('../site/img/portfolio/img6.png') }}" alt="imagem de denuncia">
+                                    src="{{ url('../site/img/ouvidoria/denuncia.png') }}" alt="imagem de denuncia">
                                 <div class="card-body">
                                     <p class="font-weight-bold" style="font-size: 150%">DENÚNCIA</p>
                                     <p class="card-text">Comunique um ato ilícito pratica por agentes públicos.
