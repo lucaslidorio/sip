@@ -49,12 +49,12 @@
    
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover ">
           <thead>
             <tr>
               <th>#</th>              
               <th>Nome</th> 
-              <th>Url</th> 
+              <th width="10%">Url</th> 
               <th>Target</th> 
               <th>Tipo</th> 
               <th>Ordem</th>
@@ -67,7 +67,8 @@
             @foreach ($links as $link)            
             <tr >
               <td>{{$link->id}}</td>              
-              <td>{{$link->nome}}</td> <td>{{$link->url}}</td>
+              <td>{{$link->nome}}</td> 
+              <td>{{$link->url}}</td>
               <td>{{($link->target ? 'Sim': 'Não')}}</td>
               <td>{{$tipo[$link->tipo]}}</td>
               <td>{{$link->ordem}}</td>

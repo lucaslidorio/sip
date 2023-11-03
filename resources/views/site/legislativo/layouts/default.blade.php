@@ -92,6 +92,7 @@
   </div>
   <div class="d-flex justify-content-end bg-color-2 pe-5 mt-0 mb-0 ">
 
+    {{-- Menu da barra superior --}}
     <ul class="nav text-white fw-semibold font-14">
       @foreach ($menusSuperior as $item)  
       <li class="nav-item ">
@@ -107,7 +108,7 @@
           {{$item->nome}} 
         </a> 
        @else
-      <a href="{{$item->url}}" class="nav-link link-texto " title="{{$item->nome}} " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">
+      <a href="{{$item->url}}" target="{{$item->target ? '__blank': ''}}" class="nav-link link-texto " title="{{$item->nome}} " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">
         <i class="{{$item->icone}}"></i> 
         {{$item->nome}}  
       </a> 
@@ -139,9 +140,9 @@
                   <ul class="btn-toggle-nav  list-unstyled fw-normal pb-1  small ">
                     @foreach ($menu->submenu as $item)                   
                       @if ($item->pagina_interna == 1 && $item->url == null)
-                        <li><a href="{{route('pagina', $item->slug)}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
+                        <li><a href="{{route('pagina', $item->slug)}}" target="{{$item->target ? '__blank': ''}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
                       @elseif($item->pagina_interna == 1 && $item->url != null)
-                       <li><a href="{{route($item->url)}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
+                       <li><a href="{{route($item->url)}}" target="{{$item->target ? '__blank': ''}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
                       @else
                         <li><a href="{{$item->url}}" target="{{$item->target ? '__blank': ''}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
                       @endif
@@ -166,11 +167,12 @@
       </div>
 
       {{-- Fim conteúdo --}}
+      {{-- Links - Banners da direita --}}
       <div class="col-md-3 col-lg-2  m-0 pt-md-0 p-md-3 p-sm-5  ">    
         @foreach ($linksDireita as $link)
         <div class="row  pt-0 mb-2   banner  ">
-            <a href="{{$link->url}} ">
-              <img src="{{config('app.aws_url').$link->icone }}" class="img-fluid w-100 h-100" alt="{{$link->nome}}">
+            <a href="{{$link->url}} " target="{{$link->target ? '__blank': ''}}">
+              <img src="{{config('app.aws_url').$link->icone }}"  class="img-fluid w-100 h-100" alt="{{$link->nome}}">
             </a>            
           </div>
         @endforeach        
@@ -228,7 +230,6 @@
     <div class="d-flex flex-column flex-sm-row justify-content-between bg-color-2 pe-5 ps-5 pt-1   border-top">
       <p class="text-center text-white font-14">Todos os direitos reservados &copy; {{ date("Y") }} - {{$tenant->nome}}.
         <span>desenvolvido por:</span>
-        {{-- {{dd($tenant->developmentSettings->site)}} --}}
         <a  class="text-white" href="{{$tenant->developmentSettings->site}}"> {{$tenant->developmentSettings->nome_empresa}}</a>
       </p>
       <ul class="list-unstyled d-flex">

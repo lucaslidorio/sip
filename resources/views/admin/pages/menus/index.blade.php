@@ -48,7 +48,7 @@
       </div>     
    
       <!-- /.card-header -->
-      <div class="card-body table-responsive p-0">
+      <div class="card-body table-responsive-smg p-0">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -63,8 +63,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($menus as $menu)
-            
+            @foreach ($menus as $menu)            
             <tr >
               <td>{{$menu->id}}</td>              
               <td>{{$menu->nome}}</td>
