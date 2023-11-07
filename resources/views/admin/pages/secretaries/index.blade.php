@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Secretarias')
 @section('content_header')
+@section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
 

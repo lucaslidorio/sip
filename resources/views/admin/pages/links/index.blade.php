@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Links')
 @section('content_header')
-@section('plugins.Sweetalert2', false)
+@section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
 <div class="container-fluid">
@@ -114,8 +114,8 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })  
-    //Alert de confirmação de exclusão
-    $('.delete-confirm').on('click', function (event) {
+       //Alert de confirmação de exclusão
+       $('.delete-confirm').on('click', function (event) {
     event.preventDefault();
     const url = $(this).attr('href');    
           Swal.fire({

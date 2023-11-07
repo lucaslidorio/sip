@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Perfis')
 @section('content_header')
+@section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
 

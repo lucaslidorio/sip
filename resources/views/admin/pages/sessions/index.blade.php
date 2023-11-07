@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Sessões')
 @section('content_header')
+@section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
 <div class="container-fluid">
