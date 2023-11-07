@@ -93,7 +93,7 @@ class SiteLegislativoController extends Controller
                             ->where('tipo', 1) //Tipo = Banner
                             ->orderby('ordem', 'ASC')
                             ->orderby('created_at')
-                            ->take(4)
+                            ->take(6)
                             ->get();  
         //pega os 6 link cadastrado para o lado direito ordenado pela ordem   
         $linksDireita = $this->link
