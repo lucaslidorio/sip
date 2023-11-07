@@ -121,9 +121,12 @@ class LinkController extends Controller
         if(!$link){
             return redirect()->back();                      
         }  
-        if(Storage::exists($link->icone)){
-            Storage::delete($link->icone);
-        }      
+        if($link->icone){
+            if(Storage::exists($link->icone)){
+                Storage::delete($link->icone);
+            } 
+        }
+             
         $link->delete();
         toast('Link excluido com sucesso!','success')->toToast('top');            
         return redirect()->route('links.index');      
