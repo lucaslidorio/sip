@@ -18,8 +18,10 @@
     </style>
   @stop
   @section('js')
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+  <script src="{{ asset('dashboard/js/fullcalendar/pt-br.js') }}"></script>
   <script>
-
+ 
       $("#txtHora").inputmask("99:99");
       protocolo = window.location.protocol,    
       url_host = window.location.host;
