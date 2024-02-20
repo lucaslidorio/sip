@@ -76,6 +76,11 @@
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>
                 </a>
+                <a href="{{route('user.profiles', $user->id)}}" data-id="{{$user->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver Perfis">
+                  <i class="fas fa-id-badge"></i>
+                </a>
                 <a href="{{route('users.edit', $user->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">

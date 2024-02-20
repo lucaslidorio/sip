@@ -67,4 +67,6 @@ class User extends Authenticatable
     public function profiles(){
         return $this->BelongsToMany(Profile::class, 'profile_users','user_id',  'profile_id');
     }
+
+   
 }

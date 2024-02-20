@@ -21,28 +21,72 @@ class ProfileUserController extends Controller
 
     public function users($idProfile)
     {
+        $this->authorize('admin');
         $profile = $this->profile->find($idProfile);
 
         if (!$profile) {
             return redirect()->back();
         }
         $users = $profile->users()->paginate();
-        return view('admin.pages.profiles.users.users', compact('profile', 'users'));
-      
+        
+        return view('admin.pages.profiles.users.users', compact('profile', 'users'));      
      }
 
-    public function usersAvailable($idProfile){
+//Vincula permissão com o perfil
+public function attachProfileUser(Request $request, $idProfile){
+    $this->authorize('admin');
+    $profile =  $this->profile->find($idProfile);       
+    if(!$profile){
+        return redirect()->back();
+    }
+
+
+    
+    if(!$request->users  || count($request->users) == 0){
+        toast('É necessário escolher um usuário','error')->toToast('top');
+        return redirect()->back();
+        
+    }
+
+    $profile->users()->attach($request->users);
+    toast('Usuário(s) vinculado com sucesso!','success')->toToast('top');
+    return redirect()->route('profiles.users', $profile->id);
+
+}
+
+
+public function usersAvailable(Request $request , $idProfile){
+    $this->authorize('admin');
         if (!$profile = $this->profile->find($idProfile)) {
             return redirect()->back();
         }
 
-        $users = $this->user->paginate();
-
+        $filter = $request->except('_token');
+       
+        
+        $users = $profile->usersAvailable($request->pesquisa);
+            
         return view('admin.pages.profiles.users.available', compact('profile', 'users'));
 
+    }
 
+
+    public function detachProfileUser ($idProfile, $idUser){
+        $this->authorize('admin');
+        
+        $profile = $this->profile->find($idProfile);
+        $user = $this->user->find($idUser);     
+        
+        if (!$profile || !$user) {
+            return redirect()->back();
+        }
+
+        $profile->users()->detach($user);    
+        return redirect()->route('profiles.users', $profile->id);
 
     }
+
+  
 
 
 

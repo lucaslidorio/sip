@@ -302,14 +302,17 @@ Route::middleware(['auth'])->group(function () {
 
 
             //Rotas de Usuários
+            Route::get('/users/{id}/profiles', [UserController::class, 'profiles'])->name('user.profiles');
             Route::any('/users/search', [UserController::class, 'search'])->name('users.search');
             Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
             Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+            
             Route::get('/users/show/{id}', [UserController::class, 'show'])->name('users.show');
             Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
             Route::get('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
             Route::post('/users', [UserController::class, 'store'])->name('users.store');
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
+            
             
 
             //Rotas de Permissões
@@ -335,6 +338,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
             Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
             Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
+            Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
             Route::get( 'profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
             Route::get( 'permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
 
@@ -344,7 +348,7 @@ Route::middleware(['auth'])->group(function () {
              Route::post('profile/{id}/users', [ProfileUserController::class, 'attachProfileUser'])->name('profile.users.attach');
              Route::any( 'profile/{id}/users/create', [ProfileUserController::class, 'usersAvailable'])->name('profile.users.available');
              Route::get( 'profiles/{id}/users', [ProfileUserController::class, 'users'])->name('profiles.users');
-             Route::get( 'users/{id}/profile', [ProfileUserController::class, 'profiles'])->name('permissions.profiles');
+             Route::get( 'users/{id}/profile', [ProfileUserController::class, 'profiles'])->name('');
  
 
 

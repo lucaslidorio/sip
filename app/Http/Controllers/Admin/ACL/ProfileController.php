@@ -39,6 +39,7 @@ class ProfileController extends Controller
      */
     public function store(StoreUpdateProfile $request)
     {
+        $this->authorize('admin');
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;  
         return redirect()->route('profiles.index');
@@ -53,6 +54,7 @@ class ProfileController extends Controller
    
     public function edit($id)
     {
+        $this->authorize('admin');
         $profile = $this->repository->find($id);
         if(!$profile){
             redirect()->back();
@@ -63,6 +65,7 @@ class ProfileController extends Controller
   
     public function update(StoreUpdateProfile $request, $id)
     {
+        $this->authorize('admin');
         if($profile = $this->repository->find($id)){
             redirect()->back();
         }
@@ -73,6 +76,7 @@ class ProfileController extends Controller
     
     public function destroy($id)
     {
+        $this->authorize('admin');
         $profile = $this->repository->where('id', $id)->first();
 
         if(!$profile){

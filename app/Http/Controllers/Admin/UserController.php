@@ -102,6 +102,23 @@ class UserController extends Controller
         return redirect()->route('users.index');
 
     }
+
+    public function profiles($idUser)
+    {
+        
+        $this->authorize('admin');
+        $user = $this->repository->find($idUser);
+
+       
+
+        if (!$user) {
+            return redirect()->back();
+        }
+        $profiles = $user->profiles()->paginate();
+        
+        
+        return view('admin.pages.users.profiles.profiles', compact('profiles', 'user'));      
+     }
     public function search(Request $request)
     {
          $pesquisar = $request->except('_token');
