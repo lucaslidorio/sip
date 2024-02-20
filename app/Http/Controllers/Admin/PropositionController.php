@@ -46,7 +46,7 @@ class PropositionController extends Controller
     
     public function index(Request $request)
     {
-        
+        $this->authorize('ver-propositura');
         
         $councilors = $this->councilor->all();
         $situacoes = $this->proceeding_situation->all();
@@ -79,6 +79,7 @@ class PropositionController extends Controller
      */
     public function create()
     {
+        $this->authorize('nova-propositura');
         $type_propositions = $this->type_proposition->get();
         $type_documents = $this->type_document->get();
         $situations = $this->situation->get();  
@@ -102,6 +103,7 @@ class PropositionController extends Controller
     public function store(StoreUpdateProposition $request)
     {
 
+        $this->authorize('nova-propositura');
         $dadosProposition = new Proposition();
         $dadosProposition = $request->except('councilors', 'anexo', 'type_document_id');  
         $user = auth()->user();
@@ -157,6 +159,7 @@ class PropositionController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-propositura');
         $proposition = $this->repository->where('id', $id)->first();
         if (!$proposition) {
             return redirect()->back();
@@ -188,6 +191,7 @@ class PropositionController extends Controller
      */
     public function update(StoreUpdateProposition $request, $id)
     {
+        $this->authorize('editar-propositura');
         $proposition = $this->repository->where('id', $id)->first();
         if (!$proposition) {
             return redirect()->back();
@@ -239,6 +243,7 @@ class PropositionController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-propositura');
           //recupera o registro pelo id
           $proposition  = $this->repository->where('id', $id)->first();
           if(!$proposition){
@@ -261,6 +266,7 @@ class PropositionController extends Controller
 
     public function deleteAttachment($id)
     {
+        $this->authorize('excluir-propositura');
         //Recupera a anexo pelo id
         $anexo = AttachmentProposition::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe o storage, e deleta do storage

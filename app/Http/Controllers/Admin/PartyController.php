@@ -19,6 +19,7 @@ class PartyController extends Controller
     }
     public function index()
     {
+        $this->authorize('ver-partido');
         $parties = $this->party->paginate(10);
         return view('admin.pages.parties.index', compact('parties'));
     }
@@ -30,12 +31,13 @@ class PartyController extends Controller
      */
     public function create()
     {
+        $this->authorize('novo-partido');
         return view('admin.pages.parties.create');
     }
 
     public function store(StoreUpdateParty $request)
     {
-      // dd(Config::get('filesystems'));
+        $this->authorize('novo-partido');
 
         $dadosParty = $request->all();
         
@@ -68,6 +70,8 @@ class PartyController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-partido');
+        $this->authorize('editar-partido');
         $party = $this->party->where('id', $id)->first();
         return view('admin.pages.parties.edit', compact('party'));
 
@@ -83,6 +87,7 @@ class PartyController extends Controller
      */
     public function update(StoreUpdateParty $request, $id)
     {
+        $this->authorize('editar-partido');
         $party =  $this->party->where('id', $id)->first();
         if(!$party){
             redirect()->back();
@@ -103,6 +108,7 @@ class PartyController extends Controller
    
     public function destroy($id)
     {
+        $this->authorize('novo-partido');
         $party = $this->party->where('id', $id)->first();
         if(!$party){
             return redirect()->back();                      
@@ -114,6 +120,7 @@ class PartyController extends Controller
 
     public function search (Request $request){
 
+        $this->authorize('ver-partido');
         $pesquisar = $request->except('_token');
         $parties = $this->party->search($request->pesquisa);
 

@@ -27,7 +27,7 @@ class CommissionMemberFunction extends Controller
 
     public function index()
     {
-       // dd('chegou aqui');
+        $this->authorize('ver-comissao');
             $comissao = CommissionMembers::with('members', 'functions')->where('commission_id', 6)->get();
            // dd($comissao);
          

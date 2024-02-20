@@ -22,6 +22,7 @@ class CategoriaController extends Controller
 //
     public function index() 
     {
+        $this->authorize('ver-categoria');
         $categorias = $this->repository->paginate(10);
         return view('admin.pages.categorias.index', [
             'categorias' => $categorias,
@@ -30,6 +31,7 @@ class CategoriaController extends Controller
     //
     public function create()
     {
+        $this->authorize('nova-categoria');
         return view('admin.pages.categorias.create');
     }
     public function store(StoreUpdateCategoria $request)
@@ -42,6 +44,7 @@ class CategoriaController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('editar-categoria');
         $categoria = $this->repository->where('id', $id)->first();
 
         if(!$categoria){
@@ -54,7 +57,7 @@ class CategoriaController extends Controller
     }
 
     public function update(StoreUpdateCategoria $request, $id){
-
+        $this->authorize('editar-categoria');
         $categoria = $this->repository->where('id', $id)->first();
         if(!$categoria){
             return redirect()->back();
@@ -72,6 +75,7 @@ class CategoriaController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('excluir-categoria');
         $categoria = $this->repository->where('id', $id)->first();
 
         if(!$categoria){
@@ -85,6 +89,7 @@ class CategoriaController extends Controller
     }
     public function search(Request $request)
     {
+        $this->authorize('ver-categoria');
          $pesquisar = $request->except('_token');
          $categorias = $this->repository->search($request->pesquisa);
 

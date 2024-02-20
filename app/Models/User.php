@@ -63,4 +63,8 @@ class User extends Authenticatable
     public function tenant(){
         return $this->belongsTo(Tenant::class);
     }
+
+    public function profiles(){
+        return $this->BelongsToMany(Profile::class, 'profile_users','user_id',  'profile_id');
+    }
 }

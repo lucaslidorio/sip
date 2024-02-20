@@ -22,7 +22,7 @@ class CouncilorController extends Controller
 
     public function index()
     {
-       
+        $this->authorize('ver-vereador');
         $councilors = $this->repository->paginate(10);
         //dd($councilors);
         return view('admin.pages.councilors.index', compact('councilors'));
@@ -31,12 +31,14 @@ class CouncilorController extends Controller
     
     public function create()
     {
+        $this->authorize('nova-vereador');
         $parties = $this->party->all();
         return view('admin.pages.councilors.create', compact('parties'));
     }
     
     public function store(StoreUpadateCouncilor $request)
     {
+        $this->authorize('nova-vereador');
         $dadosCouncilor = $request->all();    
 
         if($request->hasFile('img') && $request->img->isValid()){
@@ -52,6 +54,7 @@ class CouncilorController extends Controller
     
     public function show($id)
     {
+        $this->authorize('ver-vereador');
         $councilor =$this->repository->where('id', $id)->first();
         if(!$councilor){
             redirect()->back();
@@ -64,6 +67,7 @@ class CouncilorController extends Controller
    
     public function edit($id)
     {
+        $this->authorize('editar-vereador');
         $councilor =$this->repository->where('id', $id)->first();
         $parties = $this->party->all();
         if(!$councilor){
@@ -77,7 +81,7 @@ class CouncilorController extends Controller
 
     public function update(StoreUpadateCouncilor $request, $id)
     {
-        //dd('chegou aqui');
+        $this->authorize('editar-vereador');
         $councilor =  $this->repository->where('id', $id)->first();
         if(!$councilor){
             redirect()->back();
@@ -105,6 +109,7 @@ class CouncilorController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-vereador');
         $councilor = $this->repository->where('id', $id)->first();
         if(!$councilor){
             return redirect()->back();                      
@@ -117,6 +122,7 @@ class CouncilorController extends Controller
     //metodo de pesquisa
     public function search(Request $request)
     {
+        $this->authorize('ver-vereador');
          $pesquisar = $request->except('_token');
          $councilors = $this->repository->search($request->pesquisa);
 

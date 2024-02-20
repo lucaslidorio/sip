@@ -25,7 +25,7 @@ class StoreUpdatePermission extends FormRequest
     {
         $id = $this->segment(3);
         return [
-            'nome' => ['required', 'min:3', 'max:255', "unique:profiles,nome,{$id},id"],
+            'nome' => ['required', 'min:3', 'max:255', "unique:permissions,nome,{$id},id"],
             'descricao' => ['nullable', 'min:2', 'max:255'],
         ];
     }

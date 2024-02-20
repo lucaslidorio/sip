@@ -17,7 +17,7 @@ class ScheduleController extends Controller
     public function index()
     {
 
-
+        $this->authorize('ver-agenda');
         return view('admin.pages.schedule.index');
     }
 
@@ -39,6 +39,7 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('nova-agenda');
         $dados = request()->except([ '_token', '_method']);
         Schedule::create($dados);
         print_r($dados);
@@ -55,6 +56,7 @@ class ScheduleController extends Controller
 
     public function show()
     {
+        $this->authorize('ver-agenda');
         $dados['eventos'] = Schedule::all();
       
         return response()->json($dados['eventos']);
@@ -81,6 +83,7 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('editar-agenda');
         $dados = request()->except([ '_token', '_method']);
         $evento = Schedule::findOrfail($id);
         $evento->update($dados);
@@ -95,6 +98,7 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-agenda');
         $evento = Schedule::findOrfail($id);
         $evento->destroy($id);
         return response()->json($id);

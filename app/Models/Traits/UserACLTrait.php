@@ -1,20 +1,34 @@
 <?php
 namespace App\Models\Traits;
 
+use Termwind\Components\Raw;
+
 trait UserACLTrait{
     
     public function permissions(){
 
-        $tenant = $this->tenant()->first();
-        $plan =  $tenant->plan;
-
+        
         $permissions = [];
-        foreach ($plan->profiles as $profile) {            
+        foreach ($this->profiles as $profile) {            
             foreach ($profile->permissions  as $permission) {
                 array_push($permissions, $permission->nome);
             }
         }
-        return $permissions;     
+
+        return $permissions;
+
+
+        // $tenant = $this->tenant()->first();
+        // $plan =  $tenant->plan;
+
+        // $permissions = [];
+        // foreach ($plan->profiles as $profile) {            
+        //     foreach ($profile->permissions  as $permission) {
+        //         array_push($permissions, $permission->nome);
+        //     }
+        // }
+
+        // return $permissions;     
 
     }
     //tem permissão

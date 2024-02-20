@@ -75,6 +75,11 @@
                   title="Ver permissões do perfil">
                   <i class="fas fa-lock" ></i>
                 </a>
+                <a href="{{route('profiles.users', $profile->id)}}" data-id="{{$profile->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Ver usuários do perfil">
+                  <i class="fas fa-users" ></i>
+                </a>
                 
                 <a href="{{route('profiles.edit', $profile->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 

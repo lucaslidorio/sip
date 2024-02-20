@@ -29,6 +29,7 @@ class LegislatureController extends Controller
     }
     public function index()
     {
+        $this->authorize('ver-legislatura');
         $legislatures = $this->repository->orderBy('ordem', 'DESC')->paginate(10);
         
         
@@ -65,7 +66,8 @@ class LegislatureController extends Controller
      */
     public function show($id)
     {
-       
+     
+        $this->authorize('ver-legislatura');
         $legislature = $this->repository->where('id', $id)->first();
        if (!$legislature) {
            redirect()->back();
@@ -113,6 +115,7 @@ class LegislatureController extends Controller
     //Inicio do crud de vereadores das legislaturas
     public function councilors($id){               
                  
+        $this->authorize('ver-legislatura');
         $legislature = $this->repository->where('id', $id)->first();
         $councilorsLegislature = $this->councilorLegislature->where('legislature_id', $id)->paginate(10);
          
@@ -124,6 +127,7 @@ class LegislatureController extends Controller
 
     public function councilorsCreate($id){
         
+        $this->authorize('nova-legislatura');
         $legislature = $this->repository->where('id', $id)->first();         
         if (!$legislature) {
             redirect()->back();
@@ -135,8 +139,8 @@ class LegislatureController extends Controller
         ]);      
     }
     public function councilorsStore(Request $request, $id){
-        //$directorTable = $this->repository->where('id', $id)->first();  
-    
+      
+        $this->authorize('nova-legislatura');
         $legislatureCouncilors = new LesgislatureCouncilors();
         $dados = $request->except('_token');       
         $legislatureCouncilors->create($dados);
@@ -146,6 +150,7 @@ class LegislatureController extends Controller
 
     public  function councilorsDestroy($id){
 
+        $this->authorize('excluir-legislatura');
         $councilorLegislature =$this->councilorLegislature->where('id', $id)->first();             
        
         //dd($memberFunction);

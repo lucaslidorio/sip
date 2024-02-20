@@ -10,6 +10,7 @@ use App\Models\Legislation;
 use App\Models\TypeDocument;
 use App\Models\TypeLegislation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,9 @@ class LegislationController extends Controller
         
     }
     public function index()
+
     {
+        $this->authorize('ver-legislacao');
         $legislations = $this->repository->orderBy('data', 'asc')->paginate(10);
         $type_legislations = $this->type_legislation->get();
         $type_documents = $this->type_document->get();
@@ -43,6 +46,7 @@ class LegislationController extends Controller
      */
     public function create()
     {
+        $this->authorize('nova-legislacao');
         $type_legislations = $this->type_legislation->get();
         $type_documents = $this->type_document->get();     
          
@@ -62,6 +66,7 @@ class LegislationController extends Controller
     public function store(StoreUpadateLegislation $request)
     {
         
+        $this->authorize('nova-legislacao');
         $dadosLegislation = new Legislation();
         $dadosLegislation = $request->except('anexo', 'type_document_id');  
         $user = auth()->user();
@@ -97,6 +102,7 @@ class LegislationController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('ver-legislacao');
         $legislation = $this->repository->where('id', $id)->first();
 
         if(!$legislation)
@@ -115,6 +121,7 @@ class LegislationController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-legislacao');
         $legislation = $this->repository->where('id', $id)->first();
         if (!$legislation) {
             return redirect()->back();
@@ -138,6 +145,7 @@ class LegislationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('editar-legislacao');
         $legislation = $this->repository->where('id', $id)->first();
         if (!$legislation) {
             return redirect()->back();
@@ -184,6 +192,7 @@ class LegislationController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-legislacao');
         {
             //recupera o registro pelo id
             $legislation  = $this->repository->where('id', $id)->first();
@@ -205,6 +214,7 @@ class LegislationController extends Controller
     }
     public function deleteAttachment($id)
     {
+        $this->authorize('excluir-legislacao');
         //Recupera a anexo pelo id
         $anexo = AttachmentLegislation::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe no storage, e deleta do storage

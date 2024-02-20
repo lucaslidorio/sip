@@ -24,6 +24,7 @@ class OuvidoriaController extends Controller
      */
     public function index()
     {
+        $this->authorize('ver-ouvidoria');
         $ouvidorias = $this->repository->orderBy('created_at', 'desc')->paginate(10);   
         return view('admin.pages.ouvidorias.index', compact('ouvidorias'));
     }
@@ -57,6 +58,7 @@ class OuvidoriaController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('ver-ouvidoria');
         $ouvidoria= $this->repository->findOrFail($id);
         $ocupacao = $this->repository::OCUPACAO;        
         return view('admin.pages.ouvidorias.show', compact('ouvidoria','ocupacao'));
@@ -70,6 +72,7 @@ class OuvidoriaController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-ouvidoria');
         $ouvidoria= $this->repository->findOrFail($id);
         $ocupacao = $this->repository::OCUPACAO; 
         return view('admin.pages.ouvidorias.edit', compact('ouvidoria','ocupacao'));
@@ -84,6 +87,7 @@ class OuvidoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('editar-ouvidoria');
         $ouvidoria = $this->repository->findOrFail($id);
        
         $user = auth()->user();

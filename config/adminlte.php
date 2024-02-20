@@ -321,21 +321,27 @@ return [
             'text' => 'Posts',
             'url'  => 'admin/posts',
             'icon' => 'far fa-clipboard',
+            'can' => 'ver-post',
         ],
         [
             'text' => 'Leis',
             'url'  => 'admin/legislations',
             'icon' => 'fas fa-balance-scale',
+            'can' => 'ver-legislacao',
         ],
         [
             'text' => 'Carta ao Cidadão',
             'url'  => 'admin/citizenLetters',
             'icon' => 'far fa-envelope',
+            'can' => 'ver-carta-cidadao',
+          
         ],   
         [
             'text' => 'Ouvidoria',
             'url'  => 'admin/ouvidorias',
             'icon' => 'fas fa-phone-alt',
+            'can' => 'ver-ouvidoria',
+            
         ], 
         
         
@@ -344,11 +350,13 @@ return [
             'text' => 'Sessões',
             'url'  => 'admin/legislativo/sessions',
             'icon' => 'fas fa-handshake',
+            'can' => 'ver-sessao',
         ],
         [
             'text' => 'Proposituras',
             'url'  => 'admin/propositions',
             'icon' => 'fas fa-file-invoice',
+            'can' => 'ver-propositura',
         ],
 
       
@@ -356,32 +364,38 @@ return [
             'text' => 'Vereadores',
             'url'  => 'admin/legislativo/councilors',
             'icon' => 'fas fa-user-tie',
+            'can' => 'ver-vereador',
         ],
       
         [
             'text' => 'Legislaturas',
             'url'  => 'admin/legislativo/legislatures',
             'icon' => 'fas fa-university',
+            'can' => 'ver-legislatura',
         ],
         [
             'text' => 'Comissões',
             'url'  => 'admin/commissions',
             'icon' => 'fas fa-user-tag',
+            'can' => 'ver-comissao',
         ],
         [
             'text' => 'Pareceres',
             'url'  => 'admin/seemCommissions',
             'icon' => 'fab fa-searchengin',
+            'can' => 'ver-parecer',
         ],
         [
             'text' => 'Mesa Diretora',
             'url'  => 'admin/directorTables',
             'icon' => 'fas fa-tablets',
+            'can'  => 'nova-mesa-diretora',
         ],
         [
             'text' => ' Agenda',
             'url'  => 'admin/agenda',
             'icon' => 'far fa-calendar-alt',
+            'can'  => 'ver-agenda',
         ],
 
       
@@ -390,29 +404,35 @@ return [
             'text' => 'Orgão',
             'url'  => 'admin/tenants',
             'icon' => 'fas fa-university',
+            'can'  => 'ver-orgao',
             
         ],
         [
             'text' => 'Secretarias',
             'url'  => 'admin/secretaries',
             'icon' => 'fas fa-table',
+            'can'  => 'ver-secretaria',
         ],
         [
             'text' => 'Categorias',
             'url'  => 'admin/categorias',
             'icon' => 'fas fa-list',
+            'can'  => 'ver-categoria',
         ],
         [
             'text' => 'Partidos',
             'url'  => 'admin/parties',
             'icon' => 'fas fa-ad',
+            'can'  => 'ver-partido',
+            
         ],
         [
             'text' => 'Funções',
             'url'  => 'admin/functions',
             'icon' => 'fas fa-plus-square',
+            'can'  => 'ver-funcoes',
         ],
-
+        ['header' => 'CONFIGURAÇÕES'],
         [
             'text'    => 'Layout',
             'icon'    => 'fas fa-layer-group', 

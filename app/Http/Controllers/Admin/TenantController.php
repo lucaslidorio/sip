@@ -17,6 +17,7 @@ class TenantController extends Controller
     }
     public function index()
     {
+        $this->authorize('ver-orgao');
         $tenants = $this->repository->paginate();
         return view('admin.pages.tenants.index', compact('tenants'));
     }
@@ -24,13 +25,14 @@ class TenantController extends Controller
    
     public function create()
     {
+        $this->authorize('novo-orgao');
         return view('admin.pages.tenants.create');   
     }
 
     
     public function store(Request $request)
     {
-        
+        $this->authorize('novo-orgao');
         $dadosTenant = new Tenant();
         //Pega os dados dos input especificos do post
         $dadosTenant = $request->all();
@@ -52,6 +54,7 @@ class TenantController extends Controller
   
     public function show($id)
     {
+        $this->authorize('ver-orgao');
         $tenant = $this->repository->where('id', $id)->first();
 
         if(!$tenant)
@@ -65,7 +68,7 @@ class TenantController extends Controller
     
     public function edit($id)
     {
-        
+        $this->authorize('editar-orgao');
         $tenant = $this->repository->where('id', $id)->first();
         
         if(!$tenant){
@@ -80,6 +83,7 @@ class TenantController extends Controller
     
     public function update(Request $request, $id)
     {
+        $this->authorize('editar-orgao');
          //recupera o post pelo id 
          $tenant  = $this->repository->where('id', $id)->first();
          if(!$tenant){

@@ -16,6 +16,7 @@ class CitizenLetterController extends Controller
    }
     public function index()
     {    
+        $this->authorize('ver-carta-cidadao');
         $citizenLetters = $this->repository->paginate(10);
         return view('admin.pages.citizenLetters.index', compact('citizenLetters'));
     }
@@ -27,6 +28,7 @@ class CitizenLetterController extends Controller
      */
     public function create()
     {
+        $this->authorize('nova-carta-cidadao');
         return view('admin.pages.citizenLetters.create');
     }
 
@@ -38,6 +40,7 @@ class CitizenLetterController extends Controller
      */
     public function store(StoreUpdateCitizenLetter $request)
     {
+        $this->authorize('nova-carta-cidadao');
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
         return redirect()->back();
@@ -51,6 +54,7 @@ class CitizenLetterController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('ver-carta-cidadao');
         $citizenLetter = $this->repository->where('id', $id)->first();
 
         if(!$citizenLetter)
@@ -69,6 +73,7 @@ class CitizenLetterController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-carta-cidadao');
         $citizenLetter  = $this->repository->where('id', $id)->first();
         if(!$citizenLetter){
             redirect()->back();
@@ -85,6 +90,7 @@ class CitizenLetterController extends Controller
      */
     public function update(StoreUpdateCitizenLetter $request, $id)
     {
+        $this->authorize('editar-carta-cidadao');
         $citizenLetter  = $this->repository->where('id', $id)->first();
         if(!$citizenLetter){
             redirect()->back();
@@ -102,6 +108,7 @@ class CitizenLetterController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-carta-cidadao');
         $citizenLetter = $this->repository->where('id', $id)->first();
 
         if(!$citizenLetter){

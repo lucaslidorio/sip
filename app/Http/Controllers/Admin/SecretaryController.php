@@ -17,6 +17,7 @@ class SecretaryController extends Controller
     
     public function index()
     {
+        $this->authorize('ver-secretaria');
         $secretaries = $this->repository->orderBy('situacao','DESC')->paginate(10);
         return view('admin.pages.secretaries.index', compact('secretaries'));
     }
@@ -28,6 +29,7 @@ class SecretaryController extends Controller
      */
     public function create()
     {
+        $this->authorize('nova-secretaria');
         return view('admin.pages.secretaries.create');
     }
 
@@ -39,7 +41,7 @@ class SecretaryController extends Controller
      */
     public function store(StoreUpadateSecretary $request)
     {
-        
+        $this->authorize('nova-secretaria');
         $this->repository->create($request->all());
         
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
@@ -56,6 +58,7 @@ class SecretaryController extends Controller
      */
     public function show($id )
     {
+        $this->authorize('ver-secretaria');
         $secretary = $this->repository->where('id', $id)->first();
 
         if(!$secretary)
@@ -74,6 +77,7 @@ class SecretaryController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-secretaria');
         $secretary = $this->repository->where('id', $id)->first();
 
         if(!$secretary){
@@ -93,6 +97,7 @@ class SecretaryController extends Controller
      */
     public function update(StoreUpadateSecretary $request, $id)
     {
+        $this->authorize('editar-secretaria');
         $secretary  = $this->repository->where('id', $id)->first();
         if(!$secretary){
             redirect()->back();
@@ -110,6 +115,7 @@ class SecretaryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-secretaria');
         $secretary = $this->repository->where('id', $id)->first();
 
         if(!$secretary){

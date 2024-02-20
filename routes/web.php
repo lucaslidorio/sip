@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
+use App\Http\Controllers\admin\acl\ProfileUserController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
@@ -48,6 +49,11 @@ Route::middleware(['auth'])->group(function () {
             ->namespace('Admin')                
             ->group(function () {             
                 
+                // Route::get('teste-acl', function(){
+                //     dd(auth()->user()->permissions());
+                // });
+
+
                 Route::prefix('legislativo')
                     ->namespace('Legislativo')
                     ->group(function(){                     
@@ -332,6 +338,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get( 'profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
             Route::get( 'permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
 
+
+             //Rotas de Perfil X usuários
+             Route::get( 'profile/{id}/users/{idUser}/detach', [ProfileUserController::class, 'detachProfileUser'])->name('profile.users.detach');
+             Route::post('profile/{id}/users', [ProfileUserController::class, 'attachProfileUser'])->name('profile.users.attach');
+             Route::any( 'profile/{id}/users/create', [ProfileUserController::class, 'usersAvailable'])->name('profile.users.available');
+             Route::get( 'profiles/{id}/users', [ProfileUserController::class, 'users'])->name('profiles.users');
+             Route::get( 'users/{id}/profile', [ProfileUserController::class, 'profiles'])->name('permissions.profiles');
+ 
 
 
             //Rotas de Categorias

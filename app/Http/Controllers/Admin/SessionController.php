@@ -17,6 +17,7 @@ use App\Models\Session;
 use App\Models\TypeDocument;
 use App\Models\TypeSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class SessionController extends Controller
@@ -53,7 +54,7 @@ class SessionController extends Controller
     }
     public function index(Request $request)
     {
-
+        $this->authorize('ver-sessao');
         
         $types_session = $this->type_session->get();
         $periods = $this->period->get();
@@ -91,6 +92,7 @@ class SessionController extends Controller
 
     public function create()
     {
+        $this->authorize('nova-sessao');
         $types_session = $this->type_session->get();
         $legislatures = $this->legislature->get();
         $sections = $this->legislature_section->get();
@@ -113,7 +115,7 @@ class SessionController extends Controller
      */
     public function store(StoreUpdateSession $request)
     {
-         
+        $this->authorize('nova-sessao');
         $dados = $request->all();         
         $dados['user_id'] = auth()->user()->id;        
         $this->repository->create($dados);
@@ -131,6 +133,7 @@ class SessionController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('ver-sessao');
         $session = $this->repository->where('id', $id)->first();
         $anexosSessao =$this->attachment_session->where('session_id', $id)->get(); 
         $councilors = $session->legislature->councilors;
@@ -154,6 +157,7 @@ class SessionController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-sessao');
         $session = $this->repository->where('id', $id)->first();
         $types_session = $this->type_session->get();
         $legislatures = $this->legislature->get();
@@ -185,6 +189,7 @@ class SessionController extends Controller
      */
     public function update(StoreUpdateSession $request, $id)
     {
+        $this->authorize('editar-sessao');
         $session  = $this->repository->where('id', $id)->first();
         if(!$session){
             redirect()->back();
@@ -208,6 +213,7 @@ class SessionController extends Controller
     }
 
     public function createAttachment ($id){
+        $this->authorize('nova-sessao');
         $session = $this->repository->where('id', $id)->first();
         if(!$session){
             return redirect()->back();                       
@@ -224,7 +230,7 @@ class SessionController extends Controller
     }
 
     public function storeAttachment (StoreUpdateAttachmentSession $request){
-
+        $this->authorize('nova-sessao');
         $anexo= new AttachmentSession();
 
         $anexoSessao = $request->only('session_id', 'type_document_id', 'descricao', 'anexo');
@@ -243,6 +249,7 @@ class SessionController extends Controller
 
     public function deleteAttachment($id)
     {
+        $this->authorize('excluir-sessao');
         //Recupera a anexo pelo id
         $anexo = AttachmentSession::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe no storage, e deleta do storage
@@ -256,6 +263,7 @@ class SessionController extends Controller
     }
 
     public function createPresentCouncilor($id){
+        $this->authorize('nova-sessao');
         $session = $this->repository->where('id', $id)->first();
         if(!$session){
             return redirect()->back();                       
@@ -272,6 +280,7 @@ class SessionController extends Controller
     }
     public function storePresentCouncilor(Request $request, $id){      
        
+        $this->authorize('nova-sessao');
         $presentSession = $this->repository->where('id', $id)->first();      
         $request->only('councilors'); 
         if($request->councilors){
@@ -287,6 +296,7 @@ class SessionController extends Controller
 
     public function editPresentCouncilor(Request $request, $id){      
        
+        $this->authorize('editar-sessao');
         $session = $this->repository->where('id', $id)->first();
         if(!$session){
             return redirect()->back();                       
@@ -302,6 +312,7 @@ class SessionController extends Controller
         ]);
     }
         public function updatePresentCouncilor(Request $request, $id){
+            $this->authorize('editar-sessao');
             $presentSession = $this->repository->where('id', $id)->first();      
             $request->only('councilors'); 
             if($request->councilors){

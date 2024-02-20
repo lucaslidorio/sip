@@ -29,12 +29,14 @@ class DirectorTableController extends Controller
     }
     public function index()
     {
+        $this->authorize('ver-mesa-diretora');
         $directorTables = $this->repository->paginate(10);
         return view('admin.pages.directorTables.index', compact('directorTables'));
     }
  
     public function create()
     {
+        $this->authorize('nova-mesa-diretora');
         $bienniuns = $this->biennium->orderBy('id', 'DESC')->get();   
        
         return view('admin.pages.directorTables.create', compact('bienniuns'));
@@ -48,6 +50,7 @@ class DirectorTableController extends Controller
      */
     public function store(StoreUpdateDirectorTable $request)
     {
+        $this->authorize('nova-mesa-diretora');
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
         return redirect()->back();
@@ -60,6 +63,7 @@ class DirectorTableController extends Controller
    
     public function edit($id)
     {
+        $this->authorize('editar-mesa-diretora');
         $bienniuns = $this->biennium->orderBy('id', 'DESC')->get(); 
         $directorTable = $this->repository->where('id', $id)->first();
        if (!$directorTable) {
@@ -71,6 +75,7 @@ class DirectorTableController extends Controller
 
        public function update(StoreUpdateDirectorTable $request, $id)
     {
+        $this->authorize('editar-mesa-diretora');
         $directorTable = $this->repository->where('id', $id)->first();
         
         if (!$directorTable) {
@@ -85,7 +90,7 @@ class DirectorTableController extends Controller
    
     public function destroy($id)
     {
-        
+        $this->authorize('excluir-mesa-diretora');
         $directorTable = $this->repository->where('id', $id)->first();
         
         if (!$directorTable) {
@@ -100,6 +105,7 @@ class DirectorTableController extends Controller
     
     public function search (Request $request){
 
+        $this->authorize('ver-mesa-diretora');
         $pesquisar = $request->except('_token');
         $directorTable = $this->repository->search($request->pesquisa);
 
@@ -112,7 +118,7 @@ class DirectorTableController extends Controller
 
     //Inicio do crud de membros das comissões
     public function members($id){
-               
+        $this->authorize('ver-mesa-diretora');
         $dataTable= DirectorTableMemberFunctions::with('members', 'functions')->where('director_table_id', $id)->get();          
         $directorTable = $this->repository->where('id', $id)->first();
          
@@ -123,7 +129,7 @@ class DirectorTableController extends Controller
      ]);
     }
     public function membersCreate($id){
-        
+        $this->authorize('nova-mesa-diretora');
         $directorTable = $this->repository->where('id', $id)->first();
         $councilors = $this->councilor->get();
         $functions = $this->function->get();
@@ -136,6 +142,7 @@ class DirectorTableController extends Controller
     }
 
     public function membersStore(StoreUpdateDirectorTableMemberFunctions $request, $id){
+        $this->authorize('nova-mesa-diretora');
         $directorTable = $this->repository->where('id', $id)->first();   
     
        $directorTableMembersfunctions = new DirectorTableMemberFunctions();
@@ -146,7 +153,7 @@ class DirectorTableController extends Controller
     }
 
     public  function membersDestroy($id){
-
+        $this->authorize('excluir-mesa-diretora');
         $directorTableMember =$this->directorTableMemberFunctions->where('id', $id)->first();             
        
         //dd($memberFunction);

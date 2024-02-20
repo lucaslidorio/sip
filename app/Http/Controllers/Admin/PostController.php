@@ -12,6 +12,7 @@ use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -25,6 +26,8 @@ class PostController extends Controller
     }
     public function index()
     {
+        //$this->authorize('ver-post');
+        $this->authorize('ver-post');
         $posts = $this->repository->latest()->paginate(10);       
         return view('admin.pages.posts.index', compact('posts'));   
     }
@@ -36,6 +39,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('novo-post');
         $secretaries = $this->secretary->all();      
         $categories = $this->category->all();
                 
@@ -44,7 +48,7 @@ class PostController extends Controller
     
     public function store(StoreUpdatePost $request)
     {         
-       
+        $this->authorize('novo-post');
         $dadosPost = new Post();
         //Pega os dados dos input especificos do post
         $dadosPost = $request->only('titulo','data_expiracao','secretary_id', 'conteudo', 'img_destaque', 'destaque');
@@ -94,6 +98,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('ver-post');
         $post = $this->repository->where('id', $id)->first();
 
         if(!$post)
@@ -106,6 +111,7 @@ class PostController extends Controller
   
     public function edit($id)
     {
+        $this->authorize('editar-post');
         $post = $this->repository->where('id', $id)->first();
         $secretaries = $this->secretary->all();
         $categories = $this->category->all();     
@@ -121,6 +127,7 @@ class PostController extends Controller
 
     public function update(StoreUpdatePost $request, $id)
     {       
+        $this->authorize('editar-post');
         //recupera o post pelo id 
         $post  = $this->repository->where('id', $id)->first();
         if(!$post){
@@ -170,6 +177,7 @@ class PostController extends Controller
     //Metodo para remover a imagem de galeria do post
     public function removeImage($id)
     {
+        $this->authorize('editar-post');
         //Recupera a imagem pelo id
         $imagem = PostImg::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe o storage, e deleta do storage
@@ -185,6 +193,7 @@ class PostController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('excluir-post');
         //recupera o post pelo id
         $post  = $this->repository->where('id', $id)->first();
         if(!$post){
@@ -212,6 +221,7 @@ class PostController extends Controller
 
     public function search (Request $request){
 
+        $this->authorize('ver-post');
         $pesquisar = $request->except('_token');
         $posts = $this->repository->search($request->pesquisa);
 

@@ -37,6 +37,7 @@ class SeemCommissionController extends Controller
     }
     public function index(Request $request)
     {   
+        $this->authorize('ver-parecer');
         $commissions =  $this->commission::get();
         //$seemCommissions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);
         $filters = $request->except('_token');
@@ -72,6 +73,7 @@ class SeemCommissionController extends Controller
      */
     public function create()
     {
+        $this->authorize('novo-parecer');
         $type_documents = $this->type_document->get();
         $propositions =$this->proposition->get();
         $commissions =  $this->commission->get();   
@@ -92,7 +94,7 @@ class SeemCommissionController extends Controller
      */
     public function store(StoreUpdateSeemCommission $request)
     {
-               
+        $this->authorize('novo-parecer');          
         $dadosSeemCommission= new SeemCommission();
         $dadosSeemCommission = $request->except('anexo', 'type_document_id');  
         $user = auth()->user();
@@ -129,6 +131,7 @@ class SeemCommissionController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('ver-parecer');
         $seemCommission = $this->repository->where('id', $id)->first();
 
         if(!$seemCommission)
@@ -147,7 +150,8 @@ class SeemCommissionController extends Controller
      */
     public function edit($id)
     {
-        
+        $this->authorize('editar-parecer');
+
         $seemCommission = $this->repository->where('id', $id)->first();
         if (!$seemCommission) {
             return redirect()->back();
@@ -173,6 +177,7 @@ class SeemCommissionController extends Controller
      */
     public function update(StoreUpdateSeemCommission $request, $id)
     {
+        $this->authorize('editar-parecer');
         $seemCommission = $this->repository->where('id', $id)->first();
         if (!$seemCommission) {
             return redirect()->back();
@@ -210,6 +215,7 @@ class SeemCommissionController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-parecer');
         //recupera o registro pelo id
         $seemCommission  = $this->repository->where('id', $id)->first();
         if(!$seemCommission){
@@ -231,6 +237,7 @@ class SeemCommissionController extends Controller
     }
     public function deleteAttachment($id)
     {
+        $this->authorize('excluir-parecer');
         //Recupera a anexo pelo id
         $anexo = AttachmentSeemCommission::where('id', $id)->first();
         //Verifica se pelo nome, se ela existe no storage, e deleta do storage

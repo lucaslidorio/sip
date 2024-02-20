@@ -28,6 +28,7 @@ class CommissionController extends Controller
    
     public function index()
     {
+        $this->authorize('ver-comissao');
         $commissions = $this->repository->paginate(10);
         return view('admin.pages.commissions.index', compact('commissions'));
      
@@ -36,12 +37,14 @@ class CommissionController extends Controller
     
     public function create()
     {
+        $this->authorize('nova-comissao');
         return view('admin.pages.commissions.create');
     }
 
   
     public function store(StoreUpdateCommission $request)
     {
+        $this->authorize('nova-comissao');
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
         return redirect()->back();
@@ -54,6 +57,7 @@ class CommissionController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('editar-comissao');
        $commission = $this->repository->where('id', $id)->first();
        if (!$commission) {
            redirect()->back();
@@ -64,6 +68,7 @@ class CommissionController extends Controller
   
     public function update(StoreUpdateCommission $request, $id)
     {
+        $this->authorize('editar-comissao');
         $commission = $this->repository->where('id', $id)->first();
         
         if (!$commission) {
@@ -78,6 +83,7 @@ class CommissionController extends Controller
    
     public function destroy($id)
     {
+        $this->authorize('excluir-comissao');
         $commission = $this->repository->where('id', $id)->first();
         
         if (!$commission) {
@@ -91,6 +97,7 @@ class CommissionController extends Controller
 
 
     public function search (Request $request){
+        $this->authorize('ver-comissao');
 
         $pesquisar = $request->except('_token');
         $commissions = $this->repository->search($request->pesquisa);
@@ -103,7 +110,7 @@ class CommissionController extends Controller
 
     //Inicio do crud de membros das comissões
     public function members($id){
-        
+        $this->authorize('ver-comissao');
         $dataCommission= CommissionMembers::with('members', 'functions')->where('commission_id', $id)->get();          
         
         $commission = $this->repository->where('id', $id)->first();
@@ -115,7 +122,7 @@ class CommissionController extends Controller
      ]);
     }
     public function membersCreate($id){
-        
+        $this->authorize('nova-comissao');
         $commission = $this->repository->where('id', $id)->first();
         $councilors = $this->councilor->get();
         $functions = $this->function->get();
@@ -128,6 +135,7 @@ class CommissionController extends Controller
     }
 
     public function membersStore(StoreUpdateCommissonMembers $request, $id){
+        $this->authorize('nova-comissao');
         $commission = $this->repository->where('id', $id)->first();
     
     
@@ -141,6 +149,7 @@ class CommissionController extends Controller
 
     public  function membersDestroy($id){
 
+        $this->authorize('excluir-comissao');
         $memberFunction =$this->commissionMembers->where('id', $id)->first();
                
        
