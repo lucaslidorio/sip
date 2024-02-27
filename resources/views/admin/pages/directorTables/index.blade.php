@@ -28,10 +28,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
+            @can('nova-mesa-diretora')
             <a href="{{route('directorTables.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova mesa" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan
+            
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -74,25 +76,32 @@
               <td>{{$directorTable->biennium->descricao}}</td>
               <td>{{$directorTable->atual == 1 ? 'Ativo' : 'Inativo'}}</td>
               
-                <td class="text-center">                  
+                <td class="text-center">                 
+                  @can('ver-mesa-diretora')
                   <a href="{{route('directorTableMembers.index', $directorTable->id )}}" data-id="{{$directorTable->id}}"
                     class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                     title="Membros">
                     <i class="fas fa-users" ></i>
                   </a> 
+                  @endcan 
                   
+                  @can('editar-mesa-diretora')
                   <a href="{{route('directorTables.edit', $directorTable->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
-
-
+                  @endcan 
+                  
+                  @can('excluir-mesa-diretora')
                   <a href="{{route('directorTables.destroy', $directorTable->id)}}" data-id="{{$directorTable->id}}"
                     class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                     title="Excluir">
                     <i class="fas fa-trash-alt" ></i>
-                  </a>                
+                  </a>
+                  @endcan 
+
+                                  
               </td>
             </tr>
             @endforeach

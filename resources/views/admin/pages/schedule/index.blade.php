@@ -266,9 +266,16 @@
         
       </div>
       <div class="modal-footer">
-        <button id="btnSalvar" class="btn btn-primary">Salvar</button>
+        @can('nova-agenda')
+        <button id="btnSalvar" class="btn btn-primary">Salvar</button> 
+        @endcan
+        @can('editar-agenda')
         <button id="btnAlterar" class="btn btn-warning">Alterar</button>
+        @endcan
+        @can('excluir-agenda')
         <button id="btnExcluir" class="btn btn-danger">Excluir</button>
+        @endcan
+        
         <button id="btnCancelar" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
         
       </div>

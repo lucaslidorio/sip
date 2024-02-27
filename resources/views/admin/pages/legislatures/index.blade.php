@@ -76,17 +76,22 @@
             <td>{{$legislature->atual == 1 ? 'Sim' : 'Não'}}</td>
             
               <td class="text-center">
+                @can('ver-legislatura')
                 <a href="{{route('legislatures.show', $legislature->id)}}" data-id="{{$legislature->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>
                 </a>
-
-              <a href="{{route('legislatureCouncilors.index', $legislature->id )}}" data-id="{{$legislature->id}}"
-                class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                title="Vereadores">
-                <i class="fas fa-users" ></i>
-              </a>
+                @endcan
+                
+                @can('ver-vereador')
+                <a href="{{route('legislatureCouncilors.index', $legislature->id )}}" data-id="{{$legislature->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  title="Vereadores">
+                  <i class="fas fa-users" ></i>
+                </a>
+                @endcan
+              
 
               {{-- <a href="{{route('legislatures.destroy', $legislature->id)}}" data-id="{{$legislature->id}}"
                 class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  

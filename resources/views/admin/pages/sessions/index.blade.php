@@ -29,9 +29,11 @@
         <div class="row">
           <div class="col-md-2">            
             <div class="input-group input-group-sm"> 
+            @can('nova-sessao')
             <a href="{{route('sessions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Publicar nova sessão" >
             <i  class="fas fa-plus"></i> Novo</a>
+            @endcan
             </div>
           </div>
           <div class="col-md-10">
@@ -122,44 +124,59 @@
                          
               <td>{{$sessao->legislature->descricao}} </td>  
               <td class="text-center">
+                @can('ver-sessao')
                 <a target="__blank" href="{{$sessao->link_transmissao}}"
                   class="btn  bg-gradient-warning btn-flat mt-0 {{$sessao->link_transmissao ? '' : 'disabled'}}" data-toggle="tooltip" data-placement="top"  
                   title="Assistir Transmissão">
                   <i class="fas fa-play "></i>               
-                </a>               
-
+                </a>
+                @endcan
+                               
+                @can('ver-sessao')
                 <a href="{{route('sessions.show', $sessao->id)}}" data-id="{{$sessao->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">                
                   <i class="far fa-eye"></i>
                 </a>
-
+                @endcan
+                
+                @can('editar-sessao')
                 <a href="{{route('sessions.edit', $sessao->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
-               
+                @endcan
+                
+                @can('editar-sessao')
                 <a href="{{route('sessionAttachmentCreate.create', $sessao->id)}}" data-id="{{$sessao->id}}"
                   class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Anexar Arquivos">
                   <i class="fas fa-paperclip" ></i>
                 </a>
+                @endcan
+                
 
                 
                  @if ($sessao->councilors_present()->count() > 0)
-                <a href="{{route('sessionPresentEdit.edit', $sessao->id)}}" data-id="{{$sessao->id}}"
+                 @can('editar-sessao')
+                 <a href="{{route('sessionPresentEdit.edit', $sessao->id)}}" data-id="{{$sessao->id}}"
                   class="btn  bg-gradient-secondary btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Editar presença">
                   <i class="fas fa-user-tie" ></i>
                 </a>
+                 @endcan
+                
                     
                 @else
+                @can('editar-sessao')
                 <a href="{{route('sessionPresentCreate.create', $sessao->id)}}" data-id="{{$sessao->id}}"
                   class="btn  bg-gradient-dark btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Lançar presença">
                   <i class="fas fa-user-tie" ></i>
                 </a>
+                @endcan
+                
                 @endif 
                 
                

@@ -29,10 +29,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
+            @can('nova-carta-cidadao')
             <a href="{{route('citizenLetters.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova carta" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan
+            
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -57,9 +59,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Titulo</th>           
-             
-                          
+              <th>Titulo</th>            
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
@@ -70,22 +70,30 @@
               <td>{{$citizenLetter->titulo}}</td>              
                             
                 <td class="text-center">
+                  @can('ver-carta-cidadao')
                   <a href="{{route('citizenLetters.show', $citizenLetter->id)}}" data-id="{{$citizenLetter->id}}"
                     class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                     title="Ver Detalhes">
                     <i class="far fa-eye"></i>
                   </a>
+                  @endcan
+                  
+                  @can('editar-carta-cidadao')
                   <a href="{{route('citizenLetters.edit', $citizenLetter->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
+                  @endcan
                   
-                <a href="{{route('citizenLetters.destroy', $citizenLetter->id)}}" data-id="{{$citizenLetter->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                </a>
+                  @can('excluir-carta-cidadao')
+                  <a href="{{route('citizenLetters.destroy', $citizenLetter->id)}}" data-id="{{$citizenLetter->id}}"
+                    class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Excluir">
+                    <i class="fas fa-trash-alt" ></i>
+                  </a>
+                  @endcan
+                
               </td>
             </tr>
             @endforeach

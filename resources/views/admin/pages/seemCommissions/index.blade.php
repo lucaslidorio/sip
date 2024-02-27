@@ -27,10 +27,13 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-3">            
+          <div class="col-md-3"> 
+            @can('novo-parecer')
             <a href="{{route('seemCommissions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova propositura" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan           
+            
           </div>
           <div class="col-md-9">
             <form action="{{route('seemCommissions.index')}}" method="get" class="form form-inline">
@@ -127,24 +130,31 @@
               </td> 
 
                 <td class="text-center">
-                  
-                <a href="{{route('seemCommissions.show', $seemCommission->id)}}" data-id="{{$seemCommission->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Ver Detalhes">
-                  <i class="fas fa-address-book" ></i>
-                </a>
+                @can('ver-parecer')
+                  <a href="{{route('seemCommissions.show', $seemCommission->id)}}" data-id="{{$seemCommission->id}}"
+                    class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Ver Detalhes">
+                    <i class="fas fa-address-book" ></i>
+                  </a>
+                @endcan
+                
 
+                @can('editar-parecer')
                 <a href="{{route('seemCommissions.edit', $seemCommission->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
-                </a>
-
+                </a>  
+                @endcan
+                
+                @can('excluir-parecer')
                 <a href="{{route('seemCommissions.destroy', $seemCommission->id)}}" data-id="{{$seemCommission->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
+                @endcan
+                
                 
               </td>
             </tr>

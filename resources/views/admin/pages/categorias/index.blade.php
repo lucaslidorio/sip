@@ -26,10 +26,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
+            @can('nova-categoria')
             <a href="{{route('categorias.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova categoria" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan
+            
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -68,17 +70,21 @@
               <td>{{$categoria->url}}</td>
               <td>{{$categoria->descricao}}</td>
               <td class="text-center">
+                @can('editar-categoria')
                 <a href="{{route('categorias.edit', $categoria->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
-
+                @endcan                
+                @can('excluir-categoria')
                 <a href="{{route('categorias.destroy', $categoria->id)}}" data-id="{{$categoria->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
+                @endcan
+                
               </td>
             </tr>
             @endforeach

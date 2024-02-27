@@ -29,10 +29,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
+            @can('nova-vereador')
             <a href="{{route('councilors.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar novo vereador" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan
+            
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -79,23 +81,30 @@
               <td>{{$councilor->atual == 1 ? 'Sim':'Não'}}
                 
                 <td class="text-center text-nowrap" >
+                  @can('ver-vereador')
                   <a href="{{route('councilors.show', $councilor->id)}}" data-id="{{$councilor->id}}"
                     class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                     title="Ver Detalhes">
                     <i class="far fa-eye"></i>
                   </a>
-
+                  @endcan
+                  
+                  @can('editar-vereador')
                   <a href="{{route('councilors.edit', $councilor->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
+                  @endcan
                   
+                  @can('excluir-vereador')
                   <a href="{{route('councilors.destroy', $councilor->id)}}" data-id="{{$councilor->id}}"
                     class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                     title="Excluir">
                     <i class="fas fa-trash-alt" ></i>
                   </a>
+                  @endcan
+                  
                 
               </td>
             </tr>

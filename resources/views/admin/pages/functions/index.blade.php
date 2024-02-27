@@ -27,10 +27,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
+            @can('nova-funcoes')
             <a href="{{route('functions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova função" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan
+            
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -70,17 +72,22 @@
               <td>{{$function->descricao}}</td>
               
                 <td class="text-center">
-                <a href="{{route('functions.edit', $function->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>
-
+                  @can('editar-funcoes')
+                  <a href="{{route('functions.edit', $function->id)}}" 
+                    class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
+                    title="Editar">
+                    <i class="fas fa-edit" ></i>
+                  </a>
+                  @endcan
+                @can('excluir-funcoes')
                 <a href="{{route('functions.destroy', $function->id)}}" data-id="{{$function->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
+                @endcan
+
+                
               </td>
             </tr>
             @endforeach

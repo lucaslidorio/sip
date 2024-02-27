@@ -27,10 +27,12 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-3">            
+          <div class="col-md-3">
+            @can('nova-propositura')                         
             <a href="{{route('propositions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar nova propositura" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan 
           </div>
           <div class="col-md-9">            
                 <form action="{{route('propositions.index')}}" method="get" class="form form-inline">
@@ -125,12 +127,15 @@
                 @endforeach
                 
               </td>  
-              <td>               
-                 <button type="button" class="btn btn-outline-info popover-dismiss" 
-                  data-container="body" data-toggle="popover" data-placement="top" 
-                  data-content="{{$proposition->descricao}}">
-                    Ver
-                 </button> 
+              <td> 
+                @can('ver-propositura')
+                <button type="button" class="btn btn-outline-info popover-dismiss" 
+                data-container="body" data-toggle="popover" data-placement="top" 
+                data-content="{{$proposition->descricao}}">
+                  Ver
+               </button>
+                @endcan              
+                  
               </td>            
               <td>                
                   @foreach ($proposition->attachments as $attachment)                   
@@ -144,11 +149,14 @@
               </td> 
 
                 <td class="text-center">
+                @can('editar-propositura')
                 <a href="{{route('propositions.edit', $proposition->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
+                @endcan
+                
 
                 {{-- <a href="{{route('propositions.show', $proposition->id)}}" data-id="{{$proposition->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
@@ -156,11 +164,14 @@
                   <i class="fas fa-address-book" ></i>
                 </a> --}}
 
+                @can('excluir-propositura')
                 <a href="{{route('propositions.destroy', $proposition->id)}}" data-id="{{$proposition->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
+                @endcan
+                
                 
               </td>
             </tr>

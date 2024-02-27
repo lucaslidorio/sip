@@ -343,6 +343,12 @@ return [
             'can' => 'ver-ouvidoria',
             
         ], 
+        [
+            'text' => ' Agenda',
+            'url'  => 'admin/agenda',
+            'icon' => 'far fa-calendar-alt',
+            'can'  => 'ver-agenda',
+        ],
         
         
         ['header' => 'LEGISLATIVO'],
@@ -389,14 +395,9 @@ return [
             'text' => 'Mesa Diretora',
             'url'  => 'admin/directorTables',
             'icon' => 'fas fa-tablets',
-            'can'  => 'nova-mesa-diretora',
+            'can'  => 'ver-mesa-diretora',
         ],
-        [
-            'text' => ' Agenda',
-            'url'  => 'admin/agenda',
-            'icon' => 'far fa-calendar-alt',
-            'can'  => 'ver-agenda',
-        ],
+        
 
       
         ['header' => 'ADMINISTRAÇÃO'],

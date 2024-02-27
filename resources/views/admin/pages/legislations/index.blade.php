@@ -27,10 +27,11 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
+            @can('nova-legislacao')
             <a href="{{route('legislations.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Publicar nova lei" ><i
                 class="fas fa-plus"></i> Novo</a>
+            @endcan
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -85,25 +86,31 @@
               </td> 
 
                 <td class="text-center">
-                  
+                @can('ver-legislacao')
                 <a href="{{route('legislations.show', $legislation->id)}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>
-                </a>
-
+                </a> 
+                @endcan
+                
+                @can('editar-legislacao')
                 <a href="{{route('legislations.edit', $legislation->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
+                @endcan
+                
 
-
+                @can('excluir-legislacao')
                 <a href="{{route('legislations.destroy', $legislation->id)}}" data-id="{{$legislation->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
+                @endcan
+                
                 
               </td>
             </tr>

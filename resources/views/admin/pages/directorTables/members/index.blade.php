@@ -7,10 +7,10 @@
   <div class="row mb-2">
     <div class="col-sm-6">
       <h1>Membros da Mesa diretora - <strong>
-       {{$directorTable->nome}}
-      </strong></h1>
-       
-      
+          {{$directorTable->nome}}
+        </strong></h1>
+
+
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
@@ -32,17 +32,20 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
-            <a href="{{route('directorTablesCreate.create', $directorTable->id )}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Adicionar novo membro" ><i
-                class="fas fa-plus"></i> Novo</a>
+            @can('editar-mesa-diretora')
+            <a href="{{route('directorTablesCreate.create', $directorTable->id )}}" class="btn bg-gradient-success  "
+              data-toggle="tooltip" data-placement="top" title="Adicionar novo membro"><i class="fas fa-plus"></i>
+              Novo</a>
+            @endcan
+
           </div>
           <div class="col-md-4">
             <div class="card-tools">
               <form action="#" method="post" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
-                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Objetivo" disabled>
+                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Objetivo"
+                    disabled>
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                   </div>
@@ -52,58 +55,61 @@
           </div>
         </div>
       </div>
-     
-   
+
+
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
         <table class="table table-hover">
           <thead>
-            <tr>             
-              <th>Membros</th>              
+            <tr>
+              <th>Membros</th>
               <th>Partido</th>
-              <th>Função </th>                                     
+              <th>Função </th>
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
-          <tbody>    
+          <tbody>
             @if (count($dataTable) >= 1)
-              @foreach ($dataTable as $dados)
-              <tr>                
-                <td>{{$dados->members->nome}}</td>              
-                <td>{{$dados->members->party->sigla}}</td>
-                <td>{{$dados->functions->nome}}</td>          
-                <td class="text-center">                  
-                      <a href="{{route('directorTablesDestroy.destroy',$dados->id )}}" data-id="{{$dados->id}}"
-                        class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                        title="Remover">
-                        <i class="fas fa-trash-alt" ></i>
-                      </a>                    
-                </td>   
-              </tr>              
-              @endforeach       
-           @else
-            <tr >
-                <td colspan="4">
-                  <div class="alert alert-info alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-info"></i> Atenção</h5>
-                     Ainda não existe membros adicionado para essa mesa diretora!
-                        clique no botão "NOVO" no canto superior esquerdo para adicionar um novo membro membros
-                  </div>
-                </td>
-              </tr>
+            @foreach ($dataTable as $dados)
+            <tr>
+              <td>{{$dados->members->nome}}</td>
+              <td>{{$dados->members->party->sigla}}</td>
+              <td>{{$dados->functions->nome}}</td>
+              <td class="text-center">
+                @can('editar-mesa-diretora')
+                <a href="{{route('directorTablesDestroy.destroy',$dados->id )}}" data-id="{{$dados->id}}"
+                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip"
+                  data-placement="top" title="Remover">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+                @endcan
+                
+              </td>
+            </tr>
+            @endforeach
+            @else
+            <tr>
+              <td colspan="4">
+                <div class="alert alert-info alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h5><i class="icon fas fa-info"></i> Atenção</h5>
+                  Ainda não existe membros adicionado para essa mesa diretora!
+                  clique no botão "NOVO" no canto superior esquerdo para adicionar um novo membro membros
+                </div>
+              </td>
+            </tr>
             @endif
-                        
-              
-              
-                             
-            
-        </tbody>
+
+
+
+
+
+          </tbody>
         </table>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-     
+
       </div>
     </div>
     <!-- /.card -->

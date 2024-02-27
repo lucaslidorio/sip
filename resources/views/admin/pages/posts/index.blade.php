@@ -29,10 +29,11 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            
-            <a href="{{route('posts.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar novo Post" ><i
-                class="fas fa-plus"></i> Novo</a>
+            @can('novo-post')
+            <a href="{{route('posts.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip"
+              data-placement="top" title="Cadastrar novo Post"><i class="fas fa-plus"></i> Novo</a>
+            @endcan
+
           </div>
           <div class="col-md-4">
             <div class="card-tools">
@@ -47,61 +48,62 @@
               </form>
             </div>
           </div>
-        </div> 
+        </div>
 
       </div>
-     
-   
+
+
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Titulo</th>             
+              <th>Titulo</th>
               <th>Secretaria</th>
               <th>Data Publicação</th>
               <th>Data Expiração</th>
               <th>Categorias</th>
               <th>Postado Por</th>
-                          
+
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($posts as $post)
-      
+
             <tr>
-              <td>{{$post->titulo}}</td>             
-             
+              <td>{{$post->titulo}}</td>
+
               <td>{{$post->secretary->sigla}}</td>
               <td>{{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</td>
               <td>{{\Carbon\Carbon::parse($post->data_expiracao)->format('d/m/Y') }}</td>
-              <td>  
-                @foreach ($post->categories as $category)  
-                  <p> {{$category->nome}}</p>
+              <td>
+                @foreach ($post->categories as $category)
+                <p> {{$category->nome}}</p>
                 @endforeach
               </td>
               <td>{{$post->user->name}}</td>
               <td class="text-center">
-                
+                @can('ver-post')
                 <a href="{{route('posts.show', $post->id)}}" data-id="{{$post->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                  class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>
+                </a>                  
+                @endcan                
+                @can('editar-post')
+                <a href="{{route('posts.edit', $post->id)}}" class="btn  bg-gradient-primary btn-flat  "
+                  data-toggle="tooltip" data-placement="top" title="Editar">
+                  <i class="fas fa-edit"></i>
                 </a>
-
-                <a href="{{route('posts.edit', $post->id)}}" 
-                  class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                  title="Editar">
-                  <i class="fas fa-edit" ></i>
-                </a>             
-
+                @endcan 
+                @can('excluir-post')
                 <a href="{{route('posts.destroy', $post->id)}}" data-id="{{$post->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
-                  
+                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip"
+                  data-placement="top" title="Excluir">
+                  <i class="fas fa-trash-alt"></i>
                 </a>
+                @endcan 
               </td>
             </tr>
             @endforeach
