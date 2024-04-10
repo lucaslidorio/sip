@@ -349,6 +349,30 @@ return [
             'icon' => 'far fa-calendar-alt',
             'can'  => 'ver-agenda',
         ],
+
+        [
+            'text'    => 'Diário Oficial',
+            'icon'    => 'fas fa-book', 
+            'active' => ['admin/diario*'] ,
+            'can'    =>   'ver-diario-oficial',                        
+            'submenu' => [
+                [
+                    'text' => 'Tipos de Matéria',
+                    'url'  => 'admin/diario/tipoMaterias',
+                    'active' => ['admin/materias*' ],
+                    'icon' => 'fas  fa-text-width',
+                    'can' => 'ver-tipo-materia',
+                ], 
+                [
+                    'text' => 'Sub Tipo de Matérias',
+                    'url'  => 'admin/diario/subTipoMateria',
+                    'active' => ['admin/materias*' ],
+                    'icon' => 'fas  fa-text-width',
+                    'can' => 'ver-tipo-materia',
+                ],                                 
+               
+            ],
+        ],
         
         
         ['header' => 'LEGISLATIVO'],
@@ -396,8 +420,7 @@ return [
             'url'  => 'admin/directorTables',
             'icon' => 'fas fa-tablets',
             'can'  => 'ver-mesa-diretora',
-        ],
-        
+        ],        
 
       
         ['header' => 'ADMINISTRAÇÃO'],
@@ -413,6 +436,12 @@ return [
             'url'  => 'admin/secretaries',
             'icon' => 'fas fa-table',
             'can'  => 'ver-secretaria',
+        ],
+        [
+            'text' => 'Setores',
+            'url'  => 'admin/setores',
+            'icon' => 'fas fa-building',
+            'can'  => 'ver-setor',
         ],
         [
             'text' => 'Categorias',

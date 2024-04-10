@@ -29,11 +29,15 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\SeemCommissionController;
 use App\Http\Controllers\Admin\SessionController;
+use App\Http\Controllers\Admin\SetoresController;
+use App\Http\Controllers\Admin\SubTipoMateriaController;
 use App\Http\Controllers\Admin\TenantController;
+use App\Http\Controllers\Admin\TipoMateriaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
-
+use App\Models\SubTipoMateria;
+use App\Models\TipoMateria;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
@@ -104,8 +108,7 @@ Route::middleware(['auth'])->group(function () {
                 //Rotas de layouts
                 Route::prefix('layout')
                     ->namespace('layout')
-                    ->group(function(){
-                   
+                    ->group(function(){                  
              
                        // Route::any('/menus/search', [PartyController::class, 'search'])->name('menus.search');
                         Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
@@ -282,6 +285,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/secretaries/{id}', [SecretaryController::class, 'destroy'])->name('secretaries.destroy');
             Route::post('/secretaries', [SecretaryController::class, 'store'])->name('secretaries.store');
             Route::get('/secretaries', [SecretaryController::class, 'index'])->name('secretaries.index');
+
+            // //Rotas de Setores
+            Route::any('/setores/search', [SetoresController::class, 'search'])->name('setores.search');
+            Route::put('/setores/{id}', [SetoresController::class, 'update'])->name('setores.update');
+            Route::get('/setores/{id}/edit', [SetoresController::class, 'edit'])->name('setores.edit');
+            Route::get('/setores/show/{id}', [SetoresController::class, 'show'])->name('setores.show');
+            Route::get('/setores/create', [SetoresController::class, 'create'])->name('setores.create');
+            Route::get('/setores/{id}', [SetoresController::class, 'destroy'])->name('setores.destroy');
+            Route::post('/setores', [SetoresController::class, 'store'])->name('setores.store');
+            Route::get('/setores', [SetoresController::class, 'index'])->name('setores.index');
             
 
             //Rotas de Planos
@@ -367,7 +380,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/ouvidorias/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidorias.show');
             Route::get('/ouvidorias/{id}/edit', [OuvidoriaController::class, 'edit'])->name('ouvidorias.edit');
             Route::get('/ouvidorias/create', [OuvidoriaController::class, 'create'])->name('ouvidorias.create');
-            Route::get('/ouvidorias/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidorias.destroy');
+            Route::get('/ouvidorias/{id}', [OuvidoriaControllepadr::class, 'destroy'])->name('ouvidorias.destroy');
             Route::post('/ouvidorias', [OuvidoriaController::class, 'store'])->name('ouvidorias.store');
             Route::get('/ouvidorias', [OuvidoriaController::class, 'index'])->name('ouvidorias.index');
 
@@ -377,7 +390,33 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
             Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
-                       
+             
+            
+             //Rotas de Diario oficial
+             Route::prefix('diario')
+             ->namespace('diario')
+             ->group(function(){   
+                //Rotas de Tipo de Materias
+                Route::any('/tipoMaterias/search', [TipoMateriaController::class, 'search'])->name('tipoMaterias.search');
+                Route::put('/tipoMaterias/{id}', [TipoMateriaController::class, 'update'])->name('tipoMaterias.update');
+                Route::get('/tipoMaterias/{id}/edit', [TipoMateriaController::class, 'edit'])->name('tipoMaterias.edit');
+                Route::get('/tipoMaterias/show/{id}', [TipoMateriaController::class, 'show'])->name('tipoMaterias.show');
+                Route::get('/tipoMaterias/create', [TipoMateriaController::class, 'create'])->name('tipoMaterias.create');
+                Route::get('/tipoMaterias/{id}', [TipoMateriaController::class, 'destroy'])->name('tipoMaterias.destroy');
+                Route::post('/tipoMaterias', [TipoMateriaController::class, 'store'])->name('tipoMaterias.store');
+                Route::get('/tipoMaterias', [TipoMateriaController::class, 'index'])->name('tipoMaterias.index');
+
+                //Rotas de Tipo de Materias
+                Route::any('/subTipoMateria/search', [SubTipoMateriaController::class, 'search'])->name('subTipoMaterias.search');
+                Route::put('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'update'])->name('subTipoMaterias.update');
+                Route::get('/subTipoMateria/{id}/edit', [SubTipoMateriaController::class, 'edit'])->name('subTipoMaterias.edit');
+                Route::get('/subTipoMateria/show/{id}', [SubTipoMateriaController::class, 'show'])->name('subTipoMaterias.show');
+                Route::get('/subTipoMateria/create', [SubTipoMateriaController::class, 'create'])->name('subTipoMaterias.create');
+                Route::get('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'destroy'])->name('subTipoMaterias.destroy');
+                Route::post('/subTipoMateria', [SubTipoMateriaController::class, 'store'])->name('subTipoMaterias.store');
+                Route::get('/subTipoMateria', [SubTipoMateriaController::class, 'index'])->name('subTipoMaterias.index');
+                
+             });
 
         
     });
