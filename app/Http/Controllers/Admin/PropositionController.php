@@ -9,10 +9,14 @@ use Illuminate\Support\Str;
 use App\Models\Councilor;
 use App\Models\ProceedingSituation;
 use App\Models\Proposition;
+use App\Models\Session;
+use App\Models\TipoVoto;
 use App\Models\TypeDocument;
 use App\Models\TypeProposition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
 
 use function PHPSTORM_META\type;
 
@@ -24,7 +28,9 @@ class PropositionController extends Controller
         $type_document,
         $situation,
         $councilor,
-        $proceeding_situation;
+        $proceeding_situation,     
+        $session,
+        $tipo_votos;
 
     public function __construct(
         Proposition $proposition,
@@ -32,7 +38,10 @@ class PropositionController extends Controller
         TypeDocument $type_document,
         ProceedingSituation $situation,
         Councilor $councilor,
-        ProceedingSituation $proceeding_situation
+        ProceedingSituation $proceeding_situation,
+        Session $session
+       // TipoVoto $tipo_votos
+        
      )
     {
         $this->repository = $proposition;
@@ -41,11 +50,15 @@ class PropositionController extends Controller
         $this->situation = $situation;
         $this->councilor = $councilor;
         $this->proceeding_situation = $proceeding_situation;
+        $this->session = $session;
+       // $this->tipo_votos = $tipo_votos;
+       
         
     }
     
     public function index(Request $request)
     {
+        
         $this->authorize('ver-propositura');
         
         $councilors = $this->councilor->all();
@@ -148,7 +161,37 @@ class PropositionController extends Controller
      */
     public function show($id)
     {
-        //
+         $proposition = $this->repository->where('id', $id)->first();
+       
+            $sql = "SELECT                		
+				c.nome as vereador,				
+				tv.nome as voto
+            FROM propositions AS p
+            INNER JOIN voto_vereador_proposituras AS vvp ON vvp.proposition_id = p.id
+            INNER JOIN councilors AS c ON vvp.councilor_id = c.id
+            INNER JOIN tipo_votos AS tv ON vvp.tipo_voto_id = tv.id
+            WHERE p.id = ?";
+
+            $votos = DB::select($sql, [$id]);         
+
+        //dd($votos);
+
+        // if (count($votos) > 0) {
+        // foreach ($votos as $result) {
+           
+        
+        //     echo "Nome do Vereador: {$result->vereador}" . PHP_EOL;          
+        //     echo "Nome do Tipo de Voto: {$result->voto}" . PHP_EOL;
+        // }
+        // } else {
+        // echo "Nenhuma proposição encontrada com ID {$id}.";
+        // }
+
+
+        if (!$proposition) {
+            return redirect()->back();
+        }
+        return view('admin.pages.propositions.show', compact('proposition', 'votos'));
     }
 
     /**
@@ -277,5 +320,144 @@ class PropositionController extends Controller
         $anexo->delete();  
         toast('Anexo  removido com sucesso!','success')->toToast('top') ;        
         return redirect()->back();
+    }
+
+    public function createVotoCouncilor($id){
+
+        $this->authorize('editar-propositura');
+        $proposition = $this->repository->where('id', $id)->first();
+        $sessions = $this->session->orderby('data', 'DESC')->get();
+        $situations = $this->situation->get(); 
+        $tipo_votos = TipoVoto::all();
+        if(!$proposition){
+            return redirect()->back();                       
+        } 
+       
+        
+      
+        return view('admin.pages.propositions.votos.create', [            
+            'proposition' => $proposition,           
+            'sessions' => $sessions, 
+            'tipo_votos' =>$tipo_votos,
+            'situations' => $situations
+                                   
+        ]);    
+        
+    }
+    // Função que alimenta o javascript para preecher com os vereadores da legislatura da sessão selecionada
+    public function vereadoresSessao($id){        
+        $sessao= $this->session->find($id);
+        $vereadoresLegislacao = $sessao->legislature->councilors;
+
+        $tipo_votos = TipoVoto::all();
+        $vereadores =[];
+
+        foreach ($vereadoresLegislacao as $key => $vereador) {
+            $vereadores[] =[
+                'id' => $vereador->id,
+                'nome' => $vereador->nome,    
+                'tipo_voto_id' => null,            
+            ] ;
+        }
+        return response()->json($vereadores);
+    }
+
+    public function storeVotoCouncilor(Request $request, $id){
+
+        $this->authorize('editar-propositura');
+        $proposition = $this->repository->where('id', $id)->first();     
+        
+        if (!$proposition) {// validação para verificar se existe a propositura
+            return redirect()->back();
+        }
+
+        try {           
+            $proposition->proceeding_situation_id = $request->input('proceeding_situation_id');
+            $proposition->save();//Atualizar a situação da propositura.        
+    
+        } catch (\Throwable $th) {
+            toast('Erro ao salvar!','danger')->toToast('top') ;
+        }
+    
+        if($request->councilors){
+            try {
+                for ($i = 0; $i < count($request->councilors); $i++){                  
+                        DB::table('voto_vereador_proposituras')->insert([
+                        'proposition_id' => $id,
+                        'session_id' => $request->session_id,
+                        'councilor_id' => $request->councilors[$i],
+                        'tipo_voto_id' => $request->tipo_voto_id[$i] ,
+                      ]);              
+                }
+            } catch (\Exception $e) {
+                toast('Erro ao salvar!','danger')->toToast('top') ;
+            }            
+        }                   
+        
+        toast('Votos lançado com sucesso!','success')->toToast('top') ;     
+        return redirect()->route('propositions.index');
+
+    }
+
+    public function editVotoCouncilor($id){
+
+        $this->authorize('editar-propositura');        
+
+        $proposition = $this->repository->where('id', $id)->first();
+        $sessions = $this->session->orderby('data', 'DESC')->get();
+        $situations = $this->situation->get(); 
+        $tipo_votos = TipoVoto::all();      
+        
+
+        if(!$proposition){
+            return redirect()->back();                       
+        }     
+
+        return view('admin.pages.propositions.votos.edit', [            
+            'proposition' => $proposition,           
+            'sessions' => $sessions, 
+            'tipo_votos' =>$tipo_votos,
+            'situations' =>$situations
+                                   
+        ]);
+    }
+
+    public function updateVotoCouncilor(Request $request, $id){     
+
+        $this->authorize('editar-propositura');
+        $proposition = $this->repository->where('id', $id)->first();   
+               
+        if (!$proposition) {// validação para verificar se existe a propositura
+            return redirect()->back();
+        }
+
+        try {
+            $proposition->votos_propositura()->detach();// Apaga todos os votos para essa propositura
+            $proposition->proceeding_situation_id = $request->input('proceeding_situation_id');
+            $proposition->save();//Atualizar a situação da propositura.        
+    
+        } catch (\Throwable $th) {
+            toast('Erro ao salvar!','danger')->toToast('top') ;
+        }      
+
+        if($request->councilors){
+            try {
+                for ($i = 0; $i < count($request->councilors); $i++){                  
+                        DB::table('voto_vereador_proposituras')->insert([
+                        'proposition_id' => $id,
+                        'session_id' => $request->session_id,
+                        'councilor_id' => $request->councilors[$i],
+                        'tipo_voto_id' => $request->tipo_voto_id[$i] ,
+                      ]);              
+                }
+            } catch (\Exception $e) {
+                toast('Erro ao salvar!','danger')->toToast('top') ;
+            }            
+        }  
+        //return redirect()->back();             
+        
+        toast('Votos atualizado com sucesso!','success')->toToast('top') ;     
+        return redirect()->route('propositions.index');
+
     }
 }

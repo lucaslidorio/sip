@@ -39,4 +39,14 @@ class Proposition extends Model
 
     }
 
+    public function votos_propositura(){
+        return $this->belongsToMany(TipoVoto::class, 'voto_vereador_proposituras')->withPivot('session_id','councilor_id','tipo_voto_id');
+    }
+
+    public function votos()
+    {
+        return $this->belongsToMany(VotoVereadorPropositura::class, 'voto_vereador_proposituras', 'proposition_id', 'tipo_voto_id')
+            ->withPivot('councilor_id', 'tipo_voto_id');
+    }
+
 }

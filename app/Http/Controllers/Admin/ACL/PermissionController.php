@@ -85,4 +85,22 @@ class PermissionController extends Controller
         return redirect()->route('permissions.index');
     }
 
+    public function search(Request $request){
+
+        $pesquisar = $request->only('pesquisa');      
+       
+        $permissions = $this->repository
+                        ->where(function($query) use ($request){
+                            
+                            if($request->pesquisa){
+                                $query->where('nome', 'LIKE', "%{$request->pesquisa}%")
+                                ->orWhere('descricao', 'LIKE', "%{$request->pesquisa}%");
+                            } 
+                        })
+                        ->paginate(10);
+
+                        return view('admin.pages.permissions.index', compact('permissions', 'pesquisar'));
+        
+    }
+
 }

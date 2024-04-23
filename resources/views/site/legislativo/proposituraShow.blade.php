@@ -14,24 +14,7 @@
           <th scope="col">{{$propositura->numero}}</th>               
         </tr>
       </thead>
-      <tbody>
-
-        {{-- @foreach ($proposituras as $propositura)
-        <tr>
-            <th scope="row">{{$propositura->numero}}</th>
-            <td>{{\Carbon\Carbon::parse($propositura->data)->format('d/m/Y')}}</td>
-            <td>{{$propositura->type_proposition->nome}}</td>
-            <td>{{$propositura->descricao}}</td>
-            <td><span class="badge" style="background-color: #0b468e">{{$propositura->situation->nome}}</span></td>
-            <td class="text-center">
-                <a href="{{route('propositura.show', $propositura->id)}}" data-id=""
-                class="btn text-white " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ver Detalhes"  
-                title="Ver Detalhes" style="background-color: #0b468e"> 
-                <i class="far fa-eye " > Abrir</i>
-               </a>
-            </td>          
-        </tr>
-        @endforeach --}}
+      <tbody>        
         <tr>
           <th scope="row">Autor(s)</th>
           <td>
@@ -67,6 +50,35 @@
                 <span class="mr-2"> {{$anexo->nome_original}}</span>                
             </a>
             @endforeach
+          </td>                
+        </tr>
+
+        <tr>
+          <th scope="row">Votação</th>
+          <td >
+            @if(count($votos)> 0 )
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Vereador</th>
+                  <th scope="col">Voto</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($votos as $voto)
+                <tr>
+                  <td>{{$voto->vereador}}</td>
+                  <td>{{$voto->voto}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            @else
+            <div class="alert alert-secondary" role="alert">
+              A propositura não possui votos.
+            </div>
+            @endif
+
           </td>                
         </tr>
       </tbody>

@@ -52,6 +52,11 @@ class Councilor extends Model
         return $this->BelongsToMany(Functions::class,  'commission_member_functions', 'councilor_id', 'function_id');
     }
    
+    public function votosPropositura()
+    {
+        return $this->hasMany(VotoVereadorPropositura::class);
+    }
+
 
     //metodo de pesquisas na index
     public function search($pesquisar = null)    {

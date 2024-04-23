@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin\acl;
+namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;

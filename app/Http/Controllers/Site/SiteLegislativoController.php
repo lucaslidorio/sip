@@ -173,6 +173,9 @@ class SiteLegislativoController extends Controller
                 ->where('menu_pai_id', null)
                 ->where('posicao', 1) // Menu lateral
                 ->get();
+        $menusSuperior = $this->menu               
+                ->where('posicao', 2) // Menu superior
+                ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -194,7 +197,8 @@ class SiteLegislativoController extends Controller
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
-            'legislature' => $legislature
+            'legislature' => $legislature,
+            'menusSuperior' =>$menusSuperior
         ]);
     }
 

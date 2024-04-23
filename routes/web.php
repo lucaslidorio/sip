@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
-use App\Http\Controllers\admin\acl\ProfileUserController;
+use App\Http\Controllers\Admin\ACL\ProfileUserController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
@@ -182,6 +182,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/propositions', [PropositionController::class, 'store'])->name('propositions.store');
            
 
+            Route::get('/propositions/{id}/votoCreate', [PropositionController::class, 'createVotoCouncilor'])->name('propositionVotoCreate.create');
+            Route::post('/propositions/{id}/votoStore', [PropositionController::class, 'storeVotoCouncilor'])->name('storeVotoCouncilor.store');
+            Route::get('/propositions/{id}/votoEdit', [PropositionController::class, 'editVotoCouncilor'])->name('propositionVotoEdit.edit');
+            Route::put('/propositions/{id}/votoUpdate', [PropositionController::class, 'updateVotoCouncilor'])->name('propositionVotoUpdate.update');
+            Route::get('/propositions/vereadores/{id?}', [PropositionController::class, 'vereadoresSessao'])->name('vereadoresSessao.get');//recupera os vereadores sessao->lesgislatura selecionada
+
+            
 
             //Rotas de Atas             
             Route::any('/minutes/search', [MinuteController::class, 'search'])->name('minutes.search');

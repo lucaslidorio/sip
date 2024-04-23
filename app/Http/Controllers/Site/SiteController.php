@@ -37,7 +37,8 @@ use App\Models\Menu;
 use App\Models\Page;
 use App\Models\Schedule;
 use App\Models\SeemCommission;
-use Illuminate\Pagination\LengthAwarePaginator; 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
@@ -470,7 +471,19 @@ class SiteController extends Controller
         $propositura =  $this->proposition->where('id', $id)->first();
         if (!$propositura)
             return redirect()->back();      
-        $tenant = $this->tenant->first();            
+        $tenant = $this->tenant->first();
+        
+        //Votos da proposituras
+        $sql = "SELECT                		
+				c.nome as vereador,				
+				tv.nome as voto
+            FROM propositions AS p
+            INNER JOIN voto_vereador_proposituras AS vvp ON vvp.proposition_id = p.id
+            INNER JOIN councilors AS c ON vvp.councilor_id = c.id
+            INNER JOIN tipo_votos AS tv ON vvp.tipo_voto_id = tv.id
+            WHERE p.id = ?";
+        $votos = DB::select($sql, [$id]);
+
         $menus = $this->menu
                 ->where('menu_pai_id', null)
                 ->where('posicao', 1) // Menu lateral
@@ -500,6 +513,7 @@ class SiteController extends Controller
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
             'menusSuperior' => $menusSuperior,
+            'votos'=>$votos
         ]);
     }
     // public function parecerPesquisar(Request $request){
