@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{Breadcrumbs::render('siteMap')}}
 <h3 class="font-blue text-center">Mapa do site</h3>
 <p>Uma visão geral do conteúdo disponível no site. Mantenha o ponteiro do mouse sobre o item por alguns segundos para visualizar sua descrição.</p>
 <div class="row">

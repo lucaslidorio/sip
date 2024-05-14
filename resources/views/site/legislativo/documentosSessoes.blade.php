@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('documentos_sessao') }}
 <div class="card rounded-0">
   <div class="card-header ">
     <h4 class="text-center">Documentos das sessões</h4>

@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{Breadcrumbs::render('propositura', $propositura)}}
 <div class="card rounded-0">
   <div class="card-header ">
     <h4 class="text-center">PROPOSITURAS DOS PODER LEGISLATIVO </h4>

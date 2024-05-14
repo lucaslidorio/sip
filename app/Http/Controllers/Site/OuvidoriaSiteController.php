@@ -19,27 +19,26 @@ use Illuminate\Support\Str;
 
 class OuvidoriaSiteController extends Controller
 {
-    private $tenant, $tipos_ouvidorias, 
-            $perfis_ouvidoria, 
-            $orgaos_ouvidoria, 
-            $assuntos_ouvidoria,
-            $respostas_ouvidoria,
-            $menu,
-            $link,
-            $repository;
+    private $tenant, $tipos_ouvidorias,
+        $perfis_ouvidoria,
+        $orgaos_ouvidoria,
+        $assuntos_ouvidoria,
+        $respostas_ouvidoria,
+        $menu,
+        $link,
+        $repository;
 
     public function __construct(
-            Tenant $tenant, 
-            TipoOvidoria $tipo_ouvidoria, 
-            PerfilOuvidoria $perfis_ouvidoria,
-            OrgaoOuvidoria $orgao_ouvidoria,
-            AssuntoOuvidoria $assunto_ouvidoria,
-            RespostaOuvidoria $respostas_ouvidoria,
-            Ouvidoria $repository,
-            Menu $menu,
-            Link $link,
-        )
-    {
+        Tenant $tenant,
+        TipoOvidoria $tipo_ouvidoria,
+        PerfilOuvidoria $perfis_ouvidoria,
+        OrgaoOuvidoria $orgao_ouvidoria,
+        AssuntoOuvidoria $assunto_ouvidoria,
+        RespostaOuvidoria $respostas_ouvidoria,
+        Ouvidoria $repository,
+        Menu $menu,
+        Link $link,
+    ) {
         $this->tenant = $tenant;
         $this->tipos_ouvidorias = $tipo_ouvidoria;
         $this->perfis_ouvidoria = $perfis_ouvidoria;
@@ -58,45 +57,44 @@ class OuvidoriaSiteController extends Controller
      */
     public function index()
     {
-        $tenant = $this->tenant->first();            
+        $tenant = $this->tenant->first();
         $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+            ->where('menu_pai_id', null)
+            ->where('posicao', 1) // Menu lateral
+            ->get();
+        $menusSuperior = $this->menu
+            ->where('posicao', 2) // Menu superior
+            ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
-                ->where('posicao', 3)
-                ->where('tipo', 1) //Tipo = Banner
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')
-                ->take(6)
-                ->get(); 
-        $linksUteis = $this->link                            
-                ->where('tipo', 2) //Tipo = Links Úteis
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')                            
-                ->get(); 
+            ->where('posicao', 3)
+            ->where('tipo', 1) //Tipo = Banner
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->take(6)
+            ->get();
+        $linksUteis = $this->link
+            ->where('tipo', 2) //Tipo = Links Úteis
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->get();
 
 
-      
+
         $cliente = $this->tenant->first();
-        $tipos_ouvidoria = $this->tipos_ouvidorias->get();           
+        $tipos_ouvidoria = $this->tipos_ouvidorias->get();
 
-                     
-              
+
+
         return view('site.legislativo.ouvidoria.index', [
-                'cliente' => $cliente,
-                'tenant' =>  $tenant,
-                'tipos_ouvidoria' =>$tipos_ouvidoria,
-                'menus' => $menus,  
-                'linksDireita' => $linksDireita,
-                'linksUteis' => $linksUteis,
-                'menusSuperior' => $menusSuperior,
-            ]);
-     
+            'cliente' => $cliente,
+            'tenant' =>  $tenant,
+            'tipos_ouvidoria' => $tipos_ouvidoria,
+            'menus' => $menus,
+            'linksDireita' => $linksDireita,
+            'linksUteis' => $linksUteis,
+            'menusSuperior' => $menusSuperior,
+        ]);
     }
 
     /**
@@ -105,49 +103,49 @@ class OuvidoriaSiteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create($id_ouvidoria)
-    {  
-        
+    {
+
         $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+            ->where('menu_pai_id', null)
+            ->where('posicao', 1) // Menu lateral
+            ->get();
+        $menusSuperior = $this->menu
+            ->where('posicao', 2) // Menu superior
+            ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
-                ->where('posicao', 3)
-                ->where('tipo', 1) //Tipo = Banner
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')
-                ->take(6)
-                ->get(); 
-        $linksUteis = $this->link                            
-                ->where('tipo', 2) //Tipo = Links Úteis
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')                            
-                ->get(); 
+            ->where('posicao', 3)
+            ->where('tipo', 1) //Tipo = Banner
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->take(6)
+            ->get();
+        $linksUteis = $this->link
+            ->where('tipo', 2) //Tipo = Links Úteis
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->get();
 
 
-      
-        $tenant = $this->tenant->first(); 
+
+        $tenant = $this->tenant->first();
         $tipo_ouvidoria = $this->tipos_ouvidorias->findOrfail($id_ouvidoria);
         $perfis_ouvidoria = $this->perfis_ouvidoria->where('situacao', true)->get();
         $orgaos_ouvidoria = $this->orgaos_ouvidoria->where('situacao', true)->get();
         $assuntos_ouvidoria = $this->assuntos_ouvidoria->where('situacao', true)->get();
-        
+
         return view('site.legislativo.ouvidoria.form', compact(
-            'tenant',            
-            'menus' ,
+            'tenant',
+            'menus',
             'servicosOnline',
             'linksDireita',
-            'linksUteis', 
-            'tipo_ouvidoria', 
+            'linksUteis',
+            'tipo_ouvidoria',
             'perfis_ouvidoria',
             'orgaos_ouvidoria',
             'assuntos_ouvidoria',
-            'menusSuperior',            
-        
+            'menusSuperior',
+
         ));
     }
 
@@ -159,43 +157,43 @@ class OuvidoriaSiteController extends Controller
      */
     public function store(StoreUpdateOuvidoriaSite $request)
     {
-                 
+
         $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+            ->where('menu_pai_id', null)
+            ->where('posicao', 1) // Menu lateral
+            ->get();
+        $menusSuperior = $this->menu
+            ->where('posicao', 2) // Menu superior
+            ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
-                ->where('posicao', 3)
-                ->where('tipo', 1) //Tipo = Banner
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')
-                ->take(6)
-                ->get(); 
+            ->where('posicao', 3)
+            ->where('tipo', 1) //Tipo = Banner
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->take(6)
+            ->get();
         $linksUteis = $this->link
             ->where('tipo', 2) //Tipo = Links Úteis
             ->orderby('ordem', 'ASC')
-            ->orderby('created_at')                            
-            ->get();  
-        $tenant = $this->tenant->first(); 
+            ->orderby('created_at')
+            ->get();
+        $tenant = $this->tenant->first();
 
         //captura e percorre o array de anexo para fazer os registro e upload
-        $codigo =Str::upper( Str::random(8));       
-        $existe_codigo = $this->repository->where('codigo', $codigo )->first();      
-        if($existe_codigo != null){
-            $codigo=Str::upper( Str::random(8));
+        $codigo = Str::upper(Str::random(8));
+        $existe_codigo = $this->repository->where('codigo', $codigo)->first();
+        if ($existe_codigo != null) {
+            $codigo = Str::upper(Str::random(8));
         }
-        $request->merge(['codigo' => $codigo]);     
+        $request->merge(['codigo' => $codigo]);
 
         $ouvidoria = $this->repository->create($request->all());
 
 
         $anexo = $request->only('anexo');
         if ($request->hasFile('anexo')) {
-            for ($i=0; $i < count($anexo['anexo']) ; $i++) { 
+            for ($i = 0; $i < count($anexo['anexo']); $i++) {
                 $file = $anexo['anexo'][$i];
                 $nome_original = Str::upper($anexo['anexo'][$i]->getClientOriginalName());
                 $anexoOuvidoria = new AnexoOuvidoria();
@@ -207,106 +205,106 @@ class OuvidoriaSiteController extends Controller
             }
         }
         return view('site.legislativo.ouvidoria.confirmacao', compact(
-            
-            'menus' ,
+
+            'menus',
             'servicosOnline',
             'linksDireita',
             'linksUteis',
-            'ouvidoria',            
-            'tenant',   
-            'menusSuperior',        
-        
-        ));
+            'ouvidoria',
+            'tenant',
+            'menusSuperior',
 
+        ));
     }
 
     public function acompanhamento(Request $request)
-    {  
-        $tenant = $this->tenant->first();            
+    {
+        $tenant = $this->tenant->first();
         $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+            ->where('menu_pai_id', null)
+            ->where('posicao', 1) // Menu lateral
+            ->get();
+        $menusSuperior = $this->menu
+            ->where('posicao', 2) // Menu superior
+            ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
-                ->where('posicao', 3)
-                ->where('tipo', 1) //Tipo = Banner
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')
-                ->take(6)
-                ->get(); 
-        $linksUteis = $this->link                            
-                ->where('tipo', 2) //Tipo = Links Úteis
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')                            
-                ->get(); 
-
-
-      
-        $cliente = $this->tenant->first(); 
-        $ouvidoria = $this->repository->where('codigo', $request->codigo)->first();    
-      
-        //Ler mensagem
-        $respostas_nao_lida = $this->respostas_ouvidoria
-            ->where('ouvidoria_id', $ouvidoria->id)
-            ->where('visualizado', false)
+            ->where('posicao', 3)
+            ->where('tipo', 1) //Tipo = Banner
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->take(6)
+            ->get();
+        $linksUteis = $this->link
+            ->where('tipo', 2) //Tipo = Links Úteis
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
             ->get();
 
-            for ($i=0; $i < count($respostas_nao_lida) ; $i++) {           
+        $cliente = $this->tenant->first();
+        $ouvidoria = $this->repository->where('codigo', $request->codigo)->first();
+
+        if ($ouvidoria) {
+            //Ler mensagem
+            $respostas_nao_lida = $this->respostas_ouvidoria
+                ->where('ouvidoria_id', $ouvidoria->id)
+                ->where('visualizado', false)
+                ->get();
+
+            for ($i = 0; $i < count($respostas_nao_lida); $i++) {
                 $respostas_nao_lida[$i]->visualizado = true;
-                $respostas_nao_lida[$i]->save();            
-            }         
+                $respostas_nao_lida[$i]->save();
+            }
+        }
+
 
         return view('site.legislativo.ouvidoria.acompanhamento', compact(
             'cliente',
-            'menus' ,
+            'menus',
             'servicosOnline',
             'linksDireita',
             'linksUteis',
             'tenant',
             'ouvidoria',
-            'menusSuperior'          
-        
+            'menusSuperior'
+
         ));
     }
-   
+
     public function duvidas()
     {
         $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+            ->where('menu_pai_id', null)
+            ->where('posicao', 1) // Menu lateral
+            ->get();
+        $menusSuperior = $this->menu
+            ->where('posicao', 2) // Menu superior
+            ->get();
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
-                ->where('posicao', 3)
-                ->where('tipo', 1) //Tipo = Banner
-                ->orderby('ordem', 'ASC')
-                ->orderby('created_at')
-                ->take(6)
-                ->get(); 
+            ->where('posicao', 3)
+            ->where('tipo', 1) //Tipo = Banner
+            ->orderby('ordem', 'ASC')
+            ->orderby('created_at')
+            ->take(6)
+            ->get();
         $linksUteis = $this->link
             ->where('tipo', 2) //Tipo = Links Úteis
             ->orderby('ordem', 'ASC')
-            ->orderby('created_at')                            
-            ->get();  
-        $tenant = $this->tenant->first(); 
-                            
+            ->orderby('created_at')
+            ->get();
+        $tenant = $this->tenant->first();
+
         return view('site.legislativo.ouvidoria.duvidas', compact(
-            
-            'menus' ,
+
+            'menus',
             'servicosOnline',
             'linksDireita',
-            'linksUteis',                  
-            'tenant', 
-            'menusSuperior',          
-        
-        ));    
+            'linksUteis',
+            'tenant',
+            'menusSuperior',
+
+        ));
     }
 
     /**

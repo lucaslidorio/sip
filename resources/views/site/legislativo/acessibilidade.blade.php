@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('acessibilidade') }} 
 <h3 class="font-blue text-center">Acessibilidade</h3>
 <h3 class="font-blue">Acessibilidade</h3>
 

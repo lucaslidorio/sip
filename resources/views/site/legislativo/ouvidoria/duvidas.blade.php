@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('ouvidoria_duvidas') }} 
 <div class="row">
   <div class="col-12">
     <h4 class="font-blue text-uppercase">DÚVIDAS SOBRE A OUVIDORIA </h4>

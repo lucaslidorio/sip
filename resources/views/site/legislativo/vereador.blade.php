@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container ">
-
+  {{ Breadcrumbs::render('vereador', $vereador) }}
 <div class="row">
   <div class="col-md-4">
     <img src="{{config('app.aws_url').$vereador->img }}" class="card-img rounded" alt="{{$vereador->titulo}}" 

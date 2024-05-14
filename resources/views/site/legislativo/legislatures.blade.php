@@ -2,6 +2,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('legislaturas') }}  
 <div class="row">  
     @foreach ($legislatures as $legislatura)
     <div class="col-md-6 col-lg-4 col-xl-3 mb-3">

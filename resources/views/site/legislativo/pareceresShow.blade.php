@@ -2,6 +2,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{Breadcrumbs::render('parecer', $seemCommission)}}
 <div class="card rounded-0">
   <div class="card-header ">
     <h4 class="text-center">Pareceres</h4>

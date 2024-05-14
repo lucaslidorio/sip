@@ -462,7 +462,8 @@ return [
             'icon' => 'fas fa-plus-square',
             'can'  => 'ver-funcoes',
         ],
-        ['header' => 'CONFIGURAÇÕES'],
+        ['header' => 'CONFIGURAÇÕES',
+        'can'    =>   'admin',],
         [
             'text'    => 'Layout',
             'icon'    => 'fas fa-layer-group', 

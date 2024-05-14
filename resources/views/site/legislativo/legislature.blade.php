@@ -2,6 +2,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('legislatura', $legislature) }} 
 <div class="container ">
 <section class="text-center">
   <div class="row">

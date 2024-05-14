@@ -1,7 +1,4 @@
 <?php
-
-
-
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
@@ -44,20 +41,15 @@ use PhpParser\Node\Expr\FuncCall;
 
 //Grupo de roda para Middleware de autenticação
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     //Rota da dashboard (home) 
     Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
  
     Route::prefix('admin')
             ->namespace('Admin')                
-            ->group(function () {             
-                
-                // Route::get('teste-acl', function(){
-                //     dd(auth()->user()->permissions());
-                // });
-
-
+            ->group(function () {            
+          
                 Route::prefix('legislativo')
                     ->namespace('Legislativo')
                     ->group(function(){                     

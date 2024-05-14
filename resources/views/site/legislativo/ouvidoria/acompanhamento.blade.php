@@ -2,10 +2,18 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
-
+@if($ouvidoria != null)
+{{ Breadcrumbs::render('ouvidora_acompanhamento', $ouvidoria) }} 
+@endif 
 <div class="row">
     <h4 class="font-blue">ACOMPANHAMENTO DE MANIFESTAÇÃO </h4>    
-    <div class="col sm-12">       
+    <div class="col sm-12"> 
+        @if($ouvidoria == null)
+        <div class="alert alert-danger" role="alert">
+            <h6><strong>NÃO FOI POSSÍVEL ENCONTRAR UMA MANIFESTAÇÃO COM O PROTOCOLO INFORMADO.</strong></h6>
+            <p><strong>Verifique o protocolo informado e tente novamente:</strong></p>
+        </div>
+        @else
         <div class="alert alert-success" role="alert">
             <h6><strong>INFORMAÇÃO DA MANIFESTAÇÃO</strong></h6>
             <p><strong>Sigiloso: </strong>{{$ouvidoria->sigiloso == 0 ? 'Não':'Sim'}}</p>
@@ -25,6 +33,8 @@
             <p class="text-right">Respondido por: {{$resposta_ouvidoria->user->name}} em {{\Carbon\Carbon::parse(  $resposta_ouvidoria->created_at)->format('d/m/Y h:m')}}</p>
         </div>
         @endforeach
+        @endif    
+       
         
     </div>
 </div>

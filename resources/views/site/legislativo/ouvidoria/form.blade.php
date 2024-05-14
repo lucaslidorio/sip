@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('ouvidora_tipo', $tipo_ouvidoria) }} 
 <div class="row">
   <h4 class="font-blue text-uppercase">OUVIDORIA - REGISTRAR {{$tipo_ouvidoria->nome}}</h4>
 
@@ -220,9 +221,9 @@
           </div>
           <div class="col-sm-4">
             <div class="form-group">
-              <label for="perfil_ouvidoria_id" class="label-required">Perfil:</label>
+              <label for="perfil_ouvidoria_id" >Perfil:</label>
               <select class="form-select select2 {{ $errors->has('perfil_ouvidoria_id') ? 'is-invalid' : '' }}"
-                name="orgao_ouvidoria_id" style="width: 100%;">
+                name="perfil_ouvidoria_id" style="width: 100%;">
                 <option value="" selected>NÃO INFORMADO</option>
                 @foreach ($perfis_ouvidoria as $perfil)
                 <option value="{{$perfil->id}}" {{old('perfil_ouvidoria_id')==$perfil->id ? 'selected' : '' }}>
@@ -313,9 +314,9 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="orgao_ouvidoria_id" class="label-required">Orgão:</label>
+              <label for="orgao_ouvidoria_id" class="label-required">Orgão:<span class="text-danger">*</span></label>
               <select class="form-select select2 {{ $errors->has('orgao_ouvidoria_id') ? 'is-invalid' : '' }}"
-                name="orgao_ouvidoria_id" style="width: 100%;">
+                name="orgao_ouvidoria_id" required style="width: 100%;">
                 <option value="" selected>Selecione</option>
                 @foreach ($orgaos_ouvidoria as $orgao)
                 <option value="{{$orgao->id}}" {{old('orgao_ouvidoria_id')==$orgao->id ? 'selected' : '' }}>
@@ -332,10 +333,10 @@
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="assunto_ouvidoria_id" class="label-required">Assunto:</label>
+              <label for="assunto_ouvidoria_id" class="label-required">Assunto:<span class="text-danger">*</span></label>
               <select class="form-select select2 {{ $errors->has('assunto_ouvidoria_id') ? 'is-invalid' : '' }}"
-                name="assunto_ouvidoria_id" style="width: 100%;">
-                <option value="" selected>NÃO INFORMADO</option>
+                name="assunto_ouvidoria_id" required ="width: 100%;">
+                {{-- <option value="" selected>NÃO INFORMADO</option> --}}
                 @foreach ($assuntos_ouvidoria as $assunto)
                 <option value="{{$assunto->id}}" {{old('assunto_ouvidoria_id')==$assunto->id ? 'selected' : '' }}>
                   {{$assunto->nome }}

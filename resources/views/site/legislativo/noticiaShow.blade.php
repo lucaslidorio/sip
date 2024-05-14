@@ -18,7 +18,8 @@
 </style>
 @extends('site.legislativo.layouts.default')
 
- @section('content')       
+ @section('content') 
+ {{ Breadcrumbs::render('noticia', $post) }}       
             <div>
               @isset($post)
                 <h4 class="font-blue" id="titulo">{{$post->titulo}}</h4> 

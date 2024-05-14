@@ -203,7 +203,7 @@ class SiteLegislativoController extends Controller
     }
 
 
-    public function vereador($id){  
+    public function vereador($id){ 
 
        
         $tenant = $this->tenant->first();            
@@ -228,14 +228,16 @@ class SiteLegislativoController extends Controller
                 ->orderby('created_at')                            
                 ->get(); 
 
+        
         $vereador = $this->councilor->where('id', $id)->first();
+       
         
         return view('site.legislativo.vereador', [            
             'tenant' =>$tenant,     
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
-            'vereador' => $vereador,
+            'vereador' => $vereador,           
             'menusSuperior' => $menusSuperior,
         ]);
     }

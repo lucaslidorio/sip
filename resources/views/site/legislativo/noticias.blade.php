@@ -1,7 +1,8 @@
 
 @extends('site.legislativo.layouts.default')
 
- @section('content')       
+ @section('content')   
+ {{ Breadcrumbs::render('noticias') }}    
  <div class="row justify-content-md-center">
   <div class="col-md-12">          
     <div class="blog-post">        

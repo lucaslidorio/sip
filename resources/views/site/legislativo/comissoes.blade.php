@@ -1,6 +1,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('comissoes') }} 
 <h3 class="font-blue text-center">Comissões</h3>
 <div class="row">
     <ul class="nav nav-tabs">

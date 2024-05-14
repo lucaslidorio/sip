@@ -2,7 +2,7 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
-
+{{ Breadcrumbs::render('ouvidoria_index') }} 
     <div class="row">                             
         <div id="portfolio" class="row">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
@@ -15,7 +15,7 @@
                                     <form action="{{route('ouvidoria.acompanhamento')}}" method="get">
                                         @csrf
                                         <div class="row">
-                                            <input class="form-control" name="codigo" type="text" placeholder="Protocolo">
+                                            <input class="form-control" name="codigo" type="text" placeholder="Protocolo" required minlength="5">
                                         </div>
                                         <div class="row">
                                             <button type="subimit" class="btn btn-primary btn-block">Consultar</button>

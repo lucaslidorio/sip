@@ -2,11 +2,11 @@
 @extends('site.legislativo.layouts.default')
 
 @section('content')
+{{ Breadcrumbs::render('sessoes') }} 
 <div class="card rounded-0">
   <div class="card-header ">
     <h4 class="text-center">Sessões</h4>
     <p  class="text-center fs-5">Sessões Ordinárias, Extraodinárias e Solene</p>
-
     <form action="{{ route('camara.sessoes') }}" method="get">
       <div class="row">
         <div class="col-lg-5">

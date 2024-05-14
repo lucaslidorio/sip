@@ -1,7 +1,8 @@
 
 @extends('site.legislativo.layouts.default')
 
- @section('content')       
+ @section('content')    
+ {{ Breadcrumbs::render('page', $page) }}   
             <div>
               @isset($page)
                 <h4 class="font-blue">{{$page->titulo}}</h4>                

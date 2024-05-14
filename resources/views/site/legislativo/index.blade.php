@@ -2,9 +2,11 @@
 @extends('site.legislativo.layouts.default')
 
  @section('content')
-        <div class="row mb-2">
+ {{ Breadcrumbs::render('home') }}
+        <div class="row mb-2" >
           @foreach ($linksTopo as $link)
             <div class="col-sm-6 col-md-3 mb-sm-2 banner" >
+              
               <a href="{{$link->url}}" target="{{$link->target ==1 ? '__blank': ''}}" class="">
                 <img  src="{{config('app.aws_url').$link->icone }}" class="img-fluid w-100 h-75 " alt="{{$link->nome}}" >
               </a>            
