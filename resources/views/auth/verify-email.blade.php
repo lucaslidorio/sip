@@ -1,10 +1,25 @@
-<x-guest-layout>
+@extends('adminlte::auth.verify')
+
+{{-- <div> Verifique seu e-mail</div>
+<form method="POST" action="{{ route('verification.send') }}">
+    @csrf
+    @if (session('status') == 'verification-link-sent')
+    <div class="mb-4 font-medium text-sm text-green-600">
+        {{ __('Um novo link de verificação foi enviado para o endereço de e-mail que você forneceu durante o registro.') }}
+    </div>
+    @endif
+    <div>
+        <button type="submit">Reenviar o e-mail de verificação</button>
+    </div>
+</form> --}}
+
+{{-- <x-guest-layout>
     <x-auth-card>
-        {{-- <x-slot name="logo">
+        <x-slot name="logo">
             <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
-        </x-slot> --}}
+        </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
@@ -36,4 +51,4 @@
             </form>
         </div>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout> --}}
