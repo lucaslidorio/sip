@@ -109,8 +109,6 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = $this->repository->find($idUser);
 
-       
-
         if (!$user) {
             return redirect()->back();
         }

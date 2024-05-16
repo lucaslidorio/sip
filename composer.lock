@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f57bfefdbe4c37d94e4abca3b2833f8",
+    "content-hash": "74d6d01457357acb5c7951a540e86aca",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -6747,16 +6747,16 @@
         },
         {
             "name": "lucascudo/laravel-pt-br-localization",
-            "version": "v1.2.5",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucascudo/laravel-pt-BR-localization.git",
-                "reference": "a22e2f150648813875b842b5a0608542ea9380a6"
+                "reference": "60c28db1d959f3d8b2c842393dc6eabb5d6e2fe5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/a22e2f150648813875b842b5a0608542ea9380a6",
-                "reference": "a22e2f150648813875b842b5a0608542ea9380a6",
+                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/60c28db1d959f3d8b2c842393dc6eabb5d6e2fe5",
+                "reference": "60c28db1d959f3d8b2c842393dc6eabb5d6e2fe5",
                 "shasum": ""
             },
             "type": "library",
@@ -6782,12 +6782,27 @@
                     "email": "lucas.sisau@gmail.com"
                 }
             ],
-            "description": "Arquivos de linguagem em Português do Brasil (pt-BR) para Laravel >= 5.6",
+            "description": "Arquivos de linguagem em Português do Brasil (pt-BR) para Laravel",
+            "homepage": "https://github.com/lucascudo/laravel-pt-br-localization",
             "support": {
                 "issues": "https://github.com/lucascudo/laravel-pt-BR-localization/issues",
-                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v1.2.5"
+                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v2.2.1"
             },
-            "time": "2023-03-05T08:55:45+00:00"
+            "funding": [
+                {
+                    "url": "https://buymeacoffee.com/lucasrocha",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/lucascudo",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/lucascudo/laravel-pt-br-localization",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-09T13:57:11+00:00"
         },
         {
             "name": "maximebf/debugbar",
