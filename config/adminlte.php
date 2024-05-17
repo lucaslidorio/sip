@@ -314,7 +314,8 @@ return [
         //     'type' => 'sidebar-menu-search',
         //     'text' => 'search',
         // ],
-        ['header' => 'GERAL'],
+        ['header' => 'GERAL',
+        'can'    =>   'geral',],
         
               
         [
@@ -375,7 +376,8 @@ return [
         ],
         
         
-        ['header' => 'LEGISLATIVO'],
+        ['header' => 'LEGISLATIVO',
+        'can'    =>   'legislativo',],
         [
             'text' => 'Sessões',
             'url'  => 'admin/legislativo/sessions',
@@ -423,7 +425,8 @@ return [
         ],        
 
       
-        ['header' => 'ADMINISTRAÇÃO'],
+        ['header' => 'ADMINISTRAÇÃO',
+        'can'    =>   'administrativo',],
         [
             'text' => 'Orgão',
             'url'  => 'admin/tenants',
@@ -462,6 +465,16 @@ return [
             'icon' => 'fas fa-plus-square',
             'can'  => 'ver-funcoes',
         ],
+
+        ['header' => 'CREDENCIAMENTO',
+        'can'    =>   'credenciamento',],
+        [
+            'text' => 'Processos',
+            'url'  => 'admin/tenants',
+            'icon' => 'fas fa-folder',
+            'can'  => 'ver-processos-usuario-externo',            
+        ],
+
         ['header' => 'CONFIGURAÇÕES',
         'can'    =>   'admin',],
         [
