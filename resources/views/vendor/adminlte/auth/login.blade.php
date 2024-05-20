@@ -21,13 +21,18 @@
 @section('auth_header', __('adminlte::adminlte.login_message'))
 
 @section('auth_body')
+        @if (session('status'))
+            <p class="text-success">
+                {{ session('status') }}
+            </p>
+        @endif
     <form action="{{ $login_url }}" method="post">
         @csrf
 
         {{-- Email field --}}
         <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                   value="{{old('email')}}" required autocomplete="username"  autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -85,20 +90,20 @@
 
 @section('auth_footer')
     {{-- Password reset link --}}
-    {{-- @if($password_reset_url)
+    @if($password_reset_url)
         <p class="my-0">
-            <a href="{{ $password_reset_url }}">
-                {{ __('adminlte::adminlte.i_forgot_my_password') }}
+            <a href="{{route('password.request')}}">
+                {{ __('adminlte::adminlte.i_forgot_my_password') }} 
             </a>
         </p>
-    @endif --}}
+    @endif
 
     {{-- Register link --}}
-    {{-- @if($register_url)
+    @if($register_url)
         <p class="my-0">
             <a href="{{ $register_url }}">
                 {{ __('adminlte::adminlte.register_a_new_membership') }}
             </a>
         </p>
-    @endif --}}
+    @endif
 @stop
