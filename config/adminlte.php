@@ -470,7 +470,7 @@ return [
         'can'    =>   'credenciamento',],
         [
             'text' => 'Processos',
-            'url'  => 'admin/tenants',
+            'url'  => 'admin/processos',
             'icon' => 'fas fa-folder',
             'can'  => 'ver-processos-usuario-externo',            
         ],

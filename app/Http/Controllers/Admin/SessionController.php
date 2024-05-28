@@ -213,7 +213,7 @@ class SessionController extends Controller
     }
 
     public function createAttachment ($id){
-        $this->authorize('nova-sessao');
+        $this->authorize('editar-sessao');
         $session = $this->repository->where('id', $id)->first();
         if(!$session){
             return redirect()->back();                       
@@ -230,7 +230,7 @@ class SessionController extends Controller
     }
 
     public function storeAttachment (StoreUpdateAttachmentSession $request){
-        $this->authorize('nova-sessao');
+        $this->authorize('editar-sessao');
         $anexo= new AttachmentSession();
 
         $anexoSessao = $request->only('session_id', 'type_document_id', 'descricao', 'anexo');

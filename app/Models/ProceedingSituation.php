@@ -11,6 +11,6 @@ class ProceedingSituation extends Model
 
     protected $table = 'proceeding_situation';
 
-    protected $fillable = ['nome', 'descricao',];
+    protected $fillable = ['nome', 'descricao', 'processo_compra',];
 
 }

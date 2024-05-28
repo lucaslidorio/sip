@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProcessoCompraController;
 use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SecretaryController;
@@ -230,14 +231,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
-             //Rotas de Funções             
-             Route::any('/functions/search', [FunctionController::class, 'search'])->name('functions.search');
-             Route::put('/functions/{id}', [FunctionController::class, 'update'])->name('functions.update');
-             Route::get('/functions/{id}/edit', [FunctionController::class, 'edit'])->name('functions.edit');
-             Route::get('/functions/create', [FunctionController::class, 'create'])->name('functions.create');
-             Route::get('/functions/{id}', [FunctionController::class, 'destroy'])->name('functions.destroy');
-             Route::post('/functions', [FunctionController::class, 'store'])->name('functions.store');
-             Route::get('/functions', [FunctionController::class, 'index'])->name('functions.index');
+            //Rotas de Funções             
+            Route::any('/functions/search', [FunctionController::class, 'search'])->name('functions.search');
+            Route::put('/functions/{id}', [FunctionController::class, 'update'])->name('functions.update');
+            Route::get('/functions/{id}/edit', [FunctionController::class, 'edit'])->name('functions.edit');
+            Route::get('/functions/create', [FunctionController::class, 'create'])->name('functions.create');
+            Route::get('/functions/{id}', [FunctionController::class, 'destroy'])->name('functions.destroy');
+            Route::post('/functions', [FunctionController::class, 'store'])->name('functions.store');
+            Route::get('/functions', [FunctionController::class, 'index'])->name('functions.index');
  
  
 
@@ -379,7 +380,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/ouvidorias/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidorias.show');
             Route::get('/ouvidorias/{id}/edit', [OuvidoriaController::class, 'edit'])->name('ouvidorias.edit');
             Route::get('/ouvidorias/create', [OuvidoriaController::class, 'create'])->name('ouvidorias.create');
-            Route::get('/ouvidorias/{id}', [OuvidoriaControllepadr::class, 'destroy'])->name('ouvidorias.destroy');
+            Route::get('/ouvidorias/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidorias.destroy');
             Route::post('/ouvidorias', [OuvidoriaController::class, 'store'])->name('ouvidorias.store');
             Route::get('/ouvidorias', [OuvidoriaController::class, 'index'])->name('ouvidorias.index');
 
@@ -389,7 +390,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
             Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
-             
+            
+            //Rotas de Processos             
+            Route::any('/processos/search', [ProcessoCompraController::class, 'search'])->name('processos.search');
+            Route::put('/processos/{id}', [ProcessoCompraController::class, 'update'])->name('processos.update');
+            Route::get('/processos/{id}/edit', [ProcessoCompraController::class, 'edit'])->name('processos.edit');
+            Route::get('/processos/show/{id}', [ProcessoCompraController::class, 'show'])->name('processos.show');
+            Route::get('/processos/create', [ProcessoCompraController::class, 'create'])->name('processos.create');
+            Route::get('/processos/{id}', [ProcessoCompraController::class, 'destroy'])->name('processos.destroy');
+            Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');
+            Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
+            Route::get('/processos/{id}/attachmentCreate', [ProcessoCompraController::class, 'createAttachment'])->name('processoAttachmentCreate.create');
+            Route::post('/processos/attachmentStore', [ProcessoCompraController::class, 'storeAttachment'])->name('processoAttachmentStore.store');
+            Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');
+
+  
             
              //Rotas de Diario oficial
              Route::prefix('diario')

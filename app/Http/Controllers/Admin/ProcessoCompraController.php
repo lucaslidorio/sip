@@ -1,0 +1,190 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\AnexosProcessoCompra;
+use App\Models\CriterioJulgamento;
+use App\Models\Modalidades;
+use App\Models\ProceedingSituation;
+use App\Models\ProcessoCompras;
+use App\Models\TypeDocument;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+class ProcessoCompraController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    private $repository, $modalidade, $criteriosJulgamento, $situacao, $type_document;
+
+    public function __construct(
+        ProcessoCompras $repository,
+        Modalidades $modalidade,
+        CriterioJulgamento $criterioJulgamento,
+        ProceedingSituation $situacao,
+        TypeDocument $type_document
+    ) {
+        $this->repository = $repository;
+        $this->modalidade = $modalidade;
+        $this->criteriosJulgamento = $criterioJulgamento;
+        $this->situacao = $situacao;
+        $this->type_document = $type_document;
+    }
+
+    public function index()
+    {
+        $this->authorize('ver-processos-usuario-externo');
+        $processos = $this->repository->paginate(10);
+        return view('admin.pages.processos.index', compact('processos'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $this->authorize('novo-processo-compras');
+
+        $modalidades = $this->modalidade->get();
+        $criteriosJulgamento = $this->criteriosJulgamento->get();
+        $situacoes = $this->situacao->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
+        return view('admin.pages.processos.create', compact('modalidades', 'criteriosJulgamento', 'situacoes'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('novo-processo-compras');
+        $dados = $request->all();
+        $dados['user_created'] = auth()->user()->id;
+        $dados['data_publicacao'] = date('Y/m/d : H:i:s');
+
+        //dd($dados);
+        $this->repository->create($dados);
+
+        toast('Cadastro realizado com sucesso!', 'success')->toToast('top');
+        return redirect()->back();
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $this->authorize('ver-processo-compras');
+        $processo = $this->repository->where('id', $id)->first();
+
+        if (!$processo)
+            return redirect()->back();
+
+        return view('admin.pages.processos.show', [
+            'processo' => $processo
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $this->authorize('editar-processo-compras');
+        $processo = $this->repository->where('id', $id)->first();
+        // Formatar data usando Carbon
+
+        $dataFormatada = $processo->inicio_sessao->format('Y-m-d'); // Altere o formato conforme necessário       
+        // Adicionar data formatada ao objeto $processo
+        $processo->data_formatada = $dataFormatada;
+        
+        $modalidades = $this->modalidade->get();
+        $criteriosJulgamento = $this->criteriosJulgamento->get();
+        $situacoes = $this->situacao->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
+            
+        if(!$processo){
+            return redirect()->back();                       
+        }                       
+        return view('admin.pages.processos.edit',[
+            'processo' => $processo,
+            'modalidades'=> $modalidades,
+            'criteriosJulgamento' => $criteriosJulgamento,
+            'situacoes' =>$situacoes            
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $this->authorize('editar-processo-compras');
+        $processo = $this->repository->where('id', $id)->first();
+
+        if(!$processo){
+            redirect()->back();
+        } 
+
+        $dadosProcesso = $request->all();
+        $dadosProcesso['user_last_updated'] = auth()->user()->id;      
+        
+        $processo->update($dadosProcesso);
+              
+        toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
+        return redirect()->back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function createAttachment ($id){
+        $this->authorize('editar-processo-compras');
+        $processo = $this->repository->where('id', $id)->first();
+        $type_documents = $this->type_document->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
+        if(!$processo){
+            return redirect()->back();                     
+        }              
+        return view('admin.pages.processos.attachment.create', [            
+            'processo' => $processo,
+            'type_documents' =>$type_documents,                     
+        ]);
+
+    }
+
+    public function storeAttachment (Request $request){
+        $this->authorize('editar-processo-compras');
+        $anexo= new AnexosProcessoCompra();
+
+        $anexoProcesso = $request->only('processo_compra_id','type_document_id', 'descricao', 'anexo');
+        $anexoProcesso['user_id'] = auth()->user()->id;
+       
+       if($request->hasFile('anexo')){
+                $anexoProcesso['nome'] = Str::upper($anexoProcesso['anexo']->getClientOriginalName());
+                $anexoProcesso['anexo'] = $request->anexo->store('anexos_processo_compra');          
+            }      
+           $anexo->create($anexoProcesso);  
+           toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
+           return redirect()->back();
+        
+    }
+    public function deleteAttachment ($id){
+        $this->authorize('excluir-processo-compras');
+        //Recupera a anexo pelo id
+        $anexo =AnexosProcessoCompra::where('id', $id)->first();
+        //Verifica se pelo nome, se ela existe no storage, e deleta do storage
+        if(Storage::disk('s3')->exists($anexo->anexo)){
+            Storage::disk('s3')->delete($anexo->anexo);
+        }
+        //deleta a referência do banco
+        $anexo->delete();  
+        toast('Anexo  removido com sucesso!','success')->toToast('top') ;        
+        return redirect()->back();
+    }
+}
