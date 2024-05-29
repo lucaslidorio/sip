@@ -96,14 +96,14 @@
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
+                  @endcan                  
+                  @can('editar-processo-compras')                    
+                  <a href="{{route('processoAttachmentCreate.create', $processo->id)}}" data-id="{{$processo->id}}"
+                    class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Anexar Arquivos">
+                    <i class="fas fa-paperclip" ></i>
+                  </a>
                   @endcan
-                  @can('editar-processo-compras')
-                <a href="{{route('processoAttachmentCreate.create', $processo->id)}}" data-id="{{$processo->id}}"
-                  class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Anexar Arquivos">
-                  <i class="fas fa-paperclip" ></i>
-                </a>
-                @endcan
 
                 @can('excluir-processo-compras')
                 <a href="{{route('processos.destroy', $processo->id)}}" data-id="{{$processo->id}}"

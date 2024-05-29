@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateProcessoCompras;
+use App\Http\Requests\StoreUpdateProposition;
 use App\Models\AnexosProcessoCompra;
 use App\Models\CriterioJulgamento;
 use App\Models\Modalidades;
@@ -57,7 +59,7 @@ class ProcessoCompraController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProposition $request)
     {
         $this->authorize('novo-processo-compras');
         $dados = $request->all();
@@ -99,40 +101,40 @@ class ProcessoCompraController extends Controller
         $dataFormatada = $processo->inicio_sessao->format('Y-m-d'); // Altere o formato conforme necessário       
         // Adicionar data formatada ao objeto $processo
         $processo->data_formatada = $dataFormatada;
-        
+
         $modalidades = $this->modalidade->get();
         $criteriosJulgamento = $this->criteriosJulgamento->get();
         $situacoes = $this->situacao->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
-            
-        if(!$processo){
-            return redirect()->back();                       
-        }                       
-        return view('admin.pages.processos.edit',[
+
+        if (!$processo) {
+            return redirect()->back();
+        }
+        return view('admin.pages.processos.edit', [
             'processo' => $processo,
-            'modalidades'=> $modalidades,
+            'modalidades' => $modalidades,
             'criteriosJulgamento' => $criteriosJulgamento,
-            'situacoes' =>$situacoes            
+            'situacoes' => $situacoes
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateProcessoCompras $request, string $id)
     {
         $this->authorize('editar-processo-compras');
         $processo = $this->repository->where('id', $id)->first();
 
-        if(!$processo){
+        if (!$processo) {
             redirect()->back();
-        } 
+        }
 
         $dadosProcesso = $request->all();
-        $dadosProcesso['user_last_updated'] = auth()->user()->id;      
-        
+        $dadosProcesso['user_last_updated'] = auth()->user()->id;
+
         $processo->update($dadosProcesso);
-              
-        toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
+
+        toast('Cadastro atualizado com sucesso!', 'success')->toToast('top');
         return redirect()->back();
     }
 
@@ -144,47 +146,68 @@ class ProcessoCompraController extends Controller
         //
     }
 
-    public function createAttachment ($id){
+    public function createAttachment($id)
+    {
         $this->authorize('editar-processo-compras');
         $processo = $this->repository->where('id', $id)->first();
         $type_documents = $this->type_document->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
-        if(!$processo){
-            return redirect()->back();                     
-        }              
-        return view('admin.pages.processos.attachment.create', [            
+        if (!$processo) {
+            return redirect()->back();
+        }
+        return view('admin.pages.processos.attachment.create', [
             'processo' => $processo,
-            'type_documents' =>$type_documents,                     
+            'type_documents' => $type_documents,
         ]);
-
     }
 
-    public function storeAttachment (Request $request){
+    public function storeAttachment(Request $request)
+    {
         $this->authorize('editar-processo-compras');
-        $anexo= new AnexosProcessoCompra();
+        $anexo = new AnexosProcessoCompra();
 
-        $anexoProcesso = $request->only('processo_compra_id','type_document_id', 'descricao', 'anexo');
+        $anexoProcesso = $request->only('processo_compra_id', 'type_document_id', 'descricao', 'anexo');
         $anexoProcesso['user_id'] = auth()->user()->id;
-       
-       if($request->hasFile('anexo')){
-                $anexoProcesso['nome'] = Str::upper($anexoProcesso['anexo']->getClientOriginalName());
-                $anexoProcesso['anexo'] = $request->anexo->store('anexos_processo_compra');          
-            }      
-           $anexo->create($anexoProcesso);  
-           toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-           return redirect()->back();
-        
+
+        if ($request->hasFile('anexo')) {
+            $anexoProcesso['nome'] = Str::upper($anexoProcesso['anexo']->getClientOriginalName());
+            $anexoProcesso['anexo'] = $request->anexo->store('anexos_processo_compra');
+        }
+        $anexo->create($anexoProcesso);
+        toast('Cadastro realizado com sucesso!', 'success')->toToast('top');
+        return redirect()->back();
     }
-    public function deleteAttachment ($id){
+    public function deleteAttachment($id)
+    {
         $this->authorize('excluir-processo-compras');
         //Recupera a anexo pelo id
-        $anexo =AnexosProcessoCompra::where('id', $id)->first();
+        $anexo = AnexosProcessoCompra::find($id);
+        // Verifica se a quantidade de downloads é maior que 0
+        if ($anexo->qtd_download > 0) {
+            // Retorna uma mensagem de erro e não permite a exclusão
+        return redirect()->back()->with('error', 'Não é possível excluir o anexo porque ele já foi baixado.');
+        }
         //Verifica se pelo nome, se ela existe no storage, e deleta do storage
-        if(Storage::disk('s3')->exists($anexo->anexo)){
+        if (Storage::disk('s3')->exists($anexo->anexo)) {
             Storage::disk('s3')->delete($anexo->anexo);
         }
         //deleta a referência do banco
-        $anexo->delete();  
-        toast('Anexo  removido com sucesso!','success')->toToast('top') ;        
+        $anexo->delete();
+        toast('Anexo  removido com sucesso!', 'success')->toToast('top');
         return redirect()->back();
+    }
+
+    public function download($id)
+    {
+        // Recupera o anexo pelo id
+        $anexo = AnexosProcessoCompra::find($id);
+        if ($anexo) {
+            $anexo->qtd_download++;
+            $anexo->save();
+            // Redireciona para o arquivo PDF
+            $fileUrl = config('app.aws_url') . $anexo->anexo;
+            return redirect($fileUrl);
+        } else {
+            return abort(404, 'Anexo não encontrado.');
+        }
     }
 }

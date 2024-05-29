@@ -78,6 +78,7 @@
         <th scope="col">Anexo</th>
         <th scope="col">Descrição</th>
         <th scope="col">Tipo de documento</th>
+        <th scope="col">Downloads</th>
         <th scope="col">Ações</th>
 
       </tr>
@@ -102,6 +103,9 @@
           <span class="mr-2"> {{$attachment->type_document->nome}}</span>
         </td>
         <td>
+          <span class="mr-2"> {{$attachment->qtd_download}}</span>
+        </td>
+        <td>
           <a href="{{route('processoAttachmentDelete.delete', $attachment->id)}}" data-id="{{$attachment->id}}"
             class="mb-2 text-reset" data-toggle="tooltip"  data-placement="top"
             title="Excluir Anexo">
@@ -111,6 +115,7 @@
             </span>                    
         </a>
         </td>
+       
       </tr>
       @endforeach
     </tbody>

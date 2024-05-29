@@ -403,7 +403,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/processos/{id}/attachmentCreate', [ProcessoCompraController::class, 'createAttachment'])->name('processoAttachmentCreate.create');
             Route::post('/processos/attachmentStore', [ProcessoCompraController::class, 'storeAttachment'])->name('processoAttachmentStore.store');
             Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');
-
+           
+  
   
             
              //Rotas de Diario oficial
@@ -446,6 +447,7 @@ Route::get('/dashboard', function () {
 */
 
 
+
 //Rotas de ouvidoria do site
 
 Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
@@ -462,6 +464,12 @@ Route::get('/sitemap', [SiteController::class, 'mapasite'])->name('site.mapa');
 Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
+
+//Route::post('/processos/storeDownload/{id}', [ProcessoCompraController::class, 'storeDownload'])->name('storeDownload.count');
+//Rota para fazer a contagem de Download dos anexos dos processos de compras
+Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'download'])->name('download.count');
+
+
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');
 //     //toast('Success Toast','success');
