@@ -127,4 +127,13 @@ class UserController extends Controller
             'pesquisar' => $pesquisar
         ]);
     }
+
+    //Código referente ao perfil do usuário acessado pelo menu superior direito
+
+    public function perfil($id){
+
+        $user = $this->repository->find($id);
+
+        return view('admin.pages.perfilUsuarios.index', compact('user'));
+    }
 }

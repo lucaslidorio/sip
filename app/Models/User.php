@@ -54,8 +54,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return 'Bem Vindo';
     }
-    public function adminlte_profile_url()
+    public function adminlte_profile_url($id = null)
     {
+
+        //dd($id);
         return 'profile/username';
     }
 

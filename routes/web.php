@@ -36,6 +36,7 @@ use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
 use App\Models\SubTipoMateria;
 use App\Models\TipoMateria;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
@@ -326,7 +327,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/users', [UserController::class, 'store'])->name('users.store');
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
             
-            
+            //Rotas para o usuário ver e manipular seu próprio perfil
+            Route::get('/users/perfil/{id}', [UserController::class, 'perfil'])->name('users.perfil');
 
             //Rotas de Permissões
             Route::any('/permissions/search', [PermissionController::class, 'search'])->name('permissions.search');

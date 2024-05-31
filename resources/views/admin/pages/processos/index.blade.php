@@ -80,7 +80,7 @@
               <td>{{$processo->data_publicacao->format('d-m-Y H:i:s') }}</td>
               <td>{{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</td>
               <td>{{$processo->situacao->nome}}</td>
-              <td>{{ \Illuminate\Support\Str::limit($processo->objeto, 50, '...') }}</td>
+              <td>{{ \Illuminate\Support\Str::limit($processo->objeto, 100, '...') }}</td>
               
                 <td class="text-center">
                   @can('ver-processo-compras')
