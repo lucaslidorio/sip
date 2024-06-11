@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_dados_pessoas', function (Blueprint $table) {
+        Schema::create('dados_pessoas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');          
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('tipo_pessoa',['F', 'J'])->comment('F = FISICA, J = JURIDICA');
-            $table->enum('natureza_juridica',['F', 'J'])->comment('EI = EIRELE, LTDA = LIMITADA, SA = SOCIEDADE ANÔNIMA');
+            $table->enum('natureza_juridica',['EI','LTDA','S/A','OUTRAS'])->comment('EI = EIRELE, LTDA = LIMITADA, SA = SOCIEDADE ANÔNIMA');
             $table->enum('enquadramento',[  'MIC', 'EPP', 'GP', 'DE', 'COOP'])
                     ->comment('MIC = MICRO EMPRESA, EPP = EMPRESA DE PEQUENO PORTE, GP = GRANDE PORTE,
             DE = DEMAIS EMPRESAS, COOP = COOPERATIVAS');
@@ -44,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_dados_pessoas');
+        Schema::dropIfExists('dados_pessoas');
     }
 };

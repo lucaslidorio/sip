@@ -22,7 +22,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'matricula'
+        'matricula',
+        'tipo_usuario'
     ];
 
     /**
@@ -66,9 +67,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Tenant::class);
     }
 
+    //Relacionamento dados pessoais
+    public function dados_pessoais(){
+        return $this->belongsTo(DadosPessoas::class, 'id', 'user_id');
+    }
+
     public function profiles(){
         return $this->BelongsToMany(Profile::class, 'profile_users','user_id',  'profile_id');
     }
 
+    public function documentos_pessoa(){
+        return $this->hasMany(DocumentosPessoas::class, 'id', 'user_id');
+    }
    
 }

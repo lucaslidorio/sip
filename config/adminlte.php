@@ -644,7 +644,7 @@ return [
             ],
         ],
                 'icheck-bootstrap' => [
-                    'active' => false,
+                    'active' => true,
                     'files' => [
                         [
                             'type' => 'css',
@@ -664,6 +664,22 @@ return [
                         ],
                     ],
                 ], 
+
+                'Dropzone' => [
+                    'active' => true,
+                    'files' => [
+                        [
+                            'type' => 'js',
+                            'asset' => true,
+                            'location' => 'https://unpkg.com/dropzone@5/dist/min/dropzone.min.js',
+                        ],
+                        [
+                            'type' => 'css',
+                            'asset' => false,
+                            'location' => 'https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css',
+                        ],
+                    ],
+                ],
 
 
                 'Summernote' => [

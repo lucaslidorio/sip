@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DadosPessoas;
 use App\Models\Profile;
 use App\Models\ProfileUser;
 use App\Models\Tenant;
@@ -53,6 +54,10 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($request->password),
             ]));
 
+            DadosPessoas::create([
+                'user_id' => $user->id,
+                'email' =>$user->email
+            ]);
 
             $profile  = Profile::where('nome',  'Credenciados')->first();
             if($profile){

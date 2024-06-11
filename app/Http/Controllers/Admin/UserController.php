@@ -31,8 +31,7 @@ class UserController extends Controller
     }
     public function store(StoreUpdateUser $request)
     {
-        $tenant = auth()->user()->tenant;
-        
+        $tenant = auth()->user()->tenant;        
         $data = $request->all();
         $data['tenant_id'] = $tenant->id;
         $data['password'] = bcrypt($data['password']); // criptografa a senha
@@ -129,11 +128,12 @@ class UserController extends Controller
     }
 
     //Código referente ao perfil do usuário acessado pelo menu superior direito
+    // não esta sendo usado, passei para o controller DadosPessoasController
 
-    public function perfil($id){
+    // public function perfil($id){
 
-        $user = $this->repository->find($id);
+    //     $user = $this->repository->find($id);
 
-        return view('admin.pages.perfilUsuarios.index', compact('user'));
-    }
+    //     return view('admin.pages.perfilUsuarios.index', compact('user'));
+    // }
 }

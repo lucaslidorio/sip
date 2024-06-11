@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\CouncilorController;
+use App\Http\Controllers\Admin\DadosPessoasController;
 use App\Http\Controllers\Admin\DirectorTableController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
@@ -328,7 +329,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
             
             //Rotas para o usuário ver e manipular seu próprio perfil
-            Route::get('/users/perfil/{id}', [UserController::class, 'perfil'])->name('users.perfil');
+            Route::get('/users/perfil/{id}', [DadosPessoasController::class, 'index'])->name('users.perfil');
+            Route::post('/users/perfil/{id}', [DadosPessoasController::class, 'store'])->name('users.perfil.store');
+            Route::post('/users/perfil/', [DadosPessoasController::class, 'storeDocumento'])->name('users.perfil.storeDocumentos');
 
             //Rotas de Permissões
             Route::any('/permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
