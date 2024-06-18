@@ -22,9 +22,11 @@ class DocumentosPessoas extends Model
     public function usuario() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    public function dados_pessoa() {
+    public function dadosPessoas()
+    {
         return $this->belongsTo(DadosPessoas::class, 'dado_pessoa_id', 'id');
     }
 
 
 }
+ 

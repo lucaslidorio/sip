@@ -68,7 +68,10 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     //Relacionamento dados pessoais
-    public function dados_pessoais(){
+   
+
+    public function dadosPessoais()
+    {
         return $this->belongsTo(DadosPessoas::class, 'id', 'user_id');
     }
 

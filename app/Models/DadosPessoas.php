@@ -36,7 +36,12 @@ class DadosPessoas extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function documento_pessoa() {
-        return $this->hasMany(DocumentosPessoas::class, 'id', 'dado_pessoa_id');
+    // public function documento_pessoa() {
+    //     return $this->hasMany(DocumentosPessoas::class, , 'dado_pessoa_id');
+    // }
+    public function documentosPessoas()
+    {
+        return $this->hasMany(DocumentosPessoas::class, 'dado_pessoa_id', 'id');
     }
 }
+

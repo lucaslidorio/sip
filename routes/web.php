@@ -332,7 +332,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/users/perfil/{id}', [DadosPessoasController::class, 'index'])->name('users.perfil');
             Route::post('/users/perfil/{id}', [DadosPessoasController::class, 'store'])->name('users.perfil.store');
             Route::post('/users/perfil/', [DadosPessoasController::class, 'storeDocumento'])->name('users.perfil.storeDocumentos');
-
+            Route::get('/users/attachmentDelete/{id}', [DadosPessoasController::class, 'deleteAttachment'])->name('users.perfil.deleteAttachment');
+           
             //Rotas de Permissões
             Route::any('/permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
             Route::put('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');

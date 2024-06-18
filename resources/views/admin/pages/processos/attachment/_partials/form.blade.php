@@ -88,7 +88,7 @@
 
         <th scope="row">{{$loop->iteration}}</th>
         <td>
-          <a href="{{config('app.aws_url')." {$attachment->anexo}" }}"
+          <a href="{{config('app.aws_url')."{$attachment->anexo}" }}"
             target="_blank" class="mb-2 text-reset"
             data-toggle="tooltip" data-placement="top"
             title="Clique para abrir o documento" >
