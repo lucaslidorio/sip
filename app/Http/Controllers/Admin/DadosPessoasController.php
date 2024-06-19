@@ -44,7 +44,7 @@ class DadosPessoasController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -57,7 +57,10 @@ class DadosPessoasController extends Controller
             return redirect()->route('login');
         }
         $dadosPessoa = $this->repository->where('user_id', $request->user_id)->first();
-
+        
+        if($request->hasFile('img') && $request->img->isValid()){
+            $dadosPessoa['img'] = $request->img->store('fotos_pessoas');
+        } 
         $dadosPessoa->update($request->all());
 
         toast('Cadastro realizado com sucesso!', 'success')->toToast('top');

@@ -47,7 +47,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     //pode retornar a imagem do usuário
     public function adminlte_image(){
-        return 'https://picsum.photos/300/300';
+        return $this->profile_image_url;
+        //return 'https://picsum.photos/300/300';
     }
     
     //pode  ser implementado para retornar o cargo do usuário
@@ -83,4 +84,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(DocumentosPessoas::class, 'id', 'user_id');
     }
    
+    /**
+     * Get the URL of the profile image.
+     * Retorna O  URL da imagem do perfil. Se o atributo 'img' de 'dadosPessoais' não estiver vazio,
+     * retorna a concatenação da URL da AWS e o atributo 'img' de 'dadosPessoais'.
+     * Caso contrário, retorna a concatenação da URL da AWS e o caminho 'uteis/no-image128.jpg'..
+     */
+    public function getProfileImageUrlAttribute()
+{
+    return !empty($this->dadosPessoais->img) 
+        ? config('app.aws_url').$this->dadosPessoais->img 
+        : config('app.aws_url').('uteis/no-image256.jpg');
+}
+
 }

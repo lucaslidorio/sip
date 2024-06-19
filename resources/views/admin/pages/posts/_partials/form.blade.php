@@ -125,7 +125,7 @@
                   @enderror
                   
                 </div>
-                <span class="text-danger">Dimensões recomendada 1024 x 1900, ultilize o site Iloveimg para redimensionar</span>
+                <span class="text-danger">Dimensões recomendada 1024 x 1900, ultilize o site <a href="https://www.iloveimg.com/pt/redimensionar-imagem" target="_blank" >iloveimg</a> para redimensionar</span>
             </div>
             
           </div>

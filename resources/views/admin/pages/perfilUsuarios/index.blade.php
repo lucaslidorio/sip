@@ -33,17 +33,23 @@
       <div class="card card-primary card-outline">
         <div class="card-body box-profile">
           <div class="text-center">
-            <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg"
-              alt="User profile picture">
+           
+            <img class="profile-user-img img-fluid img-circle" src="{{$user->profile_image_url}}"
+              alt="Imagem de perfil do usuario">
+           
           </div>
+
+                           
+                      
+                 
           <h3 class="profile-username text-center">{{$user->name}}</h3>
-          <p class="text-muted text-center">Software Engineer</p>
+          <p class="text-muted text-center">{{ $user->dadosPessoais->razao_social ?? 'Não Informado' }}</p>
           <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
-              <b>Followers</b> <a class="float-right">1,322</a>
+              <b>Processos Credenciados</b> <a class="float-right">1,322</a>
             </li>
             <li class="list-group-item">
-              <b>Following</b> <a class="float-right">543</a>
+              <b>Processos Ativos</b> <a class="float-right">543</a>
             </li>
             <li class="list-group-item">
               <b>Friends</b> <a class="float-right">13,287</a>
@@ -62,21 +68,21 @@
         <div class="card-body">
           <strong><i class="fas fa-phone-alt mr-1"></i> Contato</strong>
           <p class="text-muted">
-            <strong>Email: </strong>{{ $user->dadospessoais->email ?? 'Não Informado' }} <br>
-            <strong>Telefone: </strong>{{ $user->dadospessoais->telefone ?? 'Não Informado' }} <br>
-            <strong>Celular: </strong>{{ $user->dadospessoais->celular ?? 'Não Informado' }} <br>
-            <strong>Site: </strong>{{ $user->dadospessoais->site ?? 'Não Informado' }}
+            <strong>Email: </strong>{{ $user->dadosPessoais->email ?? 'Não Informado' }} <br>
+            <strong>Telefone: </strong>{{ $user->dadosPessoais->telefone ?? 'Não Informado' }} <br>
+            <strong>Celular: </strong>{{ $user->dadosPessoais->celular ?? 'Não Informado' }} <br>
+            <strong>Site: </strong>{{ $user->dadosPessoais->site ?? 'Não Informado' }}
 
           </p>
           <hr>
           <strong><i class="fas fa-map-marker-alt mr-1"></i> Endereço</strong>
           <p class="text-muted">
-            {{ $user->dadospessoais->endereco ?? 'Não Informado' }} ,
-            {{ $user->dadospessoais->numero ?? 'Não Informado' }},
-            {{ $user->dadospessoais->bairro ?? 'Não Informado' }},
-            {{ $user->dadospessoais->cidade ?? 'Não Informado' }},
-            {{ $user->dadospessoais->estado ?? 'Não Informado' }},
-            {{ $user->dadospessoais->cep ?? 'Não Informado' }}
+            {{ $user->dadosPessoais->endereco ?? 'Não Informado' }} ,
+            {{ $user->dadosPessoais->numero ?? 'Não Informado' }},
+            {{ $user->dadosPessoais->bairro ?? 'Não Informado' }},
+            {{ $user->dadosPessoais->cidade ?? 'Não Informado' }},
+            {{ $user->dadosPessoais->estado ?? 'Não Informado' }},
+            {{ $user->dadosPessoais->cep ?? 'Não Informado' }}
           </p>
 
         </div>
@@ -99,11 +105,11 @@
             <div class="active tab-pane" id="activity">
 
               <div class="post">
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                <div class="user-block">                
+                  <img class="img-circle img-bordered-sm" src="{{$user->profile_image_url}}" alt="imagem do perfil">
                   <span class="username">
-                    <a href="#">{{ $user->dadospessoais->nome_fantasia ?? 'Informado' }}</a> </span>
-                  <span class="description">{{ $user->dadospessoais->razao_social ?? 'Não Informado' }}</span>
+                    <a href="#">{{ $user->dadosPessoais->nome_fantasia ?? 'Informado' }}</a> </span>
+                  <span class="description">{{ $user->dadosPessoais->razao_social ?? 'Não Informado' }}</span>
 
 
                   <div class="card mt-3">
@@ -112,24 +118,24 @@
                     </div>
                     <div class="card-body">
                       <div class=" " style="padding-left: 15px">
-                        <p class="card-text"><strong>Tipo de Pessoa: </strong>{{ $user->dadospessoais->tipo_pessoa ??
+                        <p class="card-text"><strong>Tipo de Pessoa: </strong>{{ $user->dadosPessoais->tipo_pessoa ??
                           'Não Informado' }}</p>
                         <p class="card-text"><strong>Natureza Jurídica: </strong>{{
-                          $user->dadospessoais->natureza_juridica ?? 'Não Informado' }}</p>
+                          $user->dadosPessoais->natureza_juridica ?? 'Não Informado' }}</p>
                         <p class="card-text"><strong>Natureza Jurídica: </strong>{{
-                          $user->dadospessoais->natureza_juridica ?? 'Não Informado' }}</p>
-                        <p class="card-text"><strong>Enquadramento: </strong>{{ $user->dadospessoais->enquadramento ??
+                          $user->dadosPessoais->natureza_juridica ?? 'Não Informado' }}</p>
+                        <p class="card-text"><strong>Enquadramento: </strong>{{ $user->dadosPessoais->enquadramento ??
                           'Não Informado' }}</p>
-                        <p class="card-text"><strong>Razão Social: </strong>{{ $user->dadospessoais->razao_social ??
+                        <p class="card-text"><strong>Razão Social: </strong>{{ $user->dadosPessoais->razao_social ??
                           'Não
                           Informado' }}</p>
-                        <p class="card-text"><strong>CNPJ: </strong>{{ $user->dadospessoais->cnpj ?? 'Não Informado' }}
+                        <p class="card-text"><strong>CNPJ: </strong>{{ $user->dadosPessoais->cnpj ?? 'Não Informado' }}
                         </p>
                         <p class="card-text"><strong>Insc. Estadual: </strong>{{
-                          $user->dadospessoais->inscricao_estadual
+                          $user->dadosPessoais->inscricao_estadual
                           ?? 'Não Informado' }}</p>
                         <p class="card-text"><strong>Data de Abertura : </strong>
-                          <td>{{ !empty($user->dadospessoais->data_abertura) ?
+                          <td>{{ !empty($user->dadosPessoais->data_abertura) ?
                             Carbon\Carbon::parse($user->dadosPessoais->data_abertura)->format('d/m/Y') : '-' }}</td>
                         </p>
                       </div>
@@ -171,7 +177,7 @@
 
             <div class="tab-pane" id="settings">
               <form class="form-horizontal" id="dadosPessoa" action="{{route('users.perfil.store', $user->id)}}"
-                method="POST">
+                method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <input type="hidden" name="user_id" value="{{$user->id}}">
@@ -181,10 +187,10 @@
                     <select class="custom-select {{ $errors->has('tipo_pessoa') ? 'is-invalid' : '' }}" id="tipo_pessoa"
                       name="tipo_pessoa">
                       <option value="">Selecione uma opção</option>
-                      <option value="F" {{isset($user) && $user->dadospessoais->tipo_pessoa == 'F' ? 'selected': ''}}>
+                      <option value="F" {{isset($user) && $user->dadosPessoais->tipo_pessoa == 'F' ? 'selected': ''}}>
                         Fisíca
                       </option>
-                      <option value="J" {{isset($user) && $user->dadospessoais->tipo_pessoa == 'J' ? 'selected': ''}}>
+                      <option value="J" {{isset($user) && $user->dadosPessoais->tipo_pessoa == 'J' ? 'selected': ''}}>
                         Jurídica </option>
                     </select>
                     @error('tipo_pessoa')
@@ -200,13 +206,13 @@
                     <select class="custom-select {{ $errors->has('natureza_juridica') ? 'is-invalid' : '' }}"
                       id="natureza_juridica" name="natureza_juridica">
                       <option value="" selected>Selecione uma opção</option>
-                      <option value="EI" {{isset($user) && $user->dadospessoais->natureza_juridica == 'EI' ?
+                      <option value="EI" {{isset($user) && $user->dadosPessoais->natureza_juridica == 'EI' ?
                         'selected': ''}}> EI
                       </option>
-                      <option value="LTDA" {{isset($user) && $user->dadospessoais->natureza_juridica == 'LTDA' ?
+                      <option value="LTDA" {{isset($user) && $user->dadosPessoais->natureza_juridica == 'LTDA' ?
                         'selected': ''}}> LTDA
                       </option>
-                      <option value="SA" {{isset($user) && $user->dadospessoais->natureza_juridica == 'SA' ?
+                      <option value="SA" {{isset($user) && $user->dadosPessoais->natureza_juridica == 'SA' ?
                         'selected': ''}}> SA
                       </option>
                     </select>
@@ -223,19 +229,19 @@
                     <select class="custom-select {{ $errors->has('enquadramento') ? 'is-invalid' : '' }}"
                       id="enquadramento" name="enquadramento">
                       <option value="" selected>Selecione uma opção</option>
-                      <option value="MIC" {{ isset($user) && $user->dadospessoais->enquadramento == 'MIC' ? 'selected':
+                      <option value="MIC" {{ isset($user) && $user->dadosPessoais->enquadramento == 'MIC' ? 'selected':
                         '' }}>Micro
                         Empresa (MIC)</option>
-                      <option value="EPP" {{ isset($user) && $user->dadospessoais->enquadramento == 'EPP' ? 'selected':
+                      <option value="EPP" {{ isset($user) && $user->dadosPessoais->enquadramento == 'EPP' ? 'selected':
                         '' }}>Empresa
                         de Pequeno Porte (EPP)</option>
-                      <option value="GP" {{ isset($user) && $user->dadospessoais->enquadramento == 'GP' ? 'selected':
+                      <option value="GP" {{ isset($user) && $user->dadosPessoais->enquadramento == 'GP' ? 'selected':
                         '' }}>Grande
                         Porte (GP)</option>
-                      <option value="DE" {{ isset($user) && $user->dadospessoais->enquadramento == 'DE' ? 'selected':
+                      <option value="DE" {{ isset($user) && $user->dadosPessoais->enquadramento == 'DE' ? 'selected':
                         '' }}>Demais
                         Empresas (DE)</option>
-                      <option value="COOP" {{ isset($user) && $user->dadospessoais->enquadramento == 'COOP' ?
+                      <option value="COOP" {{ isset($user) && $user->dadosPessoais->enquadramento == 'COOP' ?
                         'selected': ''
                         }}>Cooperativas (COOP)</option>
                     </select>
@@ -256,7 +262,7 @@
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('nome_fantasia') ? 'is-invalid' : '' }}"
                       id="nome_fantasia" name="nome_fantasia" placeholder="Nome fantasia"
-                      value="{{$user->dadospessoais->nome_fantasia}}">
+                      value="{{$user->dadosPessoais->nome_fantasia}}">
                     @error('nome_fantasia')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -270,7 +276,7 @@
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('razao_social') ? 'is-invalid' : '' }}"
                       id="razao_social" name="razao_social" placeholder="Razão social da empresa"
-                      value="{{ $user->dadospessoais->razao_social ?? old('razao_social') }}">
+                      value="{{ $user->dadosPessoais->razao_social ?? old('razao_social') }}">
                     @error('razao_social')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -283,7 +289,7 @@
                   <label for="cnpj" class="col-sm-2 col-form-label">CNPJ/CPF</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('cnpj') ? 'is-invalid' : '' }}" id="cnpj"
-                      name="cnpj" placeholder="Cnpj ou cpf" value="{{ $user->dadospessoais->cnpj ?? old('cnpj') }}">
+                      name="cnpj" placeholder="Cnpj ou cpf" value="{{ $user->dadosPessoais->cnpj ?? old('cnpj') }}">
                     @error('cnpj')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -298,7 +304,7 @@
                     <input type="number"
                       class="form-control {{ $errors->has('inscricao_estadual') ? 'is-invalid' : '' }}"
                       id="inscricao_estadual" name="inscricao_estadual" placeholder="Inscrição estadual"
-                      value="{{ $user->dadospessoais->inscricao_estadual ?? old('inscricao_estadual') }}">
+                      value="{{ $user->dadosPessoais->inscricao_estadual ?? old('inscricao_estadual') }}">
                     @error('inscricao_estadual')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -312,7 +318,7 @@
                   <div class="col-sm-10">
                     <input type="date" class="form-control {{ $errors->has('data_abertura') ? 'is-invalid' : '' }}"
                       id="data_abertura" name="data_abertura" placeholder="data"
-                      value="{{ $user->dadospessoais->data_abertura ?? old('data_abertura') }}">
+                      value="{{ $user->dadosPessoais->data_abertura ?? old('data_abertura') }}">
                     @error('data_abertura')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -326,7 +332,7 @@
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}"
                       id="endereco" name="endereco" placeholder="Endereço"
-                      value="{{ $user->dadospessoais->endereco ?? old('endereco') }}">
+                      value="{{ $user->dadosPessoais->endereco ?? old('endereco') }}">
                     @error('endereco')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -339,7 +345,7 @@
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" id="numero"
                       name="numero" placeholder="Número" maxlength="6"
-                      value="{{ $user->dadospessoais->numero ?? old('numero') }}">
+                      value="{{ $user->dadosPessoais->numero ?? old('numero') }}">
                     @error('numero')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -351,7 +357,7 @@
                   <label for="bairro" class="col-sm-2 col-form-label">Bairro</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('bairro') ? 'is-invalid' : '' }}" id="bairro"
-                      name="bairro" placeholder="Bairro" value="{{ $user->dadospessoais->bairro ?? old('bairro') }}">
+                      name="bairro" placeholder="Bairro" value="{{ $user->dadosPessoais->bairro ?? old('bairro') }}">
                     @error('bairro')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -363,7 +369,7 @@
                   <label for="cidade" class="col-sm-2 col-form-label">Cidade</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('cidade') ? 'is-invalid' : '' }}" id="cidade"
-                      name="cidade" placeholder="Cidade" value="{{ $user->dadospessoais->cidade ?? old('cidade') }}">
+                      name="cidade" placeholder="Cidade" value="{{ $user->dadosPessoais->cidade ?? old('cidade') }}">
                     @error('cidade')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -377,7 +383,7 @@
                   <label for="cep" class="col-sm-2 col-form-label">Cep</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep"
-                      name="cep" placeholder="Cep" value="{{ $user->dadospessoais->cep ?? old('cep') }}">
+                      name="cep" placeholder="Cep" value="{{ $user->dadosPessoais->cep ?? old('cep') }}">
                     @error('cep')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -393,59 +399,59 @@
                       name="estado">
                       <option value="" selected>Selecione uma opção</option>
                       <option value="">Selecione um estado</option>
-                      <option value="AC" {{ isset($user) && $user->dadospessoais->estado == 'AC' ? 'selected' : ''
+                      <option value="AC" {{ isset($user) && $user->dadosPessoais->estado == 'AC' ? 'selected' : ''
                         }}>Acre</option>
-                      <option value="AL" {{ isset($user) && $user->dadospessoais->estado == 'AL' ? 'selected' : ''
+                      <option value="AL" {{ isset($user) && $user->dadosPessoais->estado == 'AL' ? 'selected' : ''
                         }}>Alagoas</option>
-                      <option value="AP" {{ isset($user) && $user->dadospessoais->estado == 'AP' ? 'selected' : ''
+                      <option value="AP" {{ isset($user) && $user->dadosPessoais->estado == 'AP' ? 'selected' : ''
                         }}>Amapá</option>
-                      <option value="AM" {{ isset($user) && $user->dadospessoais->estado == 'AM' ? 'selected' : ''
+                      <option value="AM" {{ isset($user) && $user->dadosPessoais->estado == 'AM' ? 'selected' : ''
                         }}>Amazonas</option>
-                      <option value="BA" {{ isset($user) && $user->dadospessoais->estado == 'BA' ? 'selected' : ''
+                      <option value="BA" {{ isset($user) && $user->dadosPessoais->estado == 'BA' ? 'selected' : ''
                         }}>Bahia</option>
-                      <option value="CE" {{ isset($user) && $user->dadospessoais->estado == 'CE' ? 'selected' : ''
+                      <option value="CE" {{ isset($user) && $user->dadosPessoais->estado == 'CE' ? 'selected' : ''
                         }}>Ceará</option>
-                      <option value="DF" {{ isset($user) && $user->dadospessoais->estado == 'DF' ? 'selected' : ''
+                      <option value="DF" {{ isset($user) && $user->dadosPessoais->estado == 'DF' ? 'selected' : ''
                         }}>Distrito Federal</option>
-                      <option value="ES" {{ isset($user) && $user->dadospessoais->estado == 'ES' ? 'selected' : ''
+                      <option value="ES" {{ isset($user) && $user->dadosPessoais->estado == 'ES' ? 'selected' : ''
                         }}>Espírito Santo</option>
-                      <option value="GO" {{ isset($user) && $user->dadospessoais->estado == 'GO' ? 'selected' : ''
+                      <option value="GO" {{ isset($user) && $user->dadosPessoais->estado == 'GO' ? 'selected' : ''
                         }}>Goiás</option>
-                      <option value="MA" {{ isset($user) && $user->dadospessoais->estado == 'MA' ? 'selected' : ''
+                      <option value="MA" {{ isset($user) && $user->dadosPessoais->estado == 'MA' ? 'selected' : ''
                         }}>Maranhão</option>
-                      <option value="MT" {{ isset($user) && $user->dadospessoais->estado == 'MT' ? 'selected' : ''
+                      <option value="MT" {{ isset($user) && $user->dadosPessoais->estado == 'MT' ? 'selected' : ''
                         }}>Mato Grosso</option>
-                      <option value="MS" {{ isset($user) && $user->dadospessoais->estado == 'MS' ? 'selected' : ''
+                      <option value="MS" {{ isset($user) && $user->dadosPessoais->estado == 'MS' ? 'selected' : ''
                         }}>Mato Grosso do Sul</option>
-                      <option value="MG" {{ isset($user) && $user->dadospessoais->estado == 'MG' ? 'selected' : ''
+                      <option value="MG" {{ isset($user) && $user->dadosPessoais->estado == 'MG' ? 'selected' : ''
                         }}>Minas Gerais</option>
-                      <option value="PA" {{ isset($user) && $user->dadospessoais->estado == 'PA' ? 'selected' : ''
+                      <option value="PA" {{ isset($user) && $user->dadosPessoais->estado == 'PA' ? 'selected' : ''
                         }}>Pará</option>
-                      <option value="PB" {{ isset($user) && $user->dadospessoais->estado == 'PB' ? 'selected' : ''
+                      <option value="PB" {{ isset($user) && $user->dadosPessoais->estado == 'PB' ? 'selected' : ''
                         }}>Paraíba</option>
-                      <option value="PR" {{ isset($user) && $user->dadospessoais->estado == 'PR' ? 'selected' : ''
+                      <option value="PR" {{ isset($user) && $user->dadosPessoais->estado == 'PR' ? 'selected' : ''
                         }}>Paraná</option>
-                      <option value="PE" {{ isset($user) && $user->dadospessoais->estado == 'PE' ? 'selected' : ''
+                      <option value="PE" {{ isset($user) && $user->dadosPessoais->estado == 'PE' ? 'selected' : ''
                         }}>Pernambuco</option>
-                      <option value="PI" {{ isset($user) && $user->dadospessoais->estado == 'PI' ? 'selected' : ''
+                      <option value="PI" {{ isset($user) && $user->dadosPessoais->estado == 'PI' ? 'selected' : ''
                         }}>Piauí</option>
-                      <option value="RJ" {{ isset($user) && $user->dadospessoais->estado == 'RJ' ? 'selected' : ''
+                      <option value="RJ" {{ isset($user) && $user->dadosPessoais->estado == 'RJ' ? 'selected' : ''
                         }}>Rio de Janeiro</option>
-                      <option value="RN" {{ isset($user) && $user->dadospessoais->estado == 'RN' ? 'selected' : ''
+                      <option value="RN" {{ isset($user) && $user->dadosPessoais->estado == 'RN' ? 'selected' : ''
                         }}>Rio Grande do Norte</option>
-                      <option value="RS" {{ isset($user) && $user->dadospessoais->estado == 'RS' ? 'selected' : ''
+                      <option value="RS" {{ isset($user) && $user->dadosPessoais->estado == 'RS' ? 'selected' : ''
                         }}>Rio Grande do Sul</option>
-                      <option value="RO" {{ isset($user) && $user->dadospessoais->estado == 'RO' ? 'selected' : ''
+                      <option value="RO" {{ isset($user) && $user->dadosPessoais->estado == 'RO' ? 'selected' : ''
                         }}>Rondônia</option>
-                      <option value="RR" {{ isset($user) && $user->dadospessoais->estado == 'RR' ? 'selected' : ''
+                      <option value="RR" {{ isset($user) && $user->dadosPessoais->estado == 'RR' ? 'selected' : ''
                         }}>Roraima</option>
-                      <option value="SC" {{ isset($user) && $user->dadospessoais->estado == 'SC' ? 'selected' : ''
+                      <option value="SC" {{ isset($user) && $user->dadosPessoais->estado == 'SC' ? 'selected' : ''
                         }}>Santa Catarina</option>
-                      <option value="SP" {{ isset($user) && $user->dadospessoais->estado == 'SP' ? 'selected' : ''
+                      <option value="SP" {{ isset($user) && $user->dadosPessoais->estado == 'SP' ? 'selected' : ''
                         }}>São Paulo</option>
-                      <option value="SE" {{ isset($user) && $user->dadospessoais->estado == 'SE' ? 'selected' : ''
+                      <option value="SE" {{ isset($user) && $user->dadosPessoais->estado == 'SE' ? 'selected' : ''
                         }}>Sergipe</option>
-                      <option value="TO" {{ isset($user) && $user->dadospessoais->estado == 'TO' ? 'selected' : ''
+                      <option value="TO" {{ isset($user) && $user->dadosPessoais->estado == 'TO' ? 'selected' : ''
                         }}>Tocantins</option>
                     </select>
                     @error('estado')
@@ -461,7 +467,7 @@
                     <input type="text" data-inputmask="'mask': '(99) 9999-9999'"
                       class="form-control {{ $errors->has('telefone') ? 'is-invalid' : '' }}" id="telefone"
                       name="telefone" placeholder="Telefone"
-                      value="{{ $user->dadospessoais->telefone ?? old('telefone') }}">
+                      value="{{ $user->dadosPessoais->telefone ?? old('telefone') }}">
                     @error('telefone')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -474,7 +480,7 @@
                   <div class="col-sm-10">
                     <input type="text" data-inputmask="'mask': '(99) 999999999'"
                       class="form-control {{ $errors->has('celular') ? 'is-invalid' : '' }}" id="celular" name="celular"
-                      placeholder="Celular" value="{{ $user->dadospessoais->celular ?? old('celular') }}">
+                      placeholder="Celular" value="{{ $user->dadosPessoais->celular ?? old('celular') }}">
                     @error('celular')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -486,7 +492,7 @@
                   <label for="site" class="col-sm-2 col-form-label">Site</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('site') ? 'is-invalid' : '' }}" id="site"
-                      name="site" placeholder="Site" value="{{ $user->dadospessoais->site ?? old('site') }}">
+                      name="site" placeholder="Site" value="{{ $user->dadosPessoais->site ?? old('site') }}">
                     @error('site')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -498,7 +504,7 @@
                   <label for="email" class="col-sm-2 col-form-label">E-mail</label>
                   <div class="col-sm-10">
                     <input type="mail" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email"
-                      name="email" placeholder="Site" value="{{ $user->dadospessoais->email ?? old('E-mail') }}">
+                      name="email" placeholder="Site" value="{{ $user->dadosPessoais->email ?? old('E-mail') }}">
                     @error('email')
                     <small class="invalid-feedback">
                       {{ $message }}
@@ -506,6 +512,29 @@
                     @enderror
                   </div>
                 </div>
+                <div class="form-group row">                  
+                  <label for="img" class="col-sm-2 col-form-label">Foto ou Logomarca:</label>
+                  <div class="col-sm-10">
+                    {{-- @isset($user)                    
+                        <img src="{{config('app.aws_url')."{$user->dadosPessoais->img}" }}"" alt="{{$user->dadosPessoais->nome}}" style="max-width: 200px; padding-bottom: 20px">
+                    @endisset       --}}
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
+                          </div> 
+                      <input type="file" class="form-control {{ $errors->has('img') ? 'is-invalid' : '' }}" id="img"
+                          name="img" placeholder="Nenhuma imagem selecionada" value="{{ $user->dadosPessoais->img ?? old('img') }}">
+                      @error('img')
+                          <small class="invalid-feedback">
+                              {{ $message }}
+                          </small>
+                      @enderror
+                    </div>
+                    <span class="text-danger">Dimensões recomendada 256 x 256, ultilize o site <a target="_" href="https://www.iloveimg.com/pt/redimensionar-imagem">Iloveimg</a>  para redimensionar</span>
+                    
+                  </div>
+                
+              </div>
 
                 <div class="form-group row">
                   <div class="offset-sm-2 col-sm-10">
