@@ -99,10 +99,19 @@
 
 
   <div class="card-footer" style="padding-left: 34px">
-    <a class="btn btn-primary" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
-      data-toggle="tooltip"
-      data-placement="top" title="Editar Processo">
-      <i class="fas fa-edit"></i> Editar</a>
+  @can('editar-processo-compras')
+  <a class="btn btn-primary" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
+    data-toggle="tooltip"
+    data-placement="top" title="Editar Processo">
+    <i class="fas fa-edit"></i> Editar</a>    
+  @endcan
+  @can('ver-processos-usuario-externo')
+  <a class="btn btn-success" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
+    data-toggle="tooltip"
+    data-placement="top" title="Solicitar Credenciamento ao processo">
+    <i class="fas fa-shopping-cart"></i> Credenciar</a>    
+  @endcan
+    
   </div>
 
 

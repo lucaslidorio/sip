@@ -83,13 +83,21 @@
               <td>{{ \Illuminate\Support\Str::limit($processo->objeto, 100, '...') }}</td>
               
                 <td class="text-center">
-                  @can('ver-processo-compras')
+                  @can('ver-processos-usuario-externo')                    
+                  <a href="#" data-id="{{$processo->id}}"
+                    class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Solicitar Credenciamento"
+                    onclick="confirmCredenciamento(event, '{{ route('credenciamento.store', $processo->id) }}')">
+                    <i class="fas fa-shopping-cart"></i>
+                  </a>
+                  @endcan
+                  @canany(['ver-processo-compras', 'ver-processos-usuario-externo'])
                   <a href="{{route('processos.show', $processo->id)}}" data-id="{{$processo->id}}"
                     class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"  
                     title="Ver Detalhes">                
                     <i class="far fa-eye"></i>
                   </a>
-                  @endcan
+                  @endcanany
                   @can('editar-processo-compras')
                   <a href="{{route('processos.edit', $processo->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
@@ -158,5 +166,24 @@
           }
         })  
 });
+function confirmCredenciamento(event, url) {
+        event.preventDefault();
+        
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "Você deseja solicitar o credenciamento?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, continuar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+
 </script>
 @stop

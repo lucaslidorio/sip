@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('processo_compra_id');
             $table->foreign('processo_compra_id')
             ->references('id')->on('processo_compras');
-            $table->unsignedBigInteger('type_document_id');
+            $table->unsignedBigInteger('type_document_id')->nullable();
             $table->foreign('type_document_id')
             ->references('id')->on('type_documents');
             $table->string('anexo', 255)->nullable();

@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documentos_pessoas', function (Blueprint $table) {
+        Schema::create('anexos_credenciamentos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');          
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('dado_pessoa_id');          
-            $table->foreign('dado_pessoa_id')->references('id')->on('dados_pessoas');
+            $table->unsignedBigInteger('credenciamento_compra_id');          
+            $table->foreign('credenciamento_compra_id')->references('id')->on('credenciamentos_processos_compras')->onDelete('cascade');
             $table->unsignedBigInteger('type_document_id')->nullable();          
             $table->foreign('type_document_id')->references('id')->on('type_documents');
             $table->string('anexo', 255)->nullable();
-            $table->string('nome_original', 255)->nullable(); 
-            $table->date('data_validade')->nullable();
+            $table->string('nome_original', 255)->nullable();   
             $table->timestamps();
         });
     }
@@ -31,7 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documentos_pessoas');
-        
+        Schema::dropIfExists('anexos_credenciamentos_processos');
     }
 };

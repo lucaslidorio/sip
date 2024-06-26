@@ -12,6 +12,7 @@ use App\Models\ProceedingSituation;
 use App\Models\ProcessoCompras;
 use App\Models\TypeDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -78,7 +79,12 @@ class ProcessoCompraController extends Controller
      */
     public function show(string $id)
     {
-        $this->authorize('ver-processo-compras');
+       // $this->authorize('ver-processo-compras');
+
+        if (!Gate::any(['ver-processos-usuario-externo', 'ver-processo-compras'])) {
+            abort(403, 'Ação não autorizada.');
+        }
+
         $processo = $this->repository->where('id', $id)->first();
 
         if (!$processo)

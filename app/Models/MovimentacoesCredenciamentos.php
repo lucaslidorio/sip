@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class MovimentacoesCredenciamentos extends Model
+{
+    use HasFactory;
+    protected $table = 'movimentacoes_credenciamentos';
+    protected $fillable = ['credenciamento_compra_id', 'tipo_movimentacao_id', 'user_id'];
+
+    public function credenciamentoProcesso()
+    {
+        return $this->belongsTo(CredenciamentosProcessosCompras::class, 'credenciamento_compra_id');
+    }
+
+    public function tipoMovimentacao()
+    {
+        return $this->belongsTo(TiposMovimentacoesCredenciamentos::class, 'tipo_movimentacao_id');
+    }
+}

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\CouncilorController;
+use App\Http\Controllers\admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
 use App\Http\Controllers\Admin\DirectorTableController;
 use App\Http\Controllers\Admin\FunctionController;
@@ -410,7 +411,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/processos/attachmentStore', [ProcessoCompraController::class, 'storeAttachment'])->name('processoAttachmentStore.store');
             Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');
            
-  
+            //Rotas de Credenciamento
+            Route::post('/processos/credenciamento', [CredenciamentoProcessoComprasController::class, 'storeDocumentoCredenciamento'])->name('credenciamento.store.documento');
+            Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
+            Route::get('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumento'])->name('credenciamento.deleteDocumento');
+            
   
             
              //Rotas de Diario oficial
