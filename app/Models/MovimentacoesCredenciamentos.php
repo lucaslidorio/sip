@@ -9,7 +9,7 @@ class MovimentacoesCredenciamentos extends Model
 {
     use HasFactory;
     protected $table = 'movimentacoes_credenciamentos';
-    protected $fillable = ['credenciamento_compra_id', 'tipo_movimentacao_id', 'user_id'];
+    protected $fillable = ['user_id','credenciamento_compra_id', 'tipo_movimentacao_id', 'observacao' ];
 
     public function credenciamentoProcesso()
     {

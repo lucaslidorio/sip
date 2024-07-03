@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
 
 class CredenciamentoProcessoComprasController extends Controller
 {
@@ -38,22 +39,13 @@ class CredenciamentoProcessoComprasController extends Controller
     public function create($id)
     {
        
-        
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store($id)
-    {
         $this->authorize('ver-processos-usuario-externo');
         try {
            
             $processo = ProcessoCompras::findOrFail($id);        
             $user = auth()->user();
             $dado_pessoa_id = $user->dadosPessoais->id; 
-            $message = "Para concluir a solicitação de credenciamento, anexe os documentos solicitado no edital.";
+            $message = "Para concluir a solicitação de credenciamento, anexe os documentos solicitado no edital e clique no botão Concluir.";
             $type_documents = $this->type_document->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
             
             // Verificar se já existe um registro com dado_pessoa_id e processo_compra_id
@@ -62,16 +54,14 @@ class CredenciamentoProcessoComprasController extends Controller
                                                       ->first();
 
             if ($credenciamento) {
-                // Redirecionar se já existe
-                $documentos = $credenciamento->documentos()->get();
+                // Redirecionar se já existe                
                 $ultimaMovimentacao = $credenciamento->ultimaMovimentacao()->first();
                 return view('admin.pages.processos.credenciamento._partials.documentos', 
                                                                 compact('processo', 
                                                                     'credenciamento',
                                                                     'ultimaMovimentacao', 
                                                                     'message',
-                                                                    'type_documents',
-                                                                    'documentos'));
+                                                                    'type_documents'));
             }                  
 
             $credenciamentoData=[
@@ -88,22 +78,55 @@ class CredenciamentoProcessoComprasController extends Controller
             $movimentacao->user_id = $user->id;          
             $movimentacao->save();          
             $ultimaMovimentacao = $credenciamento->ultimaMovimentacao()->first();
-            $documentos = $credenciamento->documentos()->get();
+            
          
             return view('admin.pages.processos.credenciamento._partials.documentos', 
                                                                 compact(
                                                                     'processo', 
-                                                                    'credenciamento',
-                                                                    'documentos',
+                                                                    'credenciamento',                                                                    
                                                                     'movimentacao',
                                                                     'ultimaMovimentacao',
                                                                     'message', 
                                                                     'type_documents',
-                                                                    'documentos'));
+                                                                    ));
 
         } catch (ModelNotFoundException $e) {
             // Se o processo não for encontrado, retorna uma resposta 404
             return response()->view('admin.pages.errors.404', ['message' => 'Processo não encontrado.'], 404);
+            
+        }
+        
+        
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store($id)
+    {
+        $this->authorize('ver-processos-usuario-externo');
+        try {
+           
+            $credenciamento = CredenciamentosProcessosCompras::findOrFail($id);     
+            $user = auth()->user();
+           
+            if ($user->id === $credenciamento->user_id && $user->dadosPessoais->id === $credenciamento->dado_pessoa_id) {
+                // Redirecionar se há
+                
+                $tipoMovimentacaoId = 2; // Solicitação de Credenciamento (Documentação enviada para analise)
+                $credenciamento->tiposMovimentacoes()->attach($tipoMovimentacaoId, [                    
+                    'user_id' => $user->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);             
+                toast('Credeciamento efetuado com sucesso!','success')->toToast('top') ; 
+                return redirect()->route('processos.index');
+            }  
+            
+
+        } catch (ModelNotFoundException $e) {
+            // Se o processo não for encontrado, retorna uma resposta 404
+            return response()->view('admin.pages.errors.404', ['message' => 'Erro ao credenciar o processo.'], 404);
             
         }
     }
@@ -123,25 +146,7 @@ class CredenciamentoProcessoComprasController extends Controller
         // Iniciar uma transação
         DB::beginTransaction();
         try {
-            // Verificar se já existe uma movimentação do mesmo tipo nos últimos 60 segundos
-            $ultimaMovimentacao = MovimentacoesCredenciamentos::where('credenciamento_compra_id', $credenciamentoId)
-                ->where('tipo_movimentacao_id', $tipoMovimentacaoId)
-                ->where('created_at', '>=', now()->subMinute())
-                ->lockForUpdate() // Lock the row for update
-                ->first();
-    
-            if (!$ultimaMovimentacao) {
-                // Criar nova movimentação se não houver uma recente
-                $movimentacao = new MovimentacoesCredenciamentos();
-                $movimentacao->credenciamento_compra_id = $credenciamentoId;
-                $movimentacao->tipo_movimentacao_id = $tipoMovimentacaoId;
-                $movimentacao->user_id = $user->id;
-                $movimentacao->save();
-            } else {
-                // Usar a última movimentação se já houver uma recente
-                $movimentacao = $ultimaMovimentacao;
-            }
-    
+            
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
                 $path = $file->store('anexos_credenciamentos');
@@ -170,25 +175,58 @@ class CredenciamentoProcessoComprasController extends Controller
         return response()->json(['error' => 'No files uploaded'], 400);
 
     }
+
+    public function getUploadedDocuments($credenciamento_compra_id)
+    {
+        $documents = AnexosCredenciamentos::where('credenciamento_compra_id', $credenciamento_compra_id)
+            ->get()
+            ->map(function ($document) {
+                return [
+                    'id' => $document->id,
+                    'type_document_id' => $document->type_document_id,
+                    'filename' => $document->anexo,'filename' => $document->anexo,
+                    'original_name' => $document->nome_original,
+                    'url' => config('app.aws_url') . $document->anexo,
+                    'size' => Storage::disk('s3')->size($document->anexo)
+                ];
+            });
+
+        return response()->json($documents);
+    }
+
     
 
     public function deleteDocumentoCredenciamento($id)
     {
-     
-        $documento = AnexosCredenciamentos::findOrFail($id);
 
-        return response()->json(['success' => true, 'message' => 'Documento deletado com sucesso.']);
-        // $filePath = public_path('path/to/uploads/' . $documento->filename);
+        DB::beginTransaction();
+        try {
+            // Encontrar o documento pelo ID
+            $documento = AnexosCredenciamentos::findOrFail($id);        
 
-        // // Delete the file from the server
-        // if (file_exists($filePath)) {
-        //     unlink($filePath);
-        // }
+            // Verifica se o arquivo existe no storage e deleta do storage
+            if (Storage::disk('s3')->exists($documento->anexo)) {
+                Storage::disk('s3')->delete($documento->anexo);
+            }
+            // Exclua o registro do banco de dados
+            $documento->delete();
+            // Commit da transação
+            DB::commit();
 
-        // // Delete the record from the database
-        // $documento->delete();
+            return response()->json(['success' => true, 'message' => 'Documento deletado com sucesso.']);
 
-        // return response()->json(['success' => 'Documento deletado com sucesso!']);
+        } catch (\Exception $e) {
+                // Rollback da transação em caso de erro
+                DB::rollback();
+
+                // Registrar o erro para depuração
+                Log::error('Erro ao deletar documento: ' . $e->getMessage());
+
+                // Retornar uma mensagem de erro ao usuário
+                return response()->json(['success' => false, 'message' => 'Erro ao deletar o documento.'], 500);
+            
+        }
+   
     }
 
     /**

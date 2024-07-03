@@ -17,6 +17,11 @@ class CredenciamentosProcessosCompras extends Model
         'processo_compra_id'
     ];
     
+    // Definindo a relação com MovimentacoesCredenciamentos
+    // public function movimentacoes()
+    // {
+    //     return $this->hasMany(MovimentacoesCredenciamentos::class, 'credenciamento_processo_compra_id');
+    // }
      // Relacionamento com TiposMovimentacoesCredenciamento através da tabela MovimentacoesCredenciamentos
     public function tiposMovimentacoes()
     {
