@@ -412,9 +412,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');
            
             //Rotas de Credenciamento
+            Route::delete('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumentoCredenciamento'])->name('credenciamento.deleteDocumentoCredenciamento');
             Route::post('/processos/credenciamento', [CredenciamentoProcessoComprasController::class, 'storeDocumentoCredenciamento'])->name('credenciamento.store.documento');
             Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
-            Route::get('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumento'])->name('credenciamento.deleteDocumento');
             
   
             

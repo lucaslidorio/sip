@@ -111,9 +111,9 @@ class CredenciamentoProcessoComprasController extends Controller
     public function storeDocumentoCredenciamento(Request $request)
     {
         $request->validate([
-            'file.*' => 'required|file|mimes:pdf|max:3072', // PDF only and max 3MB
+            'file' => 'required|file|mimes:pdf|max:3072', // PDF only and max 3MB
             'type_document_id' => 'required|integer|exists:type_documents,id',
-            'data_validade' => 'nullable|date',
+            'credenciamento_compra_id' => 'required|integer|exists:credenciamentos_processos_compras,id',           
         ]);
     
         $user = auth()->user();
@@ -143,23 +143,23 @@ class CredenciamentoProcessoComprasController extends Controller
             }
     
             if ($request->hasFile('file')) {
-                foreach ($request->file('file') as $file) {
-                    $path = $file->store('anexos_credenciamentos');
-    
-                    // Salvar os dados no banco de dados
-                    $documento = AnexosCredenciamentos::create([
-                        'credenciamento_compra_id' => $credenciamentoId,
-                        'type_document_id' => $request->input('type_document_id'),
-                        'anexo' => $path,
-                        'nome_original' => $file->getClientOriginalName(),
-                        'data_validade' => $request->input('data_validade'),
-                    ]);
-                }
-    
+                $file = $request->file('file');
+                $path = $file->store('anexos_credenciamentos');
+
+                // Salvar os dados no banco de dados
+                AnexosCredenciamentos::create([
+                    'credenciamento_compra_id' => $credenciamentoId,
+                    'type_document_id' => $request->input('type_document_id'),
+                    'anexo' => $path,
+                    'nome_original' => $file->getClientOriginalName(),
+                    
+                ]);
+
                 // Commit da transação se tudo ocorreu bem
                 DB::commit();
-    
-                return response()->json(['message' => 'Arquivos enviados com sucesso!'], 200);
+
+                return response()->json(['message' => 'Arquivo enviado com sucesso!'], 200);
+            
             }
         } catch (\Exception $e) {
             // Rollback da transação em caso de erro
@@ -169,65 +169,10 @@ class CredenciamentoProcessoComprasController extends Controller
     
         return response()->json(['error' => 'No files uploaded'], 400);
 
-
-        // try {
-        //     // Validação dos dados
-        //     $request->validate([
-        //         'file' => 'required|file|mimes:pdf|max:3072', // PDF only and max 3MB
-        //         'type_document_id' => 'required|integer|exists:type_documents,id',
-        //         'data_validade' => 'nullable|date',
-        //     ]);
-                  
-        //     $user = auth()->user();
-        //     $credenciamentoId = $request->input('credenciamento_compra_id');
-        //     $tipoMovimentacaoId = 2;
-        
-        //     // Verificar se já existe uma movimentação do mesmo tipo nos últimos 60 segundos
-        //     $ultimaMovimentacao = MovimentacoesCredenciamentos::where('credenciamento_compra_id', $credenciamentoId)
-        //         ->where('tipo_movimentacao_id', $tipoMovimentacaoId)
-        //         ->where('created_at', '>=', now()->subMinute())
-        //         ->first();
-        
-        //     if (!$ultimaMovimentacao) {
-        //         // Criar nova movimentação se não houver uma recente
-        //         $movimentacao = new MovimentacoesCredenciamentos();
-        //         $movimentacao->credenciamento_compra_id = $credenciamentoId;
-        //         $movimentacao->tipo_movimentacao_id = $tipoMovimentacaoId;
-        //         $movimentacao->user_id = $user->id;
-        //         $movimentacao->save();
-        //     } else {
-        //         // Usar a última movimentação se já houver uma recente
-        //         $movimentacao = $ultimaMovimentacao;
-        //     }
-
-
-
-            
-        //     if ($request->hasFile('file')) {
-        //         $file = $request->file('file');
-        //         $path = $file->store('anexos_credenciamentos');
-        //         // Salvar os dados no banco de dados
-        //         $documento = AnexosCredenciamentos::create([                  
-        //             'credenciamento_compra_id' => $request->input('credenciamento_compra_id'),
-        //             'type_document_id' => $request->input('type_document_id'),
-        //             'anexo' => $path,
-        //             'nome_original' => $file->getClientOriginalName(),
-        //             'data_validade' => $request->input('data_validade'),
-        //         ]);
-
-        //         return response()->json(['path' => $path, 'documento' => $documento], 200);
-        //     }
-        //     return response()->json(['error' => 'Nenhum arquivo encontrado'], 400);
-        // } catch (\Illuminate\Validation\ValidationException $e) {
-        //     return response()->json(['error' => $e->errors()], 422);
-        // } catch (\Exception $e) {
-        //     Log::error('Erro ao salvar documento: ' . $e->getMessage());
-        //     return response()->json(['error' => 'Erro ao salvar documento: ' . $e->getMessage()], 500);
-        // }
     }
     
 
-    public function deleteDocumento($id)
+    public function deleteDocumentoCredenciamento($id)
     {
      
         $documento = AnexosCredenciamentos::findOrFail($id);

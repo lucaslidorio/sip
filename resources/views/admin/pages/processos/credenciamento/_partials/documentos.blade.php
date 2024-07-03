@@ -205,9 +205,7 @@
      $('[data-toggle="tooltip"]').tooltip()
     }) 
 
- // Inícia o código do dropzone
- Dropzone.autoDiscover = false;
-
+    Dropzone.autoDiscover = false;
 
 // Get the template HTML and remove it from the document
 var previewNode = document.querySelector("#template");
@@ -231,8 +229,8 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
         "X-CSRF-TOKEN": csrfToken
     },
     init: function() {
-
         var myDropzone = this;
+        
         // Load existing files
         uploadedDocuments.forEach(function(document) {
             var mockFile = {
@@ -256,41 +254,35 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
                     }
                 })
                 .then(response => {
-            // Verifica se a resposta está OK (status 200-299)
-            if (!response.ok) {
-                throw new Error('Erro ao deletar o documento.');
-            }
-            return response.json(); // Converte a resposta para JSON
-        })
-
-       .then(data => {
-        // Verifica se a exclusão foi bem-sucedida
-        if (data.success) {
-        myDropzone.removeFile(file); // Remove o arquivo do Dropzone
-        console.log('Documento deletado com sucesso!');
-        } else {
-        throw new Error('Erro ao deletar o documento: ' + data.message);
-        }
-        })
-        .catch(error => {
-            console.error('Erro ao deletar o documento:', error);
+                    if (!response.ok) {
+                        throw new Error('Erro ao deletar o documento.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        myDropzone.removeFile(mockFile);
+                        console.log('Documento deletado com sucesso!');
+                    } else {
+                        throw new Error('Erro ao deletar o documento: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao deletar o documento:', error);
+                });
+            });
         });
-        });
-        });
-
 
         this.on("addedfile", function(file) {
             var startButton = file.previewElement.querySelector(".start");
 
-            startButton.onclick = function() { 
+            startButton.onclick = function() {
                 var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
                 var selectElement = file.previewElement.querySelector("[data-dz-type-document]");
                 var errorMessageElement = file.previewElement.querySelector(".invalid-feedback");
-                
+
                 if (!typeDocumentId) {
-                    // Add the is-invalid class to the select element
                     selectElement.classList.add("is-invalid");
-                    // Display an error message
                     errorMessageElement.textContent = "Por favor, selecione o tipo de documento.";
                 } else {
                     selectElement.classList.remove("is-invalid");
@@ -301,17 +293,16 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
         });
 
         this.on("sending", function(file, xhr, formData) {
-            var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;            
+            var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
             var credenciamentoCompraId = file.previewElement.querySelector("[data-dz-credenciamento_compra_id]").value;
 
-            formData.append("type_document_id", typeDocumentId);          
+            formData.append("type_document_id", typeDocumentId);
             formData.append("credenciamento_compra_id", credenciamentoCompraId);
         });
 
         // Update the total progress bar
         this.on("totaluploadprogress", function(progress) {
             var progressBar = document.querySelector("#total-progress .progress-bar");
-            //var progressText = progressBar.querySelector(".progress-text");
             var progressText = progressBar.querySelector(".total-progress-text");
             progressBar.style.width = progress + "%";
             progressText.textContent = Math.round(progress) + "%";
@@ -325,33 +316,9 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
             progressText.textContent = Math.round(progress) + "%";
         });
 
-
         this.on("queuecomplete", function() {
             document.querySelector("#total-progress").style.opacity = "0";
         });
-
-        // this.on("success", function(file, response) {
-        //     file.previewElement.querySelector(".delete").addEventListener("click", function() {
-        //         fetch(`{{ url('/admin/processos/credenciamento') }}/${response.document_id}`, {
-        //             method: 'DELETE',
-        //             headers: {
-        //                 'X-CSRF-TOKEN': csrfToken,
-        //                 'Content-Type': 'application/json'
-        //             }
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.success) {
-        //                 myDropzone.removeFile(file);
-        //                 console.log('Documento deletado com sucesso!');
-        //             } else {
-        //                 console.error('Erro ao deletar o documento:', data.error);
-        //             }
-        //         })
-        //         .catch(error => console.error('Erro ao deletar o documento:', error));
-        //     });
-        // });
-        
 
         document.querySelector("#actions .start").onclick = function() {
             var files = myDropzone.getFilesWithStatus(Dropzone.ADDED);
@@ -367,7 +334,7 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
                     selectElement.classList.remove("is-invalid");
                     errorMessageElement.textContent = "";
                     myDropzone.enqueueFile(file);
-                     file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+                    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
                 }
             });
         };
@@ -383,7 +350,6 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
         });
     }
 });
-
 
 
 
