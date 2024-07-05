@@ -27,101 +27,220 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-8">
-            @can('nova-funcoes')
-            <a href="{{route('processos.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip"
-              data-placement="top" title="Cadastrar novo Processo"><i class="fas fa-plus"></i> Novo</a>
-        
-            @endcan
-            
-          </div>
-          <div class="col-md-4">
-            <div class="card-tools">
-              <form action="{{route('processos.search')}}" method="post" class="form form-inline  float-right">
-                @csrf
-                <div class="input-group input-group-sm" style="width: 250px;">
-                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                  </div>
-                </div>
-              </form>
+          <div class="col-md-2">
+            <div class="input-group input-group-sm">
+              @can('novo-processo-compras')
+              <a href="{{route('processos.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip"
+                data-placement="top" title="Cadastrar novo Processo">
+                <i class="fas fa-plus"></i> Novo</a>
+              @endcan
             </div>
           </div>
-        </div> 
+          <div class="col-md-10">
+            <form action="{{route('processos.index')}}" method="GET" class="form form-inline  ">
+              @csrf
+              <div class="col-3">
+                <select class="form-control" name="modalidade_id" id="modalidade_id" style="width: 100%;">
+                  <option value="" selected>Selecione uma modalidade</option>
+                  @foreach ($modalidades as $modalidade)
+                  <option value="{{$modalidade->id}}" {{ request()->query('modalidade_id') == $modalidade->id ?
+                    'selected' : '' }}>
+                    {{$modalidade->nome}}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-3">
+                <select class="form-control" name="criterio_julgamento_id" id="criterio_julgamento_id"
+                  style="width: 100%;">
+                  <option value="" selected>Selecione um Julgamento</option>
+                  @foreach ($criteriosJulgamento as $criterio)
+                  <option value="{{$criterio->id}}" {{ request()->query('criterio_julgamento_id') == $criterio->id ?
+                    'selected' : '' }}>
+                    {{$criterio->nome}}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-2">
+                <select class="form-control" name="proceeding_situation_id" id="proceeding_situation_id"
+                  style="width: 100%;">
+                  <option value="" selected>Seleciona uma situação</option>
+                  @foreach ($situacoes as $situacao)
+                  <option value="{{$situacao->id}}" {{ request()->query('proceeding_situation_id') == $situacao->id ?
+                    'selected' : '' }}>
+                    {{$situacao->nome}}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input type="text" name="pesquisa" id="pesquisa" class="form-control" placeholder="Objeto, descricão">
+                  <span class="input-group-append">
+                    <button type="submit" class="btn btn-info btn-flat" data-toggle="tooltip" data-placement="top"
+                      title="Pesquisar"><i class="fas fa-search"></i></button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
 
       </div>
-     
-   
+
+
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Número</th>   
-              <th>Modalidade</th>          
-              <th>Critério de Julgamento</th>    
-              <th>Data Publicação</th>    
-              <th>Início da Sessão</th>   
-              <th>Situação</th>  
+              <th>Número</th>
+              <th>Modalidade</th>
+              <th>Critério de Julgamento</th>
+              <th>Data Publicação</th>
+              <th>Início da Sessão</th>
+              <th>Situação</th>
               <th>Objeto</th>
-              
-                          
+              @can('ver-processos-usuario-externo')
+              <th>Meu Status</th>
+              @endcan
               <th width="20%" class="text-center">Ações</th>
+
             </tr>
           </thead>
           <tbody>
-            @foreach ($processos as $processo)
-      
-            <tr >
-              <td>{{$processo->numero}}/{{$processo->data_publicacao->year}}</td>              
-              <td>{{$processo->modalidade->nome}}</td>
-              <td>{{$processo->criterio_julgamento->nome}}</td>
-              <td>{{$processo->data_publicacao->format('d-m-Y H:i:s') }}</td>
-              <td>{{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</td>
-              <td>{{$processo->situacao->nome}}</td>
-              <td>{{ \Illuminate\Support\Str::limit($processo->objeto, 100, '...') }}</td>
-              
-                <td class="text-center">
-                  @can('ver-processos-usuario-externo')                    
-                  <a href="#" data-id="{{$processo->id}}"
-                    class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                    title="Solicitar Credenciamento"
-                    onclick="confirmCredenciamento(event, '{{ route('credenciamento.store', $processo->id) }}')">
-                    <i class="fas fa-shopping-cart"></i>
-                  </a>
-                  @endcan
-                  @canany(['ver-processo-compras', 'ver-processos-usuario-externo'])
-                  <a href="{{route('processos.show', $processo->id)}}" data-id="{{$processo->id}}"
-                    class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"  
-                    title="Ver Detalhes">                
-                    <i class="far fa-eye"></i>
-                  </a>
-                  @endcanany
-                  @can('editar-processo-compras')
-                  <a href="{{route('processos.edit', $processo->id)}}" 
-                    class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
-                    title="Editar">
-                    <i class="fas fa-edit" ></i>
-                  </a>
-                  @endcan                  
-                  @can('editar-processo-compras')                    
-                  <a href="{{route('processoAttachmentCreate.create', $processo->id)}}" data-id="{{$processo->id}}"
-                    class="btn  bg-gradient-success btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
-                    title="Anexar Arquivos">
-                    <i class="fas fa-paperclip" ></i>
-                  </a>
-                  @endcan
+            @foreach ($paginatedData as $data)
+            <tr>
+              <td>{{ $data['processo']->id }}</td>
+              <td>{{$data['processo']->modalidade->nome}}</td>
+              <td>{{$data['processo']->criterio_julgamento->nome}}</td>
+              <td>{{$data['processo']->data_publicacao->format('d-m-Y H:i:s') }}</td>
+              <td>{{$data['processo']->inicio_sessao->format('d-m-Y H:i:s')}}</td>
+              <td>
+                <small class="badge
+                @switch($data['processo']->situacao->id)
+                @case(32)
+                    badge-info
+                    @break
+                @case(33)
+                    badge-success
+                    @break
+                @case(34)
+                @case(35)
+                    badge-info
+                    @break
+                @case(34)
+                    badge-info
+                    @break
+                @case(36)
+                    badge-warning
+                    @break
+                @case(37)
+                @case(38)
+                    badge-danger
+                    @break
+                @default
+                    badge-secondary
+              @endswitch
+            "> {{$data['processo']->situacao->nome}}                
+          </small>
+              </td>
+              <td>{{ \Illuminate\Support\Str::limit($data['processo']->objeto, 100, '...') }}</td>
+              @can('ver-processos-usuario-externo')
+              <td>
+                @if($data['ultima_movimentacao'])
+                <span class="bg 
+                  @switch($data['ultima_movimentacao']->tipoMovimentacao->id)
+                  @case(1)
+                      bg-warning
+                      @break
+                  @case(2)
+                      bg-info
+                      @break
+                  @case(3)
+                      bg-primary
+                      @break
+                  @case(4)
+                  @case(6)
+                      bg-warning
+                      @break
+                  @case(5)
+                      bg-success
+                      @break
+                  @case(7)
+                  @case(8)
+                      bg-danger
+                      @break
+                  @default
+                      bg-secondary
+                  @endswitch
+                    ">
+                  {{ $data['ultima_movimentacao']->tipoMovimentacao->nome }}</span>
+                @else
 
+                @endif
+              </td>
+              @endcan
+              <td class="text-center">
+                @can('ver-processos-usuario-externo')
+                  @if($data['ultima_movimentacao'])
+                    @if($data['ultima_movimentacao']->tipoMovimentacao->id == 1 ||
+                    $data['ultima_movimentacao']->tipoMovimentacao->id == 2)
+                    <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                      data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
+                      onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $data['processo']->id) }}')">
+                      <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    @else
+                    <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
+                      data-toggle="tooltip" data-placement="top" title="Acompanhar Credenciamento">
+                      <i class="fas fa-search"></i>
+                    </a>
+                    @endif
+                    @elseif($data['processo']->proceeding_situation_id == 33)
+                    <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                      data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
+                      onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $data['processo']->id) }}')">
+                      <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    @else
+
+                @endif
+                @endcan
+
+
+                @canany(['ver-processo-compras', 'ver-processos-usuario-externo'])
+                <a href="{{route('processos.show', $data['processo']->id)}}" data-id="{{$data['processo']->id}}"
+                  class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"
+                  title="Ver Detalhes do Processo">
+                  <i class="far fa-eye"></i>
+                </a>
+                @endcanany
+                @can('editar-processo-compras')
+                <a href="{{route('processos.edit', $data['processo']->id)}}" class="btn  bg-gradient-primary btn-flat  "
+                  data-toggle="tooltip" data-placement="top" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </a>
+                @endcan
+                @can('editar-processo-compras')
+                <a href="{{route('processoAttachmentCreate.create', $data['processo']->id)}}"
+                  data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                  data-toggle="tooltip" data-placement="top" title="Anexar Arquivos">
+                  <i class="fas fa-paperclip"></i>
+                </a>
+                @endcan
                 @can('excluir-processo-compras')
-                <a href="{{route('processos.destroy', $processo->id)}}" data-id="{{$processo->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
-                  title="Excluir">
-                  <i class="fas fa-trash-alt" ></i>
+                <a href="{{route('processos.destroy', $data['processo']->id)}}" data-id="{{$data['processo']->id}}"
+                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip"
+                  data-placement="top" title="Excluir">
+                  <i class="fas fa-trash-alt"></i>
                 </a>
                 @endcan
 
-                
+
               </td>
             </tr>
             @endforeach
@@ -130,10 +249,12 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
+
+
         @if (isset($pesquisar))
-        {!!$processos->appends($pesquisar)->links()!!}
+        {!!$paginatedData->appends($pesquisar)->links()!!}
         @else
-        {!!$processos->links()!!}
+        {!!$paginatedData->links()!!}
         @endif
       </div>
     </div>

@@ -12,6 +12,7 @@
     <div class="col-sm-6">
       <h1>Credenciar ao processo - <strong>{{$processo->numero}} /{{$processo->data_publicacao->year}} -
           {{$processo->modalidade->nome}}</strong></h1>
+          <p>Id_credenciamento_processo_compra: {{$credenciamento->id}}</p>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
@@ -32,10 +33,10 @@
 
 <input type="hidden" name="credenciamento_compra_id" value="{{$credenciamento->id}}">
 
-<div class="card mb-3 mt-3">
+<div class="card mt-2">
   <div class="card-header">
     <div class="row pl-3">
-      <h5 class="font-weight-bold">Status do credênciamento: {{$credenciamento->id}}
+      <h5 class="font-weight-bold">Status do credênciamento:
         <p> <span class="badge badge-info">{{ $ultimaMovimentacao->tipoMovimentacao->nome}}</span></p>
       </h5>
     </div>
@@ -45,8 +46,7 @@
       <p class="card-text"><strong> Número: </strong>{{$processo->numero}}/{{$processo->data_publicacao->year}}</p>
       <p class="card-text"><strong>Modalidade: </strong>
         {{ \Illuminate\Support\Str::upper($processo->modalidade->nome)}}</p>
-      <p class="card-text"><strong>Quantidade de lotes: </strong> {{$processo->qtd_lotes}}</p>
-      <td>
+      <p class="card-text"><strong>Quantidade de lotes: </strong> {{$processo->qtd_lotes}}</p>    
     </div>
     <div class="col-md-4" style="padding-left: 15px">
       <p class="card-text"><strong>Data de Publicação: </strong> {{$processo->data_publicacao->format('d-m-Y H:i:s')}}
@@ -56,21 +56,20 @@
     </div>
     <div class="col-md-4" style="padding-left: 15px">
       <p class="card-text"><strong>Início da Sessão : </strong> {{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</p>
-      <p class="card-text"><strong>Situação do editar-processo-compras: </strong><span
+      <p class="card-text"><strong>Situação do Processo: </strong><span
           class="badge badge-info">{{$processo->situacao->nome}}</span></p>
-
     </div>
-
-    <div class="col-md-12" style="padding-left: 25px">
-      <div class="row border-top mt-3 ">
-        <p class="card-text text-justify"><strong>Descricao:</strong> <br> {{$processo->descricao}}</p>
-      </div>
-      <div class="row border-top mt-3 ">
-        <p class="card-text text-justify"><strong>Objeto:</strong> <br> {{$processo->objeto}}</p>
-      </div>
-    </div>
-
+      
+</div>
+<div class="row no-gutters ml-3 mb-2" >
+  <div class="col-md-6" style="padding-left:15px">
+    <p class="card-text text-justify"><strong>Objeto:</strong> <br> {{$processo->objeto}}</p>
   </div>
+  <div class="col-md-6" style="padding-left: 15px">
+    <p class="card-text text-justify"><strong>Descricao:</strong> <br> {{$processo->descricao}}</p>
+  </div>
+</div>
+
   <div class="px-3">
     <div class="mx-3 callout callout-warning">
       <h5 class="text-danger"><i class="icon fas fa-info"></i> Atenção!</h5>
@@ -117,12 +116,17 @@
         </div>
         <div class="table table-striped files" id="previews">
           <div id="template" class="row mt-2">
-            <div class="col-auto">
+            {{-- <div class="col-auto">
               <span class="preview"><img src="data:," alt data-dz-thumbnail /></span>
+            </div> --}}
+            <div class="col-2 d-flex align-items-center">
+              <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
+              <span class="filename" data-dz-name></span>
             </div>
             <div class="col d-flex align-items-center">
               <p class="mb-0">
-                <span class="lead" data-dz-name></span>
+                <span class="filesize" data-dz-size></span>
+                {{-- <span class="lead" data-dz-name></span> --}}
                 (<span data-dz-size></span>)
               </p>
               <strong class="error text-danger" data-dz-errormessage></strong>
@@ -179,22 +183,17 @@
 
   </div>
   <div class="card-footer" style="padding-left: 34px">
-    <script>
-      var uploadedDocuments = @json($documentos);
-    </script>
+    <div class="col sm-12 text-center">      
+      @can('ver-processos-usuario-externo')
+      <a class="btn btn-lg btn-primary" href={{route('credenciamento.store', $credenciamento->id)}} role="button"
+        data-toggle="tooltip"
+        data-placement="top" title="Concluir Credenciamento ao processo">
+        <i class="far fa-save"></i> Concluir</a>
+      @endcan
+    </div>
 
-    @can('editar-processo-compras')
-    <a class="btn btn-primary" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
-      data-toggle="tooltip"
-      data-placement="top" title="Editar Processo">
-      <i class="fas fa-edit"></i> Editar</a>
-    @endcan
-    @can('ver-processos-usuario-externo')
-    <a class="btn btn-lg btn-primary" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
-      data-toggle="tooltip"
-      data-placement="top" title="Concluir Credenciamento ao processo">
-      <i class="fas fa-shopping-cart"></i> Concluir credenciamento</a>
-    @endcan
+
+   
   </div>
 </div>
 
@@ -216,63 +215,83 @@ previewNode.parentNode.removeChild(previewNode);
 // Get CSRF token
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+var credenciamento_compra_id = document.querySelector('input[name="credenciamento_compra_id"]').value;
+
 var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona de lançamento
     url: "{{ route('credenciamento.store.documento') }}", // Set the url
-    thumbnailWidth: 80,
-    thumbnailHeight: 80,
+    thumbnailWidth: null,
+    thumbnailHeight: null,
     parallelUploads: 20,
     previewTemplate: previewTemplate,
     autoQueue: false, // Certifique-se de que os arquivos não estejam na fila até serem adicionados manualmente
     previewsContainer: "#previews", // Define the container to display the previews
     clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
+    acceptedFiles: "application/pdf", // Aceita apenas arquivos PDF
     headers: {
         "X-CSRF-TOKEN": csrfToken
     },
     init: function() {
         var myDropzone = this;
         
-        // Load existing files
-        uploadedDocuments.forEach(function(document) {
-            var mockFile = {
-                name: document.filename,
-                size: document.size,
-                type: 'image/jpeg',
-                documentId: document.id
-            };
+      // Fetch existing files from the server
+      fetch(`/admin/processos/credenciamento/${credenciamento_compra_id}/documentos`, {
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(documents => {
+            documents.forEach(function(document) {
+                var mockFile = {
+                    name: document.original_name,
+                    size: document.size,
+                    type: 'application/pdf',
+                    documentId: document.id,                    
+                    url: document.url
+                };
 
-            myDropzone.displayExistingFile(mockFile, `/anexos_credenciamentos/${document.filename}`);
-            
-            // Adicione a funcionalidade do botão iniciar e excluir
-            mockFile.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+                myDropzone.displayExistingFile(mockFile, document.url);
+                // Defina o valor de seleção do tipo de documento
+                var selectElement = mockFile.previewElement.querySelector("[data-dz-type-document]");
+                selectElement.value = document.type_document_id;
 
-            mockFile.previewElement.querySelector(".delete").addEventListener("click", function() {
-                fetch(`{{ url('/admin/processos/credenciamento') }}/${document.id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao deletar o documento.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        myDropzone.removeFile(mockFile);
-                        console.log('Documento deletado com sucesso!');
-                    } else {
-                        throw new Error('Erro ao deletar o documento: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao deletar o documento:', error);
+                mockFile.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+
+                mockFile.previewElement.querySelector(".delete").addEventListener("click", function() {
+                    fetch(`{{ url('/admin/processos/credenciamento') }}/${document.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao deletar o documento.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            myDropzone.removeFile(mockFile);
+                            console.log('Documento deletado com sucesso!');
+                        } else {
+                            throw new Error('Erro ao deletar o documento: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao deletar o documento:', error);
+                    });
                 });
+                var filenameElement = mockFile.previewElement.querySelector("[data-dz-name]");
+                filenameElement.innerHTML = `<a href="${document.url}" target="_blank">${document.original_name}</a>`;
             });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os documentos:', error);
         });
-
         this.on("addedfile", function(file) {
             var startButton = file.previewElement.querySelector(".start");
 
@@ -296,6 +315,7 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
             var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
             var credenciamentoCompraId = file.previewElement.querySelector("[data-dz-credenciamento_compra_id]").value;
 
+            
             formData.append("type_document_id", typeDocumentId);
             formData.append("credenciamento_compra_id", credenciamentoCompraId);
         });

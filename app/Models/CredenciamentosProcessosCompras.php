@@ -18,10 +18,15 @@ class CredenciamentosProcessosCompras extends Model
     ];
     
     // Definindo a relação com MovimentacoesCredenciamentos
-    // public function movimentacoes()
-    // {
-    //     return $this->hasMany(MovimentacoesCredenciamentos::class, 'credenciamento_processo_compra_id');
-    // }
+    public function movimentacoes()
+    {
+        return $this->hasMany(MovimentacoesCredenciamentos::class, 'credenciamento_compra_id');
+    }
+    
+    public function ultimaMovimentacao()
+    {
+        return $this->hasOne(MovimentacoesCredenciamentos::class, 'credenciamento_compra_id')->latestOfMany();
+    }
      // Relacionamento com TiposMovimentacoesCredenciamento através da tabela MovimentacoesCredenciamentos
     public function tiposMovimentacoes()
     {
@@ -29,14 +34,32 @@ class CredenciamentosProcessosCompras extends Model
                     ->withTimestamps();
     }
 
-    public function ultimaMovimentacao()
-    {
-        return $this->hasOne(MovimentacoesCredenciamentos::class, 'credenciamento_compra_id')->latestOfMany();
-    }
 
     public function documentos()
     {
         return $this->hasMany(AnexosCredenciamentos::class, 'credenciamento_compra_id', 'id');
     }
+    public function processo()
+    {
+        return $this->belongsTo(ProcessoCompras::class, 'processo_compra_id');
+    }
+
+     // Função para obter a última movimentação de um credenciamento específico
+     public static function ultimaMovimentacaoCredenciado($processo_compra_id, $dado_pessoa_id)
+     {
+         // Obter o credenciamento específico
+         $credenciamento = self::where('processo_compra_id', $processo_compra_id)
+                                ->where('dado_pessoa_id', $dado_pessoa_id)
+                                ->first();
+ 
+         // Verificar se o credenciamento foi encontrado
+         if ($credenciamento) {
+             // Retornar a última movimentação
+             return $credenciamento->movimentacoes()->orderBy('created_at', 'desc')->first();
+         }
+ 
+         // Retornar nulo se nenhum credenciamento foi encontrado
+         return null;
+     }
 
 }

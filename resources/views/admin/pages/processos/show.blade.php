@@ -106,9 +106,10 @@
     <i class="fas fa-edit"></i> Editar</a>    
   @endcan
   @can('ver-processos-usuario-externo')
-  <a class="btn btn-success" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
+  <a class="btn btn-success" href="#" role="button"
     data-toggle="tooltip"
-    data-placement="top" title="Solicitar Credenciamento ao processo">
+    data-placement="top" title="Solicitar Credenciamento ao processo"
+    onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $processo->id) }}')">
     <i class="fas fa-shopping-cart"></i> Credenciar</a>    
   @endcan
     
@@ -124,39 +125,24 @@
   $(function () {
    $('[data-toggle="tooltip"]').tooltip()
   })  
-
-  // document.addEventListener('DOMContentLoaded', function() {
-  //       const links = document.querySelectorAll('.download-link');
-       
-  //       links.forEach(link => {
-  //           link.addEventListener('click', function(event) {
-  //               const attachmentId = this.getAttribute('data-id');
-
-  //                // Construir a URL base dinamicamente
-  //                const baseUrl = '{{ url("/") }}';
-  //                const storeDownloadUrl = `${baseUrl}/processos/storeDownload/${attachmentId}`;
-  //                console.log(storeDownloadUrl);
-
-  //               // Enviar a requisição AJAX
-  //               const xhr = new XMLHttpRequest();
-  //               xhr.open('POST', storeDownloadUrl, true);
-  //               xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-  //               xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-
-  //               xhr.onreadystatechange = function() {
-  //                   if (xhr.readyState === XMLHttpRequest.DONE) {
-  //                       if (xhr.status === 200) {
-  //                           console.log('Download registrado com sucesso.');
-  //                       } else {
-  //                           console.log('Erro ao registrar download.');
-  //                       }
-  //                   }
-  //               };
-
-  //               xhr.send();
-  //           });
-  //       });
-  //   });
+  function confirmCredenciamento(event, url) {
+        event.preventDefault();
+        
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "Você deseja solicitar o credenciamento?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, continuar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 
 @endsection

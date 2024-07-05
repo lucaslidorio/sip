@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProcessoCompras;
 use App\Http\Requests\StoreUpdateProposition;
 use App\Models\AnexosProcessoCompra;
+use App\Models\CredenciamentosProcessosCompras;
 use App\Models\CriterioJulgamento;
 use App\Models\Modalidades;
 use App\Models\ProceedingSituation;
@@ -37,11 +38,47 @@ class ProcessoCompraController extends Controller
         $this->type_document = $type_document;
     }
 
-    public function index()
+    public function index( Request $request )
     {
-        $this->authorize('ver-processos-usuario-externo');
-        $processos = $this->repository->paginate(10);
-        return view('admin.pages.processos.index', compact('processos'));
+        if (!Gate::any(['ver-processos-usuario-externo', 'ver-processo-compras'])) {
+            abort(403, 'Ação não autorizada.');
+        }
+        // Obter o usuário logado
+        $user = auth()->user();
+        $dado_pessoa_id = $user->dadosPessoais->id;        
+        $modalidades = $this->modalidade->get();
+        $criteriosJulgamento = $this->criteriosJulgamento->get();
+        $situacoes = $this->situacao->where('processo_compra', true)->get();
+
+        // Filtrar os processos por modalidade e situacao
+        $filters = $request->only('modalidade_id', 'criterio_julgamento_id', 'proceeding_situation_id', 'pesquisa');
+        // Inicializar um array para armazenar os dados
+         $processos = ProcessoCompras::with(['credenciamentos' => function($query) use ($dado_pessoa_id) {
+            $query->where('dado_pessoa_id', $dado_pessoa_id)
+                  ->with('ultimaMovimentacao');
+        }])
+        ->filter($filters)
+        ->orderBy('data_publicacao', 'desc')
+        ->paginate(10);
+
+        $processosData = $processos->map(function ($processo) use ($dado_pessoa_id) {
+            $ultimaMovimentacao = CredenciamentosProcessosCompras::ultimaMovimentacaoCredenciado($processo->id, $dado_pessoa_id);
+            return [
+                'processo' => $processo,
+                'ultima_movimentacao' => $ultimaMovimentacao
+            ];
+        });
+
+          // Converter a coleção mapeada em um LengthAwarePaginator
+        $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(
+            $processosData,
+            $processos->total(),
+            $processos->perPage(),
+            $processos->currentPage(),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return view('admin.pages.processos.index', compact('paginatedData', 'modalidades', 'criteriosJulgamento', 'situacoes'));
     }
 
     /**
@@ -60,8 +97,10 @@ class ProcessoCompraController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateProposition $request)
+    public function store(StoreUpdateProcessoCompras $request)
     {
+
+       
         $this->authorize('novo-processo-compras');
         $dados = $request->all();
         $dados['user_created'] = auth()->user()->id;
@@ -71,7 +110,7 @@ class ProcessoCompraController extends Controller
         $this->repository->create($dados);
 
         toast('Cadastro realizado com sucesso!', 'success')->toToast('top');
-        return redirect()->back();
+        return redirect()->route('processos.index');
     }
 
     /**
@@ -141,15 +180,39 @@ class ProcessoCompraController extends Controller
         $processo->update($dadosProcesso);
 
         toast('Cadastro atualizado com sucesso!', 'success')->toToast('top');
-        return redirect()->back();
+        return redirect()->route('processos.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+    {       
+        if (!Gate::any(['excluir-processo-compras'])) {
+            abort(403, 'Ação não autorizada.');
+        };
+
+        $processo = $this->repository->findOrFail($id);        
+        if (!$processo) {
+            return redirect()->back();
+        }   
+        // Verificar se há credenciamentos associados a este processo
+        $temCredenciamento = CredenciamentosProcessosCompras::where('processo_compra_id', $processo->id)->exists();
+        if ($temCredenciamento) {
+            toast('Não é possível excluir o processo, pois existem credenciamentos associados.', 'error')->toToast('top');
+            return redirect()->back();
+        }       
+        foreach ($processo->anexos as $anexo) {
+            if (Storage::disk('s3')->exists($anexo->anexo)) {
+                Storage::disk('s3')->delete($anexo->anexo);
+            }
+            $anexo->delete();
+        } 
+        $processo->delete();      
+
+        toast('Processo excluido com sucesso!', 'success')->toToast('top');
+        return redirect()->route('processos.index');
+
     }
 
     public function createAttachment($id)

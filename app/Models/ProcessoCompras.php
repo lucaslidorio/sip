@@ -48,6 +48,31 @@ class ProcessoCompras extends Model
     public function anexos(){
         return $this->hasMany(AnexosProcessoCompra::class,'processo_compra_id', 'id');
     }
-  
+    public function credenciamentos()
+    {
+        return $this->hasMany(CredenciamentosProcessosCompras::class, 'processo_compra_id');
+    }
+
+
+
+    public function scopeFilter($query, $filters)
+{
+    if (isset($filters['modalidade_id'])) {
+        $query->where('modalidade_id', $filters['modalidade_id']);
+    }
+    if (isset($filters['criterio_julgamento_id'])) {
+        $query->where('criterio_julgamento_id', $filters['criterio_julgamento_id']);
+    }
+    if (isset($filters['proceeding_situation_id'])) {
+        $query->where('proceeding_situation_id', $filters['proceeding_situation_id']);
+    }
+    if (isset($filters['pesquisa'])) {
+        $query->where(function ($query) use ($filters) {
+            $query->where('objeto', 'like', '%' . $filters['pesquisa'] . '%')
+                  ->orWhere('descricao', 'like', '%' . $filters['pesquisa'] . '%');
+        });
+    }
+    return $query;
+}
 
 }

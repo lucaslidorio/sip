@@ -465,7 +465,7 @@ return [
             'text' => 'Processos',
             'url'  => 'admin/processos',
             'icon' => 'fas fa-folder',
-            'can'  => 'ver-processos-usuario-externo',            
+            'can'  => ['ver-processos-usuario-externo','ver-processo-compras'],            
         ],
 
         ['header' => 'CONFIGURAÇÕES',

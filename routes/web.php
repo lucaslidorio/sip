@@ -398,23 +398,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
             
-            //Rotas de Processos             
+            //Rotas de Processos  
+                  
             Route::any('/processos/search', [ProcessoCompraController::class, 'search'])->name('processos.search');
             Route::put('/processos/{id}', [ProcessoCompraController::class, 'update'])->name('processos.update');
             Route::get('/processos/{id}/edit', [ProcessoCompraController::class, 'edit'])->name('processos.edit');
             Route::get('/processos/show/{id}', [ProcessoCompraController::class, 'show'])->name('processos.show');
-            Route::get('/processos/create', [ProcessoCompraController::class, 'create'])->name('processos.create');
+            Route::get('/processos/create/', [ProcessoCompraController::class, 'create'])->name('processos.create');
             Route::get('/processos/{id}', [ProcessoCompraController::class, 'destroy'])->name('processos.destroy');
-            Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');
-            Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
             Route::get('/processos/{id}/attachmentCreate', [ProcessoCompraController::class, 'createAttachment'])->name('processoAttachmentCreate.create');
             Route::post('/processos/attachmentStore', [ProcessoCompraController::class, 'storeAttachment'])->name('processoAttachmentStore.store');
-            Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');
-           
+            Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');      
+            Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');  
+            Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
+            
+            
+            
+            
             //Rotas de Credenciamento
             Route::delete('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumentoCredenciamento'])->name('credenciamento.deleteDocumentoCredenciamento');
             Route::post('/processos/credenciamento', [CredenciamentoProcessoComprasController::class, 'storeDocumentoCredenciamento'])->name('credenciamento.store.documento');
-            Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
+            Route::get('/processos/credenciamento/{credenciamento_compra_id}/documentos', [CredenciamentoProcessoComprasController::class, 'getUploadedDocuments'])->name('credenciamento.get.documentos');
+         
+            Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'create'])->name('credenciamento.create');
+            Route::get('/processos/credenciamento/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
             
   
             
