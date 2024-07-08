@@ -279,4 +279,34 @@ class ProcessoCompraController extends Controller
             return abort(404, 'Anexo não encontrado.');
         }
     }
+
+    public function verCrendenciados($id){
+        if (!Gate::any(['ver-processo-compras'])) {
+            abort(403, 'Ação não autorizada.');
+        }
+        $processo = $this->repository::with('credenciamentos.documentos.movimentacoes')->findOrFail($id);   
+        if (!$processo) {   
+            return redirect()->back();
+        }
+
+        
+        // Inicializar um array para armazenar os dados dos credenciados e suas últimas movimentações
+        $credenciadosData = [];
+
+        foreach ($processo->credenciamentos as $credenciado) {
+            $ultimaMovimentacao = CredenciamentosProcessosCompras::ultimaMovimentacaoCredenciado($processo->id, $credenciado->dado_pessoa_id);
+
+            $credenciadosData[] = [
+                'credenciado' => $credenciado,
+                'ultima_movimentacao' => $ultimaMovimentacao
+            ];
+        }        
+
+        return view('admin.pages.processos.credenciamento.credenciados', compact('processo', 'credenciadosData'));
+
+
+
+
+
+    }
 }

@@ -34,7 +34,6 @@ class CredenciamentosProcessosCompras extends Model
                     ->withTimestamps();
     }
 
-
     public function documentos()
     {
         return $this->hasMany(AnexosCredenciamentos::class, 'credenciamento_compra_id', 'id');
@@ -43,6 +42,16 @@ class CredenciamentosProcessosCompras extends Model
     {
         return $this->belongsTo(ProcessoCompras::class, 'processo_compra_id');
     }
+
+    public function dadoPessoa(){
+        return $this->belongsTo(DadosPessoas::class, 'dado_pessoa_id', 'id');
+    }
+
+
+
+
+
+
 
      // Função para obter a última movimentação de um credenciamento específico
      public static function ultimaMovimentacaoCredenciado($processo_compra_id, $dado_pessoa_id)
@@ -61,5 +70,7 @@ class CredenciamentosProcessosCompras extends Model
          // Retornar nulo se nenhum credenciamento foi encontrado
          return null;
      }
+
+   
 
 }

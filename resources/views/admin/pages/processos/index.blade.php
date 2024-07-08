@@ -179,12 +179,20 @@
                   @endswitch
                     ">
                   {{ $data['ultima_movimentacao']->tipoMovimentacao->nome }}</span>
+                  <i  class="text-muted d-block float-right">Movimentado em: {{$data['ultima_movimentacao']->created_at->format('d-m-Y H:i:s') }}</i>
                 @else
 
                 @endif
               </td>
               @endcan
               <td class="text-center">
+                @can('ver-processo-compras')
+                  <a href="{{route('processos.credenciados', $data['processo']->id)}}" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
+                    data-toggle="tooltip" data-placement="top" title="Ver Solicitações de Credenciamento">
+                    <i class="fas fa-luggage-cart"></i>
+                  </a>
+                @endcan             
+
                 @can('ver-processos-usuario-externo')
                   @if($data['ultima_movimentacao'])
                     @if($data['ultima_movimentacao']->tipoMovimentacao->id == 1 ||
@@ -208,10 +216,8 @@
                     </a>
                     @else
 
-                @endif
+                  @endif
                 @endcan
-
-
                 @canany(['ver-processo-compras', 'ver-processos-usuario-externo'])
                 <a href="{{route('processos.show', $data['processo']->id)}}" data-id="{{$data['processo']->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"

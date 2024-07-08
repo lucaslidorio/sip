@@ -13,6 +13,7 @@ use App\Models\TypeDocument;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\TryCatch;
@@ -20,10 +21,11 @@ use PhpParser\Node\Stmt\TryCatch;
 class CredenciamentoProcessoComprasController extends Controller
 {
 
-    private $type_document;
-    public function __construct( TypeDocument $type_document)
+    private $type_document, $repository;
+    public function __construct( TypeDocument $type_document,  CredenciamentosProcessosCompras $credenciamento_compras)
     {
         $this->type_document = $type_document;
+        $this->repository = $credenciamento_compras;
     }
     /**
      * Display a listing of the resource.
@@ -259,5 +261,26 @@ class CredenciamentoProcessoComprasController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function receberCredenciamento ($id)
+    {        
+        if (!Gate::any(['editar-processo-compras'])) {
+            abort(403, 'Ação não autorizada.');
+        }
+        
+        $credenciamento = $this->repository::with('movimentacoes')->findOrFail($id);   
+        if (!$credenciamento) {   
+            return redirect()->back();
+        }
+        $user = auth()->user();
+        $tipoMovimentacaoId = 3; // Recebebido (Documentação em Analise)
+        $credenciamento->tiposMovimentacoes()->attach($tipoMovimentacaoId, [                    
+            'user_id' => $user->id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        toast('Credeciamento recebido com sucesso!','success')->toToast('top') ; 
+        return redirect()->route('processos.credenciados', $credenciamento->processo_compra_id);;
     }
 }

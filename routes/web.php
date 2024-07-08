@@ -411,6 +411,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');      
             Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');  
             Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
+            Route::get('/processos/{id}/credenciados', [ProcessoCompraController::class, 'verCrendenciados'])->name('processos.credenciados');
             
             
             
@@ -422,6 +423,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
          
             Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'create'])->name('credenciamento.create');
             Route::get('/processos/credenciamento/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
+            Route::get('/processos/credenciados/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'receberCredenciamento'])->name('credenciamento.receberCredenciamento');
             
   
             
