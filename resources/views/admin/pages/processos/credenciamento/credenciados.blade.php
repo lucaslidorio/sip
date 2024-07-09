@@ -169,15 +169,14 @@
                           @endif
                         "                           
                           href={{route('credenciamento.receberCredenciamento', $data['credenciado']->id)}} role="button"
-                          data-toggle="tooltip"                        
-                         
-                          data-placement="top" title="Receber Credenciamento">
-                          <i class="fas fa-download"></i> Receber</a>  
+                          data-toggle="tooltip" data-placement="top" title="Receber Credenciamento">
+                          <i class="fas fa-download"></i> Receber</a> 
 
-                          <a class="btn  btn-warning ml-2" href={{route('credenciamento.receberCredenciamento', $data['credenciado']->id)}} role="button"
-                            data-toggle="tooltip"
-                            data-placement="top" title="Solicitar Complementação">
-                          <i class="fas fa-question"></i> Complementação </a> 
+                          <button type="button" class="btn btn-warning ml-2" data-toggle="modal" data-target="#complementacaoModal"
+                            data-id="{{ $data['credenciado']->id }}">
+                            <i class="fas fa-question"></i> Complementação
+                          </button>
+                        
                         
                     @endcan                    
 
@@ -189,85 +188,55 @@
                 @empty
                   
                 @endforelse                 
-
-                 
-              
-
-
-                                                           
-                
-               
+    
               </tbody>
             </table>
-          </div>
-    
-        </div>
-    
+          </div>    
+        </div>   
       </div>
     </div>
 
 
-    {{-- <div class="row border-top mt-3 " style="padding-left: 25px">
-      <table class="table  table-hover table-borderless border-top mt-2 table-sm ">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Anexo</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Tipo de documento</th>
-            <th scope="col">Downloads</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($processo->anexos as $attachment) <tr>
-            <th scope="row">{{$loop->iteration}}</th>
-            <td>
-              <a href="{{ url('/processos/download/' . $attachment->id) }}"
-                target="_blank" class="mb-2 text-reset"
-                data-toggle="tooltip" data-placement="top"
-               
-                title="Clique para abrir o documento" >
-                <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
-                <span class="mr-2"> {{$attachment->nome_original}}</span>
-              </a>
-            </td>
-            <td>
-              {{$attachment->descricao}}
-            </td>
-            <td>
-              <span class="mr-2"> {{$attachment->type_document->nome}}</span>
-            </td>
-            <td>
-              <span class="mr-2"> {{$attachment->qtd_download}}</span>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div> --}}
+
   </div>
 
 
   <div class="card-footer" style="padding-left: 34px">
-  @can('editar-processo-compras')
-  <a class="btn btn-primary" href={{route('processos.edit', ['id'=>$processo->id])}} role="button"
-    data-toggle="tooltip"
-    data-placement="top" title="Editar Processo">
-    <i class="fas fa-edit"></i> Editar</a>    
-  @endcan
-  @can('ver-processos-usuario-externo')
-  <a class="btn btn-success" href="#" role="button"
-    data-toggle="tooltip"
-    data-placement="top" title="Solicitar Credenciamento ao processo"
-    onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $processo->id) }}')">
-    <i class="fas fa-shopping-cart"></i> Credenciar</a>    
-  @endcan
+
     
   </div>
 
 
 
 </div>
+<!-- Modal -->
+<div class="modal fade" id="complementacaoModal" tabindex="-1" role="dialog" aria-labelledby="complementacaoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="complementacaoModalLabel">Solicitar Complementação</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="complementacaoForm" method="POST" action="{{ route('credenciamento.solicitarComplementacao') }}">
+                  @csrf
+                  <div class="form-group">
+                      <label for="observacao">Observação</label>
+                      <textarea class="form-control" id="observacao" name="observacao" rows="3" required></textarea>
+                  </div>
+                  <input type="hidden" name="credenciamento_id" id="credenciamento_id" value="">
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" form="complementacaoForm" class="btn btn-primary">Salvar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 
 @section('js')
 <script>
@@ -293,6 +262,13 @@
             }
         });
     }
+    $('#complementacaoModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var credenciamentoId = button.data('id') // Extract info from data-* attributes
+        var modal = $(this)
+        modal.find('#credenciamento_id').val(credenciamentoId)
+    })
+
 </script>
 
 @endsection

@@ -267,8 +267,7 @@ class CredenciamentoProcessoComprasController extends Controller
     {        
         if (!Gate::any(['editar-processo-compras'])) {
             abort(403, 'Ação não autorizada.');
-        }
-        
+        }        
         $credenciamento = $this->repository::with('movimentacoes')->findOrFail($id);   
         if (!$credenciamento) {   
             return redirect()->back();
@@ -281,6 +280,28 @@ class CredenciamentoProcessoComprasController extends Controller
             'updated_at' => now(),
         ]);
         toast('Credeciamento recebido com sucesso!','success')->toToast('top') ; 
-        return redirect()->route('processos.credenciados', $credenciamento->processo_compra_id);;
+        return redirect()->route('processos.credenciados', $credenciamento->processo_compra_id);
+    }
+    public function solicitarComplementacao(Request $request){      
+
+        $request->validate([
+            'observacao' => 'required|string|max:100',
+            'credenciamento_id' => 'required|exists:credenciamentos_processos_compras,id',
+        ]);    
+        
+        $user = auth()->user();
+        $tipoMovimentacaoId = 4; // Solicitação de Complementação
+        $credenciamento = CredenciamentosProcessosCompras::findOrFail($request->credenciamento_id);
+    
+        // Criar a movimentação
+        $credenciamento->tiposMovimentacoes()->attach($tipoMovimentacaoId, [                    
+            'user_id' => $user->id,
+            'observacao' => $request->observacao,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);        
+        toast('Complementação solicitada com sucesso!','success')->toToast('top') ;
+        return redirect()->route('processos.credenciados', $credenciamento->processo_compra_id );
+    
     }
 }

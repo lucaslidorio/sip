@@ -424,7 +424,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'create'])->name('credenciamento.create');
             Route::get('/processos/credenciamento/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
             Route::get('/processos/credenciados/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'receberCredenciamento'])->name('credenciamento.receberCredenciamento');
-            
+            Route::post('/processos/credenciados', [CredenciamentoProcessoComprasController::class, 'solicitarComplementacao'])->name('credenciamento.solicitarComplementacao');
   
             
              //Rotas de Diario oficial
