@@ -57,14 +57,17 @@ class ProcessoCompraController extends Controller
             $query->where('dado_pessoa_id', $dado_pessoa_id)
                   ->with('ultimaMovimentacao');
         }])
+
         ->filter($filters)
         ->orderBy('data_publicacao', 'desc')
         ->paginate(10);
 
         $processosData = $processos->map(function ($processo) use ($dado_pessoa_id) {
+            $credenciamento = CredenciamentosProcessosCompras::getCredenciamento($dado_pessoa_id, $processo->id);            
             $ultimaMovimentacao = CredenciamentosProcessosCompras::ultimaMovimentacaoCredenciado($processo->id, $dado_pessoa_id);
             return [
                 'processo' => $processo,
+                'credenciamento_id' => $credenciamento ? $credenciamento->id : null,
                 'ultima_movimentacao' => $ultimaMovimentacao
             ];
         });
@@ -99,7 +102,6 @@ class ProcessoCompraController extends Controller
      */
     public function store(StoreUpdateProcessoCompras $request)
     {
-
        
         $this->authorize('novo-processo-compras');
         $dados = $request->all();
@@ -284,7 +286,7 @@ class ProcessoCompraController extends Controller
         if (!Gate::any(['ver-processo-compras'])) {
             abort(403, 'Ação não autorizada.');
         }
-        $processo = $this->repository::with('credenciamentos.documentos.movimentacoes')->findOrFail($id);   
+        $processo = $this->repository::with('credenciamentos.movimentacoes')->findOrFail($id);   
         if (!$processo) {   
             return redirect()->back();
         }

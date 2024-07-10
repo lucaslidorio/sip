@@ -47,6 +47,13 @@ class CredenciamentosProcessosCompras extends Model
         return $this->belongsTo(DadosPessoas::class, 'dado_pessoa_id', 'id');
     }
 
+    public static function getCredenciamento($dado_pessoa_id, $processo_compra_id)
+    {
+        return self::where('dado_pessoa_id', $dado_pessoa_id)
+                    ->where('processo_compra_id', $processo_compra_id)
+                    ->first();
+    }
+
 
 
 

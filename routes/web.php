@@ -422,10 +422,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/processos/credenciamento/{credenciamento_compra_id}/documentos', [CredenciamentoProcessoComprasController::class, 'getUploadedDocuments'])->name('credenciamento.get.documentos');
          
             Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'create'])->name('credenciamento.create');
-            Route::get('/processos/credenciamento/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
+            Route::get('/processos/credenciamento/{credenciamento_compra_id}/{movimentacao_id?}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
             Route::get('/processos/credenciados/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'receberCredenciamento'])->name('credenciamento.receberCredenciamento');
             Route::post('/processos/credenciados', [CredenciamentoProcessoComprasController::class, 'solicitarComplementacao'])->name('credenciamento.solicitarComplementacao');
-  
+            Route::get('/processos/{processo_id}/credenciados/complemetacao/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'createEnviarComplementacao'])->name('credenciamento.createEnviarComplementacao');
+            Route::get('/processos/credeciados/timeline/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'timeline'])->name('credenciamento.timeline');
+            
             
              //Rotas de Diario oficial
              Route::prefix('diario')

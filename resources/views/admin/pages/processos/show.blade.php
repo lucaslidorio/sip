@@ -42,7 +42,31 @@
     </div>
     <div class="col-md-4" style="padding-left: 15px">
       <p class="card-text"><strong>Início da Sessão : </strong> {{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</p>
-      <p class="card-text"><strong>Situação : </strong> {{$processo->situacao->nome}}</p>
+      <p class="card-text"><strong>Situação : </strong><span class="badge 
+        @switch($processo->situacao->id)
+        @case(32)
+            badge-info
+            @break
+        @case(33)
+            badge-success
+            @break
+        @case(34)
+        @case(35)
+            badge-info
+            @break
+        @case(34)
+            badge-info
+            @break
+        @case(36)
+            badge-warning
+            @break
+        @case(37)
+        @case(38)
+            badge-danger
+            @break
+        @default
+            badge-secondary
+      @endswitch">{{$processo->situacao->nome}} </span> </p>
 
     </div>
 
@@ -106,17 +130,14 @@
     <i class="fas fa-edit"></i> Editar</a>    
   @endcan
   @can('ver-processos-usuario-externo')
-  <a class="btn btn-success" href="#" role="button"
-    data-toggle="tooltip"
-    data-placement="top" title="Solicitar Credenciamento ao processo"
-    onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $processo->id) }}')">
-    <i class="fas fa-shopping-cart"></i> Credenciar</a>    
-  @endcan
-    
+    @if($processo->proceeding_situation_id == 33 )
+    <a class="btn btn-success" href="#" role="button" data-toggle="tooltip" data-placement="top"
+      title="Solicitar Credenciamento ao processo"
+      onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $processo->id) }}')">
+      <i class="fas fa-shopping-cart"></i> Credenciar</a>
+    @endif
+  @endcan    
   </div>
-
-
-
 </div>
 
 @section('js')

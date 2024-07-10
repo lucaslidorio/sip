@@ -178,14 +178,17 @@
                       bg-secondary
                   @endswitch
                     ">
-                  {{ $data['ultima_movimentacao']->tipoMovimentacao->nome }}</span>
+                  {{ $data['ultima_movimentacao']->tipoMovimentacao->nome }}</span></br>
+                  <i class="text-muted">{{$data['ultima_movimentacao']->observacao }}</i></br>
+                  
                   <i  class="text-muted d-block float-right">Movimentado em: {{$data['ultima_movimentacao']->created_at->format('d-m-Y H:i:s') }}</i>
                 @else
-
                 @endif
               </td>
               @endcan
               <td class="text-center">
+
+                   
                 @can('ver-processo-compras')
                   <a href="{{route('processos.credenciados', $data['processo']->id)}}" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
                     data-toggle="tooltip" data-placement="top" title="Ver Solicitações de Credenciamento">
@@ -197,17 +200,26 @@
                   @if($data['ultima_movimentacao'])
                     @if($data['ultima_movimentacao']->tipoMovimentacao->id == 1 ||
                     $data['ultima_movimentacao']->tipoMovimentacao->id == 2)
-                    <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
-                      data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
-                      onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $data['processo']->id) }}')">
-                      <i class="fas fa-shopping-cart"></i>
-                    </a>
+                      <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                        data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
+                        onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $data['processo']->id) }}')">
+                        <i class="fas fa-shopping-cart"></i>
+                      </a>                     
                     @else
-                    <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
-                      data-toggle="tooltip" data-placement="top" title="Acompanhar Credenciamento">
-                      <i class="fas fa-search"></i>
-                    </a>
+                      <a href="{{route('credenciamento.timeline',  $data['credenciamento_id'])}}" data-id="{{$data['processo']->id}}" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
+                        data-toggle="tooltip" data-placement="top" title="Acompanhar Credenciamento">
+                        <i class="fas fa-search"></i>
+                      </a>
                     @endif
+
+                    @if($data['ultima_movimentacao']->tipoMovimentacao->id == 4)
+                      <a href="{{route('credenciamento.createEnviarComplementacao', [$data['processo']->id, $data['credenciamento_id']])}}" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-warning btn-flat mt-0"
+                        data-toggle="tooltip" data-placement="top" title="Complementar Informações">
+                        <i class="fas fa-question"></i>
+                      </a>
+                    @endif
+
+
                     @elseif($data['processo']->proceeding_situation_id == 33)
                     <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
                       data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
@@ -215,7 +227,6 @@
                       <i class="fas fa-shopping-cart"></i>
                     </a>
                     @else
-
                   @endif
                 @endcan
                 @canany(['ver-processo-compras', 'ver-processos-usuario-externo'])

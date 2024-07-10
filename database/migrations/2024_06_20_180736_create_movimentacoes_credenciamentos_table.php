@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('credenciamento_compra_id')->references('id')->on('credenciamentos_processos_compras');
             $table->unsignedBigInteger('tipo_movimentacao_id');          
             $table->foreign('tipo_movimentacao_id')->references('id')->on('tipos_movimentacoes_credenciamentos');
-            $table->string('observacao', 100)->nullable();            
+            $table->string('observacao', 255)->nullable();            
             $table->timestamps();
         });
     }

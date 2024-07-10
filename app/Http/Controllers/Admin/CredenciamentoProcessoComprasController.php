@@ -39,8 +39,7 @@ class CredenciamentoProcessoComprasController extends Controller
      * Show the form for creating a new resource.
      */
     public function create($id)
-    {
-       
+    {       
         $this->authorize('ver-processos-usuario-externo');
         try {
            
@@ -50,6 +49,10 @@ class CredenciamentoProcessoComprasController extends Controller
             $message = "Para concluir a solicitação de credenciamento, anexe os documentos solicitado no edital e clique no botão Concluir.";
             $type_documents = $this->type_document->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
             
+            if($processo->proceeding_situation_id != 33){
+                toast('Processo não esta recebendo novos credenciamentos!','error')->toToast('top') ; 
+                return redirect()->route('processos.index');
+            }
             // Verificar se já existe um registro com dado_pessoa_id e processo_compra_id
             $credenciamento = CredenciamentosProcessosCompras::where('dado_pessoa_id', $dado_pessoa_id)
                                                       ->where('processo_compra_id', $processo->id)
@@ -65,7 +68,7 @@ class CredenciamentoProcessoComprasController extends Controller
                                                                     'message',
                                                                     'type_documents'));
             }                  
-
+            
             $credenciamentoData=[
                 'dado_pessoa_id' => $dado_pessoa_id,
                 'processo_compra_id' => $processo->id,
@@ -104,18 +107,23 @@ class CredenciamentoProcessoComprasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store($id)
+    public function store($id, $movimentacao_id = null)
     {
         $this->authorize('ver-processos-usuario-externo');
         try {
            
             $credenciamento = CredenciamentosProcessosCompras::findOrFail($id);     
-            $user = auth()->user();
-           
+            $user = auth()->user();           
             if ($user->id === $credenciamento->user_id && $user->dadosPessoais->id === $credenciamento->dado_pessoa_id) {
-                // Redirecionar se há
-                
-                $tipoMovimentacaoId = 2; // Solicitação de Credenciamento (Documentação enviada para analise)
+                // Redirecionar se há 
+                // Verifica se esta fazendo o credenciamento ou solicitação de complementação, e modifica a movimentação               
+                if ($movimentacao_id) {
+                    $tipoMovimentacaoId = $movimentacao_id; //9 Solicitação de Complementação Eviada pelo Credenciado
+                } else {
+                    $tipoMovimentacaoId = 2;
+                }               
+                               
+                // Solicitação de Credenciamento (Documentação enviada para analise)
                 $credenciamento->tiposMovimentacoes()->attach($tipoMovimentacaoId, [                    
                     'user_id' => $user->id,
                     'created_at' => now(),
@@ -141,9 +149,8 @@ class CredenciamentoProcessoComprasController extends Controller
             'credenciamento_compra_id' => 'required|integer|exists:credenciamentos_processos_compras,id',           
         ]);
     
-        $user = auth()->user();
-        $credenciamentoId = $request->input('credenciamento_compra_id');
-        $tipoMovimentacaoId = 2;
+       
+        $credenciamentoId = $request->input('credenciamento_compra_id');        
     
         // Iniciar uma transação
         DB::beginTransaction();
@@ -285,7 +292,7 @@ class CredenciamentoProcessoComprasController extends Controller
     public function solicitarComplementacao(Request $request){      
 
         $request->validate([
-            'observacao' => 'required|string|max:100',
+            'observacao' => 'required|string|max:255',
             'credenciamento_id' => 'required|exists:credenciamentos_processos_compras,id',
         ]);    
         
@@ -303,5 +310,52 @@ class CredenciamentoProcessoComprasController extends Controller
         toast('Complementação solicitada com sucesso!','success')->toToast('top') ;
         return redirect()->route('processos.credenciados', $credenciamento->processo_compra_id );
     
+    }
+        /**
+     * Enviar complementação para o orgão solicitante.
+    */
+    public function createEnviarComplementacao($processo_id, $credenciamento_compra_id){      
+    
+        $this->authorize('ver-processos-usuario-externo');
+        try {
+           
+            $processo = ProcessoCompras::findOrFail($processo_id);        
+            $user = auth()->user();
+            $dado_pessoa_id = $user->dadosPessoais->id; 
+            $message = "Envie as informacões solicitadas para complementação.";
+            $movimentacao_id = 9;
+            $type_documents = $this->type_document->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
+            
+            
+            // Verificar se já existe um registro com dado_pessoa_id e processo_compra_id
+            $credenciamento = $this->repository->findOrFail($credenciamento_compra_id);
+
+            if ($credenciamento) {
+                // Redirecionar se já existe                
+                $ultimaMovimentacao = $credenciamento->ultimaMovimentacao()->first();
+                return view('admin.pages.processos.credenciamento._partials.documentos', 
+                                                                compact('processo', 
+                                                                    'credenciamento',
+                                                                    'ultimaMovimentacao', 
+                                                                    'message',
+                                                                    'movimentacao_id',
+                                                                    'type_documents'));
+            }            
+              
+        } catch (ModelNotFoundException $e) {
+            // Se o processo não for encontrado, retorna uma resposta 404
+            return response()->view('admin.pages.errors.404', ['message' => 'Processo não encontrado.'], 404);
+            
+        }
+       
+    }
+
+    public function timeline($id){
+
+       $credenciamento = $this->repository->findOrFail($id);
+       $processo = $credenciamento->processo()->first();
+
+      
+        return view('admin.pages.processos.credenciamento.timeline', compact('credenciamento', 'processo'));
     }
 }

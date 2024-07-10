@@ -11,8 +11,7 @@
   <div class="row mb-2">
     <div class="col-sm-6">
       <h1>Credenciar ao processo - <strong>{{$processo->numero}} /{{$processo->data_publicacao->year}} -
-          {{$processo->modalidade->nome}}</strong></h1>
-          <p>Id_credenciamento_processo_compra: {{$credenciamento->id}}</p>
+          {{$processo->modalidade->nome}}</strong></h1>          
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
@@ -37,7 +36,32 @@
   <div class="card-header">
     <div class="row pl-3">
       <h5 class="font-weight-bold">Status do credênciamento:
-        <p> <span class="badge badge-info">{{ $ultimaMovimentacao->tipoMovimentacao->nome}}</span></p>
+        <p> <span class="badge 
+          @switch($ultimaMovimentacao->tipoMovimentacao->id)
+          @case(1)
+              bg-warning
+              @break
+          @case(2)
+              bg-info
+              @break
+          @case(3)
+              bg-primary
+              @break
+          @case(4)
+          @case(6)
+              bg-warning
+              @break
+          @case(5)
+              bg-success
+              @break
+          @case(7)
+          @case(8)
+              bg-danger
+              @break
+          @default
+              bg-secondary
+          @endswitch
+          ">{{ $ultimaMovimentacao->tipoMovimentacao->nome}}</span></p>
       </h5>
     </div>
   </div>
@@ -57,7 +81,32 @@
     <div class="col-md-4" style="padding-left: 15px">
       <p class="card-text"><strong>Início da Sessão : </strong> {{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</p>
       <p class="card-text"><strong>Situação do Processo: </strong><span
-          class="badge badge-info">{{$processo->situacao->nome}}</span></p>
+          class="badge 
+          @switch($processo->situacao->id)
+                @case(32)
+                    badge-info
+                    @break
+                @case(33)
+                    badge-success
+                    @break
+                @case(34)
+                @case(35)
+                    badge-info
+                    @break
+                @case(34)
+                    badge-info
+                    @break
+                @case(36)
+                    badge-warning
+                    @break
+                @case(37)
+                @case(38)
+                    badge-danger
+                    @break
+                @default
+                    badge-secondary
+              @endswitch
+          ">{{$processo->situacao->nome}}</span></p>
     </div>
       
 </div>
@@ -73,7 +122,7 @@
   <div class="px-3">
     <div class="mx-3 callout callout-warning">
       <h5 class="text-danger"><i class="icon fas fa-info"></i> Atenção!</h5>
-      <h4 class="font-weight-bold">{{$message}}</h4>
+      <h4 class="font-weight-bold">{{$message}}</h4>     
     </div>
   </div>
 
@@ -174,26 +223,22 @@
             </div>
             <input type="hidden" name="credenciamento_compra_id" value="{{$credenciamento->id}}"
               data-dz-credenciamento_compra_id>
-
           </div>
         </div>
       </div>
     </div>
 
-
   </div>
   <div class="card-footer" style="padding-left: 34px">
     <div class="col sm-12 text-center">      
       @can('ver-processos-usuario-externo')
-      <a class="btn btn-lg btn-primary" href={{route('credenciamento.store', $credenciamento->id)}} role="button"
+      <a class="btn btn-lg btn-primary" href={{route('credenciamento.store',
+       [$credenciamento->id, isset($movimentacao_id) ? $movimentacao_id : null] )}} role="button"
         data-toggle="tooltip"
         data-placement="top" title="Concluir Credenciamento ao processo">
         <i class="far fa-save"></i> Concluir</a>
       @endcan
     </div>
-
-
-   
   </div>
 </div>
 
