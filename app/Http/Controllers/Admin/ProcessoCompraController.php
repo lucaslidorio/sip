@@ -11,6 +11,7 @@ use App\Models\CriterioJulgamento;
 use App\Models\Modalidades;
 use App\Models\ProceedingSituation;
 use App\Models\ProcessoCompras;
+use App\Models\TiposMovimentacoesCredenciamentos;
 use App\Models\TypeDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -287,6 +288,7 @@ class ProcessoCompraController extends Controller
             abort(403, 'Ação não autorizada.');
         }
         $processo = $this->repository::with('credenciamentos.movimentacoes')->findOrFail($id);   
+        $tiposMovimentacoes = TiposMovimentacoesCredenciamentos::all();
         if (!$processo) {   
             return redirect()->back();
         }
@@ -304,7 +306,7 @@ class ProcessoCompraController extends Controller
             ];
         }        
 
-        return view('admin.pages.processos.credenciamento.credenciados', compact('processo', 'credenciadosData'));
+        return view('admin.pages.processos.credenciamento.credenciados', compact('processo', 'credenciadosData', 'tiposMovimentacoes'));
 
 
 

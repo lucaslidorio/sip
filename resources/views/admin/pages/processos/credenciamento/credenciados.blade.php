@@ -172,13 +172,18 @@
                           data-toggle="tooltip" data-placement="top" title="Receber Credenciamento">
                           <i class="fas fa-download"></i> Receber</a> 
 
-                          <button type="button" class="btn btn-warning ml-2" data-toggle="modal" data-target="#complementacaoModal"
+                          <button type="button" class="btn btn-primary ml-2 
+                          @if (!$data['credenciado']->movimentacoes->contains('tipo_movimentacao_id', 3)) disabled @endif
+                          " data-toggle="modal" data-target="#movimentacaoModal"
                             data-id="{{ $data['credenciado']->id }}">
-                            <i class="fas fa-question"></i> Complementação
+                            <i class="far fa-play-circle"></i> Movimentar
                           </button>
-                        
-                        
-                    @endcan                    
+                    @endcan 
+                    @can('ver-processo-compras')
+                          <a class="btn  btn-secondary ml-2 "  href={{route('credenciamento.showTimeline', $data['credenciado']->id)}} role="button"
+                          data-toggle="tooltip" data-placement="top" title="Acompanhar Credenciamento">
+                          <i class="fas fa-search"></i> Acompanhar</a>                          
+                    @endcan                   
 
                    </div>
                                       
@@ -210,21 +215,30 @@
 
 </div>
 <!-- Modal -->
-<div class="modal fade" id="complementacaoModal" tabindex="-1" role="dialog" aria-labelledby="complementacaoModalLabel" aria-hidden="true">
+<div class="modal fade" id="movimentacaoModal" tabindex="-1" role="dialog" aria-labelledby="movimentacaoModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="complementacaoModalLabel">Solicitar Complementação</h5>
+              <h5 class="modal-title" id="movimentacaoModalLabel">Solicitar Complementação</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
           <div class="modal-body">
-              <form id="complementacaoForm" method="POST" action="{{ route('credenciamento.solicitarComplementacao') }}">
+              <form id="complementacaoForm" method="POST" action="{{ route('credenciamento.movimentarCredenciamento') }}">
                   @csrf
                   <div class="form-group">
+                    <label for="tipo_movimentacao_id">Movimentação</label>
+                    <select name="tipo_movimentacao_id" id="tipo_movimentacao_id" class="form-control">
+                        <option value="">Selecione</option>
+                      @foreach($tiposMovimentacoes as $tipoMovimentacao)                     
+                        <option value="{{ $tipoMovimentacao->id }}">{{ $tipoMovimentacao->nome }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                       <label for="observacao">Observação</label>
-                      <textarea class="form-control" id="observacao" name="observacao" rows="3" required></textarea>
+                      <textarea class="form-control" id="observacao" name="observacao" rows="3"></textarea>
                   </div>
                   <input type="hidden" name="credenciamento_id" id="credenciamento_id" value="">
               </form>
@@ -236,7 +250,6 @@
       </div>
   </div>
 </div>
-
 
 @section('js')
 <script>
@@ -262,9 +275,12 @@
             }
         });
     }
-    $('#complementacaoModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var credenciamentoId = button.data('id') // Extract info from data-* attributes
+    $('#movimentacaoModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) //  Botão que acionou o modal
+        if (button.hasClass('disabled')) {
+        return false; // Impede a abertura do modal se o botão estiver desabilitado
+    }
+        var credenciamentoId = button.data('id') // Extrair informação dos dados-* do botão
         var modal = $(this)
         modal.find('#credenciamento_id').val(credenciamentoId)
     })

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class DadosPessoas extends Model
 {
@@ -32,6 +33,10 @@ class DadosPessoas extends Model
         'celular',     
     ];
 
+    public function getDataAberturaAttribute($value)
+    {
+        return Carbon::parse($value);
+    }
     public function usuario() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

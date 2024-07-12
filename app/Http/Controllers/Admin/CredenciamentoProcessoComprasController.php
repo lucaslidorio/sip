@@ -289,15 +289,19 @@ class CredenciamentoProcessoComprasController extends Controller
         toast('Credeciamento recebido com sucesso!','success')->toToast('top') ; 
         return redirect()->route('processos.credenciados', $credenciamento->processo_compra_id);
     }
-    public function solicitarComplementacao(Request $request){      
+    public function movimentarCredenciamento(Request $request){      
 
+        if (!Gate::any(['editar-processo-compras'])) {
+            abort(403, 'Ação não autorizada.');
+        }  
         $request->validate([
-            'observacao' => 'required|string|max:255',
+            'credenciamento_id' => 'required|exists:credenciamentos_processos_compras,id',
+            'observacao' => 'nullable|string|max:255',
             'credenciamento_id' => 'required|exists:credenciamentos_processos_compras,id',
         ]);    
         
         $user = auth()->user();
-        $tipoMovimentacaoId = 4; // Solicitação de Complementação
+        $tipoMovimentacaoId = $request->tipo_movimentacao_id; 
         $credenciamento = CredenciamentosProcessosCompras::findOrFail($request->credenciamento_id);
     
         // Criar a movimentação
@@ -350,12 +354,18 @@ class CredenciamentoProcessoComprasController extends Controller
        
     }
 
-    public function timeline($id){
+    public function showTimeline($id){
 
        $credenciamento = $this->repository->findOrFail($id);
        $processo = $credenciamento->processo()->first();
+       $movimentacoes = $credenciamento->movimentacoes()->orderBy('created_at', 'desc')->get();
+       // Agrupar as movimentações por data
+       $movimentacoesPorData = $movimentacoes->groupBy(function($movimentacao) {
+            return $movimentacao->created_at->format('Y-m-d');
+        });
+
 
       
-        return view('admin.pages.processos.credenciamento.timeline', compact('credenciamento', 'processo'));
+        return view('admin.pages.processos.credenciamento.timeline', compact('credenciamento', 'processo', 'movimentacoes', 'movimentacoesPorData'));
     }
 }

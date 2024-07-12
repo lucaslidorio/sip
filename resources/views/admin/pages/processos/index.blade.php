@@ -206,7 +206,7 @@
                         <i class="fas fa-shopping-cart"></i>
                       </a>                     
                     @else
-                      <a href="{{route('credenciamento.timeline',  $data['credenciamento_id'])}}" data-id="{{$data['processo']->id}}" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
+                      <a href="{{route('credenciamento.showTimeline',  $data['credenciamento_id'])}}" data-id="{{$data['processo']->id}}" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-secondary btn-flat mt-0"
                         data-toggle="tooltip" data-placement="top" title="Acompanhar Credenciamento">
                         <i class="fas fa-search"></i>
                       </a>

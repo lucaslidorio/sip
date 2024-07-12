@@ -232,7 +232,7 @@
   <div class="card-footer" style="padding-left: 34px">
     <div class="col sm-12 text-center">      
       @can('ver-processos-usuario-externo')
-      <a class="btn btn-lg btn-primary" href={{route('credenciamento.store',
+      <a class="btn btn-lg btn-primary btn-concluir" href={{route('credenciamento.store',
        [$credenciamento->id, isset($movimentacao_id) ? $movimentacao_id : null] )}} role="button"
         data-toggle="tooltip"
         data-placement="top" title="Concluir Credenciamento ao processo">
@@ -256,7 +256,6 @@ var previewNode = document.querySelector("#template");
 previewNode.id = "";
 var previewTemplate = previewNode.parentNode.innerHTML;
 previewNode.parentNode.removeChild(previewNode);
-
 // Get CSRF token
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -413,6 +412,7 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
             console.log(response);
             alert('Erro: ' + response.error);
         });
+
     }
 });
 
