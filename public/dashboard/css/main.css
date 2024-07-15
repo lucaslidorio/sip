@@ -7,4 +7,25 @@
         opacity: 0.3;
         transition: all 0.3s;              
         }
-
+    
+/* Script para colocar numeros acima do botão, estilo notificação */
+.position-relative {
+      position: relative;
+  }
+  
+  .position-absolute {
+      position: absolute;
+  }
+  
+  .top-0 {
+      top: 0;
+  }
+  
+  .start-100 {
+      left: 100%;
+  }
+  
+  .translate-middle {
+      transform: translate(-50%, -50%);
+  }
+  /* Fim */

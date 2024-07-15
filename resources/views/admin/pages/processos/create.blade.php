@@ -1,9 +1,7 @@
 @extends('adminlte::page')
-
 @section('title', 'Cadastrar novo processo')
 @section('plugins.inputmask', true)
 @section('plugins.icheck-bootstrap', true)
-
 @section('content_header')
 
 <div class="container-fluid">

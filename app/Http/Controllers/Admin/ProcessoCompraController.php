@@ -293,6 +293,8 @@ class ProcessoCompraController extends Controller
             return redirect()->back();
         }
 
+         // Obter as contagens
+        $counts = $processo->countCredenciamentosWithLastMovements();
         
         // Inicializar um array para armazenar os dados dos credenciados e suas últimas movimentações
         $credenciadosData = [];
@@ -305,12 +307,26 @@ class ProcessoCompraController extends Controller
                 'ultima_movimentacao' => $ultimaMovimentacao
             ];
         }        
+        // Ordenar os credenciados por última movimentação em ordem decrescente
+            usort($credenciadosData, function ($a, $b) {
+                if ($a['ultima_movimentacao'] && $b['ultima_movimentacao']) {
+                    return strtotime($b['ultima_movimentacao']->created_at) - strtotime($a['ultima_movimentacao']->created_at);
+                } elseif ($a['ultima_movimentacao']) {
+                    return -1;
+                } elseif ($b['ultima_movimentacao']) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
 
-        return view('admin.pages.processos.credenciamento.credenciados', compact('processo', 'credenciadosData', 'tiposMovimentacoes'));
 
 
 
 
+
+        return view('admin.pages.processos.credenciamento.credenciados', 
+        compact('processo', 'credenciadosData', 'tiposMovimentacoes', 'counts'));
 
     }
 }
