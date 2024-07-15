@@ -46,16 +46,15 @@
           <p class="text-muted text-center">{{ $user->dadosPessoais->razao_social ?? 'Não Informado' }}</p>
           <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
-              <b>Processos Credenciados</b> <a class="float-right">1,322</a>
+              <b>Credenciamentos Ativos</b> <a class="float-right">{{$user->dadosPessoais->countCredenciamentosAtivo()}}</a>
             </li>
             <li class="list-group-item">
-              <b>Processos Ativos</b> <a class="float-right">543</a>
+              <b>Total de Participações</b> <a class="float-right">{{$user->dadosPessoais->countCredenciamentos()}}</a>
             </li>
             <li class="list-group-item">
-              <b>Friends</b> <a class="float-right">13,287</a>
+              <b>Descredenciado</b> <a class="float-right text-danger">{{$user->dadosPessoais->countDescredenciado()}}</a>
             </li>
-          </ul>
-          <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+          </ul>          
         </div>
       </div>
 

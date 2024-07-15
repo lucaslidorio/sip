@@ -48,5 +48,30 @@ class DadosPessoas extends Model
     {
         return $this->hasMany(DocumentosPessoas::class, 'dado_pessoa_id', 'id');
     }
+    public function credenciamentosProcessosCompras()
+    {
+        return $this->hasMany(CredenciamentosProcessosCompras::class, 'dado_pessoa_id');
+    }
+
+     // Função para contar os credenciamentos existentes
+     public function countCredenciamentos()
+     {
+         return $this->credenciamentosProcessosCompras()->count();
+     }
+ 
+     // Função para contar os credenciamentos com movimentação do tipo 5 (credenciado)
+     public function countCredenciamentosAtivo()
+     {
+         return $this->credenciamentosProcessosCompras()->whereHas('movimentacoes', function ($query) {
+             $query->where('tipo_movimentacao_id', 5);
+         })->count();
+     }
+     public function countDescredenciado()
+     {
+         return $this->credenciamentosProcessosCompras()->whereHas('movimentacoes', function ($query) {
+             $query->where('tipo_movimentacao_id', 8);
+         })->count();
+     }
+
 }
 
