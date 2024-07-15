@@ -260,6 +260,9 @@ previewNode.parentNode.removeChild(previewNode);
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 var credenciamento_compra_id = document.querySelector('input[name="credenciamento_compra_id"]').value;
+var concluirButton = document.querySelector(".btn-concluir");
+console.log(concluirButton);
+
 
 var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona de lançamento
     url: "{{ route('credenciamento.store.documento') }}", // Set the url
@@ -338,7 +341,7 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
         });
         this.on("addedfile", function(file) {
             var startButton = file.previewElement.querySelector(".start");
-
+            concluirButton.classList.add("disabled");
             startButton.onclick = function() {
                 var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
                 var selectElement = file.previewElement.querySelector("[data-dz-type-document]");
@@ -382,6 +385,7 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
 
         this.on("queuecomplete", function() {
             document.querySelector("#total-progress").style.opacity = "0";
+            concluirButton.classList.remove("disabled");
         });
 
         document.querySelector("#actions .start").onclick = function() {
