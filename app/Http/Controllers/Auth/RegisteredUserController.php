@@ -51,11 +51,12 @@ class RegisteredUserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'tenant_id' => $tenant_id,
+                'tipo_usuario' => 'E', // Usuário externo
                 'password' => Hash::make($request->password),
             ]));
 
             DadosPessoas::create([
-                'user_id' => $user->id,
+                'user_id' => $user->id,                
                 'email' =>$user->email
             ]);
 
@@ -70,7 +71,6 @@ class RegisteredUserController extends Controller
                 return redirect()->back();
             }
           
-
         } catch (\Exception $e) {
 
             Log::error($e->getMessage());

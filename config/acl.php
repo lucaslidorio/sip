@@ -4,6 +4,7 @@ return [
 
     'admins' => [
             'lucaslidorio@hotmail.com',
-            'suporte@escritaescolar.com.br'
+            'suporte@escritaescolar.com.br',
+            'atendimento@swdesign.com.br',
     ],
 ];

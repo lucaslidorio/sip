@@ -59,8 +59,8 @@ class DadosPessoasController extends Controller
             'enquadramento' => 'nullable|in:MIC,EPP,GP,DE,COOP',
             'nome_fantasia' => 'nullable|max:255',
             'razao_social' => 'nullable|max:255',
-            'cnpj' => 'nullable|digits:14',
-            'inscricao_estadual' => 'nullable|digits:18',
+            'cnpj' => 'nullable|max:17',
+            'inscricao_estadual' => 'nullable|max:18',
             'data_abertura' => 'nullable|date',
             'site' => 'nullable|string|max:100',
             'email' => 'nullable|email|max:100',
@@ -70,8 +70,8 @@ class DadosPessoasController extends Controller
             'bairro' => 'nullable|max:100',
             'cidade' => 'nullable|max:100',
             'estado' => 'nullable|string|max:2',
-            'telefone' => 'nullable|digits_between:10,14',
-            'celular' => 'nullable|digits_between:11,16',
+            // 'telefone' => 'nullable|digits_between:8,18',
+            // 'celular' => 'nullable|digits_between:10,18',
             'img' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);  
 
