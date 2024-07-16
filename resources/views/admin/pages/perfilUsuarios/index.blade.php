@@ -200,7 +200,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="inputName" class="col-sm-2 col-form-label label-required">Natureza Jurídica</label>
+                  <label for="inputName" class="col-sm-2 col-form-label ">Natureza Jurídica</label>
                   <div class="col-sm-10">
                     <select class="custom-select {{ $errors->has('natureza_juridica') ? 'is-invalid' : '' }}"
                       id="natureza_juridica" name="natureza_juridica">
@@ -223,7 +223,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="enquadramento" class="col-sm-2 col-form-label label-required">Enquadramento</label>
+                  <label for="enquadramento" class="col-sm-2 col-form-label ">Enquadramento</label>
                   <div class="col-sm-10">
                     <select class="custom-select {{ $errors->has('enquadramento') ? 'is-invalid' : '' }}"
                       id="enquadramento" name="enquadramento">
@@ -256,7 +256,7 @@
 
 
                 <div class="form-group row">
-                  <label for="nome_fantasia" class="col-sm-2 col-form-label  label-required">Nome Fantasia
+                  <label for="nome_fantasia" class="col-sm-2 col-form-label  ">Nome Fantasia
                   </label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control {{ $errors->has('nome_fantasia') ? 'is-invalid' : '' }}"
@@ -727,11 +727,24 @@
   @stop
 
   @section('js')
+  @if(session('profile_incomplete'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Atualização Necessária',
+                    text: 'Por favor, clique na aba editar dados e atualize seu perfil.',
+                    icon: 'warning',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        </script>
+    @endif
   <script>
     //Inicia os tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })  
+    })     
+                
     //Aplica as mascara
       $(document).ready(function(){
       $(":input").inputmask();
@@ -755,6 +768,9 @@
 
 
     // codigo das para as abas permanecerem abertas
+    var navLinks = document.querySelectorAll('.nav-link');
+
+    // Código para que as abas permaneçam abertas
     navLinks.forEach(function (navLink) {
       navLink.addEventListener('click', function () {
         localStorage.setItem('activeTab', this.getAttribute('href'));
@@ -764,14 +780,14 @@
     // Recupera a aba ativa do localStorage
     var activeTab = localStorage.getItem('activeTab');
 
-    // Se houver uma aba ativa salva, ativa-a
+    // Se houver uma aba ativa salva, ativa-a, caso contrário ativa a aba de id "activity"
     if (activeTab) {
       document.querySelector('.nav-link.active').classList.remove('active');
       document.querySelector('.tab-pane.active').classList.remove('active');
 
       document.querySelector('.nav-link[href="' + activeTab + '"]').classList.add('active');
       document.querySelector(activeTab).classList.add('active');
-    }else{
+    } else {
       document.querySelector('.nav-link[href="#activity"]').classList.add('active');
       document.querySelector('#activity').classList.add('active');
     }

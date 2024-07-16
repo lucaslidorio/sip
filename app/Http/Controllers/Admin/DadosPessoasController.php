@@ -52,17 +52,43 @@ class DadosPessoasController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|integer|exists:users,id',
+            'tipo_pessoa' => 'required|in:F,J',
+            'natureza_juridica' => 'nullable|in:EI,LTDA,S/A,OUTRAS',
+            'enquadramento' => 'nullable|in:MIC,EPP,GP,DE,COOP',
+            'nome_fantasia' => 'nullable|max:255',
+            'razao_social' => 'nullable|max:255',
+            'cnpj' => 'nullable|digits:14',
+            'inscricao_estadual' => 'nullable|digits:18',
+            'data_abertura' => 'nullable|date',
+            'site' => 'nullable|string|max:100',
+            'email' => 'nullable|email|max:100',
+            'cep' => 'nullable|digits:8',
+            'endereco' => 'nullable|max:100',
+            'numero' => 'nullable|max:6',
+            'bairro' => 'nullable|max:100',
+            'cidade' => 'nullable|max:100',
+            'estado' => 'nullable|string|max:2',
+            'telefone' => 'nullable|digits_between:10,14',
+            'celular' => 'nullable|digits_between:11,16',
+            'img' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);  
 
         if ($request->user_id != Auth::user()->id) {
             return redirect()->route('login');
         }
+
+        
         $dadosPessoa = $this->repository->where('user_id', $request->user_id)->first();
         
         if($request->hasFile('img') && $request->img->isValid()){
             $dadosPessoa['img'] = $request->img->store('fotos_pessoas');
         } 
         $dadosPessoa->update($request->all());
-
+        $user = User::find($request->user_id);
+        $user->profile_complete = true;
+        $user->save();
         toast('Cadastro realizado com sucesso!', 'success')->toToast('top');
         return redirect()->back();
     }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');          
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('tipo_pessoa',['F', 'J'])->comment('F = FISICA, J = JURIDICA');
-            $table->enum('natureza_juridica',['EI','LTDA','S/A','OUTRAS'])->comment('EI = EIRELE, LTDA = LIMITADA, SA = SOCIEDADE ANÔNIMA');
-            $table->enum('enquadramento',[  'MIC', 'EPP', 'GP', 'DE', 'COOP'])
+            $table->enum('natureza_juridica',['EI','LTDA','S/A','OUTRAS'])->nullable()->comment('EI = EIRELE, LTDA = LIMITADA, SA = SOCIEDADE ANÔNIMA');
+            $table->enum('enquadramento',[  'MIC', 'EPP', 'GP', 'DE', 'COOP'])->nullable()
                     ->comment('MIC = MICRO EMPRESA, EPP = EMPRESA DE PEQUENO PORTE, GP = GRANDE PORTE,
             DE = DEMAIS EMPRESAS, COOP = COOPERATIVAS');
             $table->string('nome_fantasia', 255)->nullable();

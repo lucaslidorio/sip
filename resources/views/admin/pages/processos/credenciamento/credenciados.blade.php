@@ -27,7 +27,7 @@
 
 
 <div class="card mb-3 mt-3">
-  <div class="row no-gutters " style="padding:15px">
+  <div class="row no-gutters border-bottom " style="padding:15px">
     <div class="col-md-4" style="padding-left: 15px">
       <p class="card-text"><strong> Número: </strong>{{$processo->numero}}/{{$processo->data_publicacao->year}}</p>
       <p class="card-text"><strong>Modalidade: </strong>
@@ -77,8 +77,8 @@
 
 
 
-  <div class="row" style="padding:15px">
-    <div class="row">
+  <div class="row " style="padding:15px">
+    
       @foreach($counts['movements'] as $movementTypeId => $movementData)      
       <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box" >        
@@ -148,8 +148,7 @@
           </div>
         </div>
       </div>       
-      <div class="col-md-12 border-top pt-2">
-
+      <div class="col-md-12  pt-2">
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -278,13 +277,7 @@
         </div>
       </div>
 
-
-
-    </div>
-
-
     <div class="card-footer" style="padding-left: 34px">
-
 
     </div>
   </div>

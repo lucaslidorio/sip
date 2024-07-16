@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
@@ -47,23 +48,27 @@ use PhpParser\Node\Expr\FuncCall;
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    //Rota da dashboard (home) 
-    Route::get('home', [HomeController::class ,'index'])->name('dashboard.index');
- 
+
+    Route::middleware(['auth', 'profile.complete'])->group(function () {
+          //Rota da dashboard (home)   
+        Route::get('home', [HomeController::class, 'index'])->name('dashboard.index');
+
+    });
+
+  
     Route::prefix('admin')
-            ->namespace('Admin')                
-            ->group(function () {            
-          
-                Route::prefix('legislativo')
-                    ->namespace('Legislativo')
-                    ->group(function(){                     
-                  
+        ->namespace('Admin')
+        ->group(function () {
+
+            Route::prefix('legislativo')
+                ->namespace('Legislativo')
+                ->group(function () {
                     //Rotas de Lesgislaturas x Vereadores
                     Route::get('/legislatures/councilors/{id}', [LegislatureController::class, 'councilorsDestroy'])->name('legislatureCouncilorsDestroy.destroy');
                     Route::post('/legislatures/{id}/councilors', [LegislatureController::class, 'councilorsStore'])->name('legislatureCouncilorsStore.store');
                     Route::get('/legislatures/{id}/councilors/create', [LegislatureController::class, 'councilorsCreate'])->name('legislatureCouncilorsCreate.create');
                     Route::get('/legislatures/{id}/councilors', [LegislatureController::class, 'councilors'])->name('legislatureCouncilors.index');
-                                   
+
                     Route::get('/legislatures/show/{id}', [LegislatureController::class, 'show'])->name('legislatures.show');
                     //Route::get('/legislatures/create', [LegislatureController::class, 'create'])->name('legislatures.create');
                     Route::get('/legislatures/{id}', [LegislatureController::class, 'destroy'])->name('legislatures.destroy');
@@ -75,12 +80,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::put('/councilors/{id}', [CouncilorController::class, 'update'])->name('councilors.update');
                     Route::get('/councilors/{id}/edit', [CouncilorController::class, 'edit'])->name('councilors.edit');
                     Route::get('/councilors/show/{id}', [CouncilorController::class, 'show'])->name('councilors.show');
-                    Route::get('/councilors/create', [CouncilorController::class, 'create'])->name('councilors.create');  
-                    Route::get('/councilors/{id}', [CouncilorController::class, 'destroy'])->name('councilors.destroy');                 
+                    Route::get('/councilors/create', [CouncilorController::class, 'create'])->name('councilors.create');
+                    Route::get('/councilors/{id}', [CouncilorController::class, 'destroy'])->name('councilors.destroy');
                     Route::post('/councilors', [CouncilorController::class, 'store'])->name('councilors.store');
                     Route::get('/councilors', [CouncilorController::class, 'index'])->name('councilors.index');
                     //Rotas de Sessão             
-                    
+
                     //Route::any('/sessions/search', [SessionController::class, 'search'])->name('sessions.search');
                     Route::put('/sessions/{id}', [SessionController::class, 'update'])->name('sessions.update');
                     Route::get('/sessions/{id}/presentCreate', [SessionController::class, 'createPresentCouncilor'])->name('sessionPresentCreate.create');
@@ -96,41 +101,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     //Route::get('/sessions/{id}', [SessionController::class, 'destroy'])->name('sessions.destroy');
                     Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
                     Route::get('/sessions', [SessionController::class, 'index'])->name('sessions.index');
-
-
-        
-           
                 });
-                //Rotas de layouts
-                Route::prefix('layout')
-                    ->namespace('layout')
-                    ->group(function(){                  
-             
-                       // Route::any('/menus/search', [PartyController::class, 'search'])->name('menus.search');
-                        Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
-                        Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
-                        Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
-                        Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
-                        Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
-                        Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+            //Rotas de layouts
+            Route::prefix('layout')
+                ->namespace('layout')
+                ->group(function () {
 
-                        Route::put('/links/{id}', [LinkController::class, 'update'])->name('links.update');
-                        Route::get('/links/{id}/edit', [LinkController::class, 'edit'])->name('links.edit');
-                        Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
-                        Route::get('/links/{id}', [LinkController::class, 'destroy'])->name('links.destroy');
-                        Route::post('/links', [LinkController::class, 'store'])->name('links.store');
-                        Route::get('/links', [LinkController::class, 'index'])->name('links.index');
+                    // Route::any('/menus/search', [PartyController::class, 'search'])->name('menus.search');
+                    Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
+                    Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+                    Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
+                    Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+                    Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+                    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
 
-                        Route::put('/pages/{id}', [PagesController::class, 'update'])->name('pages.update');
-                        Route::get('/pages/{id}/edit', [PagesController::class, 'edit'])->name('pages.edit');
-                        Route::get('/pages/create', [PagesController::class, 'create'])->name('pages.create');
-                        Route::get('/pages/{id}', [PagesController::class, 'destroy'])->name('pages.destroy');
-                        Route::post('/pages', [PagesController::class, 'store'])->name('pages.store');
-                        Route::get('/pages', [PagesController::class, 'index'])->name('pages.index');
-                        Route::get('/pages/deleteAttachment/{id}', [PagesController::class, 'deleteAttachment'])->name('pages.deleteAttachment');
+                    Route::put('/links/{id}', [LinkController::class, 'update'])->name('links.update');
+                    Route::get('/links/{id}/edit', [LinkController::class, 'edit'])->name('links.edit');
+                    Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
+                    Route::get('/links/{id}', [LinkController::class, 'destroy'])->name('links.destroy');
+                    Route::post('/links', [LinkController::class, 'store'])->name('links.store');
+                    Route::get('/links', [LinkController::class, 'index'])->name('links.index');
 
-
-                    });
+                    Route::put('/pages/{id}', [PagesController::class, 'update'])->name('pages.update');
+                    Route::get('/pages/{id}/edit', [PagesController::class, 'edit'])->name('pages.edit');
+                    Route::get('/pages/create', [PagesController::class, 'create'])->name('pages.create');
+                    Route::get('/pages/{id}', [PagesController::class, 'destroy'])->name('pages.destroy');
+                    Route::post('/pages', [PagesController::class, 'store'])->name('pages.store');
+                    Route::get('/pages', [PagesController::class, 'index'])->name('pages.index');
+                    Route::get('/pages/deleteAttachment/{id}', [PagesController::class, 'deleteAttachment'])->name('pages.deleteAttachment');
+                });
 
             //Rotas de orgãos
             Route::any('/tenants/search', [TenantController::class, 'search'])->name('tenants.search');
@@ -142,7 +141,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/tenants', [TenantController::class, 'store'])->name('tenants.store');
             Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
 
-            
+
             //Rotas de leis             
             Route::any('/legislations/search', [LegislationController::class, 'search'])->name('legislations.search');
             Route::put('/legislations/{id}', [LegislationController::class, 'update'])->name('legislations.update');
@@ -176,15 +175,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/propositions/create', [PropositionController::class, 'create'])->name('propositions.create');
             Route::get('/propositions/{id}', [PropositionController::class, 'destroy'])->name('propositions.destroy');
             Route::post('/propositions', [PropositionController::class, 'store'])->name('propositions.store');
-           
+
 
             Route::get('/propositions/{id}/votoCreate', [PropositionController::class, 'createVotoCouncilor'])->name('propositionVotoCreate.create');
             Route::post('/propositions/{id}/votoStore', [PropositionController::class, 'storeVotoCouncilor'])->name('storeVotoCouncilor.store');
             Route::get('/propositions/{id}/votoEdit', [PropositionController::class, 'editVotoCouncilor'])->name('propositionVotoEdit.edit');
             Route::put('/propositions/{id}/votoUpdate', [PropositionController::class, 'updateVotoCouncilor'])->name('propositionVotoUpdate.update');
-            Route::get('/propositions/vereadores/{id?}', [PropositionController::class, 'vereadoresSessao'])->name('vereadoresSessao.get');//recupera os vereadores sessao->lesgislatura selecionada
+            Route::get('/propositions/vereadores/{id?}', [PropositionController::class, 'vereadoresSessao'])->name('vereadoresSessao.get'); //recupera os vereadores sessao->lesgislatura selecionada
 
-            
+
 
             //Rotas de Atas             
             Route::any('/minutes/search', [MinuteController::class, 'search'])->name('minutes.search');
@@ -204,25 +203,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/directorTables/{id}/members', [DirectorTableController::class, 'membersStore'])->name('directorTablesStore.store');
             Route::get('/directorTables/{id}/members/create', [DirectorTableController::class, 'membersCreate'])->name('directorTablesCreate.create');
             Route::get('/directorTables/{id}/members', [DirectorTableController::class, 'members'])->name('directorTableMembers.index');
-           
 
-             //Rotas de Mesa Diretora             
-             Route::any('/directorTables/search', [DirectorTableController::class, 'search'])->name('directorTables.search');
-             Route::put('/directorTables/{id}', [DirectorTableController::class, 'update'])->name('directorTables.update');
-             Route::get('/directorTables/{id}/edit', [DirectorTableController::class, 'edit'])->name('directorTables.edit');
-             Route::get('/directorTables/create', [DirectorTableController::class, 'create'])->name('directorTables.create');
-             Route::get('/directorTables/{id}', [DirectorTableController::class, 'destroy'])->name('directorTables.destroy');
-             Route::post('/directorTables', [DirectorTableController::class, 'store'])->name('directorTables.store');
-             Route::get('/directorTables', [DirectorTableController::class, 'index'])->name('directorTables.index');
- 
-            
-          
+
+            //Rotas de Mesa Diretora             
+            Route::any('/directorTables/search', [DirectorTableController::class, 'search'])->name('directorTables.search');
+            Route::put('/directorTables/{id}', [DirectorTableController::class, 'update'])->name('directorTables.update');
+            Route::get('/directorTables/{id}/edit', [DirectorTableController::class, 'edit'])->name('directorTables.edit');
+            Route::get('/directorTables/create', [DirectorTableController::class, 'create'])->name('directorTables.create');
+            Route::get('/directorTables/{id}', [DirectorTableController::class, 'destroy'])->name('directorTables.destroy');
+            Route::post('/directorTables', [DirectorTableController::class, 'store'])->name('directorTables.store');
+            Route::get('/directorTables', [DirectorTableController::class, 'index'])->name('directorTables.index');
+
+
+
             //Rotas de Comissões x membros
             Route::get('/commissions/members/{id}', [CommissionController::class, 'membersDestroy'])->name('comissionMembersDestroy.destroy');
             Route::post('/commissions/{id}/members', [CommissionController::class, 'membersStore'])->name('comissionMembersStore.store');
             Route::get('/commissions/{id}/members/create', [CommissionController::class, 'membersCreate'])->name('comissionMembersCreate.create');
             Route::get('/commissions/{id}/members', [CommissionController::class, 'members'])->name('comissionMembers.index');
-            
+
             //Rotas de Comissões             
             Route::any('/commissions/search', [CommissionController::class, 'search'])->name('commissions.search');
             Route::put('/commissions/{id}', [CommissionController::class, 'update'])->name('commissions.update');
@@ -242,8 +241,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/functions/{id}', [FunctionController::class, 'destroy'])->name('functions.destroy');
             Route::post('/functions', [FunctionController::class, 'store'])->name('functions.store');
             Route::get('/functions', [FunctionController::class, 'index'])->name('functions.index');
- 
- 
+
+
 
             //Rotas de Partidos
             Route::any('/parties/search', [PartyController::class, 'search'])->name('parties.search');
@@ -256,29 +255,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
-             //Rotas de Posts
-             Route::any('/posts/search', [PostController::class, 'search'])->name('posts.search');
-             Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
-             Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
-             Route::get('/posts/deleteImage/{id}', [PostController::class, 'removeImage'])->name('posts.deleteImage');
-             Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
-             Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-             Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
-             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-             Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-             
-             
-             //Rotas de Carta ao cidadão
-             Route::put('/citizenLetters/{id}', [CitizenLetterController::class, 'update'])->name('citizenLetters.update');
-             Route::get('/citizenLetters/{id}/edit', [CitizenLetterController::class, 'edit'])->name('citizenLetters.edit');            
-             Route::get('/citizenLetters/show/{id}', [CitizenLetterController::class, 'show'])->name('citizenLetters.show');
-             Route::get('/citizenLetters/create', [CitizenLetterController::class, 'create'])->name('citizenLetters.create');
-             Route::get('/citizenLetters/{id}', [CitizenLetterController::class, 'destroy'])->name('citizenLetters.destroy');
-             Route::post('/citizenLetters', [CitizenLetterController::class, 'store'])->name('citizenLetters.store');
-             Route::get('/citizenLetters', [CitizenLetterController::class, 'index'])->name('citizenLetters.index');
-                     
+            //Rotas de Posts
+            Route::any('/posts/search', [PostController::class, 'search'])->name('posts.search');
+            Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+            Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+            Route::get('/posts/deleteImage/{id}', [PostController::class, 'removeImage'])->name('posts.deleteImage');
+            Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
+            Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+            Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+            Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+            Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
-            
+
+            //Rotas de Carta ao cidadão
+            Route::put('/citizenLetters/{id}', [CitizenLetterController::class, 'update'])->name('citizenLetters.update');
+            Route::get('/citizenLetters/{id}/edit', [CitizenLetterController::class, 'edit'])->name('citizenLetters.edit');
+            Route::get('/citizenLetters/show/{id}', [CitizenLetterController::class, 'show'])->name('citizenLetters.show');
+            Route::get('/citizenLetters/create', [CitizenLetterController::class, 'create'])->name('citizenLetters.create');
+            Route::get('/citizenLetters/{id}', [CitizenLetterController::class, 'destroy'])->name('citizenLetters.destroy');
+            Route::post('/citizenLetters', [CitizenLetterController::class, 'store'])->name('citizenLetters.store');
+            Route::get('/citizenLetters', [CitizenLetterController::class, 'index'])->name('citizenLetters.index');
+
+
+
             //Rotas de Secretarias
             Route::any('/secretaries/search', [SecretaryController::class, 'search'])->name('secretaries.search');
             Route::put('/secretaries/{id}', [SecretaryController::class, 'update'])->name('secretaries.update');
@@ -298,7 +297,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/setores/{id}', [SetoresController::class, 'destroy'])->name('setores.destroy');
             Route::post('/setores', [SetoresController::class, 'store'])->name('setores.store');
             Route::get('/setores', [SetoresController::class, 'index'])->name('setores.index');
-            
+
 
             //Rotas de Planos
             Route::any('/plans/search', [PlanController::class, 'search'])->name('plans.search');
@@ -309,12 +308,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
             Route::post('/plans', [PlanController::class, 'store'])->name('plans.store');
             Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
-           
+
             //Rotas de Planos X perfil        
-            Route::get( 'plans/{id}/profiles/{idProfile}/detach', [PlanProfileController::class, 'detachProfilesPlan'])->name('plans.profiles.detach');
+            Route::get('plans/{id}/profiles/{idProfile}/detach', [PlanProfileController::class, 'detachProfilesPlan'])->name('plans.profiles.detach');
             Route::post('plans/{id}/profiles', [PlanProfileController::class, 'attachProfilesPlans'])->name('plans.profiles.attach');
-            Route::any( 'plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'])->name('plans.profiles.available');
-            Route::get( 'plans/{id}/profiles', [PlanProfileController::class, 'profiles'])->name('plans.profiles');
+            Route::any('plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'])->name('plans.profiles.available');
+            Route::get('plans/{id}/profiles', [PlanProfileController::class, 'profiles'])->name('plans.profiles');
 
 
             //Rotas de Usuários
@@ -322,19 +321,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::any('/users/search', [UserController::class, 'search'])->name('users.search');
             Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
             Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-            
+
             Route::get('/users/show/{id}', [UserController::class, 'show'])->name('users.show');
             Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
             Route::get('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
             Route::post('/users', [UserController::class, 'store'])->name('users.store');
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
-            
+
             //Rotas para o usuário ver e manipular seu próprio perfil
             Route::get('/users/perfil/{id}', [DadosPessoasController::class, 'index'])->name('users.perfil');
             Route::post('/users/perfil/{id}', [DadosPessoasController::class, 'store'])->name('users.perfil.store');
             Route::post('/users/perfil/', [DadosPessoasController::class, 'storeDocumento'])->name('users.perfil.storeDocumentos');
             Route::get('/users/attachmentDelete/{id}', [DadosPessoasController::class, 'deleteAttachment'])->name('users.perfil.deleteAttachment');
-           
+
             //Rotas de Permissões
             Route::any('/permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
             Route::put('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
@@ -343,7 +342,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
             Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
             Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
-            
+
 
             //Rotas de Perfis
             Route::any('/profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
@@ -355,21 +354,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
 
             //Rotas de Permmissão X perfil
-            Route::get( 'profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
+            Route::get('profile/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profile.permissions.detach');
             Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionProfile'])->name('profile.permissions.attach');
-            Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
-            Route::any( 'profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
-            Route::get( 'profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
-            Route::get( 'permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
+            Route::any('profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
+            Route::any('profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profile.permissions.available');
+            Route::get('profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
+            Route::get('permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
 
 
-             //Rotas de Perfil X usuários
-             Route::get( 'profile/{id}/users/{idUser}/detach', [ProfileUserController::class, 'detachProfileUser'])->name('profile.users.detach');
-             Route::post('profile/{id}/users', [ProfileUserController::class, 'attachProfileUser'])->name('profile.users.attach');
-             Route::any( 'profile/{id}/users/create', [ProfileUserController::class, 'usersAvailable'])->name('profile.users.available');
-             Route::get( 'profiles/{id}/users', [ProfileUserController::class, 'users'])->name('profiles.users');
-             Route::get( 'users/{id}/profile', [ProfileUserController::class, 'profiles'])->name('');
- 
+            //Rotas de Perfil X usuários
+            Route::get('profile/{id}/users/{idUser}/detach', [ProfileUserController::class, 'detachProfileUser'])->name('profile.users.detach');
+            Route::post('profile/{id}/users', [ProfileUserController::class, 'attachProfileUser'])->name('profile.users.attach');
+            Route::any('profile/{id}/users/create', [ProfileUserController::class, 'usersAvailable'])->name('profile.users.available');
+            Route::get('profiles/{id}/users', [ProfileUserController::class, 'users'])->name('profiles.users');
+            Route::get('users/{id}/profile', [ProfileUserController::class, 'profiles'])->name('');
+
 
 
             //Rotas de Categorias
@@ -383,7 +382,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             //Rotas de Ouvidoria             
             Route::any('/ouvidorias/search', [OuvidoriaController::class, 'search'])->name('ouvidorias.search');
-            Route::put('/ouvidorias/{id}', [OuvidoriaController::class, 'update'])->name('ouvidorias.update');          
+            Route::put('/ouvidorias/{id}', [OuvidoriaController::class, 'update'])->name('ouvidorias.update');
             Route::get('/ouvidorias/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidorias.show');
             Route::get('/ouvidorias/{id}/edit', [OuvidoriaController::class, 'edit'])->name('ouvidorias.edit');
             Route::get('/ouvidorias/create', [OuvidoriaController::class, 'create'])->name('ouvidorias.create');
@@ -397,67 +396,64 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
             Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
-            
-            //Rotas de Processos  
-                  
-            Route::any('/processos/search', [ProcessoCompraController::class, 'search'])->name('processos.search');
-            Route::put('/processos/{id}', [ProcessoCompraController::class, 'update'])->name('processos.update');
-            Route::get('/processos/{id}/edit', [ProcessoCompraController::class, 'edit'])->name('processos.edit');
-            Route::get('/processos/show/{id}', [ProcessoCompraController::class, 'show'])->name('processos.show');
-            Route::get('/processos/create/', [ProcessoCompraController::class, 'create'])->name('processos.create');
-            Route::get('/processos/{id}', [ProcessoCompraController::class, 'destroy'])->name('processos.destroy');
-            Route::get('/processos/{id}/attachmentCreate', [ProcessoCompraController::class, 'createAttachment'])->name('processoAttachmentCreate.create');
-            Route::post('/processos/attachmentStore', [ProcessoCompraController::class, 'storeAttachment'])->name('processoAttachmentStore.store');
-            Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');      
-            Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');  
-            Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
-            Route::get('/processos/{id}/credenciados', [ProcessoCompraController::class, 'verCrendenciados'])->name('processos.credenciados');
-            
-            
-            
-            
-            //Rotas de Credenciamento
-            Route::delete('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumentoCredenciamento'])->name('credenciamento.deleteDocumentoCredenciamento');
-            Route::post('/processos/credenciamento', [CredenciamentoProcessoComprasController::class, 'storeDocumentoCredenciamento'])->name('credenciamento.store.documento');
-            Route::get('/processos/credenciamento/{credenciamento_compra_id}/documentos', [CredenciamentoProcessoComprasController::class, 'getUploadedDocuments'])->name('credenciamento.get.documentos');
-         
-            Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'create'])->name('credenciamento.create');
-            Route::get('/processos/credenciamento/{credenciamento_compra_id}/{movimentacao_id?}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
-            Route::get('/processos/credenciados/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'receberCredenciamento'])->name('credenciamento.receberCredenciamento');
-            Route::post('/processos/credenciados', [CredenciamentoProcessoComprasController::class, 'movimentarCredenciamento'])->name('credenciamento.movimentarCredenciamento');
-            Route::get('/processos/{processo_id}/credenciados/complemetacao/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'createEnviarComplementacao'])->name('credenciamento.createEnviarComplementacao');
-            Route::get('/processos/credeciados/timeline/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'showTimeline'])->name('credenciamento.showTimeline');
-            
-            
-             //Rotas de Diario oficial
-             Route::prefix('diario')
-             ->namespace('diario')
-             ->group(function(){   
-                //Rotas de Tipo de Materias
-                Route::any('/tipoMaterias/search', [TipoMateriaController::class, 'search'])->name('tipoMaterias.search');
-                Route::put('/tipoMaterias/{id}', [TipoMateriaController::class, 'update'])->name('tipoMaterias.update');
-                Route::get('/tipoMaterias/{id}/edit', [TipoMateriaController::class, 'edit'])->name('tipoMaterias.edit');
-                Route::get('/tipoMaterias/show/{id}', [TipoMateriaController::class, 'show'])->name('tipoMaterias.show');
-                Route::get('/tipoMaterias/create', [TipoMateriaController::class, 'create'])->name('tipoMaterias.create');
-                Route::get('/tipoMaterias/{id}', [TipoMateriaController::class, 'destroy'])->name('tipoMaterias.destroy');
-                Route::post('/tipoMaterias', [TipoMateriaController::class, 'store'])->name('tipoMaterias.store');
-                Route::get('/tipoMaterias', [TipoMateriaController::class, 'index'])->name('tipoMaterias.index');
 
-                //Rotas de Tipo de Materias
-                Route::any('/subTipoMateria/search', [SubTipoMateriaController::class, 'search'])->name('subTipoMaterias.search');
-                Route::put('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'update'])->name('subTipoMaterias.update');
-                Route::get('/subTipoMateria/{id}/edit', [SubTipoMateriaController::class, 'edit'])->name('subTipoMaterias.edit');
-                Route::get('/subTipoMateria/show/{id}', [SubTipoMateriaController::class, 'show'])->name('subTipoMaterias.show');
-                Route::get('/subTipoMateria/create', [SubTipoMateriaController::class, 'create'])->name('subTipoMaterias.create');
-                Route::get('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'destroy'])->name('subTipoMaterias.destroy');
-                Route::post('/subTipoMateria', [SubTipoMateriaController::class, 'store'])->name('subTipoMaterias.store');
-                Route::get('/subTipoMateria', [SubTipoMateriaController::class, 'index'])->name('subTipoMaterias.index');
-                
-             });
+            // Suas rotas protegidas so acessa se o cadastro estiver completo
+            Route::middleware(['auth', 'profile.complete'])->group(function () {
+                //Rotas de Processos                   
+                Route::any('/processos/search', [ProcessoCompraController::class, 'search'])->name('processos.search');
+                Route::put('/processos/{id}', [ProcessoCompraController::class, 'update'])->name('processos.update');
+                Route::get('/processos/{id}/edit', [ProcessoCompraController::class, 'edit'])->name('processos.edit');
+                Route::get('/processos/show/{id}', [ProcessoCompraController::class, 'show'])->name('processos.show');
+                Route::get('/processos/create/', [ProcessoCompraController::class, 'create'])->name('processos.create');
+                Route::get('/processos/{id}', [ProcessoCompraController::class, 'destroy'])->name('processos.destroy');
+                Route::get('/processos/{id}/attachmentCreate', [ProcessoCompraController::class, 'createAttachment'])->name('processoAttachmentCreate.create');
+                Route::post('/processos/attachmentStore', [ProcessoCompraController::class, 'storeAttachment'])->name('processoAttachmentStore.store');
+                Route::get('/processos/attachmentDelete/{id}', [ProcessoCompraController::class, 'deleteAttachment'])->name('processoAttachmentDelete.delete');
+                Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');
+                Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
+                Route::get('/processos/{id}/credenciados', [ProcessoCompraController::class, 'verCrendenciados'])->name('processos.credenciados');
+                //Rotas de Credenciamento
+                Route::delete('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumentoCredenciamento'])->name('credenciamento.deleteDocumentoCredenciamento');
+                Route::post('/processos/credenciamento', [CredenciamentoProcessoComprasController::class, 'storeDocumentoCredenciamento'])->name('credenciamento.store.documento');
+                Route::get('/processos/credenciamento/{credenciamento_compra_id}/documentos', [CredenciamentoProcessoComprasController::class, 'getUploadedDocuments'])->name('credenciamento.get.documentos');
 
-        
-    });
+                Route::get('/processos/{id}/credenciamento', [CredenciamentoProcessoComprasController::class, 'create'])->name('credenciamento.create');
+                Route::get('/processos/credenciamento/{credenciamento_compra_id}/{movimentacao_id?}', [CredenciamentoProcessoComprasController::class, 'store'])->name('credenciamento.store');
+                Route::get('/processos/credenciados/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'receberCredenciamento'])->name('credenciamento.receberCredenciamento');
+                Route::post('/processos/credenciados', [CredenciamentoProcessoComprasController::class, 'movimentarCredenciamento'])->name('credenciamento.movimentarCredenciamento');
+                Route::get('/processos/{processo_id}/credenciados/complemetacao/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'createEnviarComplementacao'])->name('credenciamento.createEnviarComplementacao');
+                Route::get('/processos/credeciados/timeline/{credenciamento_compra_id}', [CredenciamentoProcessoComprasController::class, 'showTimeline'])->name('credenciamento.showTimeline');
 
+            });
+
+
+
+
+            //Rotas de Diario oficial
+            Route::prefix('diario')
+                ->namespace('diario')
+                ->group(function () {
+                    //Rotas de Tipo de Materias
+                    Route::any('/tipoMaterias/search', [TipoMateriaController::class, 'search'])->name('tipoMaterias.search');
+                    Route::put('/tipoMaterias/{id}', [TipoMateriaController::class, 'update'])->name('tipoMaterias.update');
+                    Route::get('/tipoMaterias/{id}/edit', [TipoMateriaController::class, 'edit'])->name('tipoMaterias.edit');
+                    Route::get('/tipoMaterias/show/{id}', [TipoMateriaController::class, 'show'])->name('tipoMaterias.show');
+                    Route::get('/tipoMaterias/create', [TipoMateriaController::class, 'create'])->name('tipoMaterias.create');
+                    Route::get('/tipoMaterias/{id}', [TipoMateriaController::class, 'destroy'])->name('tipoMaterias.destroy');
+                    Route::post('/tipoMaterias', [TipoMateriaController::class, 'store'])->name('tipoMaterias.store');
+                    Route::get('/tipoMaterias', [TipoMateriaController::class, 'index'])->name('tipoMaterias.index');
+
+                    //Rotas de Tipo de Materias
+                    Route::any('/subTipoMateria/search', [SubTipoMateriaController::class, 'search'])->name('subTipoMaterias.search');
+                    Route::put('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'update'])->name('subTipoMaterias.update');
+                    Route::get('/subTipoMateria/{id}/edit', [SubTipoMateriaController::class, 'edit'])->name('subTipoMaterias.edit');
+                    Route::get('/subTipoMateria/show/{id}', [SubTipoMateriaController::class, 'show'])->name('subTipoMaterias.show');
+                    Route::get('/subTipoMateria/create', [SubTipoMateriaController::class, 'create'])->name('subTipoMaterias.create');
+                    Route::get('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'destroy'])->name('subTipoMaterias.destroy');
+                    Route::post('/subTipoMateria', [SubTipoMateriaController::class, 'store'])->name('subTipoMaterias.store');
+                    Route::get('/subTipoMateria', [SubTipoMateriaController::class, 'index'])->name('subTipoMaterias.index');
+                });
+        });
 });
 
 Route::prefix('/')->group(base_path('routes/legislativo.php'));
@@ -501,4 +497,4 @@ Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'downlo
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
