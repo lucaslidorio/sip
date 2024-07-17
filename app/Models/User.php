@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\UserACLTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -91,10 +92,18 @@ class User extends Authenticatable implements MustVerifyEmail
      * Caso contrário, retorna a concatenação da URL da AWS e o caminho 'uteis/no-image128.jpg'..
      */
     public function getProfileImageUrlAttribute()
-{
-    return !empty($this->dadosPessoais->img) 
-        ? config('app.aws_url').$this->dadosPessoais->img 
-        : config('app.aws_url').('uteis/no-image256.jpg');
-}
+    {
+        return !empty($this->dadosPessoais->img) 
+            ? config('app.aws_url').$this->dadosPessoais->img 
+            : config('app.aws_url').('uteis/no-image256.jpg');
+    }
+    public function getTipoUsuarioNomeAttribute()
+    {
+        $tipos = [
+            'I' => 'INTERNO',
+            'E' => 'EXTERNO'            
+        ];
+        return $tipos[$this->tipo_usuario] ?? $this->tipo_usuario;
+    }
 
 }

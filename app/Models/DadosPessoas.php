@@ -41,9 +41,6 @@ class DadosPessoas extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    // public function documento_pessoa() {
-    //     return $this->hasMany(DocumentosPessoas::class, , 'dado_pessoa_id');
-    // }
     public function documentosPessoas()
     {
         return $this->hasMany(DocumentosPessoas::class, 'dado_pessoa_id', 'id');
@@ -73,5 +70,36 @@ class DadosPessoas extends Model
          })->count();
      }
 
+     public function getTipoPessoaNomeAttribute()
+    {
+        $tipos = [
+            'F' => 'FÍSICA',
+            'J' => 'JURÍDICA'
+        ];
+
+        return $tipos[$this->tipo_pessoa] ?? $this->tipo_pessoa;
+    }
+    public function getNaturezaJuridicaNomeAttribute()
+    {
+        $tipos = [
+            'EI' => 'EIRELE (EI)',
+            'LTDA ' => 'LIMITADA (LTDA)',
+            'SA' => 'SOCIEDADE ANÔNIMA (SA)'
+        ];
+
+        return $tipos[$this->natureza_juridica] ?? $this->natureza_juridica;
+    }
+    public function getEnquadramentoNomeAttribute()
+    {
+        $tipos = [
+            'MIC' => 'MICRO EMPRESA',
+            'EPP' => 'EMPRESA DE PEQUENO PORTE',
+            'GP' => 'GRANDE PORTE',
+            'DE' => 'DEMAIS EMPRESAS',
+            'COOP' => 'COOPERATIVAS'
+        ];
+
+        return $tipos[$this->enquadramento] ?? $this->naturezenquadramento;
+    }
 }
 

@@ -334,6 +334,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/users/perfil/', [DadosPessoasController::class, 'storeDocumento'])->name('users.perfil.storeDocumentos');
             Route::get('/users/attachmentDelete/{id}', [DadosPessoasController::class, 'deleteAttachment'])->name('users.perfil.deleteAttachment');
 
+
+            Route::any('/fornecedores', [DadosPessoasController::class, 'fornecedores'])->name('fornecedores.index');          
+            Route::get('/fornecedores/show/{id}', [DadosPessoasController::class, 'fornecedorShow'])->name('fornecedores.show');
+
             //Rotas de Permissões
             Route::any('/permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
             Route::put('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');

@@ -458,14 +458,20 @@ return [
             'icon' => 'fas fa-plus-square',
             'can'  => 'ver-funcoes',
         ],
-
-        ['header' => 'CREDENCIAMENTO',
-        'can'    =>   'credenciamento',],
+       
+        ['header' => 'COMPRAS',
+        'can'    =>   'compras',],
         [
             'text' => 'Processos',
             'url'  => 'admin/processos',
             'icon' => 'fas fa-folder',
             'can'  => ['ver-processos-usuario-externo','ver-processo-compras'],            
+        ],
+        [
+            'text' => 'Fornecedores',
+            'url'  => 'admin/fornecedores',
+            'icon' => 'fas fa-folder',
+            'can'  => ['ver-fornecedor'],            
         ],
 
         ['header' => 'CONFIGURAÇÕES',

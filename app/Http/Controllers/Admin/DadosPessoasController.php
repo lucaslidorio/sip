@@ -190,4 +190,40 @@ class DadosPessoasController extends Controller
         
         
     }
+
+    public function fornecedores(Request $request){
+
+        $this->authorize('ver-fornecedor');
+        $query = $this->repository->newQuery();
+        // Adicione a condição fixa para tipo_usuario = 'E'
+        $query->whereHas('usuario', function($q) {
+            $q->where('tipo_usuario', 'E');
+        });
+
+        // Coletar parâmetros de pesquisa
+        $search = $request->input('pesquisa');
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nome_fantasia', 'LIKE', "%{$search}%")
+                ->orWhere('razao_social', 'LIKE', "%{$search}%")
+                ->orWhere('cnpj', 'LIKE', "%{$search}%")
+                ->orWhereHas('usuario', function($query) use ($search) {
+                    $query->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                });
+            });
+        }
+
+        $fornecedores = $query->paginate(10);  
+        return view('admin.pages.fornecedores.index', compact('fornecedores'));
+   
+    }
+
+    public function fornecedorShow($id)
+    {
+        $this->authorize('ver-fornecedor');
+        $fornecedor = $this->repository->findOrFail($id);
+        return view('admin.pages.fornecedores.show', compact('fornecedor'));
+    }
 }

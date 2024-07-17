@@ -56,75 +56,75 @@ class ProcessoCompras extends Model
     
 
     public function scopeFilter($query, $filters)
-{
-    if (isset($filters['modalidade_id'])) {
-        $query->where('modalidade_id', $filters['modalidade_id']);
+    {
+        if (isset($filters['modalidade_id'])) {
+            $query->where('modalidade_id', $filters['modalidade_id']);
+        }
+        if (isset($filters['criterio_julgamento_id'])) {
+            $query->where('criterio_julgamento_id', $filters['criterio_julgamento_id']);
+        }
+        if (isset($filters['proceeding_situation_id'])) {
+            $query->where('proceeding_situation_id', $filters['proceeding_situation_id']);
+        }
+        if (isset($filters['pesquisa'])) {
+            $query->where(function ($query) use ($filters) {
+                $query->where('objeto', 'like', '%' . $filters['pesquisa'] . '%')
+                    ->orWhere('descricao', 'like', '%' . $filters['pesquisa'] . '%');
+            });
+        }
+        return $query;
     }
-    if (isset($filters['criterio_julgamento_id'])) {
-        $query->where('criterio_julgamento_id', $filters['criterio_julgamento_id']);
-    }
-    if (isset($filters['proceeding_situation_id'])) {
-        $query->where('proceeding_situation_id', $filters['proceeding_situation_id']);
-    }
-    if (isset($filters['pesquisa'])) {
-        $query->where(function ($query) use ($filters) {
-            $query->where('objeto', 'like', '%' . $filters['pesquisa'] . '%')
-                  ->orWhere('descricao', 'like', '%' . $filters['pesquisa'] . '%');
-        });
-    }
-    return $query;
-}
 
 /**
  * Conte o número de credenciamentos com seus últimos movimentos.
  *
  * @return array
  */
-public function countCredenciamentosWithLastMovements()
-    {
-        // Obter todos os credenciamentos deste processo com suas movimentações e tipos de movimentações
-        $credenciamentos = $this->credenciamentos()->with(['movimentacoes.tipoMovimentacao'])->get();
+    public function countCredenciamentosWithLastMovements()
+        {
+            // Obter todos os credenciamentos deste processo com suas movimentações e tipos de movimentações
+            $credenciamentos = $this->credenciamentos()->with(['movimentacoes.tipoMovimentacao'])->get();
 
-        // Inicializar o contador
-        $counts = [
-            'total' => 0,
-            'movements' => [],
-            'nao_recebido' => 0 // Contador adicional para movimentações sem o tipo 3/ Recebido (Documentação em Analise)
-        ];
+            // Inicializar o contador
+            $counts = [
+                'total' => 0,
+                'movements' => [],
+                'nao_recebido' => 0 // Contador adicional para movimentações sem o tipo 3/ Recebido (Documentação em Analise)
+            ];
 
-        foreach ($credenciamentos as $credenciamento) {
-            $counts['total']++;
+            foreach ($credenciamentos as $credenciamento) {
+                $counts['total']++;
 
-            // Obter todas as movimentações deste credenciamento
-            $movements = $credenciamento->movimentacoes;
+                // Obter todas as movimentações deste credenciamento
+                $movements = $credenciamento->movimentacoes;
 
-            // Verificar se não há movimentação do tipo 3
-            $hasMovementType3 = $movements->contains(function ($movement) {
-                return $movement->tipoMovimentacao->id == 3;
-            });
+                // Verificar se não há movimentação do tipo 3
+                $hasMovementType3 = $movements->contains(function ($movement) {
+                    return $movement->tipoMovimentacao->id == 3;
+                });
 
-            if (!$hasMovementType3) {
-                $counts['nao_recebido']++;
-            }
-
-            // Obter a última movimentação deste credenciamento
-            $lastMovement = $credenciamento->movimentacoes->sortByDesc('created_at')->first();
-
-            if ($lastMovement) {
-                $movementTypeId = $lastMovement->tipoMovimentacao->id;
-                $movementTypeName = $lastMovement->tipoMovimentacao->nome;
-                if (!isset($counts['movements'][$movementTypeId])) {
-                    $counts['movements'][$movementTypeId] = [
-                        'nome' => $movementTypeName,
-                        'count' => 0
-                    ];
+                if (!$hasMovementType3) {
+                    $counts['nao_recebido']++;
                 }
 
-                $counts['movements'][$movementTypeId]['count']++;
-            }
-          
-        }
+                // Obter a última movimentação deste credenciamento
+                $lastMovement = $credenciamento->movimentacoes->sortByDesc('created_at')->first();
 
-        return $counts;
-    }
+                if ($lastMovement) {
+                    $movementTypeId = $lastMovement->tipoMovimentacao->id;
+                    $movementTypeName = $lastMovement->tipoMovimentacao->nome;
+                    if (!isset($counts['movements'][$movementTypeId])) {
+                        $counts['movements'][$movementTypeId] = [
+                            'nome' => $movementTypeName,
+                            'count' => 0
+                        ];
+                    }
+
+                    $counts['movements'][$movementTypeId]['count']++;
+                }
+            
+            }
+
+            return $counts;
+        }
 }
