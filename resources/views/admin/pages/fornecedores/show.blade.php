@@ -83,8 +83,6 @@
     </div>
   </div>
 </div>
-
-
 @section('js')
 <script>  
   //inicia o tooltip
