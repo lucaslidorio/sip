@@ -4,7 +4,6 @@
 @section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
-
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
