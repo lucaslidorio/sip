@@ -13,6 +13,7 @@
 @section('auth_body')
     <form action="{{route('password.update')}}" method="post">
         @csrf
+
         {{-- Token field --}}
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 

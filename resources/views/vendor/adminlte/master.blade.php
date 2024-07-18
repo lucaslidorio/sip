@@ -27,11 +27,9 @@
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
-
         {{-- Folha de estilo personalizavel --}}
         <link rel="stylesheet" href="{{ asset('dashboard/css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('dashboard/css/fullcalendar/main.css') }}">
-
         @if(config('adminlte.google_fonts.allowed', true))
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @endif
