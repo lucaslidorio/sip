@@ -145,7 +145,6 @@ class CredenciamentoProcessoComprasController extends Controller
     {
         $request->validate([
             'file' => 'required|file|mimes:pdf|max:3072', // PDF only and max 3MB
-            'type_document_id' => 'required|integer|exists:type_documents,id',
             'credenciamento_compra_id' => 'required|integer|exists:credenciamentos_processos_compras,id',           
         ]);
     

@@ -835,11 +835,12 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
     url: "{{ route('users.perfil.storeDocumentos') }}", // Set the url
     thumbnailWidth: 80,
     thumbnailHeight: 80,
-    parallelUploads: 20,
+    parallelUploads: 20,   
     previewTemplate: previewTemplate,
     autoQueue: false, // Make sure the files aren't queued until manually added
     previewsContainer: "#previews", // Define the container to display the previews
     clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
+    acceptedFiles: "application/pdf", // Aceita apenas arquivos PDF
     headers: {
         "X-CSRF-TOKEN": csrfToken
     },
@@ -926,7 +927,5 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
         });
     }
 });
-
-
   </script>
   @stop

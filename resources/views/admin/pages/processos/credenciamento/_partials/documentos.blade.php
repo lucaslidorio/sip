@@ -206,21 +206,6 @@
                 </button>
               </div>
             </div>
-            <div class="col-12 mt-2 border-bottom ">
-              <div class="row">
-                <div class="col-md-6 col-sm-6 col-xl-3 mb-md-3 mb-sm-3">
-                  <label for="type_document_id" class="label-required">Tipo do Documento:</label>
-                  <select class="form-control" name="type_document_id" style="width: 100%;" data-dz-type-document>
-                    <option value="" selected>Selecione</option>
-                    @foreach ($type_documents as $type)
-                    <option value="{{ $type->id }}">{{ $type->nome }}</option>
-                    @endforeach
-                  </select>
-                  <small class="invalid-feedback"></small>
-                </div>
-
-              </div>
-            </div>
             <input type="hidden" name="credenciamento_compra_id" value="{{$credenciamento->id}}"
               data-dz-credenciamento_compra_id>
           </div>
@@ -249,7 +234,7 @@
      $('[data-toggle="tooltip"]').tooltip()
     }) 
 
-    Dropzone.autoDiscover = false;
+Dropzone.autoDiscover = false;
 
 // Get the template HTML and remove it from the document
 var previewNode = document.querySelector("#template");
@@ -261,8 +246,6 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('
 
 var credenciamento_compra_id = document.querySelector('input[name="credenciamento_compra_id"]').value;
 var concluirButton = document.querySelector(".btn-concluir");
-console.log(concluirButton);
-
 
 var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona de lançamento
     url: "{{ route('credenciamento.store.documento') }}", // Set the url
@@ -280,8 +263,8 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
     init: function() {
         var myDropzone = this;
         
-      // Fetch existing files from the server
-      fetch(`/admin/processos/credenciamento/${credenciamento_compra_id}/documentos`, {
+        // Fetch existing files from the server
+        fetch(`/admin/processos/credenciamento/${credenciamento_compra_id}/documentos`, {
             method: 'GET',
             headers: {
                 'X-CSRF-TOKEN': csrfToken,
@@ -300,10 +283,6 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
                 };
 
                 myDropzone.displayExistingFile(mockFile, document.url);
-                // Defina o valor de seleção do tipo de documento
-                var selectElement = mockFile.previewElement.querySelector("[data-dz-type-document]");
-                selectElement.value = document.type_document_id;
-
                 mockFile.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
 
                 mockFile.previewElement.querySelector(".delete").addEventListener("click", function() {
@@ -339,31 +318,18 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
         .catch(error => {
             console.error('Erro ao buscar os documentos:', error);
         });
-        this.on("addedfile", function(file) {
-            var startButton = file.previewElement.querySelector(".start");
-            concluirButton.classList.add("disabled");
-            startButton.onclick = function() {
-                var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
-                var selectElement = file.previewElement.querySelector("[data-dz-type-document]");
-                var errorMessageElement = file.previewElement.querySelector(".invalid-feedback");
 
-                if (!typeDocumentId) {
-                    selectElement.classList.add("is-invalid");
-                    errorMessageElement.textContent = "Por favor, selecione o tipo de documento.";
-                } else {
-                    selectElement.classList.remove("is-invalid");
-                    errorMessageElement.textContent = "";
-                    myDropzone.enqueueFile(file);
-                }
+        this.on("addedfile", function(file) {
+            concluirButton.classList.add("disabled");
+            var startButton = file.previewElement.querySelector(".start");
+            
+            startButton.onclick = function() {
+                myDropzone.enqueueFile(file);
             };
         });
 
         this.on("sending", function(file, xhr, formData) {
-            var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
             var credenciamentoCompraId = file.previewElement.querySelector("[data-dz-credenciamento_compra_id]").value;
-
-            
-            formData.append("type_document_id", typeDocumentId);
             formData.append("credenciamento_compra_id", credenciamentoCompraId);
         });
 
@@ -391,19 +357,8 @@ var myDropzone = new Dropzone(document.body, { // Faça de todo o corpo uma zona
         document.querySelector("#actions .start").onclick = function() {
             var files = myDropzone.getFilesWithStatus(Dropzone.ADDED);
             files.forEach(function(file) {
-                var typeDocumentId = file.previewElement.querySelector("[data-dz-type-document]").value;
-                var selectElement = file.previewElement.querySelector("[data-dz-type-document]");
-                var errorMessageElement = file.previewElement.querySelector(".invalid-feedback");
-
-                if (!typeDocumentId) {
-                    selectElement.classList.add("is-invalid");
-                    errorMessageElement.textContent = "Por favor, selecione o tipo de documento.";
-                } else {
-                    selectElement.classList.remove("is-invalid");
-                    errorMessageElement.textContent = "";
-                    myDropzone.enqueueFile(file);
-                    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
-                }
+                myDropzone.enqueueFile(file);
+                file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
             });
         };
 
