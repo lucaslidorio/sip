@@ -107,7 +107,7 @@ class ProcessoCompraController extends Controller
         $this->authorize('novo-processo-compras');
         $dados = $request->all();
         $dados['user_created'] = auth()->user()->id;
-        $dados['data_publicacao'] = date('Y/m/d : H:i:s');
+        $dados['data_publicacao'] = date('Y/m/d H:i:s');
 
         //dd($dados);
         $this->repository->create($dados);

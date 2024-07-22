@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\CouncilorController;
-use App\Http\Controllers\admin\CredenciamentoProcessoComprasController;
+use App\Http\Controllers\Admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
 use App\Http\Controllers\Admin\DirectorTableController;
 use App\Http\Controllers\Admin\FunctionController;
