@@ -300,7 +300,7 @@
                 <div class="form-group row">
                   <label for="inscricao_estadual" class="col-sm-2 col-form-label">Incrição Estadual</label>
                   <div class="col-sm-10">
-                    <input type="number"
+                    <input type="text"
                       class="form-control {{ $errors->has('inscricao_estadual') ? 'is-invalid' : '' }}"
                       id="inscricao_estadual" name="inscricao_estadual" placeholder="Inscrição estadual"
                       value="{{ $user->dadosPessoais->inscricao_estadual ?? old('inscricao_estadual') }}">

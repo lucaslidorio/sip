@@ -41,7 +41,7 @@
 
     </div>
     <div class="col-md-4" style="padding-left: 15px">
-      <p class="card-text"><strong>Início da Sessão : </strong> {{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</p>
+      <p class="card-text"><strong>Válido até : </strong> {{$processo->data_validade->format('d-m-Y H:i:s')}}</p>
       <p class="card-text"><strong>Situação : </strong><span class="badge 
         @switch($processo->situacao->id)
         @case(32)
@@ -67,7 +67,6 @@
         @default
             badge-secondary
       @endswitch">{{$processo->situacao->nome}} </span> </p>
-
     </div>
 
     <div class="col-md-12" style="padding-left: 25px">

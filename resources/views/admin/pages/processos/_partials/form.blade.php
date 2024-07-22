@@ -95,16 +95,16 @@
     </div>
     <div class="col-sm-3">
         <div class="form-group">
-            <label for="inicio_sessao" class="label-required">Início da Sessão:</label>
+            <label for="data_validade" class="label-required" >Válido até:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                 </div>
 
-                <input type="date" class="form-control {{ $errors->has('inicio_sessao') ? 'is-invalid' : '' }}"
-                    id="inicio_sessao" name="inicio_sessao"
-                    value="{{$processo->data_formatada ?? old('inicio_sessao')}}">
-                @error('inicio_sessao')
+                <input type="date" class="form-control {{ $errors->has('data_validade') ? 'is-invalid' : '' }}"
+                    id="data_validade" name="data_validade"
+                    value="{{$processo->data_formatada ?? old('data_validade')}}">
+                @error('data_validade')
                 <small class="invalid-feedback">
                     {{ $message }}
                 </small>

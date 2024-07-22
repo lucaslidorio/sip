@@ -31,10 +31,13 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 //use Mail;
 use App\Mail\contato;
 use App\Models\CitizenLetter;
+use App\Models\CriterioJulgamento;
 use App\Models\Legislation;
 use App\Models\Link;
 use App\Models\Menu;
+use App\Models\Modalidades;
 use App\Models\Page;
+use App\Models\ProcessoCompras;
 use App\Models\Schedule;
 use App\Models\SeemCommission;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -135,13 +138,8 @@ class SiteController extends Controller
       
             $tenant = $this->tenant->first();            
            
-            $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();   
-             $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();     
+            $menus = Menu::getMenusByPosition(1);  
+            $menusSuperior = Menu::getMenusByPosition(2);     
                        
             $linksDireita = $this->link
                     ->where('posicao', 3)
@@ -245,13 +243,8 @@ class SiteController extends Controller
        
            
         $tenant = $this->tenant->first();            
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -300,13 +293,8 @@ class SiteController extends Controller
             return redirect()->back();
 
             $tenant = $this->tenant->first();            
-            $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-            $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();           
+            $menus = Menu::getMenusByPosition(1);  
+            $menusSuperior = Menu::getMenusByPosition(2);           
             $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -412,13 +400,8 @@ class SiteController extends Controller
     {
       
         $tenant = $this->tenant->first();            
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get(); 
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();           
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);           
         $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -484,13 +467,8 @@ class SiteController extends Controller
             WHERE p.id = ?";
         $votos = DB::select($sql, [$id]);
 
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();            
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);            
         $linksDireita = $this->link
                     ->where('posicao', 3)
                     ->where('tipo', 1) //Tipo = Banner
@@ -615,13 +593,8 @@ class SiteController extends Controller
     public  function agendaIndex(){
         
         $tenant = $this->tenant->first();
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);
         $servicosOnline = $this->link->where('tipo', 2)->get();
         //pega os 4 link cadastrado para o topo ordenado pela ordem   
         $linksTopo = $this->link
@@ -668,13 +641,8 @@ class SiteController extends Controller
     public function acessibilidade()
     {
         $tenant = $this->tenant->first();
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
             ->where('posicao', 3)
@@ -703,13 +671,8 @@ class SiteController extends Controller
     public function mapasite()
     {
         $tenant = $this->tenant->first();
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();       
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);       
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
             ->where('posicao', 3)
@@ -739,13 +702,8 @@ class SiteController extends Controller
     public function pesquisar(Request $request){
 
         $tenant = $this->tenant->first();            
-        $menus = $this->menu
-                ->where('menu_pai_id', null)
-                ->where('posicao', 1) // Menu lateral
-                ->get();
-        $menusSuperior = $this->menu               
-                ->where('posicao', 2) // Menu superior
-                ->get();
+        $menus = Menu::getMenusByPosition(1);  
+        $menusSuperior = Menu::getMenusByPosition(2);
         $servicosOnline = $this->link->where('tipo', 2)->get();
         $linksDireita = $this->link
                 ->where('posicao', 3)
@@ -840,6 +798,59 @@ class SiteController extends Controller
             'menusSuperior' => $menusSuperior,
         ]);
     }
+
+    public function processosComprasIndex(Request $request)
+{
+    $tenant = $this->tenant->first();            
+    $menus = Menu::getMenusByPosition(1);  
+    $menusSuperior = Menu::getMenusByPosition(2);				
+    $linksDireita = $this->link
+        ->where('posicao', 3)
+        ->where('tipo', 1) // Tipo = Banner
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')
+        ->take(4)
+        ->get(); 
+    $linksUteis = $this->link                            
+        ->where('tipo', 2) // Tipo = Links Úteis
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')                            
+        ->get();
+
+    $modalidades = Modalidades::get();
+    $criteriosJulgamento = CriterioJulgamento::get();
+    $situacoes = ProceedingSituation::where('processo_compra', true)->get();
+
+    // Filtrar os processos por modalidade e situação
+    $filters = $request->only('modalidade_id', 'criterio_julgamento_id', 'proceeding_situation_id', 'pesquisa');
+    
+    // Aplicar os filtros e carregar os processos com credenciamentos e suas movimentações
+    $processos = ProcessoCompras::filter($filters)
+        ->with(['credenciamentos.movimentacoes.tipoMovimentacao'])
+        ->paginate(10);
+
+    // Filtrar os credenciamentos que têm a última movimentação com tipo_movimentacao_id = 5
+    foreach ($processos as $processo) {
+        $processo->credenciamentos = $processo->credenciamentos->filter(function ($credenciamento) {
+            $ultimaMovimentacao = $credenciamento->movimentacoes->sortByDesc('created_at')->first();
+            return $ultimaMovimentacao && $ultimaMovimentacao->tipo_movimentacao_id == 5;
+        });
+    }
+
+    return view('site.legislativo.processosCompras', [            
+        'tenant' =>  $tenant,          
+        'menus' => $menus,  
+        'linksDireita' => $linksDireita,
+        'linksUteis' => $linksUteis,
+        'filters' => $filters,
+        'menusSuperior' => $menusSuperior,
+        'modalidades' => $modalidades,
+        'processos' => $processos,
+        'criteriosJulgamento' => $criteriosJulgamento,
+        'situacoes' => $situacoes
+    ]);
+}
+
 
 
 }

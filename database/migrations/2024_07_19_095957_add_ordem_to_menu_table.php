@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('menus', function (Blueprint $table) {
-            $table->integer('posicao')->nullable();
-            $table->string('icone')->nullable();            
+            $table->integer('ordem')->after('posicao')->nullable();
         });
     }
 
@@ -23,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('menus', function (Blueprint $table) {
-            $table->dropColumn('posicao');
-            $table->dropColumn('icone');
+            $table->dropColumn('ordem');
         });
     }
 };

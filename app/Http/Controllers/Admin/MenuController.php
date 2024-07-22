@@ -23,12 +23,14 @@ class MenuController extends Controller
         $this->menu = $menu;
         
     }
-    public function index()
+    public function index(Request $request)
     {
 
         $posicao = $this->menu::POSICAO;
-        $menus = $this->menu->paginate(10);
-        return view('admin.pages.menus.index', compact('menus', 'posicao'));
+        $filters = $request->only(['menu_pai_id', 'posicao', 'pesquisa']);
+        $menus = $this->menu->filter($filters)->paginate(10);
+        $menusPais = $this->menu->pais()->orderBy('ordem', 'ASC')->get();
+        return view('admin.pages.menus.index', compact('menus', 'posicao', 'menusPais'));
     }
 
     /**

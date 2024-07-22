@@ -136,6 +136,7 @@
               <button class=" w-100 btn btn-toggle  d-inline-flex align-items-center  border-0 collapsed bg-color-1"  data-bs-toggle="collapse" data-bs-target="#{{$menu->slug}}" aria-expanded="false">
                 {{$menu->nome}}
               </button> 
+              <div class="expand collapse show" id="{{$menu->slug}}">
                  @if(count($menu->submenu) > 0 )
                  <div class="expand collapse show " id="{{$menu->slug}}">
                   <ul class="btn-toggle-nav  list-unstyled fw-normal pb-1  small ">
@@ -147,7 +148,6 @@
                       @else
                         <li><a href="{{$item->url}}" target="{{$item->target ? '__blank': ''}}" class="link-dark bg-color-0 d-flex text-decoration-none border-bottom p-2 mb-0 ">{{$item->nome}}</a></li>
                       @endif
-
                   @endforeach                   
                   </ul>
                 </div>      

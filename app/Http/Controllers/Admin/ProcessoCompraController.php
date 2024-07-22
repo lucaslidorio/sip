@@ -319,12 +319,6 @@ class ProcessoCompraController extends Controller
                     return 0;
                 }
             });
-
-
-
-
-
-
         return view('admin.pages.processos.credenciamento.credenciados', 
         compact('processo', 'credenciadosData', 'tiposMovimentacoes', 'counts'));
 

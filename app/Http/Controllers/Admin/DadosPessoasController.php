@@ -52,6 +52,8 @@ class DadosPessoasController extends Controller
      */
     public function store(Request $request)
     {
+       
+
         $request->validate([
             'user_id' => 'required|integer|exists:users,id',
             'tipo_pessoa' => 'required|in:F,J',
@@ -59,7 +61,7 @@ class DadosPessoasController extends Controller
             'enquadramento' => 'nullable|in:MIC,EPP,GP,DE,COOP',
             'nome_fantasia' => 'nullable|max:255',
             'razao_social' => 'nullable|max:255',
-            'cnpj' => 'nullable|max:17',
+            'cnpj' => 'nullable|max:18',
             'inscricao_estadual' => 'nullable|max:18',
             'data_abertura' => 'nullable|date',
             'site' => 'nullable|string|max:100',
@@ -70,8 +72,9 @@ class DadosPessoasController extends Controller
             'bairro' => 'nullable|max:100',
             'cidade' => 'nullable|max:100',
             'estado' => 'nullable|string|max:2',
-            // 'telefone' => 'nullable|digits_between:8,18',
-            // 'celular' => 'nullable|digits_between:10,18',
+            //'telefone' => 'nullable|digits_between:6,20',
+            'telefone' => 'nullable|min:6|max:14',
+            'celular' => 'nullable|min:6|max:14',
             'img' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);  
 

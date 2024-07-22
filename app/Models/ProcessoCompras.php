@@ -22,7 +22,7 @@ class ProcessoCompras extends Model
     {
         return Carbon::parse($value);
     }
-    public function getInicioSessaoAttribute($value)
+    public function getDataValidadeAttribute($value)
     {
         return Carbon::parse($value);
     }
@@ -52,7 +52,6 @@ class ProcessoCompras extends Model
     {
         return $this->hasMany(CredenciamentosProcessosCompras::class, 'processo_compra_id');
     }
-
     
 
     public function scopeFilter($query, $filters)

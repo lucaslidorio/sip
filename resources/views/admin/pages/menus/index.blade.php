@@ -12,7 +12,7 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Menus</li>
+        <li class="breadcrumb-item "><a href="{{route('menus.index')}}">Menus</a></li>
       </ol>
     </div>
   </div>
@@ -25,24 +25,48 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-8">
-            
+          <div class="col-md-4">            
             <a href="{{route('menus.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
             title="Cadastrar novo menu" ><i
                 class="fas fa-plus"></i> Novo</a>
           </div>
-          <div class="col-md-4">
-            <div class="card-tools">
-              <form action="{{route('menus.index')}}" method="post" class="form form-inline  float-right">
-                @csrf
-                <div class="input-group input-group-sm" style="width: 250px;">
-                  <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Sigla">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                  </div>
-                </div>
-              </form>
+          <div class="col-md-8 ">
+            <form action="{{ route('menus.index') }}" method="GET" class="form form-inline">
+              @csrf
+              <div class="col-4">
+                  <select class="form-control" name="menu_pai_id" id="menu_pai_id" style="width: 100%;">
+                      <option value="" selected>Menu Pai</option>
+                      @foreach ($menusPais as $menu)
+                      <option value="{{ $menu->id }}"
+                          {{ request()->query('menu_pai_id') == $menu->id ? 'selected' : '' }}>
+                          {{ $menu->nome }}
+                      </option>
+                  @endforeach
+                  </select>
+                  
+              </div>
+              <div class="col-4">
+                <select class="form-control" name="posicao" id="posicao" style="width: 100%;">
+                    <option value="" selected>Posição</option>
+                    @foreach ($posicao as $key => $value)
+                        <option value="{{ $key }}"
+                            {{ request()->query('posicao') == $key ? 'selected' : '' }}>
+                            {{ $value }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
+              <div class="col-md-4">
+                  <div class="input-group">
+                      <input type="text" name="pesquisa" id="pesquisa" class="form-control" placeholder="Nome, url, slug." 
+                             value="{{ request()->query('pesquisa') }}">
+                      <span class="input-group-append">
+                          <button type="submit" class="btn btn-info btn-flat" data-toggle="tooltip" data-placement="top"
+                                  title="Pesquisar"><i class="fas fa-search"></i></button>
+                      </span>
+                  </div>
+              </div>
+          </form>
           </div>
         </div> 
       </div>     
@@ -58,7 +82,8 @@
               <th>Slug</th>
               <th>Target</th>   
               <th>Url</th>    
-              <th>Posicao</th>       
+              <th>Posicao</th> 
+              <th>Ordenação</th>      
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
@@ -72,6 +97,7 @@
               <td>{{($menu->target ? 'Sim': 'Não')}}</td>
               <td>{{$menu->url}}</td>
               <td>{{$posicao[$menu->posicao]}}</td>
+              <td>{{$menu->ordem}} º</td>
              <td class="text-center">
                 <a href="{{route('menus.edit', $menu->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 

@@ -69,7 +69,7 @@
     </div>  
 </div>
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-4">
         <div class="form-group">
             <label  for="menu_pai_id" class="label-required" >Submenu de:</label>
             <select class="form-control select2 {{ $errors->has('menu_pai_id') ? 'is-invalid' : '' }}" 
@@ -106,7 +106,25 @@
         @enderror
           </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
+        <div class="form-group">                  
+            <label for="ordem" >Ordenação</label>
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-sort-numeric-down-alt"></i></span>
+                  </div>                   
+              <input type="text" class="form-control {{ $errors->has('ordem') ? 'is-invalid' : '' }}" id="ordem"
+                  name="ordem" placeholder="ordem " value="{{ $menu->ordem ?? old('ordem') }}">
+              @error('ordem')
+                  <small class="invalid-feedback">
+                      {{ $message }}
+                  </small>
+              @enderror              
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-sm-4">
         <div class="form-group">                  
             <label for="icone" >Icone</label>
               <div class="input-group">
@@ -119,8 +137,7 @@
                   <small class="invalid-feedback">
                       {{ $message }}
                   </small>
-              @enderror
-              
+              @enderror              
             </div>
             <span class="text-danger">icone do icons.getbootstrap.com </span>
         </div>

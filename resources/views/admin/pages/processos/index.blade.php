@@ -101,7 +101,7 @@
               <th>Modalidade</th>
               <th>Critério de Julgamento</th>
               <th>Data Publicação</th>
-              <th>Início da Sessão</th>
+              <th>Válido Até</th>
               <th>Situação</th>
               <th>Objeto</th>
               @can('ver-processos-usuario-externo')
@@ -119,11 +119,11 @@
             @endphp
 
             <tr>
-              <td>{{$data['processo']->id }}</td>
+              <td>{{$data['processo']->numero }}/{{$data['processo']->data_publicacao->year }}</td>
               <td>{{$data['processo']->modalidade->nome}}</td>
               <td>{{$data['processo']->criterio_julgamento->nome}}</td>
               <td>{{$data['processo']->data_publicacao->format('d-m-Y H:i:s') }}</td>
-              <td>{{$data['processo']->inicio_sessao->format('d-m-Y H:i:s')}}</td>
+              <td>{{$data['processo']->data_validade->format('d-m-Y H:i:s')}}</td>
               <td>
                 <small class="badge
                 @switch($data['processo']->situacao->id)

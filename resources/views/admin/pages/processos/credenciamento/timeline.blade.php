@@ -42,7 +42,7 @@
       <p class="card-text"><strong>Critério de Julgamento : </strong> {{$processo->criterio_julgamento->nome}}</p>
     </div>
     <div class="col-md-4" style="padding-left: 15px">
-      <p class="card-text"><strong>Início da Sessão : </strong> {{$processo->inicio_sessao->format('d-m-Y H:i:s')}}</p>
+      <p class="card-text"><strong>Data de Validade : </strong> {{$processo->data_validade->format('d-m-Y H:i:s')}}</p>
       <p class="card-text"><strong>Situação : </strong><span class="badge 
         @switch($processo->situacao->id)
         @case(32)

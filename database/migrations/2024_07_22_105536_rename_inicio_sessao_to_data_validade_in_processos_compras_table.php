@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('menus', function (Blueprint $table) {
-            $table->integer('posicao')->nullable();
-            $table->string('icone')->nullable();            
+        Schema::table('processo_compras', function (Blueprint $table) {
+            $table->renameColumn('inicio_sessao', 'data_validade');
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('menus', function (Blueprint $table) {
-            $table->dropColumn('posicao');
-            $table->dropColumn('icone');
+        Schema::table('processo_compras', function (Blueprint $table) {
+            //
         });
     }
 };

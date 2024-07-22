@@ -151,4 +151,11 @@ Breadcrumbs::for('vereador', function (BreadcrumbTrail $trail, $vereador) {
         $trail->parent('legislatura', $legislatureAnterior);
     }
     $trail->push($vereador->nome, route('camara.vereador', $vereador));
+    
+// Home > Compras e Licitacaoes  
+Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Processos de Compras', route('processoCompras.index'));
+});
+
 });

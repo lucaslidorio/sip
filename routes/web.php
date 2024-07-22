@@ -486,8 +486,8 @@ Route::get('/sitemap', [SiteController::class, 'mapasite'])->name('site.mapa');
 Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
+Route::get('compras/procesos', [SiteController::class, 'processosComprasIndex'])->name('processoCompras.index');
 
-//Route::post('/processos/storeDownload/{id}', [ProcessoCompraController::class, 'storeDownload'])->name('storeDownload.count');
 //Rota para fazer a contagem de Download dos anexos dos processos de compras
 Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'download'])->name('download.count');
 

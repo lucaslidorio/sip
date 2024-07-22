@@ -28,7 +28,7 @@ class StoreUpdateProcessoCompras extends FormRequest
             'modalidade_id' => ['required'],
             'proceeding_situation_id' => ['required'],
             'criterio_julgamento_id' => ['required'],
-            'inicio_sessao' => ['required'],
+            'data_validade' => ['required'],
             'destaque' => ['numeric'],
             'objeto' => ['required', 'min:10', 'max:5000'],
             'descricao' => ['nullable', 'min:10', 'max:5000'],         
@@ -44,7 +44,7 @@ class StoreUpdateProcessoCompras extends FormRequest
             'modalidade_id.required' => 'Selecione uma modalidade',
             'proceeding_situation_id.required' => 'Selecione uma situcação',
             'criterio_julgamento_id.required' => 'Selecione um critério de julgamento',
-            'inicio_sessao.required' => 'A Data de inicío é obrigatória',
+            'data_validade.required' => 'A Data de inicío é obrigatória',
             'objeto.required' => 'A Objeto é obrigatório',
             'objeto.max' => 'O campo deve ter mais que 10 caracteres',
                         
