@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
 use App\Http\Controllers\Admin\DirectorTableController;
+use App\Http\Controllers\Admin\EnqueteController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LegislationController;
@@ -265,6 +266,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
             Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+            //Rotas de Enquetes
+            
+            Route::any('/enquetes/search', [EnqueteController::class, 'search'])->name('enquetes.search');
+            Route::put('/enquetes/{id}', [EnqueteController::class, 'update'])->name('enquetes.update');
+            Route::get('/enquetes/{id}/edit', [EnqueteController::class, 'edit'])->name('enquetes.edit');            
+            Route::get('/enquetes/create', [EnqueteController::class, 'create'])->name('enquetes.create');
+            Route::get('/enquetes/{id}', [EnqueteController::class, 'destroy'])->name('enquetes.destroy'); 
+            Route::get('/enquetes', [EnqueteController::class, 'index'])->name('enquetes.index');           
+            Route::post('/enquetes', [EnqueteController::class, 'store'])->name('enquetes.store');
+            
+
+            
+            
+            Route::put('/enquetes/item/{id}', [EnqueteController::class, 'updateItem'])->name('enquetes.updateItem');
+            Route::get('/enquetes/item/{id}/editItem', [EnqueteController::class, 'editItem'])->name('enquetes.editItem');
+            Route::get('/enquetes/item/{id}/createItem', [EnqueteController::class, 'createItem'])->name('enquetes.createItem');
+            Route::get('/enquetes/item/{id}', [EnqueteController::class, 'destroyItem'])->name('enquetes.destroyItem');
+            Route::post('/enquetes/item', [EnqueteController::class, 'storeItem'])->name('enquetes.storeItem');
+            
 
 
             //Rotas de Carta ao cidadão

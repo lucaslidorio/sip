@@ -341,6 +341,13 @@ return [
         ],
 
         [
+            'text' => ' Enquetes',
+            'url'  => 'admin/enquetes',
+            'icon' => 'fas fa-tasks',
+            'can'  => 'ver-enquete',
+        ],
+
+        [
             'text'    => 'Diário Oficial',
             'icon'    => 'fas fa-book', 
             'active' => ['admin/diario*'] ,
