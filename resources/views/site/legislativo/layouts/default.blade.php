@@ -185,7 +185,7 @@
       {{-- Conteúdo --}}
       <div class="col-md-6 col-lg-7 ">
 
-        @yield('content')
+      @yield('content')
 
       </div>
 
@@ -283,7 +283,7 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
   </script>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     //Vlibras
     new window.VLibras.Widget('https://vlibras.gov.br/app');
@@ -349,10 +349,59 @@
     resetButton.addEventListener('click', () => {
     currentSize = defaultSize; // redefine o tamanho da fonte para o valor padrão
     document.body.style.fontSize = currentSize + '%'; // aplica o novo tamanho da fonte ao elemento `body`
-  });
-
-
+  });  
+  
   </script>
+  @if(isset($enquete))
+  <script>
+    // Gráficos de enquetes
+    function generateRandomColor() {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      return `rgba(${r}, ${g}, ${b}, 0.2)`;  // Transparência de 0.2 para background
+  }
+  function generateRandomColorsArray(length) {
+      const colors = [];
+      for (let i = 0; i < length; i++) {
+          colors.push(generateRandomColor());
+      }
+      return colors;
+  }
+  
+  
+  document.addEventListener('DOMContentLoaded', function() {
+      const labels = @json($enquete->itens->pluck('nome'));
+      const data = @json($enquete->itens->pluck('votos'));
+  
+      const backgroundColors = generateRandomColorsArray(labels.length);
+      const borderColors = backgroundColors.map(color => color.replace('0.2', '1'));  // Tornar as bordas opacas
+  
+      const ctx = document.getElementById('resultadoEnqueteChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Número de Votos',
+                  data: data,
+                  backgroundColor: backgroundColors,
+                  borderColor: borderColors,
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+  });
+  
+  </script>
+  @endif
   <script src="{{asset('js/jquery-min.js')}}"></script>
   <script src="{{asset('js/nivo-lightbox.js')}}"></script>
   <script src="{{asset('js/alloy_finger.min.js')}}"></script>

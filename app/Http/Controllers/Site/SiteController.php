@@ -32,6 +32,7 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 use App\Mail\contato;
 use App\Models\CitizenLetter;
 use App\Models\CriterioJulgamento;
+use App\Models\Enquete;
 use App\Models\Legislation;
 use App\Models\Link;
 use App\Models\Menu;
@@ -851,6 +852,56 @@ class SiteController extends Controller
     ]);
 }
 
+public function votar(Request $request, $id)
+{
+    
+
+    
+    $enquete = Enquete::findOrFail($id);
+
+    // Validação do item selecionado
+    $request->validate([
+        'item_id' => 'required|exists:itens_enquete,id'
+    ]);
+
+    // Incrementa o número de votos para o item selecionado
+    $item = $enquete->itens()->where('id', $request->input('item_id'))->first();
+    $item->increment('votos');
+
+    return redirect()->route('enquete.resultado', $enquete->id);
+}
+
+public function resultadoEnquete($id)
+{
+    $tenant = $this->tenant->first();            
+    $menus = Menu::getMenusByPosition(1);  
+    $menusSuperior = Menu::getMenusByPosition(2);				
+    $linksDireita = $this->link
+        ->where('posicao', 3)
+        ->where('tipo', 1) // Tipo = Banner
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')
+        ->take(4)
+        ->get(); 
+    $linksUteis = $this->link                            
+        ->where('tipo', 2) // Tipo = Links Úteis
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')                            
+        ->get();
+    $enquete = Enquete::with('itens')->findOrFail($id);
+    // Calcular a quantidade total de votos
+    $totalVotos = $enquete->itens->sum('votos');
+
+    return view('site.legislativo.resultadoEnquete', compact(
+        'enquete',
+        'tenant',
+        'menus',
+        'menusSuperior',
+        'linksDireita',
+        'linksUteis',
+        'totalVotos'
+    ));
+}
 
 
 }

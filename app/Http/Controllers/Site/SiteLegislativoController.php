@@ -10,6 +10,7 @@ use App\Models\CommissionMembers;
 use App\Models\Councilor;
 use App\Models\DirectorTable;
 use App\Models\DirectorTableMemberFunctions;
+use App\Models\Enquete;
 use App\Models\Legislature;
 use App\Models\Link;
 use App\Models\Menu;
@@ -111,7 +112,8 @@ class SiteLegislativoController extends Controller
 
         $ultimasNoticias = $this->post->take(4)->orderBy('created_at', 'DESC')->get();
         
-
+        // Busca uma enquete ativa
+        $enquete = Enquete::where('situacao', 1)->latest()->first();
         return view('site.legislativo.index',[
             'tenant' => $tenant,
             'menus' => $menus,
@@ -121,8 +123,9 @@ class SiteLegislativoController extends Controller
             'posts_destaque' => $posts_destaque,
             'linksUteis' => $linksUteis,
             'ultimasNoticias' => $ultimasNoticias,
-            'menusSuperior' => $menusSuperior,
             'linksInferior' => $linksInferior,
+            'menusSuperior' => $menusSuperior,
+            'enquete' => $enquete,
         ]);
     }
   

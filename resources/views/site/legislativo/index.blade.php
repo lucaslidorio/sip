@@ -57,17 +57,44 @@
             </div>
 
 
-            <h4 class="font-blue">Últimas Notícias</h4>
-            @foreach ($ultimasNoticias as $noticia)
-            <a href="{{route('noticias.show', $noticia->url)}}" class="text-decoration-none" >
-              <div class="row p-2 link">
-                <div class="container ">
-                  <img src="{{config('app.aws_url').$noticia->img_destaque }}" alt="" class="img-fluid  float-start me-3" style="width:130px; height:100px" >
-                  <p class="fw-lighter text-dark">{{\Carbon\Carbon::parse($noticia->data_publicacao)->format('d/m/Y')}}</p>
-                  <h6 class="text-dark ">{{$noticia->titulo}}</h6>                
-                </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="font-blue">Últimas Notícias</h4>
+                @foreach ($ultimasNoticias as $noticia)
+                <a href="{{route('noticias.show', $noticia->url)}}" class="text-decoration-none" >
+                  <div class="row p-2 link">
+                    <div class="container ">
+                      <img src="{{config('app.aws_url').$noticia->img_destaque }}" alt="" class="img-fluid  float-start me-3" style="width:130px; height:100px" >
+                      <p class="fw-lighter text-dark">{{\Carbon\Carbon::parse($noticia->data_publicacao)->format('d/m/Y')}}</p>
+                      <h6 class="text-dark ">{{$noticia->titulo}}</h6>                
+                    </div>
+                  </div>
+                </a>            
+                @endforeach 
               </div>
-            </a>
+              <div class="col-md-6">
+                <h4 class="font-blue">Enquete</h4>
+                @if($enquete)
+                <form action="{{ route('enquete.votar', $enquete->id) }}" method="post">
+                    @csrf
+                    <h6 class="text-dark">{{ $enquete->nome }}</h6>
+        
+                    @foreach($enquete->itens as $item)
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="item_id" id="item{{ $item->id }}" value="{{ $item->id }}">
+                            <label class="form-check-label" for="item{{ $item->id }}">
+                                {{ $item->nome }}
+                            </label>
+                        </div>
+                    @endforeach
+        
+                    <button type="submit" class="btn btn-primary mt-3">Votar</button>
+                </form>
+            @else
+                <p>Nenhuma enquete ativa no momento.</p>
+            @endif
+              </div>
+            </div>
             
-            @endforeach        
+                   
       @endsection

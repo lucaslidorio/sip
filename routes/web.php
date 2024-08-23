@@ -512,6 +512,10 @@ Route::get('compras/procesos', [SiteController::class, 'processosComprasIndex'])
 //Rota para fazer a contagem de Download dos anexos dos processos de compras
 Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'download'])->name('download.count');
 
+Route::post('/enquete/votar/{id}', [SiteController::class, 'votar'])->name('enquete.votar');
+Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'])->name('enquete.resultado');
+
+
 
 // Route::get('/', function () {
 //     //Alert::success('Success Title', 'Success Message');
