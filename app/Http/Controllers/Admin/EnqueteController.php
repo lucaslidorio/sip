@@ -78,7 +78,7 @@ class EnqueteController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('nova-enquete');
+        $this->authorize('editar-enquete');
             $enquete = $this->enquete->findOrFail($id);
             if(!$enquete){
                 return redirect()->back();
