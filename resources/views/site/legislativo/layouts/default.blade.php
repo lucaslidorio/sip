@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{{asset('css/style-legislativo.css')}}">
   <link rel="stylesheet" href="{{asset('css/nivo-lightbox.css')}}">
   <link rel="stylesheet" href="{{asset('css/lc_lightbox.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('dashboard/css/fullcalendar/main.css') }}">
+  <link rel="stylesheet" href="{{asset('dashboard/css/fullcalendar/main.css') }}">
 
 
 </head>
@@ -85,7 +85,7 @@
     </div>
     <header class="d-flex flex-wrap justify-content-center py-2">
       <a href="/" class="">
-        <img class="d-none d-sm-block me-3 mb-3 " src="{{config('app.aws_url')." {$tenant->brasao}" }}" width="100"
+        <img class="d-none d-sm-block me-3 mb-3 " src="{{config('app.aws_url')."{$tenant->brasao}" }}" width="100"
         height="100" alt="">
       </a>
       <a href="/" class="d-flex align-items-center mt-0  mb-md-0 me-md-auto text-dark text-decoration-none ">

@@ -227,7 +227,7 @@
                         <p><strong>Documentos Anexados:</strong></p>
                         <p>
                           @forelse ($data['credenciado']->documentos as $documento)
-                          <a href="{{config('app.aws_url')." {$documento->anexo}" }}" target="_blank" class="mb-4 mr-3
+                          <a href="{{config('app.aws_url')."{$documento->anexo}" }}" target="_blank" class="mb-4 mr-3
                             text-reset" >
                             <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
                             <span class="mr-2"> {{$documento->nome_original}}</span>
