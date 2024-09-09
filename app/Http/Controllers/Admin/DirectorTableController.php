@@ -133,8 +133,7 @@ class DirectorTableController extends Controller
         $directorTable = $this->repository->where('id', $id)->first();
         $councilors = $this->councilor->get();
         $functions = $this->function->get();
-        return view('admin.pages.directorTables.members.create', [
-            
+        return view('admin.pages.directorTables.members.create', [            
             'directorTable' => $directorTable,
             'councilors' => $councilors,
             'functions' => $functions,           

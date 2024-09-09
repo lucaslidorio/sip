@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
 use App\Http\Controllers\Admin\DirectorTableController;
+use App\Http\Controllers\Admin\DocumentoDofController;
 use App\Http\Controllers\Admin\EnqueteController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
@@ -477,6 +478,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::get('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'destroy'])->name('subTipoMaterias.destroy');
                     Route::post('/subTipoMateria', [SubTipoMateriaController::class, 'store'])->name('subTipoMaterias.store');
                     Route::get('/subTipoMateria', [SubTipoMateriaController::class, 'index'])->name('subTipoMaterias.index');
+                
+                    //Rotas docmentos Dof
+                    Route::any('/documentos/search', [DocumentoDofController::class, 'search'])->name('documentos.search');
+                    Route::put('/documentos/{id}', [DocumentoDofController::class, 'update'])->name('documentos.update');
+                    Route::get('/documentos/{id}/edit', [DocumentoDofController::class, 'edit'])->name('documentos.edit');
+                    Route::get('/documentos/show/{id}', [DocumentoDofController::class, 'show'])->name('documentos.show');
+                    Route::get('/documentos/create', [DocumentoDofController::class, 'create'])->name('documentos.create');
+                    Route::get('/documentos/{id}', [DocumentoDofController::class, 'destroy'])->name('documentos.destroy');
+                    Route::post('/documentos', [DocumentoDofController::class, 'store'])->name('documentos.store');
+                    Route::get('/documentos', [DocumentoDofController::class, 'index'])->name('documentos.index');
+                    Route::get('/subtipos/{tipo_materia_id}', [DocumentoDofController::class, 'getSubTiposByTipo'])->name('get.subtipos');
+
                 });
         });
 });

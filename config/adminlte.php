@@ -356,17 +356,25 @@ return [
                 [
                     'text' => 'Tipos de Matéria',
                     'url'  => 'admin/diario/tipoMaterias',
-                    'active' => ['admin/materias*' ],
+                    'active' => ['admin/diario/tipoMaterias*' ],
                     'icon' => 'fas  fa-text-width',
                     'can' => 'ver-tipo-materia',
                 ], 
                 [
                     'text' => 'Sub Tipo de Matérias',
                     'url'  => 'admin/diario/subTipoMateria',
-                    'active' => ['admin/materias*' ],
+                    'active' => ['admin/diario/subTipoMateria*' ],
                     'icon' => 'fas  fa-text-width',
                     'can' => 'ver-tipo-materia',
-                ],                                 
+                ],
+                [
+                    'text' => 'Documentos',
+                    'url'  => 'admin/diario/documentos',
+                    'active' => ['admin/documentos*' ],
+                    'icon' => 'fas  fa-file-word',
+                    'can' => 'ver-documento-dof',
+                ],   
+                                               
                
             ],
         ],
