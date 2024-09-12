@@ -350,7 +350,7 @@ return [
         [
             'text'    => 'Diário Oficial',
             'icon'    => 'fas fa-book', 
-            'active' => ['admin/diario*'] ,
+            'active' => ['admin/diario/*'] ,
             'can'    =>   'ver-diario-oficial',                        
             'submenu' => [
                 [
@@ -364,19 +364,17 @@ return [
                     'text' => 'Sub Tipo de Matérias',
                     'url'  => 'admin/diario/subTipoMateria',
                     'active' => ['admin/diario/subTipoMateria*' ],
-                    'icon' => 'fas  fa-text-width',
+                    'icon' => 'fas fa-text-width',
                     'can' => 'ver-tipo-materia',
                 ],
                 [
                     'text' => 'Documentos',
                     'url'  => 'admin/diario/documentos',
-                    'active' => ['admin/documentos*' ],
-                    'icon' => 'fas  fa-file-word',
+                    'active' => ['admin/diario/documentos*' ],
+                    'icon' => 'fas fa-file-word',
                     'can' => 'ver-documento-dof',
-                ],   
-                                               
-               
-            ],
+                ],                 
+           ],
         ],
         
         

@@ -76,9 +76,9 @@
               <td>{{$documento->titulo}}</td>
               <td>{{$documento->tipoMateria->nome}}</td>
               <td>{{$documento->subTipoMateria->nome}}</td>
-              <td>{{$documento->user->name}} <br>
-                <i class="text-muted"> Última alteração: {{$documento->userLastUpdate->name}}</i>
-                
+              <td style="font-size: 12px;">
+                {{$documento->user->name}} <br>
+                <i class="text-muted"> Última alteração: {{$documento->userLastUpdate->name}}</i>                
               </td> 
               <td>{{\Carbon\Carbon::parse($documento->created_at)->format('d/m/Y H:i:s' )}}              
               <td>{{\Carbon\Carbon::parse($documento->data_publicacao)->format('d/m/Y')}}             
@@ -86,7 +86,7 @@
               
               <td class="text-center">
                 @can('ver-documento')
-                <a href="{{route('documentos.show', $documento->id)}}" data-id="{{$documento->id}}"
+                <a href="{{route('documentos.show', $documento->uuid)}}" data-uuid="{{$documento->id}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>

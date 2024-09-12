@@ -7,6 +7,7 @@ use App\Models\DocumentosDof;
 use App\Models\SubTipoMateria;
 use App\Models\TipoMateria;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUpdateDocumentoDof;
 
 class DocumentoDofController extends Controller
 {
@@ -52,7 +53,7 @@ class DocumentoDofController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUpdateDocumentoDof $request)
     {        
         $this->authorize('novo-documento-dof');
         $data = $request->all();
@@ -66,9 +67,13 @@ class DocumentoDofController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
-        //
+        $this->authorize('ver-documento-dof');
+         // Buscar o documento pelo UUID
+        $documento = $this->repository->where('uuid', $uuid)->firstOrFail();  
+        
+        return view('admin.pages.documentosDof.show',compact('documento'));
     }
 
     /**
@@ -87,7 +92,7 @@ class DocumentoDofController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateDocumentoDof $request, string $id)
     {
         $this->authorize('editar-documento-dof');
 
