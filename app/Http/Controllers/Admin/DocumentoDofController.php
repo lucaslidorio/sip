@@ -8,6 +8,13 @@ use App\Models\SubTipoMateria;
 use App\Models\TipoMateria;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateDocumentoDof;
+use App\Models\DocumentoAssinaturas;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Carbon\Carbon;
+
 
 class DocumentoDofController extends Controller
 {
@@ -73,6 +80,7 @@ class DocumentoDofController extends Controller
          // Buscar o documento pelo UUID
         $documento = $this->repository->where('uuid', $uuid)->firstOrFail();  
         
+        //dd($documento->assinaturas);  
         return view('admin.pages.documentosDof.show',compact('documento'));
     }
 
@@ -101,8 +109,8 @@ class DocumentoDofController extends Controller
         }
         $data = $request->all();
         $data['user_id'] = $documento->user_id;
-        $data['user_id_last_update'] = auth()->user()->id;
-       
+        $data['user_id_last_update'] = auth()->user()->id; 
+
         $documento->update($data);
 
         toast('Documento atualizado com sucesso!','success')->toToast('top') ;
@@ -116,4 +124,124 @@ class DocumentoDofController extends Controller
     {
         //
     }
+
+    ################# FUNÇOES DE ASSINATURA ####################    
+
+    public function signDocument(Request $request, string $uuid)
+    {
+        try {
+            $this->authorize('assinar-documento-dof');
+            $documento = DocumentosDof::where('uuid', $uuid)->firstOrFail();
+            // Verifica a senha do usuário para confirmar a assinatura
+            if (!Hash::check($request->password, auth()->user()->password)) {
+                return response()->json(['error' => 'Senha incorreta.'], 401);
+            }
+            // Concatenar todos os campos que formam o documento para gerar o hash
+            $dadosDocumento = $documento->user_id_last_update
+                . $documento->tipo_materia_id
+                . $documento->sub_tipo_materia_id
+                . $documento->titulo
+                . $documento->uuid
+                . $documento->conteudo
+                . $documento->user_id;
+
+            // Gera o hash do documento a partir de todos os campos relevantes
+            $documentoHash = hash('sha256', $dadosDocumento);
+
+            // Verifica se o documento foi alterado comparando o hash atual com o armazenado
+            $documentoAlterado = $documento->hash_documento !== $documentoHash;
+                // Invalida as assinaturas anteriores caso o documento tenha sido alterado
+                Log::info('Documento alterado', ['documento_alterado' => $documentoAlterado]);
+                if ($documentoAlterado) {
+                    $documento->assinaturas()->update(['status' => false]); // Assinaturas anteriores inválidas
+                    $documento->hash_documento = $documentoHash;
+                    $documento->save();
+                }
+
+            // Verifica se o usuário já assinou o documento e se não houve alteração
+            $assinaturaExistente = $documento->assinaturas()
+                ->where('user_id', auth()->id())
+                ->where('status', true)
+                ->exists();
+
+            // Bloqueia a nova assinatura caso o documento não tenha sido alterado
+            if ($assinaturaExistente && !$documentoAlterado) {
+                return response()->json(['error' => 'Você já assinou este documento e ele não foi alterado.'], 403);
+            }
+
+        // Gera o hash da assinatura usando o hash do documento + a senha do usuário
+        $assinaturaHash = hash('sha256', $documentoHash . auth()->user()->password);
+
+        // Atualiza o hash do documento no modelo de documento
+        $documento->hash_documento = $documentoHash;
+        $documento->save();
+
+        // Gera um código de verificação único para a assinatura
+        $codigoVerificacaoAssinatura = strtoupper(Str::random(12));
+        
+        // Registra a assinatura no banco de dados
+        DocumentoAssinaturas::create([
+            'documento_dof_id' => $documento->id,
+            'user_id' => auth()->id(),
+            'assinatura' => $assinaturaHash, // Armazena o hash da assinatura
+            'documento_hash' => $documentoHash,
+            'data_assinatura' => now(),
+            'codigo_verificacao' => $codigoVerificacaoAssinatura, // Código de verificação único para cada assinatura
+            'ip_address' => $request->ip(),
+            'navegador' => $request->header('User-Agent'),
+        ]);
+
+        return response()->json(['success' => 'Documento assinado com sucesso!']);
+        } catch (\Exception $e) {
+            // Registrar o erro no log e retornar uma mensagem de erro
+            Log::error('Erro ao assinar o documento: ' . $e->getMessage());
+            return response()->json(['error' => 'Erro interno no servidor.'], 500);
+        }
+    }
+
+    public function verificarDocumento($codigoVerificacao)
+    {
+        // Buscar o documento pelo código de verificação
+        $documento = DocumentosDof::where('codigo_verificacao', $codigoVerificacao)->firstOrFail();
+
+        // Recalcula o hash com base nos campos do documento
+        $dadosDocumentoAtual = $documento->user_id_last_update
+            . $documento->tipo_materia_id
+            . $documento->sub_tipo_materia_id
+            . $documento->titulo
+            . $documento->uuid
+            . $documento->conteudo
+            . $documento->user_id;
+
+        // Recalcula o hash do documento
+        $documentoHashAtual = hash('sha256', $dadosDocumentoAtual);
+
+        // Verificar se o hash atual é o mesmo que o hash no momento da assinatura
+        $hashIntegro = $documento->hash_documento === $documentoHashAtual;
+
+        // Filtrar assinaturas válidas e inválidas
+        $assinaturasValidas = $documento->assinaturas->where('status', true);
+        $assinaturasInvalidas = $documento->assinaturas->where('status', false);
+
+         // Verifica se o documento tem pelo menos uma assinatura válida
+        $documentoIntegro = $hashIntegro && $assinaturasValidas->count() > 0;
+
+        // Data da última alteração que invalidou as assinaturas
+        $dataAlteracao = $documento->updated_at;
+
+        // Gerar o QR Code para o código de verificação do documento
+        $verificacaoUrl = route('verificador', $codigoVerificacao);
+        $qrCode = QrCode::size(200)->generate($verificacaoUrl);
+
+        // Retorna para a view com as assinaturas válidas, inválidas e o QR Code
+        return view('admin.pages.documentosDof.verificador', compact(
+            'assinaturasValidas', 
+            'assinaturasInvalidas', 
+            'documentoIntegro', 
+            'qrCode', 
+            'dataAlteracao',
+            'documento'
+        ));
+    }
+
 }

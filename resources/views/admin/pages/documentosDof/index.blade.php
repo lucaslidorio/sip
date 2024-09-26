@@ -85,13 +85,20 @@
               </td>
               
               <td class="text-center">
+                @can('assinar-documento')
+                <a href="javascript:void(0);" data-uuid="{{$documento->uuid}}" class="btn bg-gradient-warning btn-flat mt-0 sign-document" 
+                  data-toggle="tooltip" data-placement="top" title="Assinar">
+                   <i class="fas fa-pencil-alt"></i>
+               </a>                  
+                @endcan
                 @can('ver-documento')
-                <a href="{{route('documentos.show', $documento->uuid)}}" data-uuid="{{$documento->id}}"
+                <a href="{{route('documentos.show', $documento->uuid)}}" data-uuid="{{$documento->uuid}}"
                   class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"
                   title="Ver Detalhes">
                   <i class="far fa-eye"></i>
                 </a>                  
-                @endcan                
+                @endcan  
+                              
                 @can('editar-documento')
                 <a href="{{route('documentos.edit', $documento->id)}}" class="btn  bg-gradient-primary btn-flat  "
                   data-toggle="tooltip" data-placement="top" title="Editar">
@@ -149,5 +156,80 @@
           }
         })  
 });
+
+$(document).on('click', '.sign-document', function() {
+    var uuid = $(this).data('uuid'); // Obtém o UUID do documento
+    
+    // SweetAlert2 para solicitar a senha
+    // Acessa a meta tag e obtém o valor do CSRF token
+var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+// Exibe o CSRF token no console
+
+
+    Swal.fire({
+        title: 'Assinar Documento',
+        input: 'password',
+        inputLabel: 'Digite sua senha para confirmar a assinatura:',
+        inputPlaceholder: 'Senha',
+        inputAttributes: {
+            autocapitalize: 'off',
+            required: true
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Assinar',
+        showLoaderOnConfirm: true,
+        preConfirm: (password) => {
+            // Faz a requisição AJAX para assinar o documento
+            return $.ajax({              
+                url: 'documentos/' + uuid + '/sign',  // Rota da assinatura
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF necessário
+                    password: password // Senha fornecida pelo usuário
+                },
+                
+                
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Documento assinado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    // Atualizar ou redirecionar conforme necessário
+                },
+                error: function(xhr) {
+                  console.log(xhr.status);
+                  if (xhr.status === 403) {
+                    // Assinatura já existente e documento não alterado
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro ao assinar o documento',
+                        text: 'Você já assinou este documento e ele não foi alterado.',
+                    });
+                      } else if (xhr.status === 401) {
+                // Senha incorreta
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Erro ao assinar o documento',
+                          text: 'Verifique se a senha está correta.',
+                      });
+                  }else {
+            // Erro genérico para outros códigos de status
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao assinar o documento',
+                    text: 'Ocorreu um erro interno. Por favor, tente novamente.',
+                });
+            }
+
+                }
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading() // Permite clicar fora enquanto não está carregando
+    });
+});
+
 </script>
 @stop

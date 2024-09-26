@@ -489,6 +489,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::post('/documentos', [DocumentoDofController::class, 'store'])->name('documentos.store');
                     Route::get('/documentos', [DocumentoDofController::class, 'index'])->name('documentos.index');
                     Route::get('/subtipos/{tipo_materia_id}', [DocumentoDofController::class, 'getSubTiposByTipo'])->name('get.subtipos');
+                    
+                    Route::post('/documentos/{uuid}/sign', [DocumentoDofController::class, 'signDocument'])->name('documentos.sign');
+                    
+
+
 
                 });
         });
@@ -503,7 +508,7 @@ Route::get('/dashboard', function () {
 */
 
 
-
+Route::get('/verificador/{codigoVerificacao}', [DocumentoDofController::class, 'verificarDocumento'])->name('verificador');
 //Rotas de ouvidoria do site
 
 Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');

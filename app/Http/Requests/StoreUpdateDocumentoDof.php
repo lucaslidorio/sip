@@ -27,7 +27,7 @@ class StoreUpdateDocumentoDof extends FormRequest
             'sub_tipo_materia_id' => 'required|exists:sub_tipo_materias,id', // Verifica se o subtipo existe
             'titulo' => 'required|string|max:255', // Título obrigatório, máximo 255 caracteres
             'conteudo' => 'nullable|string', // O conteúdo pode ser nulo, mas deve ser uma string se presente
-            'data_publicacao' => 'nullable|date', // Data opcional, deve ser válida e até a data atual
+           // 'data_publicacao' => ['nullable','date_format:Y-m-d'], // Data opcional, deve ser válida e até a data atual
         ];
     }
     public function messages(): array

@@ -56,9 +56,18 @@
      
   </div>
   <div class="card-footer">
+
+    <div class="text-right">
+      
+      <small><strong>Criado por: </strong><small >{{$documento->user->name}} <strong>em </strong>  {{ $documento->created_at }}</small></small> <br>
+      <small><strong>Útima alteração por: </strong>{{$documento->userLastUpdate->name}} <strong>em </strong>  {{ $documento->updated_at }} </span></small>
+    </div>
    
-      <strong>Criado por: </strong><span class="text-muted">{{$documento->user->name}}</span> <br>
-      <strong>Útima alteração por: </strong><span class="text-muted">{{$documento->userLastUpdate->name}}</span> <strong>em </strong> <span> {{ $documento->updated_at }}</span>
-    
+    @if($documento->assinaturas->count() > 0)
+      <x-assinatura :assinaturas="$documento->assinaturas->where('status', true)" :municipio="config('app.municipio')" 
+      :codigoverificacao="$documento->codigo_verificacao" :iddocumento="$documento->uuid" />
+
+    @endif
+   
   </div>
 @stop
