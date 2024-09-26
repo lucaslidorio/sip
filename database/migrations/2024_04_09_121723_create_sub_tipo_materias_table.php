@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sub_tipo_materias', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tipo_materia_id');
-            $table->string('nome', 45);
+            $table->string('nome', 255);
             $table->boolean('situacao');
             $table->timestamps();
 

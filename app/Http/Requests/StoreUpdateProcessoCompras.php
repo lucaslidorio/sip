@@ -44,7 +44,7 @@ class StoreUpdateProcessoCompras extends FormRequest
             'modalidade_id.required' => 'Selecione uma modalidade',
             'proceeding_situation_id.required' => 'Selecione uma situcação',
             'criterio_julgamento_id.required' => 'Selecione um critério de julgamento',
-            'data_validade.required' => 'A Data de inicío é obrigatória',
+            'data_validade.required' => 'A Data é obrigatório',
             'objeto.required' => 'A Objeto é obrigatório',
             'objeto.max' => 'O campo deve ter mais que 10 caracteres',
                         

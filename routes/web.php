@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
 use App\Http\Controllers\Admin\DirectorTableController;
+use App\Http\Controllers\Admin\DocumentoDofController;
+use App\Http\Controllers\Admin\EnqueteController;
 use App\Http\Controllers\Admin\FunctionController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LegislationController;
@@ -266,6 +268,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
             Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
+            //Rotas de Enquetes
+            
+            Route::any('/enquetes/search', [EnqueteController::class, 'search'])->name('enquetes.search');
+            Route::put('/enquetes/{id}', [EnqueteController::class, 'update'])->name('enquetes.update');
+            Route::get('/enquetes/{id}/edit', [EnqueteController::class, 'edit'])->name('enquetes.edit');            
+            Route::get('/enquetes/create', [EnqueteController::class, 'create'])->name('enquetes.create');
+            Route::get('/enquetes/{id}', [EnqueteController::class, 'destroy'])->name('enquetes.destroy'); 
+            Route::get('/enquetes', [EnqueteController::class, 'index'])->name('enquetes.index');           
+            Route::post('/enquetes', [EnqueteController::class, 'store'])->name('enquetes.store');
+            
+
+            
+            
+            Route::put('/enquetes/item/{id}', [EnqueteController::class, 'updateItem'])->name('enquetes.updateItem');
+            Route::get('/enquetes/item/{id}/editItem', [EnqueteController::class, 'editItem'])->name('enquetes.editItem');
+            Route::get('/enquetes/item/{id}/createItem', [EnqueteController::class, 'createItem'])->name('enquetes.createItem');
+            Route::get('/enquetes/item/{id}', [EnqueteController::class, 'destroyItem'])->name('enquetes.destroyItem');
+            Route::post('/enquetes/item', [EnqueteController::class, 'storeItem'])->name('enquetes.storeItem');
+            
+
 
             //Rotas de Carta ao cidadão
             Route::put('/citizenLetters/{id}', [CitizenLetterController::class, 'update'])->name('citizenLetters.update');
@@ -456,6 +478,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::get('/subTipoMateria/{id}', [SubTipoMateriaController::class, 'destroy'])->name('subTipoMaterias.destroy');
                     Route::post('/subTipoMateria', [SubTipoMateriaController::class, 'store'])->name('subTipoMaterias.store');
                     Route::get('/subTipoMateria', [SubTipoMateriaController::class, 'index'])->name('subTipoMaterias.index');
+                
+                    //Rotas docmentos Dof
+                    Route::any('/documentos/search', [DocumentoDofController::class, 'search'])->name('documentos.search');
+                    Route::put('/documentos/{id}', [DocumentoDofController::class, 'update'])->name('documentos.update');
+                    Route::get('/documentos/{id}/edit', [DocumentoDofController::class, 'edit'])->name('documentos.edit');
+                    Route::get('/documentos/show/{id}', [DocumentoDofController::class, 'show'])->name('documentos.show');
+                    Route::get('/documentos/create', [DocumentoDofController::class, 'create'])->name('documentos.create');
+                    Route::get('/documentos/{id}', [DocumentoDofController::class, 'destroy'])->name('documentos.destroy');
+                    Route::post('/documentos', [DocumentoDofController::class, 'store'])->name('documentos.store');
+                    Route::get('/documentos', [DocumentoDofController::class, 'index'])->name('documentos.index');
+                    Route::get('/subtipos/{tipo_materia_id}', [DocumentoDofController::class, 'getSubTiposByTipo'])->name('get.subtipos');
+                    
+                    Route::post('/documentos/{uuid}/sign', [DocumentoDofController::class, 'signDocument'])->name('documentos.sign');
+                    
+
+
+
                 });
         });
 });
@@ -469,7 +508,7 @@ Route::get('/dashboard', function () {
 */
 
 
-
+Route::get('/verificador/{codigoVerificacao}', [DocumentoDofController::class, 'verificarDocumento'])->name('verificador');
 //Rotas de ouvidoria do site
 
 Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
@@ -490,6 +529,10 @@ Route::get('compras/procesos', [SiteController::class, 'processosComprasIndex'])
 
 //Rota para fazer a contagem de Download dos anexos dos processos de compras
 Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'download'])->name('download.count');
+
+Route::post('/enquete/votar/{id}', [SiteController::class, 'votar'])->name('enquete.votar');
+Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'])->name('enquete.resultado');
+
 
 
 // Route::get('/', function () {

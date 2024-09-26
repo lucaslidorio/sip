@@ -25,7 +25,7 @@ class StoreUpdateSubTipoMateria extends FormRequest
         
         return [
                       
-            'nome' => ['required', 'min:3', 'max:255', "unique:sub_tipo_materia,nome,{$id},id"],
+            'nome' => ['required', 'min:3', 'max:255', "unique:sub_tipo_materias,nome,{$id},id"],
             'tipo_materia_id' => ['required', 'numeric'],
             'situacao' => ['required','numeric'],            
         ];

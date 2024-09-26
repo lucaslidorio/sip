@@ -3,7 +3,7 @@
         <div class="form-group">
             <label class="label-required" >Tipo de Matéria:</label>
             <select class="form-control {{ $errors->has('tipo_materia_id') ? 'is-invalid' : '' }}" name="tipo_materia_id" style="width: 100%;" >
-                <option value="" selected ></option>              
+                <option value="" selected >Selecione uma opção</option>              
                 @foreach ($tiposMaterias as $tipoMateria)                          
                 <option value="{{$tipoMateria->id}}" 
                       {{ (isset($subTipoMateria) && $tipoMateria->id == $subTipoMateria->tipo->id ? 'selected' : (old('tipo_materia_id') == $tipoMateria->id ? 'selected' : '')) }}>
@@ -37,7 +37,7 @@
     </div> 
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="situacao" class="label-required">Atual</label>
+            <label for="situacao" class="label-required">Ativo</label>
             <select class="custom-select {{ $errors->has('situacao') ? 'is-invalid' : '' }}" 
                 id="situacao" name="situacao">
                 <option value="" selected >Selecione uma opção</option>

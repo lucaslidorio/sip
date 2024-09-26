@@ -46,13 +46,13 @@
           <p class="text-muted text-center">{{ $user->dadosPessoais->razao_social ?? 'Não Informado' }}</p>
           <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
-              <b>Credenciamentos Ativos</b> <a class="float-right">{{$user->dadosPessoais->countCredenciamentosAtivo()}}</a>
+              <b>Credenciamentos Ativos</b> <a class="float-right">{{$user->dadosPessoais->countCredenciamentosAtivo() ?? "0"}}</a>
             </li>
             <li class="list-group-item">
-              <b>Total de Participações</b> <a class="float-right">{{$user->dadosPessoais->countCredenciamentos()}}</a>
+              <b>Total de Participações</b> <a class="float-right">{{$user->dadosPessoais->countCredenciamentos() ?? "0"}}</a>
             </li>
             <li class="list-group-item">
-              <b>Descredenciado</b> <a class="float-right text-danger">{{$user->dadosPessoais->countDescredenciado()}}</a>
+              <b>Descredenciado</b> <a class="float-right text-danger">{{$user->dadosPessoais->countDescredenciado() ?? "0"}}</a>
             </li>
           </ul>          
         </div>

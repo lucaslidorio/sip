@@ -146,7 +146,7 @@ class ProcessoCompraController extends Controller
         $processo = $this->repository->where('id', $id)->first();
         // Formatar data usando Carbon
 
-        $dataFormatada = $processo->inicio_sessao->format('Y-m-d'); // Altere o formato conforme necessário       
+        $dataFormatada = $processo->inicio_sessao ? $processo->inicio_sessao->format('Y-m-d') : null; // Altere o formato conforme necessário       
         // Adicionar data formatada ao objeto $processo
         $processo->data_formatada = $dataFormatada;
 
@@ -234,7 +234,29 @@ class ProcessoCompraController extends Controller
 
     public function storeAttachment(Request $request)
     {
+        $request->validate([
+            'processo_compra_id' => 'required|integer|exists:processo_compras,id', // Validação para o campo hidden
+            'type_document_id' => 'required|integer|exists:type_documents,id', // Validação para o campo de tipo de documento
+            'descricao' => 'nullable|string|max:255', // Descrição é opcional, texto e com limite de 255 caracteres
+            'anexo' => 'required|file|mimes:pdf|max:3072', // PDF somente e máximo de 3MB
+
+        ], [
+            'required' => 'O campo :attribute é obrigatório.',
+            'integer' => 'O campo :attribute deve ser um número inteiro.',
+            'exists' => 'O campo :attribute deve ser um valor válido.',
+            'string' => 'O campo :attribute deve ser uma string.',
+            'max' => 'O campo :attribute não pode ter mais que :max caracteres.',
+            'file' => 'O campo :attribute deve ser um arquivo.',
+            'mimes' => 'O campo :attribute deve ser um arquivo do tipo: :values.',
+        ], [
+            'processo_compra_id' => 'processo de compra',
+            'type_document_id' => 'tipo do documento',
+            'descricao' => 'descrição',
+            'anexo' => 'anexo',
+        ]);
+
         $this->authorize('editar-processo-compras');
+
         $anexo = new AnexosProcessoCompra();
 
         $anexoProcesso = $request->only('processo_compra_id', 'type_document_id', 'descricao', 'anexo');

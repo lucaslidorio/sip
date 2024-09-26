@@ -1,7 +1,7 @@
 
 @extends('site.legislativo.layouts.default')
 @section('content')
-{{-- {{ Breadcrumbs::render('processo_compras') }}  --}}
+{{ Breadcrumbs::render('processo_compras') }} 
 <div class="card rounded-0">
   <div class="card-header ">
     <h4 class="text-center">Processos de Compras</h4>

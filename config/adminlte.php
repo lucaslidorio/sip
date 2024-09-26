@@ -341,27 +341,40 @@ return [
         ],
 
         [
+            'text' => ' Enquetes',
+            'url'  => 'admin/enquetes',
+            'icon' => 'fas fa-tasks',
+            'can'  => 'ver-enquete',
+        ],
+
+        [
             'text'    => 'Diário Oficial',
             'icon'    => 'fas fa-book', 
-            'active' => ['admin/diario*'] ,
+            'active' => ['admin/diario/*'] ,
             'can'    =>   'ver-diario-oficial',                        
             'submenu' => [
                 [
                     'text' => 'Tipos de Matéria',
                     'url'  => 'admin/diario/tipoMaterias',
-                    'active' => ['admin/materias*' ],
+                    'active' => ['admin/diario/tipoMaterias*' ],
                     'icon' => 'fas  fa-text-width',
                     'can' => 'ver-tipo-materia',
                 ], 
                 [
                     'text' => 'Sub Tipo de Matérias',
                     'url'  => 'admin/diario/subTipoMateria',
-                    'active' => ['admin/materias*' ],
-                    'icon' => 'fas  fa-text-width',
+                    'active' => ['admin/diario/subTipoMateria*' ],
+                    'icon' => 'fas fa-text-width',
                     'can' => 'ver-tipo-materia',
-                ],                                 
-               
-            ],
+                ],
+                [
+                    'text' => 'Documentos',
+                    'url'  => 'admin/diario/documentos',
+                    'active' => ['admin/diario/documentos*' ],
+                    'icon' => 'fas fa-file-word',
+                    'can' => 'ver-documento-dof',
+                ],                 
+           ],
         ],
         
         
