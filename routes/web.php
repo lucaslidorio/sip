@@ -517,7 +517,7 @@ Route::get('/dashboard', function () {
 */
 
 
-Route::get('/verificador/{codigoverificacao}', [DocumentoDofController::class, 'verificarDocumento'])->name('verificador');
+Route::get('/verificador/{codigoVerificacao}', [DocumentoDofController::class, 'verificarDocumento'])->name('verificador');
 //Rotas de ouvidoria do site
 
 Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
