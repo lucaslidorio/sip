@@ -46,6 +46,11 @@ class DocumentosDof extends Model
          parent::boot(); 
          static::creating(function ($model) {
              $model->uuid = (string) Str::uuid();
+             do {
+                // Gera o código hash único
+                $codigo_verificacao = strtoupper(Str::random(12));
+            } while (self::where('codigo_verificacao', $codigo_verificacao)->exists());// Verifica se o código já existe
+            $model->codigo_verificacao = $codigo_verificacao;
          });
 
          parent::boot();
