@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\SubTipoMateriaController;
 use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\TipoMateriaController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserFunctionController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
 use App\Models\SubTipoMateria;
@@ -244,6 +245,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/functions', [FunctionController::class, 'store'])->name('functions.store');
             Route::get('/functions', [FunctionController::class, 'index'])->name('functions.index');
 
+            //Rotas de User x Functions            
+            Route::any('/userFunctions/search', [UserFunctionController::class, 'search'])->name('userFunctions.search');
+            Route::put('/userFunctions/{id}', [UserFunctionController::class, 'update'])->name('userFunctions.update');
+            Route::get('/userFunctions/{id}/edit', [UserFunctionController::class, 'edit'])->name('userFunctions.edit');
+            Route::get('/userFunctions/create', [UserFunctionController::class, 'create'])->name('userFunctions.create');
+            Route::get('/userFunctions/{id}', [UserFunctionController::class, 'destroy'])->name('userFunctions.destroy');
+            Route::post('/userFunctions', [UserFunctionController::class, 'store'])->name('userFunctions.store');
+            Route::get('/userFunctions', [UserFunctionController::class, 'index'])->name('userFunctions.index');
 
 
             //Rotas de Partidos

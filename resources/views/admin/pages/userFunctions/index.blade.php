@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Funções')
 @section('content_header')
+@section('plugins.Select2', true)
 @include('sweetalert::alert')
 
 <div class="container-fluid">
@@ -11,12 +12,11 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Funções</li>
+        <li class="breadcrumb-item ">Funções e Usuários</li>
       </ol>
     </div>
   </div>
 </div>
-<!--Alerta -->
 
 @stop
 
@@ -28,20 +28,15 @@
         <div class="row">
           <div class="col-md-8">
             @can('nova-funcoes')
-            <a href="{{route('functions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
-            title="Cadastrar nova função" ><i
+            <a href="{{route('userFunctions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip" data-placement="top"
+            title="Vincular nova função ao usuário" ><i
                 class="fas fa-plus"></i> Novo</a>
-            @endcan
-            @can('nova-funcoes')
-            <a href="{{route('userFunctions.index')}}" class="btn bg-gradient-primary  " data-toggle="tooltip" data-placement="top"
-            title="Vincular função com usuário" ><i
-                class="fas fa-users-cog"></i> Função X Usuário</a>
             @endcan
             
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('functions.search')}}" method="post" class="form form-inline  float-right">
+              <form action="{{route('userFunctions.search')}}" method="post" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
@@ -62,30 +57,33 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Nome</th>              
-              <th>Descrição</th>
+              <th>Usuário</th>              
+              <th>Função</th>
+              <th>Início</th>
+              <th>Fim</th>
+              <th>Situação</th>
               
                           
               <th width="20%" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($functions as $function)
+            @foreach ($userFunctions as $user)
       
             <tr >
-              <td>{{$function->nome}}</td>              
-              <td>{{$function->descricao}}</td>
+              <td>{{$user->nome}}</td>              
+              <td>{{$user->descricao}}</td>
               
                 <td class="text-center">
                   @can('editar-funcoes')
-                  <a href="{{route('functions.edit', $function->id)}}" 
+                  <a href="{{route('users.edit', $user->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
                   @endcan
                 @can('excluir-funcoes')
-                <a href="{{route('functions.destroy', $function->id)}}" data-id="{{$function->id}}"
+                <a href="{{route('users.destroy', $user->id)}}" data-id="{{$user->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
@@ -102,9 +100,9 @@
       <!-- /.card-body -->
       <div class="card-footer">
         @if (isset($pesquisar))
-        {!!$functions->appends($pesquisar)->links()!!}
+        {!!$userFunctions->appends($pesquisar)->links()!!}
         @else
-        {!!$functions->links()!!}
+        {!!$userFunctions->links()!!}
         @endif
       </div>
     </div>
@@ -119,6 +117,8 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })  
+
+ 
     //Alert de confirmação de exclusão
     $('.delete-confirm').on('click', function (event) {
     event.preventDefault();
