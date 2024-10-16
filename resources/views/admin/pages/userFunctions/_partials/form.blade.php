@@ -24,18 +24,8 @@
               </div>
           </div>       
       </div>
-      <div class="row">
-        <label>Minimal</label>
-        <select class="form-control select2" style="width: 100%;">
-        <option selected="selected">Alabama</option>
-        <option>Alaska</option>
-        <option>California</option>
-        <option>Delaware</option>
-        <option>Tennessee</option>
-        <option>Texas</option>
-        <option>Washington</option>
-        </select>
-      </div>
+     
+      
       <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
@@ -45,7 +35,7 @@
                       <span class="input-group-text"><i class="fas fa-audio-description"></i></span>
                   </div> 
                 <input type="text" class="form-control {{ $errors->has('descricao') ? 'is-invalid' : '' }}" id="descricao"
-                    name="descricao" placeholder="Descrição da função" value="{{ $function->descricao ?? old('descricao') }}">
+                    name="descricao" placeholder="Descrição da função" value="{{ $function->descricao ?? old('descricao') }}" >
                 @error('descricao')
                     <small class="invalid-feedback">
                         {{ $message }}

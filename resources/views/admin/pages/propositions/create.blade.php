@@ -43,6 +43,8 @@
   <script>
     $(function () {
      $('[data-toggle="tooltip"]').tooltip()
+     $.fn.select2.defaults.set( "theme", "bootstrap" );   
+     $('.select2').select2();
     }) 
   </script>
 @endsection
