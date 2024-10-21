@@ -158,15 +158,11 @@
 });
 
 $(document).on('click', '.sign-document', function() {
-    var uuid = $(this).data('uuid'); // Obtém o UUID do documento
-    
+    var uuid = $(this).data('uuid'); // Obtém o UUID do documento    
     // SweetAlert2 para solicitar a senha
     // Acessa a meta tag e obtém o valor do CSRF token
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
 // Exibe o CSRF token no console
-
-
     Swal.fire({
         title: 'Assinar Documento',
         input: 'password',
