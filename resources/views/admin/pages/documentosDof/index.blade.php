@@ -156,76 +156,103 @@
           }
         })  
 });
-
 $(document).on('click', '.sign-document', function() {
-    var uuid = $(this).data('uuid'); // Obtém o UUID do documento    
-    // SweetAlert2 para solicitar a senha
-    // Acessa a meta tag e obtém o valor do CSRF token
-var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-// Exibe o CSRF token no console
-    Swal.fire({
-        title: 'Assinar Documento',
-        input: 'password',
-        inputLabel: 'Digite sua senha para confirmar a assinatura:',
-        inputPlaceholder: 'Senha',
-        inputAttributes: {
-            autocapitalize: 'off',
-            required: true
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Assinar',
-        showLoaderOnConfirm: true,
-        preConfirm: (password) => {
-            // Faz a requisição AJAX para assinar o documento
-            return $.ajax({              
-                url: 'documentos/' + uuid + '/sign',  // Rota da assinatura
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}', // Token CSRF necessário
-                    password: password // Senha fornecida pelo usuário
-                },
-                
-                
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Documento assinado com sucesso!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                    // Atualizar ou redirecionar conforme necessário
-                },
-                error: function(xhr) {
-                  console.log(xhr.status);
-                  if (xhr.status === 403) {
-                    // Assinatura já existente e documento não alterado
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro ao assinar o documento',
-                        text: 'Você já assinou este documento e ele não foi alterado.',
-                    });
-                      } else if (xhr.status === 401) {
-                // Senha incorreta
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'Erro ao assinar o documento',
-                          text: 'Verifique se a senha está correta.',
-                      });
-                  }else {
-            // Erro genérico para outros códigos de status
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro ao assinar o documento',
-                    text: 'Ocorreu um erro interno. Por favor, tente novamente.',
-                });
-            }
+    var uuid = $(this).data('uuid'); // Ainda usamos o UUID para assinar o documento depois
 
-                }
+    // Faz uma requisição AJAX para buscar as funções do usuário logado
+    $.ajax({
+        url: '/admin/diario/documentos/get-functions/user',
+        type: 'GET',
+        success: function(funcoes) {
+            // Funções retornadas com sucesso
+            // Cria o HTML para o select de funções
+            var funcaoSelect = '<select id="funcao_id" class="swal2-input">';
+            if (funcoes.length > 0) {
+                $.each(funcoes, function(index, funcao) {
+                    funcaoSelect += '<option value="' + funcao.function.id + '">' + funcao.function.nome + '</option>';
+                });
+            } else {
+                funcaoSelect += '<option value="">Nenhuma função disponível</option>';
+            }
+            funcaoSelect += '</select>';
+
+            // Exibe o modal SweetAlert com o select de funções e o input de senha
+            Swal.fire({
+                title: 'Assinar Documento',
+                html:
+                    '<label for="funcao_id">Selecione sua Função</label>' +'<br>'+
+                    funcaoSelect +
+                    '<br>' +
+                    '<label for="password">Digite sua senha para confirmar a assinatura:</label>' +
+                    '<input type="password" id="password" class="swal2-input" placeholder="Senha" required>',
+                focusConfirm: false,
+                showCancelButton: true,
+                confirmButtonText: 'Assinar',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    var password = document.getElementById('password').value;
+                    var funcaoId = document.getElementById('funcao_id').value;
+
+                    if (!password || !funcaoId) {
+                        Swal.showValidationMessage('Por favor, preencha todos os campos');
+                        return false;
+                    }
+
+                    // Faz a requisição AJAX para assinar o documento
+                    return $.ajax({
+                        url: 'documentos/' + uuid + '/sign',  // Rota da assinatura
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            password: password, // Senha fornecida pelo usuário
+                            funcao_id: funcaoId // Função selecionada
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Documento assinado com sucesso!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            // Atualizar ou redirecionar conforme necessário
+                        },
+                        error: function(xhr) {
+                            if (xhr.status === 403) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro ao assinar o documento',
+                                    text: 'Você já assinou este documento e ele não foi alterado.',
+                                });
+                            } else if (xhr.status === 401) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro ao assinar o documento',
+                                    text: 'Verifique se a senha está correta.',
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro ao assinar o documento',
+                                    text: 'Ocorreu um erro interno. Por favor, tente novamente.',
+                                });
+                            }
+                        }
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
             });
         },
-        allowOutsideClick: () => !Swal.isLoading() // Permite clicar fora enquanto não está carregando
+        error: function(xhr) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Não foi possível carregar as funções. Tente novamente mais tarde.'
+            });
+        }
     });
 });
+
+
 
 </script>
 @stop

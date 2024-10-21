@@ -9,6 +9,7 @@ use App\Models\TipoMateria;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateDocumentoDof;
 use App\Models\DocumentoAssinaturas;
+use App\Models\UserFunction;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
@@ -127,11 +128,37 @@ class DocumentoDofController extends Controller
 
     ################# FUNÇOES DE ASSINATURA ####################    
 
+    public function getFunctions()
+{
+    // Recupera o usuário logado
+    $user = auth()->user();
+
+    // Busca as funções ativas do usuário na tabela user_functions
+    $funcoes = UserFunction::where('user_id', $user->id)
+                            ->where('situacao', 1) // Apenas funções ativas
+                            ->with('function') // Carrega o nome da função (relacionamento)
+                            ->get();
+
+    // Retorna as funções como JSON
+   
+    return response()->json($funcoes);
+}
+
+
+
+
     public function signDocument(Request $request, string $uuid)
     {
         try {
             $this->authorize('assinar-documento-dof');
+
             $documento = DocumentosDof::where('uuid', $uuid)->firstOrFail();
+
+            $request->validate([
+                'password' => 'required',
+                'funcao_id' => 'required|exists:functions,id',
+            ]);
+        
             // Verifica a senha do usuário para confirmar a assinatura
             if (!Hash::check($request->password, auth()->user()->password)) {
                 return response()->json(['error' => 'Senha incorreta.'], 401);
@@ -158,18 +185,18 @@ class DocumentoDofController extends Controller
                     $documento->save();
                 }
 
-            // Verifica se o usuário já assinou o documento e se não houve alteração
-            $assinaturaExistente = $documento->assinaturas()
-                ->where('user_id', auth()->id())
-                ->where('status', true)
-                ->exists();
+            // Verifica se o usuário já assinou o documento com a mesma função e se não houve alteração
+            $assinaturaExistenteComMesmaFuncao = $documento->assinaturas()
+            ->where('user_id', auth()->id())
+            ->where('funcao_id', $request->funcao_id) // Verifica a função
+            ->where('status', true) // Verifica se a assinatura está ativa
+            ->exists();
 
-            // Bloqueia a nova assinatura caso o documento não tenha sido alterado
-            if ($assinaturaExistente && !$documentoAlterado) {
-                return response()->json(['error' => 'Você já assinou este documento e ele não foi alterado.'], 403);
+           // Bloqueia a nova assinatura se o documento não foi alterado e a função é a mesma
+            if ($assinaturaExistenteComMesmaFuncao && !$documentoAlterado) {
+                return response()->json(['error' => 'Você já assinou este documento com esta função e ele não foi alterado.'], 403);
             }
-
-        // Gera o hash da assinatura usando o hash do documento + a senha do usuário
+                    // Gera o hash da assinatura usando o hash do documento + a senha do usuário
         $assinaturaHash = hash('sha256', $documentoHash . auth()->user()->password);
 
         // Atualiza o hash do documento no modelo de documento
@@ -183,10 +210,11 @@ class DocumentoDofController extends Controller
         DocumentoAssinaturas::create([
             'documento_dof_id' => $documento->id,
             'user_id' => auth()->id(),
+            'funcao_id' => $request->funcao_id, // Salva o ID da função selecionada
             'assinatura' => $assinaturaHash, // Armazena o hash da assinatura
             'documento_hash' => $documentoHash,
             'data_assinatura' => now(),
-            'codigo_verificacao' => $codigoVerificacaoAssinatura, // Código de verificação único para cada assinatura
+            'codigo_verificacao' => $codigoVerificacaoAssinatura, //Código de verificação único para cada assinatura
             'ip_address' => $request->ip(),
             'navegador' => $request->header('User-Agent'),
         ]);

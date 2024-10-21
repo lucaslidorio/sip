@@ -7,7 +7,7 @@
             <h6 class="mt-0"><strong>Assinado eletrônicamente por:</strong></h6>
             @if($assinaturas->where('status', true)->count() > 0)
                 @foreach ($assinaturas as $assinatura)
-                <p class="mb-1">{{$assinatura->user->name }}, em {{ $assinatura->data_assinatura->format('d/m/Y') }} às {{
+                <p class="mb-1">{{$assinatura->user->name }}, <span class="text-uppercase font-weight-bold">{{$assinatura->funcao->nome}}</span> em {{ $assinatura->data_assinatura->format('d/m/Y') }} às {{
                     $assinatura->data_assinatura->format('H:i:s') }}</p>
                 @endforeach 
             @else

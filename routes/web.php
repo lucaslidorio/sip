@@ -488,6 +488,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::post('/subTipoMateria', [SubTipoMateriaController::class, 'store'])->name('subTipoMaterias.store');
                     Route::get('/subTipoMateria', [SubTipoMateriaController::class, 'index'])->name('subTipoMaterias.index');
                 
+                 
                     //Rotas docmentos Dof
                     Route::any('/documentos/search', [DocumentoDofController::class, 'search'])->name('documentos.search');
                     Route::put('/documentos/{id}', [DocumentoDofController::class, 'update'])->name('documentos.update');
@@ -498,6 +499,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::post('/documentos', [DocumentoDofController::class, 'store'])->name('documentos.store');
                     Route::get('/documentos', [DocumentoDofController::class, 'index'])->name('documentos.index');
                     Route::get('/subtipos/{tipo_materia_id}', [DocumentoDofController::class, 'getSubTiposByTipo'])->name('get.subtipos');
+                    Route::get('/documentos/getFunctions', [DocumentoDofController::class, 'getFunctions'])->name('get.functions');
+                    Route::get('/documentos/get-functions/user', [DocumentoDofController::class, 'getFunctions'])->name('get.functions');
+                   
                     
                     Route::post('/documentos/{uuid}/sign', [DocumentoDofController::class, 'signDocument'])->name('documentos.sign');
                     

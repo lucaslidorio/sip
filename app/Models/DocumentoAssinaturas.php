@@ -9,7 +9,7 @@ class DocumentoAssinaturas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['documento_dof_id', 'user_id', 'assinatura', 'documento_hash', 'data_assinatura', 'codigo_verificacao'];
+    protected $fillable = ['documento_dof_id', 'user_id','funcao_id', 'assinatura', 'documento_hash', 'data_assinatura', 'codigo_verificacao'];
 
      // Garantir que o campo data_assinatura seja tratado como uma instância de Carbon
      protected $casts = [
@@ -31,6 +31,13 @@ class DocumentoAssinaturas extends Model
     //     return \Carbon\Carbon::parse($value)->format('d/m/Y H:i:s');
     // }
 
+    /**
+     * Relacionamento com a função do usuário (UsersFunction)
+     */
+    public function funcao()
+    {
+        return $this->belongsTo(Functions::class, 'funcao_id');
+    }
 
 
 }
