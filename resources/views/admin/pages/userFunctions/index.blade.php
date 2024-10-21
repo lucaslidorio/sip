@@ -12,7 +12,8 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Funções e Usuários</li>
+        <li class="breadcrumb-item"><a href="{{route('userFunctions.index')}}">Funções e Usuários</a></li>
+        
       </ol>
     </div>
   </div>
@@ -36,7 +37,7 @@
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('userFunctions.search')}}" method="post" class="form form-inline  float-right">
+              <form action="{{route('userFunctions.index')}}" method="get" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
@@ -68,29 +69,29 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($userFunctions as $user)
+            @foreach ($usersFunctions as $user)
       
             <tr >
-              <td>{{$user->nome}}</td>              
-              <td>{{$user->descricao}}</td>
-              
+              <td>{{$user->user->name}}</td>              
+              <td>{{$user->function->nome}}</td>
+              <td>{{\Carbon\Carbon::parse($user->data_inicio)->format('d/m/Y')}}</td>
+              <td>{{ $user->data_fim ? \Carbon\Carbon::parse($user->data_fim)->format('d/m/Y') : '' }}</td>
+              <td> <span class="badge {{ $user->situacao == 1 ? 'badge-primary' : 'badge-danger' }}">{{$user->situacao_nome}}</span></td>              
                 <td class="text-center">
                   @can('editar-funcoes')
-                  <a href="{{route('users.edit', $user->id)}}" 
+                  <a href="{{route('userFunctions.edit', $user->id)}}" 
                     class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                     title="Editar">
                     <i class="fas fa-edit" ></i>
                   </a>
                   @endcan
                 @can('excluir-funcoes')
-                <a href="{{route('users.destroy', $user->id)}}" data-id="{{$user->id}}"
+                <a href="{{route('userFunctions.destroy', $user->id)}}" data-id="{{$user->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
-                @endcan
-
-                
+                @endcan                
               </td>
             </tr>
             @endforeach
@@ -99,10 +100,10 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        @if (isset($pesquisar))
-        {!!$userFunctions->appends($pesquisar)->links()!!}
+        @if(isset($pesquisa))
+        {!! $usersFunctions->appends(['pesquisa' => $pesquisa])->links() !!}
         @else
-        {!!$userFunctions->links()!!}
+        {!! $usersFunctions->links() !!}
         @endif
       </div>
     </div>

@@ -15,17 +15,30 @@ class UserFunction extends Model
         'function_id',
         'data_inicio',
         'data_fim',
-        'situacao',        
+        'legislacao',
+        'situacao',
     ];
+    
+    /**
+     * Relacionamento com o model User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
-
-     // Mutator para garantir que a data seja formatada corretamente antes de ser salva no banco
-     public function setDataInicioAttribute($value)
-     {
-         $this->attributes['data_inicio'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
-     }
-     public function setDataIFimAttribute($value)
-     {
-         $this->attributes['data_fim'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
-     }
+    /**
+     * Relacionamento com o model Function
+     */
+    public function function()
+    {
+        return $this->belongsTo(Functions::class, 'function_id');
+    }
+    /**
+     * Accessor para retornar o status da situação como string
+     */
+    public function getSituacaoNomeAttribute()
+    {
+        return $this->situacao == 1 ? 'Ativo' : 'Inativo';
+    }
 }
