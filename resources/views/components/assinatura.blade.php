@@ -19,15 +19,14 @@
                 com fundamento na Lei nº 14.063/2020 e MP nº 2.200-2/2001.</small></p>
             <p class="mt-0">
                 <small>A autenticidade deste documento pode ser conferida em
-                    <a href="{{ config('app.url') }}/verificador/{{ $codigoverificacao}}">
+                    <a href="{{ config('app.url') }}/verificador/{{$codigoverificacao}}">
                         {{ config('app.url') }}/verificador/codigo
                     </a>, informando o código <strong>{{$codigoverificacao}}</strong>.</small>
             </p>
            
         </div>
         <figure class="ml-3 mt-2">{!! QrCode::size(100)->generate(route('verificador', $codigoverificacao)) !!}
-        </figure>
-        
+        </figure>        
     </div>
     <div class="row">
         <p><small>{{$iddocumento}}</small></p>

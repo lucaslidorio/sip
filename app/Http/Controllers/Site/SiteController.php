@@ -32,6 +32,7 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 use App\Mail\contato;
 use App\Models\CitizenLetter;
 use App\Models\CriterioJulgamento;
+use App\Models\DocumentosDof;
 use App\Models\Enquete;
 use App\Models\Legislation;
 use App\Models\Link;
@@ -41,6 +42,7 @@ use App\Models\Page;
 use App\Models\ProcessoCompras;
 use App\Models\Schedule;
 use App\Models\SeemCommission;
+use App\Models\TipoMateria;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -901,6 +903,96 @@ public function resultadoEnquete($id)
         'linksUteis',
         'totalVotos'
     ));
+}
+
+public function dof(Request $request){
+    $tenant = $this->tenant->first();            
+    $menus = Menu::getMenusByPosition(1);  
+    $menusSuperior = Menu::getMenusByPosition(2);				
+    $linksDireita = $this->link
+        ->where('posicao', 3)
+        ->where('tipo', 1) // Tipo = Banner
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')
+        ->take(4)
+        ->get(); 
+    $linksUteis = $this->link 
+        ->where('tipo', 2) // Tipo = Links Úteis
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')                            
+        ->get(); 
+    $tiposMateria = TipoMateria::get();
+    
+    // Data de acesso (hoje)
+    $hoje = Carbon::now()->format('Y-m-d');
+    // Inicializa a query básica para documentos com assinatura válida e data de publicação <= hoje
+    $query = DocumentosDof::whereHas('assinaturas', function ($q) {
+        $q->where('status', true);  // Assinaturas válidas
+    })->where('data_publicacao', '<=', $hoje);
+
+    
+    // // Aplica filtros condicionais usando `when`
+    $query->when($request->tipo_materia_id, function ($query, $tipoMateria) {
+        return $query->where('tipo_materia_id', $tipoMateria);
+    })
+    ->when($request->data_inicio, function ($query, $dataInicial) {
+        return $query->where('data_publicacao', '>=', $dataInicial);
+    })
+    ->when($request->data_fim, function ($query, $dataFinal) {
+        return $query->where('data_publicacao', '<=', $dataFinal);
+    })
+    ->when($request->pesquisa, function ($query, $pesquisa) {
+        return $query->where(function ($q) use ($pesquisa) {
+            $q->where('titulo', 'like', '%' . $pesquisa . '%')
+              ->orWhere('conteudo', 'like', '%' . $pesquisa . '%');
+        });
+    });
+
+    // Exibe documentos do dia de acesso caso nenhum filtro seja aplicado
+    if (!$request->hasAny(['tipo_documento', 'data_inicial', 'data_final', 'pesquisa'])) {
+        $query->where('data_publicacao', $hoje);
+    }    
+    $documentos = $query->paginate(10);
+    $filters = $request->except('_token');   
+    return view('site.legislativo.dof', [            
+            'tenant' =>  $tenant,          
+            'menus' => $menus,  
+            'linksDireita' => $linksDireita,
+            'linksUteis' => $linksUteis,            
+            'menusSuperior' => $menusSuperior,
+            'tiposMateria' =>$tiposMateria,
+            'documentos' =>$documentos,
+            'filters' => $filters            
+        ]);
+}
+
+public function dofVerDocumento(String $uuid){
+    $tenant = $this->tenant->first();            
+    $menus = Menu::getMenusByPosition(1);  
+    $menusSuperior = Menu::getMenusByPosition(2);				
+    $linksDireita = $this->link
+        ->where('posicao', 3)
+        ->where('tipo', 1) // Tipo = Banner
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')
+        ->take(4)
+        ->get(); 
+    $linksUteis = $this->link 
+        ->where('tipo', 2) // Tipo = Links Úteis
+        ->orderby('ordem', 'ASC')
+        ->orderby('created_at')                            
+        ->get(); 
+   
+
+    $documento = DocumentosDof::where('uuid', $uuid)->firstOrFail();  
+    return view('site.legislativo.dofShow', [            
+            'tenant' =>  $tenant,          
+            'menus' => $menus,  
+            'linksDireita' => $linksDireita,
+            'linksUteis' => $linksUteis,            
+            'menusSuperior' => $menusSuperior,
+            'documento' =>$documento           
+        ]);
 }
 
 

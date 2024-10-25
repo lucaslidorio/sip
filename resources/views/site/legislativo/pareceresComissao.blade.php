@@ -3,6 +3,7 @@
 
 @section('content')
 {{Breadcrumbs::render('pareceres_comissao')}}
+
 <div class="card rounded-0">
   <div class="card-header ">
     <h4 class="text-center">Pareceres</h4>

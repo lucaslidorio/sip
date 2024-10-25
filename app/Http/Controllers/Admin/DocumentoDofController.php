@@ -79,7 +79,7 @@ class DocumentoDofController extends Controller
     {
         $this->authorize('ver-documento-dof');
          // Buscar o documento pelo UUID
-        $documento = $this->repository->where('uuid', $uuid)->firstOrFail();  
+        $documento = $this->repository->where('uuid', $uuid)->firstOrFail(); 
         
         //dd($documento->assinaturas);  
         return view('admin.pages.documentosDof.show',compact('documento'));

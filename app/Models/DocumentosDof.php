@@ -38,8 +38,6 @@ class DocumentosDof extends Model
       }
 
 
-
-
      // Função de boot para gerar o UUID automaticamente
      protected static function boot()
      {
@@ -53,7 +51,7 @@ class DocumentosDof extends Model
             $model->codigo_verificacao = $codigo_verificacao;
          });
 
-         parent::boot();
+        parent::boot();
 
         // Método chamado quando o documento está sendo atualizado
         static::updating(function ($documento) {

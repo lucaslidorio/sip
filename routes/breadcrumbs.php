@@ -3,18 +3,18 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 
-use App\Models\Councilor;
-use App\Models\Legislature;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+use App\Models\DocumentosDof;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Início', route('site.home'));
 });
+
 
 // Home > páginas > [pagina]
 Breadcrumbs::for('page', function (BreadcrumbTrail $trail, $page) {
@@ -122,6 +122,29 @@ Breadcrumbs::for('enquete_nome', function (BreadcrumbTrail $trail, $enquete) {
     $trail->parent('enquete');
     $trail->push($enquete->nome, route('propositura.show', $enquete));
 });
+
+// Home > Procesos  
+Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Processos de compras', route('processoCompras.index'));
+});
+
+// Home > Diário Oficial  
+Breadcrumbs::for('diario_oficial', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Publicações Diário Oficial', route('publicacoes.dof'));
+});
+
+Breadcrumbs::for('diario_oficial_publicacao', function (BreadcrumbTrail $trail, $documento) {
+    $trail->parent('diario_oficial');
+    $trail->push($documento->titulo, route('ouvidoria.acompanhamento', $documento));
+});
+
+
+
+
+
+
 // Home > Ouvidoria  
 Breadcrumbs::for('ouvidoria_index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
@@ -132,11 +155,7 @@ Breadcrumbs::for('ouvidoria_duvidas', function (BreadcrumbTrail $trail) {
     $trail->parent('ouvidoria_index');
     $trail->push('Dúvidas', route('ouvidoriaSite.duvidas'));
 });
-// Home > Procesos  
-Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Processos de compras', route('processoCompras.index'));
-});
+
 // Home > Ouvidoria >[Tipo]
 Breadcrumbs::for('ouvidora_tipo', function (BreadcrumbTrail $trail, $tipo_ouvidoria) {
     $trail->parent('ouvidoria_index');
@@ -165,11 +184,6 @@ Breadcrumbs::for('vereador', function (BreadcrumbTrail $trail, $vereador) {
         $trail->parent('legislatura', $legislatureAnterior);
     }
     $trail->push($vereador->nome, route('camara.vereador', $vereador));
-    
-// Home > Compras e Licitacaoes  
-Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Processos de Compras', route('processoCompras.index'));
-});
+
 
 });

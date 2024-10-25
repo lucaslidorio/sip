@@ -501,9 +501,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::get('/subtipos/{tipo_materia_id}', [DocumentoDofController::class, 'getSubTiposByTipo'])->name('get.subtipos');
                     Route::get('/documentos/getFunctions', [DocumentoDofController::class, 'getFunctions'])->name('get.functions');
                     Route::get('/documentos/get-functions/user', [DocumentoDofController::class, 'getFunctions'])->name('get.functions');
-                   
-                    
-                    Route::post('/documentos/{uuid}/sign', [DocumentoDofController::class, 'signDocument'])->name('documentos.sign');
+                                     
+                    Route::post('/documentos/show/{uuid}/sign', [DocumentoDofController::class, 'signDocument'])->name('documentos.sign');
                     
 
 
@@ -539,13 +538,13 @@ Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesqu
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 Route::get('compras/procesos', [SiteController::class, 'processosComprasIndex'])->name('processoCompras.index');
-
+Route::get('/publicacoes/dof', [SiteController::class, 'dof'])->name('publicacoes.dof');
+Route::get('/publicacoes/dof/{uuid}', [SiteController::class, 'dofVerDocumento'])->name('publicacoes.dofVerDocumento');
 //Rota para fazer a contagem de Download dos anexos dos processos de compras
 Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'download'])->name('download.count');
 
 Route::post('/enquete/votar/{id}', [SiteController::class, 'votar'])->name('enquete.votar');
 Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'])->name('enquete.resultado');
-
 
 
 // Route::get('/', function () {

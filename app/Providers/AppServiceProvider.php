@@ -40,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         Party::observe(PartyObserver::class);
         Post::observe(PostObserver::class);
         Plan::observe(PlanObserver::class);
+        
     }
 }
