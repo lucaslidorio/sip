@@ -11,10 +11,13 @@ use App\Models\CriterioJulgamento;
 use App\Models\Modalidades;
 use App\Models\ProceedingSituation;
 use App\Models\ProcessoCompras;
+use App\Models\Tenant;
 use App\Models\TiposMovimentacoesCredenciamentos;
 use App\Models\TypeDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -39,14 +42,14 @@ class ProcessoCompraController extends Controller
         $this->type_document = $type_document;
     }
 
-    public function index( Request $request )
+    public function index(Request $request)
     {
         if (!Gate::any(['ver-processos-usuario-externo', 'ver-processo-compras'])) {
             abort(403, 'Ação não autorizada.');
         }
         // Obter o usuário logado
         $user = auth()->user();
-        $dado_pessoa_id = $user->dadosPessoais->id;        
+        $dado_pessoa_id = $user->dadosPessoais->id;
         $modalidades = $this->modalidade->get();
         $criteriosJulgamento = $this->criteriosJulgamento->get();
         $situacoes = $this->situacao->where('processo_compra', true)->get();
@@ -54,17 +57,17 @@ class ProcessoCompraController extends Controller
         // Filtrar os processos por modalidade e situacao
         $filters = $request->only('modalidade_id', 'criterio_julgamento_id', 'proceeding_situation_id', 'pesquisa');
         // Inicializar um array para armazenar os dados
-         $processos = ProcessoCompras::with(['credenciamentos' => function($query) use ($dado_pessoa_id) {
+        $processos = ProcessoCompras::with(['credenciamentos' => function ($query) use ($dado_pessoa_id) {
             $query->where('dado_pessoa_id', $dado_pessoa_id)
-                  ->with('ultimaMovimentacao');
+                ->with('ultimaMovimentacao');
         }])
 
-        ->filter($filters)
-        ->orderBy('data_publicacao', 'desc')
-        ->paginate(10);
+            ->filter($filters)
+            ->orderBy('data_publicacao', 'desc')
+            ->paginate(10);
 
         $processosData = $processos->map(function ($processo) use ($dado_pessoa_id) {
-            $credenciamento = CredenciamentosProcessosCompras::getCredenciamento($dado_pessoa_id, $processo->id);            
+            $credenciamento = CredenciamentosProcessosCompras::getCredenciamento($dado_pessoa_id, $processo->id);
             $ultimaMovimentacao = CredenciamentosProcessosCompras::ultimaMovimentacaoCredenciado($processo->id, $dado_pessoa_id);
             return [
                 'processo' => $processo,
@@ -73,7 +76,7 @@ class ProcessoCompraController extends Controller
             ];
         });
 
-          // Converter a coleção mapeada em um LengthAwarePaginator
+        // Converter a coleção mapeada em um LengthAwarePaginator
         $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(
             $processosData,
             $processos->total(),
@@ -103,7 +106,7 @@ class ProcessoCompraController extends Controller
      */
     public function store(StoreUpdateProcessoCompras $request)
     {
-       
+
         $this->authorize('novo-processo-compras');
         $dados = $request->all();
         $dados['user_created'] = auth()->user()->id;
@@ -121,7 +124,7 @@ class ProcessoCompraController extends Controller
      */
     public function show(string $id)
     {
-       // $this->authorize('ver-processo-compras');
+        // $this->authorize('ver-processo-compras');
 
         if (!Gate::any(['ver-processos-usuario-externo', 'ver-processo-compras'])) {
             abort(403, 'Ação não autorizada.');
@@ -190,32 +193,31 @@ class ProcessoCompraController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {       
+    {
         if (!Gate::any(['excluir-processo-compras'])) {
             abort(403, 'Ação não autorizada.');
         };
 
-        $processo = $this->repository->findOrFail($id);        
+        $processo = $this->repository->findOrFail($id);
         if (!$processo) {
             return redirect()->back();
-        }   
+        }
         // Verificar se há credenciamentos associados a este processo
         $temCredenciamento = CredenciamentosProcessosCompras::where('processo_compra_id', $processo->id)->exists();
         if ($temCredenciamento) {
             toast('Não é possível excluir o processo, pois existem credenciamentos associados.', 'error')->toToast('top');
             return redirect()->back();
-        }       
+        }
         foreach ($processo->anexos as $anexo) {
             if (Storage::disk('s3')->exists($anexo->anexo)) {
                 Storage::disk('s3')->delete($anexo->anexo);
             }
             $anexo->delete();
-        } 
-        $processo->delete();      
+        }
+        $processo->delete();
 
         toast('Processo excluido com sucesso!', 'success')->toToast('top');
         return redirect()->route('processos.index');
-
     }
 
     public function createAttachment($id)
@@ -278,7 +280,7 @@ class ProcessoCompraController extends Controller
         // Verifica se a quantidade de downloads é maior que 0
         if ($anexo->qtd_download > 0) {
             // Retorna uma mensagem de erro e não permite a exclusão
-        return redirect()->back()->with('error', 'Não é possível excluir o anexo porque ele já foi baixado.');
+            return redirect()->back()->with('error', 'Não é possível excluir o anexo porque ele já foi baixado.');
         }
         //Verifica se pelo nome, se ela existe no storage, e deleta do storage
         if (Storage::disk('s3')->exists($anexo->anexo)) {
@@ -305,19 +307,20 @@ class ProcessoCompraController extends Controller
         }
     }
 
-    public function verCrendenciados($id){
+    public function verCrendenciados($id)
+    {
         if (!Gate::any(['ver-processo-compras'])) {
             abort(403, 'Ação não autorizada.');
         }
-        $processo = $this->repository::with('credenciamentos.movimentacoes')->findOrFail($id);   
+        $processo = $this->repository::with('credenciamentos.movimentacoes')->findOrFail($id);
         $tiposMovimentacoes = TiposMovimentacoesCredenciamentos::all();
-        if (!$processo) {   
+        if (!$processo) {
             return redirect()->back();
         }
 
-         // Obter as contagens
+        // Obter as contagens
         $counts = $processo->countCredenciamentosWithLastMovements();
-        
+
         // Inicializar um array para armazenar os dados dos credenciados e suas últimas movimentações
         $credenciadosData = [];
 
@@ -328,21 +331,123 @@ class ProcessoCompraController extends Controller
                 'credenciado' => $credenciado,
                 'ultima_movimentacao' => $ultimaMovimentacao
             ];
-        }        
+        }
         // Ordenar os credenciados por última movimentação em ordem decrescente
-            usort($credenciadosData, function ($a, $b) {
-                if ($a['ultima_movimentacao'] && $b['ultima_movimentacao']) {
-                    return strtotime($b['ultima_movimentacao']->created_at) - strtotime($a['ultima_movimentacao']->created_at);
-                } elseif ($a['ultima_movimentacao']) {
-                    return -1;
-                } elseif ($b['ultima_movimentacao']) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-        return view('admin.pages.processos.credenciamento.credenciados', 
-        compact('processo', 'credenciadosData', 'tiposMovimentacoes', 'counts'));
-
+        usort($credenciadosData, function ($a, $b) {
+            if ($a['ultima_movimentacao'] && $b['ultima_movimentacao']) {
+                return strtotime($b['ultima_movimentacao']->created_at) - strtotime($a['ultima_movimentacao']->created_at);
+            } elseif ($a['ultima_movimentacao']) {
+                return -1;
+            } elseif ($b['ultima_movimentacao']) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return view(
+            'admin.pages.processos.credenciamento.credenciados',
+            compact('processo', 'credenciadosData', 'tiposMovimentacoes', 'counts')
+        );
     }
+
+
+    public function ata($id)
+    {
+        $this->authorize('ver-processo-compras');
+
+        $processo = $this->repository->findOrFail($id);
+        if (!$processo)
+            return redirect()->back();
+        $tenant = Tenant::first();
+
+        // Recupera todas as movimentações de credenciamento relacionadas ao processo
+        $credenciamentos = DB::table('movimentacoes_credenciamentos')
+            ->join('credenciamentos_processos_compras', 'movimentacoes_credenciamentos.credenciamento_compra_id', '=', 'credenciamentos_processos_compras.id')
+            ->join('dados_pessoas', 'credenciamentos_processos_compras.dado_pessoa_id', '=', 'dados_pessoas.id')
+            ->join('tipos_movimentacoes_credenciamentos', 'movimentacoes_credenciamentos.tipo_movimentacao_id', '=', 'tipos_movimentacoes_credenciamentos.id')
+            ->join('users', 'movimentacoes_credenciamentos.user_id', '=', 'users.id')
+            ->where('credenciamentos_processos_compras.processo_compra_id', $id)
+            ->orderBy('movimentacoes_credenciamentos.created_at', 'desc')
+            ->select(
+                'dados_pessoas.id as dado_pessoa_id',
+                'dados_pessoas.razao_social',
+                'dados_pessoas.nome_fantasia',
+                'dados_pessoas.cnpj',
+                'tipos_movimentacoes_credenciamentos.nome as tipo_movimentacao',
+                'users.name as usuario_responsavel',
+                'users.tipo_usuario',
+                'users.matricula',
+                'movimentacoes_credenciamentos.observacao as observacao_movimentacao',
+                'movimentacoes_credenciamentos.created_at as data_movimentacao'
+            )
+            ->get();
+
+        return view('admin.pages.processos.ata', compact('processo', 'credenciamentos', 'tenant'));
+    }
+
+    public function credeciamentosDetalhado($id)
+    {
+        $this->authorize('ver-processo-compras');
+
+        $processo = $this->repository->findOrFail($id);
+        if (!$processo) {
+            return redirect()->back();
+        }
+
+        $tenant = Tenant::first();
+
+        // Obter os credenciados e suas movimentações com ordenação específica
+        $credenciados = CredenciamentosProcessosCompras::with([
+            'dadoPessoa',
+            'movimentacoes' => function ($query) {
+                $query->orderBy('created_at', 'desc')->with(['tipoMovimentacao', 'user']); // Ordena as movimentações da mais recente para a mais antiga
+            }
+        ])
+            ->where('processo_compra_id', $id)
+            ->orderBy('id', 'asc') // Ordena os credenciados do mais antigo para o mais recente
+            ->get()
+            ->map(function ($credenciado) {
+                // Definindo a última movimentação como a situação atual
+                $credenciado->situacao_atual = $credenciado->movimentacoes->first() ? $credenciado->movimentacoes->first()->tipoMovimentacao->nome : 'N/A';
+                return $credenciado;
+            });
+
+        return view('admin.pages.processos.credeciamentosDetalhado', compact('processo', 'credenciados', 'tenant'));
+    }
+    public function gerarPdf(Request $request)
+{
+    // Recebe o HTML do relatório
+    $html = $request->input('html');
+
+    // Adiciona o CSS do Bootstrap e qualquer outro estilo adicional
+    $html = '
+        <html>
+            <head>
+            
+              <meta charset="UTF-8">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                <style>
+                    /* Estilos adicionais para PDF, se necessário */
+                    body { margin: 0; padding: 10px; }
+                </style>
+            </head>
+            
+            <body>' . $html . '</body>
+        </html>
+    ';
+
+
+    // Envia o HTML para a API de geração de PDF
+    $response = Http::retry(3, 100)
+                    ->accept('application/pdf')
+                    ->post('https://verificador.escritaescolar.com.br/api/GeradorArquivo/geradorPdf', [
+                        'html' => $html,
+                        'app_url' => config('app.url')
+                    ]);
+
+    // Retorna o PDF como resposta para download
+    return response($response->body(), 200)
+                ->header('Content-Type', 'application/pdf', 'charset=UTF-8')
+                ->header('Content-Disposition', 'inline; filename="Relatorio.pdf"');
+}
 }

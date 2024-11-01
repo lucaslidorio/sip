@@ -45,7 +45,7 @@ class SessionController extends Controller
         $this->repository = $session;
         $this->type_session = $type_session;
         $this->legislature = $legislature;
-        $this->legislature_section = $legislature_session;
+        $this->legislature_session = $legislature_session;
         $this->period = $period;
         $this->type_document = $type_document;
         $this->attachment_session = $attachment_session;
@@ -57,8 +57,7 @@ class SessionController extends Controller
         $this->authorize('ver-sessao');
         
         $types_session = $this->type_session->get();
-        $periods = $this->period->get();
-        
+        $periods = $this->period->get();        
         $filters = $request->except('_token');
         $sessions = $this->repository
         ->when($request->type_session_id, function($query, $role) {
@@ -80,14 +79,7 @@ class SessionController extends Controller
      
         return view('admin.pages.sessions.index', 
         compact('sessions', 'types_session', 'periods', 'filters'));
-
-
-
-        //dd('chegou no index');
-        // $sessions = $this->repository->orderBy('created_at', 'DESC')->paginate(10);       
-        // $types_session = $this->type_session->get();
-        // $periods = $this->period->get();
-        // return view('admin.pages.sessions.index', compact('sessions', 'types_session', 'periods'));  
+         
     }
 
     public function create()
@@ -95,7 +87,7 @@ class SessionController extends Controller
         $this->authorize('nova-sessao');
         $types_session = $this->type_session->get();
         $legislatures = $this->legislature->get();
-        $sections = $this->legislature_section->get();
+        $sections = $this->legislature_session->get();
         $periods = $this->period->get();
 
         return view('admin.pages.sessions.create',[
@@ -121,7 +113,7 @@ class SessionController extends Controller
         $this->repository->create($dados);
         
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('sessions.index');
         
     }
 
@@ -161,7 +153,7 @@ class SessionController extends Controller
         $session = $this->repository->where('id', $id)->first();
         $types_session = $this->type_session->get();
         $legislatures = $this->legislature->get();
-        $sections = $this->legislature_section->get();
+        $sections = $this->legislature_session->get();
         $periods = $this->period->get();
 
 
@@ -175,8 +167,7 @@ class SessionController extends Controller
             'types_session' => $types_session,
             'legislatures' => $legislatures,
             'sections' => $sections,
-            'periods' => $periods,
-            //'anexosSessao' => $anexosSessao,
+            'periods' => $periods,            
         ]); 
     }
 
@@ -219,7 +210,7 @@ class SessionController extends Controller
             return redirect()->back();                       
         }   
 
-        $type_documents = $this->type_document->get();
+        $type_documents = $this->type_document->where('sessao',1)->get();
         // $functions = $this->function->get();
         
         return view('admin.pages.sessions.attachment.create', [            
@@ -327,34 +318,6 @@ class SessionController extends Controller
             
         }
 
-
-    //     public function search(Request $request){
-               
-    //         $types_session = $this->type_session->get();
-    //         $periods = $this->period->get();
-            
-    //         $filters = $request->except('_token');
-    //         $sessions = $this->repository
-    //         ->when($request->type_session_id, function($query, $role) {
-    //             return $query->where('type_session_id', $role);
-    //         })  
-    //         ->when($request->period_id, function($query, $role) {
-    //             return $query->where('period_id', $role);
-    //         })  
-    //         ->when($request->ano, function($query, $role) {
-    //             return $query->whereYear('data', $role);
-    //         })
-    //         ->when($request->ordenacao, function ($query, $role) {
-    //             return $query->orderBy('nome', $role);
-    //         })
-    //         ->when($request->pesquisa, function($query, $role) {
-    //             return $query->where('nome', 'LIKE', "%$role%");
-    //         })           
-    //         ->orderBy('created_at', 'DESC')->paginate(10);    
-         
-    //         return view('admin.pages.sessions.index', 
-    //         compact('sessions', 'types_session', 'periods', 'filters'));
-    //    }
 
         
 }

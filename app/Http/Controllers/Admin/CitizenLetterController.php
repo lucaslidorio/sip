@@ -43,7 +43,7 @@ class CitizenLetterController extends Controller
         $this->authorize('nova-carta-cidadao');
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('citizenLetters.index');
     }
 
     /**

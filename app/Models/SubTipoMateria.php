@@ -11,6 +11,19 @@ class SubTipoMateria extends Model
     protected $table = 'sub_tipo_materias';
     protected $fillable = ['tipo_materia_id','nome', 'situacao'];
     
+    /**
+     * Accessor para o campo `situação`
+     */
+    public function getSituacaoAttribute($value)
+    {
+        return $value ? 'Ativo' : 'Inativo';
+    }
+
+    public function getSituacaoRawAttribute()
+    {
+        return $this->getAttributes()['situacao'];
+    }
+
 
     public function tipo(){
         return $this->belongsTo(TipoMateria::class, 'tipo_materia_id', 'id');        

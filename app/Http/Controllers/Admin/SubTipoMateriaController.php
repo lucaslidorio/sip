@@ -19,14 +19,17 @@ class SubTipoMateriaController extends Controller
         $this->repository = $subTipoMateria;
         $this->tiposMaterias = $tiposMaterias;        
     }
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('ver-subtipo-materia');
-        $subTipoMateria = $this->repository->paginate(10);
-
-        return view('admin.pages.subTipoMaterias.index', [
-            'subTipoMaterias' => $subTipoMateria,
-        ]);
+        // Captura o termo de pesquisa, se fornecido
+        $pesquisar = $request->input('pesquisa');
+        $subTipoMaterias = $this->repository
+        ->when($pesquisar, function ($query, $pesquisar) {
+            return $query->where('nome', 'like', '%' . $pesquisar . '%');
+        })
+        ->paginate(10);
+        return view('admin.pages.subTipoMaterias.index',compact( 'subTipoMaterias', 'pesquisar'));
     }
 
     /**
@@ -48,7 +51,7 @@ class SubTipoMateriaController extends Controller
 
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('subTipoMaterias.index');
     }
 
     /**
@@ -103,7 +106,7 @@ class SubTipoMateriaController extends Controller
         }       
         $subTipoMateria->delete();
         toast('Tipo de matéria excluido com sucesso!','success')->toToast('top');            
-        return redirect()->route('tipoMaterias.index');
+        return redirect()->route('subTipoMaterias.index');
     }
     }
 

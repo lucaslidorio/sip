@@ -32,11 +32,8 @@ class LegislationController extends Controller
 
     {
         $this->authorize('ver-legislacao');
-        $legislations = $this->repository->orderBy('data', 'asc')->paginate(10);
-        $type_legislations = $this->type_legislation->get();
-        $type_documents = $this->type_document->get();
-
-        return view('admin.pages.legislations.index', compact('legislations', 'type_legislations', 'type_documents'));
+        $legislations = $this->repository->orderBy('data', 'asc')->paginate(10);     
+        return view('admin.pages.legislations.index', compact('legislations'));
     }
 
     /**
@@ -48,7 +45,7 @@ class LegislationController extends Controller
     {
         $this->authorize('nova-legislacao');
         $type_legislations = $this->type_legislation->get();
-        $type_documents = $this->type_document->get();     
+        $type_documents = $this->type_document->where('legislacao', 1)->get();     
          
         return view('admin.pages.legislations.create',[
             'type_legislations' => $type_legislations,
@@ -91,7 +88,7 @@ class LegislationController extends Controller
             }
         }
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('legislations.index');
     }
 
     /**
@@ -127,7 +124,7 @@ class LegislationController extends Controller
             return redirect()->back();
         }
         $type_legislations = $this->type_legislation->get();
-        $type_documents = $this->type_document->get();  
+        $type_documents = $this->type_document->where('legislacao', 1)->get();  
         return view('admin.pages.legislations.edit',[
             'legislation' => $legislation,
             'type_legislations' => $type_legislations,

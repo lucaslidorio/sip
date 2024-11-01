@@ -94,7 +94,7 @@ class PropositionController extends Controller
     {
         $this->authorize('nova-propositura');
         $type_propositions = $this->type_proposition->get();
-        $type_documents = $this->type_document->get();
+        $type_documents = $this->type_document->where('propositura', 1)->get();
         $situations = $this->situation->get();  
         $councilors = $this->councilor->all();   
 
@@ -149,7 +149,7 @@ class PropositionController extends Controller
             }
         }
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('propositions.index');
     
     }
 
@@ -172,21 +172,7 @@ class PropositionController extends Controller
             INNER JOIN tipo_votos AS tv ON vvp.tipo_voto_id = tv.id
             WHERE p.id = ?";
 
-            $votos = DB::select($sql, [$id]);         
-
-        //dd($votos);
-
-        // if (count($votos) > 0) {
-        // foreach ($votos as $result) {
-           
-        
-        //     echo "Nome do Vereador: {$result->vereador}" . PHP_EOL;          
-        //     echo "Nome do Tipo de Voto: {$result->voto}" . PHP_EOL;
-        // }
-        // } else {
-        // echo "Nenhuma proposição encontrada com ID {$id}.";
-        // }
-
+            $votos = DB::select($sql, [$id]);       
 
         if (!$proposition) {
             return redirect()->back();
@@ -208,7 +194,7 @@ class PropositionController extends Controller
             return redirect()->back();
         }
         $type_propositions = $this->type_proposition->get();
-        $type_documents = $this->type_document->get();
+        $type_documents = $this->type_document->where('propositura', 1)->get();
         $situations = $this->situation->get();  
         $councilors = $this->councilor->all();
         
@@ -218,8 +204,7 @@ class PropositionController extends Controller
             'type_propositions' => $type_propositions,
             'type_documents' => $type_documents,
             'situations' => $situations,
-            'councilors' => $councilors,
-            
+            'councilors' => $councilors,            
         ]);
 
         
@@ -273,9 +258,6 @@ class PropositionController extends Controller
         toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
         return redirect()->route('propositions.index');
 
-
-
-
     }
 
     /**code 
@@ -297,11 +279,9 @@ class PropositionController extends Controller
                 if(Storage::disk('s3')->exists($anexo->anexo)){
                     Storage::disk('s3')->delete($anexo->anexo);
                 }
-               }         
-
-          }                    
-            
-            
+               }
+          }                 
+                        
           $proposition->delete();
           toast('Propositura excluida com sucesso!','success')->toToast('top');            
           return redirect()->route('propositions.index');    
@@ -330,10 +310,8 @@ class PropositionController extends Controller
         $situations = $this->situation->get(); 
         $tipo_votos = TipoVoto::all();
         if(!$proposition){
-            return redirect()->back();                       
-        } 
-       
-        
+            return redirect()->back();                     
+        }               
       
         return view('admin.pages.propositions.votos.create', [            
             'proposition' => $proposition,           

@@ -74,7 +74,7 @@ class SeemCommissionController extends Controller
     public function create()
     {
         $this->authorize('novo-parecer');
-        $type_documents = $this->type_document->get();
+        $type_documents = $this->type_document->where('propositura', 1)->get();
         $propositions =$this->proposition->get();
         $commissions =  $this->commission->get();   
        // dd($commissions);     
@@ -120,7 +120,7 @@ class SeemCommissionController extends Controller
             }
         }
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('seemCommissions.index');
     }
 
     /**
@@ -156,7 +156,7 @@ class SeemCommissionController extends Controller
         if (!$seemCommission) {
             return redirect()->back();
         }
-        $type_documents = $this->type_document->get();
+        $type_documents = $this->type_document->where('propositura', 1)->get();
         $propositions =$this->proposition->get();
         $commissions =  $this->commission->get();       
         return view('admin.pages.seemCommissions.edit',[

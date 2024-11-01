@@ -21,7 +21,9 @@ class StoreUpdateSubTipoMateria extends FormRequest
      */
     public function rules(): array
     {
-        $id  = $this->segment(3);
+         // Obtém o ID diretamente da rota
+        $id = $this->route('id'); // Certifique-se de que 'id' é o nome correto do parâmetro na sua rota.
+
         
         return [
                       

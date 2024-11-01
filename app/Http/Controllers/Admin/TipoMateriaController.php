@@ -15,14 +15,19 @@ class TipoMateriaController extends Controller
      
         $this->repository = $tipoMateria;
     }
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('ver-tipo-materia');
-        $tipoMaterias = $this->repository->paginate(10);
+        $pesquisar = $request->input('pesquisa');     
+       
+        // Busca as enquetes com base na pesquisa, se houver
+        $tipoMaterias = $this->repository
+            ->when($pesquisar, function ($query, $pesquisar) {
+                return $query->where('nome', 'like', '%' .$pesquisar. '%');
+            })
+            ->paginate(10);    
 
-        return view('admin.pages.tipoMaterias.index', [
-            'tipoMaterias' => $tipoMaterias,
-        ]);
+        return view('admin.pages.tipoMaterias.index', compact('tipoMaterias', 'pesquisar'));
     }
 
     /**
@@ -42,7 +47,7 @@ class TipoMateriaController extends Controller
         $this->authorize('novo-tipo-materia');
         $this->repository->create($request->all());
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('tipoMaterias.index');
     }
 
     /**
@@ -93,8 +98,7 @@ class TipoMateriaController extends Controller
         $tipoMateria = $this->repository->where('id', $id)->first();
 
         if(!$tipoMateria){
-            return redirect()->back();
-                       
+            return redirect()->back();                       
         }       
         $tipoMateria->delete();
         toast('Tipo de matéria excluido com sucesso!','success')->toToast('top');            

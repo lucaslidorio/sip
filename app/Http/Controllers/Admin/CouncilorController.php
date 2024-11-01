@@ -48,7 +48,7 @@ class CouncilorController extends Controller
         $this->repository->create($dadosCouncilor);
         
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('councilors.index');
     }
 
     

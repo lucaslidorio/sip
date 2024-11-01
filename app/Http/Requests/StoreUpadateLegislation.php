@@ -27,7 +27,7 @@ class StoreUpadateLegislation extends FormRequest
            
             'type_legislation_id' => ['required'],
             'type_document_id' => ['required'], 
-            'caput' =>['max:255'],
+            'caput' =>['max:500'],
             'data' => ['required'],
             'anexo.*' => ['required','mimes:pdf', 'max:2048'],                     
           
@@ -46,7 +46,7 @@ class StoreUpadateLegislation extends FormRequest
         return [
             'type_legislation_id.required' => 'O campo tipo é obrigatório',           
             'anexo.max' => 'A anexo não pode ser superior a 2 MB',
-            'type_document_id.required' => 'Campo tipo de aneno é obrigatório',
+            'type_document_id.required' => 'Campo tipo de anexo é obrigatório',
            
         ];
     }

@@ -87,7 +87,7 @@ class PostController extends Controller
         }          
       
         toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -171,7 +171,7 @@ class PostController extends Controller
             }                   
         } 
         toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
-        return redirect()->back();      
+        return redirect()->route('posts.index');     
     }
     
     //Metodo para remover a imagem de galeria do post
