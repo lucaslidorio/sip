@@ -41,8 +41,8 @@
             <select class="custom-select {{ $errors->has('situacao') ? 'is-invalid' : '' }}" 
                 id="situacao" name="situacao">
                 <option value="" selected >Selecione uma opção</option>
-                <option value="1" {{isset($subTipoMateria) && $subTipoMateria->situacao == '1' ? 'selected': ''}}> Ativo </option>
-                <option value="0" {{isset($subTipoMateria) && $subTipoMateria->situacao == '0' ? 'selected': ''}}> Inativo </option>
+                <option value="1" {{isset($subTipoMateria) && $subTipoMateria->situacao_raw == '1' ? 'selected': ''}}> Ativo </option>
+                <option value="0" {{isset($subTipoMateria) && $subTipoMateria->situacao_raw == '0' ? 'selected': ''}}> Inativo </option>
             </select>
             @error('situacao')
                 <small class="invalid-feedback">

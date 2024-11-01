@@ -1,7 +1,6 @@
 @extends('adminlte::page')
 @section('title', "Atualizar o atas")
 @section('content_header')
-@section('plugins.icheck-bootstrap', true)
 @section('plugins.Select2', true)
 <div class="container-fluid">
     <div class="row mb-2">
@@ -33,9 +32,11 @@
 @stop
 @section('js')
   <script>
-     //Inicia os tooltip
      $(function () {
           $('[data-toggle="tooltip"]').tooltip()
+
+          $.fn.select2.defaults.set( "theme", "bootstrap" );   
+          $('.select2').select2();
       })  //Alert de confirmação de exclusão
       $('.delete-confirm').on('click', function (event) {
       event.preventDefault();

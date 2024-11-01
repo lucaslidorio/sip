@@ -12,12 +12,11 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Tipos de Matérias</li>
+        <li class="breadcrumb-item "><a href="{{route('tipoMaterias.index')}}">Tipos de Matérias</a></li>
       </ol>
     </div>
   </div>
 </div>
-
 @stop
 @section('content')
 <div class="row">
@@ -35,7 +34,7 @@
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('tipoMaterias.search')}}" method="post" class="form form-inline  float-right">
+              <form action="{{route('tipoMaterias.index')}}" method="get" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">

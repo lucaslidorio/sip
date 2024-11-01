@@ -12,7 +12,7 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Subtipo de Matérias</li>
+        <li class="breadcrumb-item "><a href="{{route('subTipoMaterias.index')}}">Subtipo de Matérias</a></li>
       </ol>
     </div>
   </div>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-md-4">
             <div class="card-tools">
-              <form action="{{route('subTipoMaterias.search')}}" method="post" class="form form-inline  float-right">
+              <form action="{{route('subTipoMaterias.index')}}" method="get" class="form form-inline  float-right">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Descrição">
@@ -67,7 +67,7 @@
               <td>{{$subTipoMateria->id}}</td>
               <td>{{$subTipoMateria->nome}}</td> 
               <td>{{$subTipoMateria->tipo->nome}}</td> 
-              <td>{{$subTipoMateria->situacao}}</td>            
+              <td> <span class="badge {{ $subTipoMateria->situacao_raw == 1 ? 'badge-primary' : 'badge-danger' }}">{{$subTipoMateria->situacao}}</span></td>            
                      
               <td class="text-center">
                 @can('editar-subtipo-materia')

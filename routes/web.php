@@ -447,6 +447,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::post('/processos', [ProcessoCompraController::class, 'store'])->name('processos.store');
                 Route::get('/processos', [ProcessoCompraController::class, 'index'])->name('processos.index');
                 Route::get('/processos/{id}/credenciados', [ProcessoCompraController::class, 'verCrendenciados'])->name('processos.credenciados');
+                Route::get('/processos/ata/{id}', [ProcessoCompraController::class, 'ata'])->name('processos.ata');
+                Route::get('/processos/credeciamentosDetalhado/{id}', [ProcessoCompraController::class, 'credeciamentosDetalhado'])->name('processos.credeciamentosDetalhado');
+                Route::post('/gerar-pdf',[ProcessoCompraController::class, 'gerarPdf'])->name('gerar.pdf');
+                
                 //Rotas de Credenciamento
                 Route::delete('/processos/credenciamento/{id}', [CredenciamentoProcessoComprasController::class, 'deleteDocumentoCredenciamento'])->name('credenciamento.deleteDocumentoCredenciamento');
                 Route::post('/processos/credenciamento', [CredenciamentoProcessoComprasController::class, 'storeDocumentoCredenciamento'])->name('credenciamento.store.documento');
@@ -542,6 +546,7 @@ Route::get('/publicacoes/dof', [SiteController::class, 'dof'])->name('publicacoe
 Route::get('/publicacoes/dof/{uuid}', [SiteController::class, 'dofVerDocumento'])->name('publicacoes.dofVerDocumento');
 //Rota para fazer a contagem de Download dos anexos dos processos de compras
 Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'download'])->name('download.count');
+
 
 Route::post('/enquete/votar/{id}', [SiteController::class, 'votar'])->name('enquete.votar');
 Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'])->name('enquete.resultado');

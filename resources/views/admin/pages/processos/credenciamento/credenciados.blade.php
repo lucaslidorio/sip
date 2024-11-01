@@ -160,7 +160,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Razão Social</th>
+                      <th>Razão Social / Nome Fantasia</th>
                       <th>Cnpj</th>
                       <th>Contato</th>
                       <th>Status</th>
@@ -171,7 +171,11 @@
                     @forelse($credenciadosData as $data)
                     <tr data-widget="expandable-table" aria-expanded="false">
                       <td>{{$loop->iteration}}</td>
-                      <td>{{$data['credenciado']->dadoPessoa->razao_social}}</td>
+                     <td>@if(!empty($data['credenciado']->dadoPessoa->razao_social))
+                        {{$data['credenciado']->dadoPessoa->razao_social}} -
+                        @endif
+                        {{$data['credenciado']->dadoPessoa->nome_fantasia}}
+                      </td>
                       <td>{{$data['credenciado']->dadoPessoa->cnpj ?? 'Não Informado' }}</td>
                       <td>{{$data['credenciado']->dadoPessoa->email}}</br>{{$data['credenciado']->dadoPessoa->telefone}}
                         - {{$data['credenciado']->dadoPessoa->celular}}</td>

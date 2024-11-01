@@ -2,7 +2,6 @@
 
 @section('title', 'Lançar Presença')
 @section('plugins.inputmask', false)
-@section('plugins.Select2', true)
 @section('plugins.icheck-bootstrap', true)
 
 @section('content_header')

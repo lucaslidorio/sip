@@ -4,6 +4,13 @@
 @section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 {{-- Script css para configurar a notificação acima dos botões --}}
+<style>
+  .text-wrap-column {
+  width: 100px; /* Ajuste conforme necessário */
+  word-break: break-word;
+  white-space: normal;
+}
+</style>
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
@@ -93,21 +100,20 @@
 
 
       <!-- /.card-header -->
-      <div class="card-body table-responsive p-0">
+      <div class="card-body table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Número</th>
-              <th>Modalidade</th>
-              <th>Critério de Julgamento</th>
-              <th>Data Publicação</th>
-              <th>Válido Até</th>
-              <th>Situação</th>
-              <th>Objeto</th>
+              <th width="8%">Número</th>
+              <th width="8%" >Modalidade</th>
+              <th width="08%" >Critério de Julgamento</th>
+              <th width="8%">Data Publicação</th>              
+              <th width="8%">Situação</th>
+              <th width="12%">Objeto</th>
               @can('ver-processos-usuario-externo')
               <th>Meu Status</th>
               @endcan
-              <th width="20%" class="text-center">Ações</th>
+              <th width="20%" class="text-center text-nowrap">Ações</th>
 
             </tr>
           </thead>
@@ -117,14 +123,12 @@
             @php
               $movementCounts = $data['processo']->countCredenciamentosWithLastMovements();
             @endphp
-
             <tr>
-              <td>{{$data['processo']->numero }}/{{$data['processo']->data_publicacao->year }}</td>
-              <td>{{$data['processo']->modalidade->nome}}</td>
-              <td>{{$data['processo']->criterio_julgamento->nome}}</td>
-              <td>{{$data['processo']->data_publicacao->format('d-m-Y H:i:s') }}</td>
-              <td>{{$data['processo']->data_validade->format('d-m-Y H:i:s')}}</td>
-              <td>
+              <td width="8%">{{$data['processo']->numero }}/{{$data['processo']->data_publicacao->year }}</td>
+              <td width= "8%">{{$data['processo']->modalidade->nome}}</td>
+              <td width="8%">{{$data['processo']->criterio_julgamento->nome}}</td>
+              <td>{{$data['processo']->data_publicacao->format('d-m-Y') }}</td>              
+              <td width="8%">
                 <small class="badge
                 @switch($data['processo']->situacao->id)
                 @case(32)
@@ -153,9 +157,9 @@
             "> {{$data['processo']->situacao->nome}}
                 </small>
               </td>
-              <td>{{ \Illuminate\Support\Str::limit($data['processo']->objeto, 100, '...') }}</td>
+              <td >{{ \Illuminate\Support\Str::limit($data['processo']->objeto, 100, '...') }}</td>
               @can('ver-processos-usuario-externo')
-              <td>
+              <td width="10%">
                 @if($data['ultima_movimentacao'])
                 <span class="bg 
                   @switch($data['ultima_movimentacao']->tipoMovimentacao->id)                    @case(1)
@@ -190,15 +194,13 @@
                 @endif
               </td>
               @endcan
-              <td class="text-center">
+              <td width="20%" class="text-center  pl-0 ml-0 pr-0 mr-0">
                 @can('ver-processo-compras')
                 <a href="{{route('processos.credenciados', $data['processo']->id)}}" data-id="{{$data['processo']->id}}"
-                  class="btn  bg-gradient-secondary btn-flat mt-0 position-relative" data-toggle="tooltip"
+                  class="btn  bg-gradient-secondary btn-flat mt-0 mb-1 position-relative" data-toggle="tooltip"
                   data-placement="top" title="Ver Solicitações de Credenciamento">
-
                   @if ($movementCounts['nao_recebido'] > 0)
                   <span class="badge bg-success position-absolute top-0 start-100 translate-middle">{{ $movementCounts['nao_recebido'] }}</span>
-
                   @endif
                  
                   <i class="fas fa-luggage-cart"></i>
@@ -208,7 +210,7 @@
                 @if($data['ultima_movimentacao'])
                 @if($data['ultima_movimentacao']->tipoMovimentacao->id == 1 ||
                 $data['ultima_movimentacao']->tipoMovimentacao->id == 2)
-                <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0 mb-1"
                   data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
                   onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $data['processo']->id) }}')">
                   <i class="fas fa-shopping-cart"></i>
@@ -216,7 +218,7 @@
                 @else
                 <a href="{{route('credenciamento.showTimeline',  $data['credenciamento_id'])}}"
                   data-id="{{$data['processo']->id}}" data-id="{{$data['processo']->id}}"
-                  class="btn  bg-gradient-secondary btn-flat mt-0" data-toggle="tooltip" data-placement="top"
+                  class="btn  bg-gradient-secondary btn-flat mt-0 mb-1" data-toggle="tooltip" data-placement="top"
                   title="Acompanhar Credenciamento">
                   <i class="fas fa-search"></i>
                 </a>
@@ -224,50 +226,63 @@
 
                 @if($data['ultima_movimentacao']->tipoMovimentacao->id == 4)
                 <a href="{{route('credenciamento.createEnviarComplementacao', [$data['processo']->id, $data['credenciamento_id']])}}"
-                  data-id="{{$data['processo']->id}}" class="btn  bg-gradient-warning btn-flat mt-0"
+                  data-id="{{$data['processo']->id}}" class="btn  bg-gradient-warning btn-flat mt-0 mb-1"
                   data-toggle="tooltip" data-placement="top" title="Complementar Informações">
                   <i class="fas fa-question"></i>
                 </a>
                 @endif
 
                 @elseif($data['processo']->proceeding_situation_id == 33)
-                <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                <a href="#" data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0 mb-1"
                   data-toggle="tooltip" data-placement="top" title="Solicitar Credenciamento"
                   onclick="confirmCredenciamento(event, '{{ route('credenciamento.create', $data['processo']->id) }}')">
                   <i class="fas fa-shopping-cart"></i>
                 </a>
                 @else
                 @endif
-                @endcan
+                @endcan            
+                               
+
                 @canany(['ver-processo-compras', 'ver-processos-usuario-externo'])
                 <a href="{{route('processos.show', $data['processo']->id)}}" data-id="{{$data['processo']->id}}"
-                  class="btn  bg-gradient-info btn-flat mt-0 " data-toggle="tooltip" data-placement="top"
+                  class="btn  bg-gradient-info btn-flat mt-0 mb-1 " data-toggle="tooltip" data-placement="top"
                   title="Ver Detalhes do Processo">
                   <i class="far fa-eye"></i>
                 </a>
                 @endcanany
                 @can('editar-processo-compras')
-                <a href="{{route('processos.edit', $data['processo']->id)}}" class="btn  bg-gradient-primary btn-flat  "
+                <a href="{{route('processos.edit', $data['processo']->id)}}" class="btn  bg-gradient-primary btn-flat mt-0  mb-1 "
                   data-toggle="tooltip" data-placement="top" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
                 @endcan
                 @can('editar-processo-compras')
                 <a href="{{route('processoAttachmentCreate.create', $data['processo']->id)}}"
-                  data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0"
+                  data-id="{{$data['processo']->id}}" class="btn  bg-gradient-success btn-flat mt-0 mb-1"
                   data-toggle="tooltip" data-placement="top" title="Anexar Arquivos">
                   <i class="fas fa-paperclip"></i>
                 </a>
                 @endcan
                 @can('excluir-processo-compras')
                 <a href="{{route('processos.destroy', $data['processo']->id)}}" data-id="{{$data['processo']->id}}"
-                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip"
+                  class="btn  bg-gradient-danger btn-flat delete-confirm mt-0 mb-1" data-toggle="tooltip"
                   data-placement="top" title="Excluir">
                   <i class="fas fa-trash-alt"></i>
                 </a>
                 @endcan
-
-
+                @canany(['ver-processo-compras'])
+                <div class="btn-group mb-1" role="group" data-toggle="tooltip" data-placement="top" title="Relatórios">
+                <button id="btnGroupDrop1" type="button" class="btn btn-default btn-flat dropdown-toggle "                  
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-newspaper"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="{{route('processos.ata', $data['processo']->id)}}" data-id="{{$data['processo']->id}}">Ata</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('processos.credeciamentosDetalhado', $data['processo']->id)}}">Consolidado</a>
+                  </div>
+                </div>               
+                @endcanany
               </td>
             </tr>
             @endforeach
@@ -276,8 +291,6 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-
-
         @if (isset($pesquisar))
         {!!$paginatedData->appends($pesquisar)->links()!!}
         @else

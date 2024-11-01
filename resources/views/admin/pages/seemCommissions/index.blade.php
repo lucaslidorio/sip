@@ -12,15 +12,13 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Pereceres</li>
+        <li class="breadcrumb-item"><a href="{{route('seemCommissions.index')}}">Pereceres</a></li>        
       </ol>
     </div>
   </div>
 </div>
 <!--Alerta -->
-
 @stop
-
 @section('content')
 <div class="row">
   <div class="col-12">

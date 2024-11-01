@@ -76,7 +76,7 @@
 
               <td>{{$post->secretary->sigla}}</td>
               <td>{{\Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y')}}</td>
-              <td>{{\Carbon\Carbon::parse($post->data_expiracao)->format('d/m/Y') }}</td>
+              <td>{{$post->data_expiracao ? \Carbon\Carbon::parse($post->data_expiracao)->format('d/m/Y') : ''}}</td>
               <td>
                 @foreach ($post->categories as $category)
                 <p> {{$category->nome}}</p>

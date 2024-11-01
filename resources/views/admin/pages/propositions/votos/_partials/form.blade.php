@@ -10,7 +10,7 @@
         <div class="form-group">
           <label class="label-required">Sessão: </label>
           <span class="badge  badge-info" id="badge_info_sessao">Selecione á sessão que a propositura foi votada</span>
-          <select class="form-control {{ $errors->has('session_id') ? 'is-invalid' : '' }}"
+          <select class="form-control  select2 {{ $errors->has('session_id') ? 'is-invalid' : '' }} "
             data-url="{{ route('vereadoresSessao.get', null) }}" id="select-sessao" name="session_id"
             style="width: 100%;">
             <option value="" selected>Selecione uma sessão para continuar</option>
@@ -21,12 +21,8 @@
                 (old('session_id') == $session->id ? 'selected' : '') }}>
             {{$session->nome }} - {{$session->typeSession->nome}} - {{$session->legislature->descricao}}
          
-            {{-- {{ (isset($proposition) && $session->id ==
-              $proposition->votos_propositura()->first()->pivot->session_id ? 'selected' : (old('session_id') == $session->id ? 'selected'
-              : '')) }}
-              >
-              {{$session->nome }} - {{$session->typeSession->nome}} - {{$session->legislature->descricao}} --}}
-            </option>
+          
+          </option>
             @endforeach
           </select>
           @error('session_id')
@@ -87,7 +83,7 @@
 
 
 @section('js')
-<script>  
+<script>    
       const selectSessao = document.getElementById('select-sessao');
       
       const urlVereadores = selectSessao.dataset.url;

@@ -2,13 +2,12 @@
 
 @section('title', 'Votação')
 @section('plugins.inputmask', false)
-@section('plugins.Select2', true)
 @section('plugins.icheck-bootstrap', true)
 
 @section('content_header')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/loading.js/1.9.0/loading.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/loading.js/1.9.0/loading.min.js"></script>
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/loading.js/1.9.0/loading.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/loading.js/1.9.0/loading.min.js"></script> --}}
 
 <div class="container-fluid">
   <div class="row mb-2">
@@ -42,8 +41,8 @@
 @section('js')
 <script>
   $(function () {
-     $('[data-toggle="tooltip"]').tooltip()
-    }) ;
+     $('[data-toggle="tooltip"]').tooltip();
+      }) ;
 
 //marca todos os imput ao clicar em MARCAR TODOS
 $(document).ready(function () {

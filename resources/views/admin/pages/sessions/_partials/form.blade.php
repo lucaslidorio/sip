@@ -144,7 +144,7 @@
       <div class="row">
         <div class="col-sm-6">
             <div class="form-group">                  
-                <label for="link_transmissao" class="label-required">Link de Transmissão </label>
+                <label for="link_transmissao">Link de Transmissão </label>
                   <div class="input-group">
                       <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-play"></i></span>

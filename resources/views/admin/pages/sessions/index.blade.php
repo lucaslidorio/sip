@@ -74,7 +74,7 @@
                   <option value="2022" {{ request()->query('ano') == '2022' ? 'selected': ''}}>2022 </option>  
                   <option value="2023" {{ request()->query('ano') == '2023' ? 'selected': ''}}>2023 </option>  
                   <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option>   
-                 
+                  <option value="2025" {{ request()->query('ano') == '2025' ? 'selected': ''}}>2025 </option>
               </select>
               </div>
               <div class="col-2">

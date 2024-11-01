@@ -86,7 +86,7 @@
     <header class="d-flex flex-wrap justify-content-center py-2">
       <a href="/" class="">
         <img class="d-none d-sm-block me-3 mb-3 " src="{{config('app.aws_url')."{$tenant->brasao}" }}" width="100"
-        height="100" alt="">
+        height="100" alt="Brasão do municipio">
       </a>
       <a href="/" class="d-flex align-items-center mt-0  mb-md-0 me-md-auto text-dark text-decoration-none ">
         <span class="fs-1 text-white mb-5">{{$tenant->nome}}</span>
