@@ -44,23 +44,23 @@
     </div>
 
     <div class="row no-gutters  " style="padding:15px">
-        <div class="col-md-3 col-print-4 mb-0" style="padding-left: 15px">
+        <div class="col-md-3 col-print-3 mb-0" style="padding-left: 15px">
             <p class="card-text mb-0"><strong> Número: </strong>{{$processo->numero}}/{{$processo->data_publicacao->year}}</p>
             <p class="card-text"><strong>Quantidade de lotes: </strong> {{$processo->qtd_lotes}}</p>
             <td>
         </div>
-        <div class="col-md-3 col-print-4" style="padding-left: 15px">
+        <div class="col-md-3 col-print-3" style="padding-left: 15px">
             <p class="card-text mb-0"><strong>Data de Publicação: </strong> {{$processo->data_publicacao->format('d/m/Y')}} </p>
             <p class="card-text"><strong>Critério de Julgamento : </strong> {{$processo->criterio_julgamento->nome}}</p>
 
         </div>
-        <div class="col-md-3 col-print-4" style="padding-left: 15px">
+        <div class="col-md-3 col-print-3" style="padding-left: 15px">
             <p class="card-text mb-0"><strong>Válido até : </strong> {{$processo->data_validade->format('d/m/Y')}}</p>
 
             <p class="card-text"><strong>Situação : </strong>
                 {{$processo->situacao->nome}} </p>
         </div>
-        <div class="col-md-3 col-print-4 " style="padding-left: 15px">
+        <div class="col-md-3 col-print-3 " style="padding-left: 15px">
             <p class="card-text mb-0"><strong>Modalidade: </strong>
                 {{ \Illuminate\Support\Str::upper($processo->modalidade->nome)}}</p>
         </div>

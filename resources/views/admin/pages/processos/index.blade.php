@@ -279,7 +279,7 @@
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item" href="{{route('processos.ata', $data['processo']->id)}}" data-id="{{$data['processo']->id}}">Ata</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{route('processos.credeciamentosDetalhado', $data['processo']->id)}}">Consolidado</a>
+                    <a class="dropdown-item" href="{{route('processos.credeciamentosDetalhado', $data['processo']->id)}}">Agrupado</a>
                   </div>
                 </div>               
                 @endcanany

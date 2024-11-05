@@ -431,7 +431,14 @@ class ProcessoCompraController extends Controller
                     body { margin: 0; padding: 10px; }
                 </style>
             </head>
-            
+            <style>
+                @media print {
+                    .col-print-3 {
+                        width: 33.3333%;
+                        float: left;
+                    }
+                }
+            </style>
             <body>' . $html . '</body>
         </html>
     ';
@@ -439,15 +446,14 @@ class ProcessoCompraController extends Controller
 
     // Envia o HTML para a API de geração de PDF
     $response = Http::retry(3, 100)
-                    ->accept('application/pdf')
-                    ->post('https://verificador.escritaescolar.com.br/api/GeradorArquivo/geradorPdf', [
-                        'html' => $html,
-                        'app_url' => config('app.url')
-                    ]);
-
-    // Retorna o PDF como resposta para download
-    return response($response->body(), 200)
-                ->header('Content-Type', 'application/pdf', 'charset=UTF-8')
-                ->header('Content-Disposition', 'inline; filename="Relatorio.pdf"');
+                            ->accept('application/pdf')
+                            ->post('https://verificador.escritaescolar.com.br/api/GeradorArquivo/geradorPdf',
+                                [
+                                    'html' => $html,
+                                    'app_url' => $_SERVER['APP_URL'],
+                                    'chave' => env('API_KEY_ESCRITA_ESCOLAR')
+                                ]);
+            header('Content-Type: application/pdf');
+            echo $response->body();
 }
 }
