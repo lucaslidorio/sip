@@ -57,7 +57,7 @@
         <strong class="mb-3">Anexos:</strong> ​
         @foreach ($proposition->attachments as $attachment)
         <p>
-          <a href="{{config('app.aws_url')." {$attachment->anexo}" }}" target="_blank" class="mb-2 mt-2 mr-4 text-reset"
+          <a href="{{config('app.aws_url')."{$attachment->anexo}"}}" target="_blank" class="mb-2 mt-2 mr-4 text-reset"
             >
             <i class="far fa-file-pdf fa-2x text-danger"></i>
             <span class="mr-3"> {{$attachment->nome_original}}</span>
