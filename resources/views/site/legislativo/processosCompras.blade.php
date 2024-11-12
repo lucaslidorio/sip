@@ -167,7 +167,7 @@
                         {{$credenciado->dadoPessoa->razao_social}}
                       </td>
                       <td>
-                        {{$credenciado->dadoPessoa->cnpj}}
+                        {{ mascararCpfCnpj($credenciado->dadoPessoa->cnpj) }}                       
                       </td>
                       <td>
                         <span class="mr-2"> {{$credenciado->ultimaMovimentacao->tipoMovimentacao->nome}}</span>

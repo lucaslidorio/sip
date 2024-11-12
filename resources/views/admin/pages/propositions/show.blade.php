@@ -31,7 +31,7 @@
         <p class="card-text"><strong>Data: </strong> {{\Carbon\Carbon::parse($proposition->data)->format('d/m/Y')}}</p>
         <p class="card-text"><strong>Tipo: </strong> {{$proposition->type_proposition->nome}}</p>
         <p class="card-text"><strong>Situação: </strong> {{$proposition->situation->nome}}</p>
-        <p class="card-text"><strong>Descrição: </strong> {{$proposition->descricao}}</p>
+        <p class="card-text"><strong>Descrição: </strong> {!!$proposition->descricao!!}</p>
 
       </div>
       <div class="col-sm-6">

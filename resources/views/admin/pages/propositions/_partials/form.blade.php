@@ -105,8 +105,10 @@
         <div class="col-sm-12">
             <label for="descricao">Descrição (caput):</label>
             <div class="form-group">
-            <textarea class="form-control {{ $errors->has('descricao') ? 'is-invalid' : '' }} " name="descricao" id="descricao" cols="30" rows="2" 
-                placeholder="Descrição da Ata">{{$proposition->descricao ?? old('descricao')}}</textarea>
+            <textarea class="form-control {{ $errors->has('descricao') ? 'is-invalid' : '' }} " name="descricao" id="descricao" cols="30" rows="10" 
+                placeholder="Descrição da Ata" id="summernote" cols="30" rows="10" >{{$proposition->descricao ?? old('descricao')}}</textarea>
+              
+                
                 @error('descricao')
                 <small class="invalid-feedback">
                     {{ $message }}

@@ -27,16 +27,16 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-2 col-12 pb-1">
             @can('nova-propositura')
             <a href="{{route('propositions.create')}}" class="btn bg-gradient-success  " data-toggle="tooltip"
               data-placement="top" title="Cadastrar nova propositura"><i class="fas fa-plus"></i> Novo</a>
             @endcan
           </div>
-          <div class="col-md-9">
+          <div class="col-md-10 col-12">
             <form action="{{route('propositions.index')}}" method="get" class="form form-inline">
               @csrf
-              <div class="col-4">
+              <div class="col-6 col-md-3">
                 <select class="form-control" name="proceeding_situation_id" id="proceeding_situation_id"
                   style="width: 100%;">
                   <option value="" selected>Selecione uma situacao</option>
@@ -48,7 +48,14 @@
                   @endforeach
                 </select>
               </div>
-              <div class="col-2">
+              
+              <div class="col-6 col-md-2">
+                <input class="form-control " name="numero" id="numero" placeholder="Número" style="width: 100%;"
+                value="{{ request()->query('numero') }}">
+               
+                </input>
+              </div>
+              <div class="col-6 col-md-2">
                 <select class="form-control " name="ano" id="ano" style="width: 100%;">
                   <option value="" selected>Ano</option>
                   <option value="2018" {{ request()->query('ano') == '2018' ? 'selected': ''}}>2018 </option>
@@ -61,7 +68,8 @@
 
                 </select>
               </div>
-              <div class="col-2">
+             
+              <div class="col-6 col-md-2">
                 <select class="form-control " name="ordenacao" id="ordenacao" style="width: 100%;">
                   <option value="" selected>Ordenar por</option>
                   <option value="ASC" {{ request()->query('ordenacao') == 'ASC' ? 'selected': ''}}>Número crescente
@@ -71,7 +79,7 @@
 
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="input-group">
                   <input type="text" name="pesquisa" id="pesquisa" class="form-control"
                     placeholder="Pesquisar pela descrição">
@@ -81,6 +89,7 @@
                   </span>
                 </div>
               </div>
+              
             </form>
           </div>
         </div>
@@ -114,7 +123,7 @@
               
               <td>
                 @foreach ($proposition->attachments as $attachment)
-                <a href="{{config('app.aws_url')." {$attachment->anexo}" }}"
+                <a href="{{config('app.aws_url')."{$attachment->anexo}"}}"
                   target="_blank" class="mb-2 text-reset"
                   data-toggle="tooltip" data-placement="top"
                   title={{$attachment->nome_original}} >

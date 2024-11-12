@@ -1,9 +1,9 @@
 @extends('adminlte::page')
-
 @section('title', 'Cadastrar nova Proposição')
 @section('plugins.inputmask', false)
 @section('plugins.icheck-bootstrap', true)
 @section('plugins.Select2', true)
+@section('plugins.Summernote', true)
 
 @section('content_header')
 
@@ -40,13 +40,24 @@
 </div>
 @stop
 @section('js')
-  <script>
+
+<script>  
+    //inicia o tooltip
     $(function () {
      $('[data-toggle="tooltip"]').tooltip()
      $.fn.select2.defaults.set( "theme", "bootstrap" );   
      $('.select2').select2();
-    }) 
+    })
+  
+    //inicia o summernote  
+    $(document).ready(function() {
+      $('#summernote').summernote({
+      height: 400,
+      lang: 'pt-BR'
+      });
+    });
   </script>
 @endsection
+
 
 
