@@ -33,7 +33,7 @@
             </button>
         </div>
         <div class="col md-12 text-center">
-            <img src="{{ config('app.aws_url')."{$tenant->brasao}" }}" class=" mx-auto d-block" alt="Brasão do município">
+            <img src="{{asset(config('app.aws_url'))."{$tenant->brasao}" }}" class=" mx-auto d-block" alt="Brasão do município">
             <p class="mb-1">{{$tenant->nome}}</p>
             <p class="mb-1">{{$tenant->endereco}} {{$tenant->numero}}, {{$tenant->bairro}} </p>
             <p class="">{{$tenant->cnpj}}</p>

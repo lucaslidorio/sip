@@ -416,6 +416,8 @@ class ProcessoCompraController extends Controller
     }
     public function gerarPdf(Request $request)
 {
+
+    dd("aqui");
     // Recebe o HTML do relatório
     $html = $request->input('html');
 

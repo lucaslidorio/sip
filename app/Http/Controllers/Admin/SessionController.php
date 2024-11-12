@@ -54,8 +54,8 @@ class SessionController extends Controller
     }
     public function index(Request $request)
     {
-        $this->authorize('ver-sessao');
-        
+        $this->authorize('ver-sessao');        
+       
         $types_session = $this->type_session->get();
         $periods = $this->period->get();        
         $filters = $request->except('_token');
@@ -66,6 +66,9 @@ class SessionController extends Controller
         ->when($request->period_id, function($query, $role) {
             return $query->where('period_id', $role);
         })  
+        ->when($request->data, function($query, $role) {
+            return $query->where('data', $role);
+        })
         ->when($request->ano, function($query, $role) {
             return $query->whereYear('data', $role);
         })
@@ -75,7 +78,7 @@ class SessionController extends Controller
         ->when($request->pesquisa, function($query, $role) {
             return $query->where('nome', 'LIKE', "%$role%");
         })           
-        ->orderBy('created_at', 'DESC')->paginate(10);    
+        ->orderBy('data', 'DESC')->paginate(10);    
      
         return view('admin.pages.sessions.index', 
         compact('sessions', 'types_session', 'periods', 'filters'));

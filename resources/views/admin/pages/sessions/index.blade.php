@@ -12,7 +12,7 @@
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashbord</a></li>
-        <li class="breadcrumb-item ">Sessões</li>
+        <li class="breadcrumb-item"><a href="{{route('sessions.index')}}">Sessões</a></li>      
       </ol>
     </div>
   </div>
@@ -78,6 +78,12 @@
               </select>
               </div>
               <div class="col-2">
+                <input class="form-control " type="date" 
+                  name="data" id="data" value="{{ request()->query('data') }}" style="width: 100%;"  >  
+              </div>                           
+           
+
+              <div class="col-2">
                 <select class="form-control " 
                   name="ordenacao" id="ordenacao" style="width: 100%;" >
                   <option value="" selected >Ordenar por</option> 
@@ -86,7 +92,7 @@
                                      
               </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-2">
                 <div class="input-group">
                   <input type="text" name="pesquisa" id="pesquisa" class="form-control" placeholder="Nome">
                   <span class="input-group-append">

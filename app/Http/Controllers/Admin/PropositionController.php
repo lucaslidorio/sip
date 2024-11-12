@@ -63,11 +63,14 @@ class PropositionController extends Controller
         
         $councilors = $this->councilor->all();
         $situacoes = $this->proceeding_situation->all();
-        $filters = $request->except('_token');
-       
+        $filters = $request->except('_token');       
+      
         $propositions = $this->repository            
             ->when($request->proceeding_situation_id, function ($query, $role) {
                 return $query->where('proceeding_situation_id', $role);
+            })
+            ->when($request->numero, function ($query, $role) {
+                return $query->where('numero', $role);
             })
             ->when($request->ano, function ($query, $role) {
                 return $query->whereYear('data', $role);
@@ -77,9 +80,8 @@ class PropositionController extends Controller
             })
             ->when($request->ordenacao, function ($query, $role) {
                 return $query->orderBy('numero', $role);
-            })
-            //->orderBy('numero', 'ASC')
-            ->orderBy('created_at', 'DESC')
+            })            
+            ->orderBy('data', 'DESC')
             ->paginate(10);
         
         return view('admin.pages.propositions.index', compact('propositions', 'councilors', 'situacoes', 'filters'));

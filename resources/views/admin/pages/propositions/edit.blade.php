@@ -2,6 +2,7 @@
 @section('title', "Atualizar o atas")
 @section('content_header')
 @section('plugins.Select2', true)
+@section('plugins.Summernote', true)
 <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
@@ -37,7 +38,17 @@
 
           $.fn.select2.defaults.set( "theme", "bootstrap" );   
           $('.select2').select2();
-      })  //Alert de confirmação de exclusão
+      })  
+      //inicia o summernote  
+    $(document).ready(function() {
+      $('#summernote').summernote({
+      height: 400,
+      lang: 'pt-BR'
+      });
+    });     
+      
+      
+      //Alert de confirmação de exclusão
       $('.delete-confirm').on('click', function (event) {
       event.preventDefault();
       const url = $(this).attr('href');    

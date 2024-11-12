@@ -41,8 +41,7 @@
 
 @endsection
 @section('js')
-<script src="../../dashboard/js/summernote-pt-br.js"></script> 
-<script src="../../dashboard/js/dropzone.js"></script>   
+ 
 <script>  
     //inicia o tooltip
     $(function () {
