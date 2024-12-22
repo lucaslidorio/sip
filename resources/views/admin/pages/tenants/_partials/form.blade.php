@@ -383,7 +383,21 @@
                 </small>
             @enderror
               </div>
-        </div>
+        </div><div class="col-sm-2">
+            <div class="form-group">
+                <label  for="template" class="label-required" >Template:</label>
+                <select class="custom-select {{ $errors->has('template') ? 'is-invalid' : '' }}" 
+                    id="template" name="template">                                       
+                    <option value="leg" {{isset($tenant) && $tenant->template == 'leg' ? 'selected': ''}}> Legislativo </option>
+                    <option value="gov" {{isset($tenant) && $tenant->template == 'gov' ? 'selected': ''}}> Executivo </option>
+                </select>
+                @error('template')
+                <small class="invalid-feedback">
+                    {{ $message }}
+                </small>
+            @enderror
+              </div>
+        </div>        
         
     </div>
       

@@ -40,12 +40,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserFunctionController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
-use App\Models\SubTipoMateria;
-use App\Models\TipoMateria;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use PhpParser\Node\Expr\FuncCall;
+
 
 //Grupo de roda para Middleware de autenticação
 
@@ -515,7 +511,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 });
 
-Route::prefix('/')->group(base_path('routes/legislativo.php'));
+//Route::prefix('/')->group(base_path('routes/legislativo.php'));
+Route::prefix('/')->group(base_path('routes/site.php'));
 //Route::prefix('/')->group(base_path('routes/executivo.php'));
 /*
 Route::get('/dashboard', function () {
@@ -550,14 +547,6 @@ Route::get('/processos/download/{id}', [ProcessoCompraController::class, 'downlo
 
 Route::post('/enquete/votar/{id}', [SiteController::class, 'votar'])->name('enquete.votar');
 Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'])->name('enquete.resultado');
-
-
-// Route::get('/', function () {
-//     //Alert::success('Success Title', 'Success Message');
-//     //toast('Success Toast','success');
-
-//     return view('site/index');
-// });
 
 
 

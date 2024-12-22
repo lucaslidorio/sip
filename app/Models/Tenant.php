@@ -30,7 +30,8 @@ class Tenant extends Model
     'nome_resp_transparencia', 
     'telefone_resp_transparencia',
     'email_resp_transparencia',
-    'arquivo_cor_css'
+    'arquivo_cor_css',
+    'template'
     ];
 
      public function users(){

@@ -171,6 +171,7 @@ class SiteController extends Controller
 
     public function index()
     {
+        dd("aqui");
 
         $tenants = $this->tenant->where('id', 3)->get();
         $legislatures = $this->legislature->where('atual', 1)->get();

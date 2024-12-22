@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class TenantController extends Controller
@@ -108,7 +109,8 @@ class TenantController extends Controller
         }
          //Atualila a tabela post
          $tenant->update($dadosTenant); 
-         
+         // Limpa o cache do template
+         Cache::forget('tenant_template');
          toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
          return redirect()->back();   
     }

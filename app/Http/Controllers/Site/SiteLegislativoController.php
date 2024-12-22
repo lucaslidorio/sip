@@ -66,68 +66,70 @@ class SiteLegislativoController extends Controller
      
     }
 
-    public function index(){
 
-        $tenant = $this->tenant->first();       
-        $menus = Menu::getMenusByPosition(1);  
-        $menusSuperior = Menu::getMenusByPosition(2);                             
-
-        $servicosOnline = $this->link->where('tipo', 2)->get();
-        //pega os 4 link cadastrado para o topo ordenado pela ordem   
-        $linksTopo = $this->link
-                            ->where('posicao', 2)
-                            ->where('tipo', 1) //Tipo = Banner
-                            ->orderby('ordem', 'ASC')
-                            ->orderby('created_at')
-                            ->take(4)
-                            ->get();
-        //pega os 4 link cadastrado para o inferiorao slide
-        $linksInferior = $this->link
-                            ->where('posicao', 4) // link inferior ao slide
-                            ->where('tipo', 1) //Tipo = Banner
-                            ->orderby('ordem', 'ASC')
-                            ->orderby('created_at')
-                            ->take(6)
-                            ->get();  
-        //pega os 6 link cadastrado para o lado direito ordenado pela ordem   
-        $linksDireita = $this->link
-                            ->where('posicao', 3)
-                            ->where('tipo', 1) //Tipo = Banner
-                            ->orderby('ordem', 'ASC')
-                            ->orderby('created_at')
-                            ->take(6)
-                            ->get(); 
-        $linksUteis = $this->link                            
-                            ->where('tipo', 2) //Tipo = Links Úteis
-                            ->orderby('ordem', 'ASC')
-                            ->orderby('created_at')                            
-                            ->get();
-        $posts_destaque = $this->post->where('destaque', 1)
-                            ->where(function ($query) {
-                                $query->whereNull('data_expiracao')
-                                ->orWhere('data_expiracao', '>=', now());
-                            })
-                            ->get();
-
-
-        $ultimasNoticias = $this->post->take(4)->orderBy('created_at', 'DESC')->get();
+    
+    // public function index(){
         
-        // Busca uma enquete ativa
-        $enquete = Enquete::where('situacao', 1)->latest()->first();
-        return view('site.legislativo.index',[
-            'tenant' => $tenant,
-            'menus' => $menus,
-            'servicosOnline' => $servicosOnline,
-            'linksTopo' => $linksTopo,
-            'linksDireita' => $linksDireita,
-            'posts_destaque' => $posts_destaque,
-            'linksUteis' => $linksUteis,
-            'ultimasNoticias' => $ultimasNoticias,
-            'linksInferior' => $linksInferior,
-            'menusSuperior' => $menusSuperior,
-            'enquete' => $enquete,
-        ]);
-    }
+    //     $tenant = $this->tenant->first();       
+    //     $menus = Menu::getMenusByPosition(1);  
+    //     $menusSuperior = Menu::getMenusByPosition(2);                            
+
+    //     $servicosOnline = $this->link->where('tipo', 2)->get();
+    //     //pega os 4 link cadastrado para o topo ordenado pela ordem   
+    //     $linksTopo = $this->link
+    //                         ->where('posicao', 2)
+    //                         ->where('tipo', 1) //Tipo = Banner
+    //                         ->orderby('ordem', 'ASC')
+    //                         ->orderby('created_at')
+    //                         ->take(4)
+    //                         ->get();
+    //     //pega os 4 link cadastrado para o inferiorao slide
+    //     $linksInferior = $this->link
+    //                         ->where('posicao', 4) // link inferior ao slide
+    //                         ->where('tipo', 1) //Tipo = Banner
+    //                         ->orderby('ordem', 'ASC')
+    //                         ->orderby('created_at')
+    //                         ->take(6)
+    //                         ->get();  
+    //     //pega os 6 link cadastrado para o lado direito ordenado pela ordem   
+    //     $linksDireita = $this->link
+    //                         ->where('posicao', 3)
+    //                         ->where('tipo', 1) //Tipo = Banner
+    //                         ->orderby('ordem', 'ASC')
+    //                         ->orderby('created_at')
+    //                         ->take(6)
+    //                         ->get(); 
+    //     $linksUteis = $this->link                            
+    //                         ->where('tipo', 2) //Tipo = Links Úteis
+    //                         ->orderby('ordem', 'ASC')
+    //                         ->orderby('created_at')                            
+    //                         ->get();
+    //     $posts_destaque = $this->post->where('destaque', 1)
+    //                         ->where(function ($query) {
+    //                             $query->whereNull('data_expiracao')
+    //                             ->orWhere('data_expiracao', '>=', now());
+    //                         })
+    //                         ->get();
+
+
+    //     $ultimasNoticias = $this->post->take(4)->orderBy('created_at', 'DESC')->get();
+        
+    //     // Busca uma enquete ativa
+    //     $enquete = Enquete::where('situacao', 1)->latest()->first();
+    //     return view('site.legislativo.index',[
+    //         'tenant' => $tenant,
+    //         'menus' => $menus,
+    //         'servicosOnline' => $servicosOnline,
+    //         'linksTopo' => $linksTopo,
+    //         'linksDireita' => $linksDireita,
+    //         'posts_destaque' => $posts_destaque,
+    //         'linksUteis' => $linksUteis,
+    //         'ultimasNoticias' => $ultimasNoticias,
+    //         'linksInferior' => $linksInferior,
+    //         'menusSuperior' => $menusSuperior,
+    //         'enquete' => $enquete,
+    //     ]);
+    // }
   
 
     public function legislaturas(){ // rota = camara.legislatura

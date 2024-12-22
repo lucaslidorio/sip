@@ -96,7 +96,7 @@
             <select class="custom-select {{ $errors->has('posicao') ? 'is-invalid' : '' }}" 
                 id="posicao" name="posicao">
                 <option value=""  >Selecione uma opção</option>                    
-                <option value="1" {{isset($menu) && $menu->posicao == '1' ? 'selected': ''}}> Lateral Esquerda </option>
+                <option value="1" {{isset($menu) && $menu->posicao == '1' ? 'selected': ''}}> Menu Principal </option>
                 <option value="2" {{isset($menu) && $menu->posicao == '2' ? 'selected': ''}}> Barra Superior </option>
             </select>
             @error('posicao')

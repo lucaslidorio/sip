@@ -16,14 +16,57 @@ class Menu extends Model
     'posicao','ordem', 'icone' ];
 
     const POSICAO = [
-        1 => 'Lateral Esquerda',
+        1 => 'Menu Principal',
         2 => 'Barra Superior',
     ];
+
+
+## Estrutura para os novos sites ###
+
+public function children()
+{
+    return $this->hasMany(Menu::class, 'menu_pai_id', 'id')->orderBy('ordem');
+}
+
+public function parent()
+{
+    return $this->belongsTo(Menu::class, 'menu_pai_id', 'id');
+}
+
+public function hasChildren()
+{
+    return $this->children()->count() > 0;
+}
+
+    
+######## fim ########
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function getMenuPai($id = null){          
         return $this->where('id', $id)->first('nome'); 
      
     }
+    
     public function submenu(){
         return $this->hasMany(Menu::class, 'menu_pai_id', 'id');
     }
