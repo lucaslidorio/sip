@@ -21,7 +21,11 @@ class Link extends Model
     const TIPO = [       
         1 => 'Banner',
         2 => 'Links',
-        3 => 'Serviços Online',
-     
+        3 => 'Serviços Online',     
 ];
+        public function scopePorPosicao($query, $posicao)
+        {
+                return $query->where('posicao', $posicao)->orderBy('ordem');
+        }
+
 }

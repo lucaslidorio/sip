@@ -6,6 +6,10 @@
 */
 @charset "utf-8";
 
+.cor-padrao-bg {
+    background-color: #277dcc;
+}
+
 
 .circle {
     width: 90px;
@@ -275,6 +279,8 @@ ul.notifica-lista li:hover {
     background-color: #000000;
     color: #ffffff;
 }
+
+
 
 .dark-mode .row-content li a {
     background-color: #000000;
@@ -7528,10 +7534,10 @@ a.thumbnail.active {
     border-radius: 0;
 }
 
-.interno-cabecalho .search form .rg-table-cell .input-group {
+/* .interno-cabecalho .search form .rg-table-cell .input-group {
     width: 90%;
     margin-left: 10%;
-}
+} */
 
 .interno-cabecalho .search form .rg-table-cell .btn {
     float: right !important;
@@ -8734,7 +8740,7 @@ figure.fotorama {
 /* Fundo banner prefeitura */
 @media (min-width:768px) {
     .header-tudo {
-        margin-bottom: 52px;
+        margin-bottom: 0px;
         background-color: #f7f7f7;
     }
 

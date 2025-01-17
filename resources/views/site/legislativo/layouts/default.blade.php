@@ -183,7 +183,7 @@
       </div>
 
       {{-- Conteúdo --}}
-      <div class="col-md-6 col-lg-7 ">
+      <div class="col-md-6 col-lg-7 border">
 
       @yield('content')
 
@@ -402,6 +402,8 @@
   
   </script>
   @endif
+
+  
   <script src="{{asset('js/jquery-min.js')}}"></script>
   <script src="{{asset('js/nivo-lightbox.js')}}"></script>
   <script src="{{asset('js/alloy_finger.min.js')}}"></script>

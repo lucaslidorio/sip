@@ -4,7 +4,7 @@ use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SiteLegislativoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [SiteLegislativoController::class, 'index'])->name('site.home');
+//Route::get('/', [SiteLegislativoController::class, 'index'])->name('site.home');
 
 
 // Route::get('noticias/todas', [SiteLegislativoController::class, 'noticiasTodas'])->name('camara.noticias');
@@ -26,8 +26,7 @@ Route::get('camara/{id}', [SiteLegislativoController::class, 'parecerShow'])->na
 Route::get('camara/comissoes', [SiteLegislativoController::class, 'comissoes'])->name('camara.comissoes');
 
 //Route::get('noticias/todas', [SiteController::class, 'noticiasTodas'])->name('noticias.todas');
-Route::any('noticias', [SiteController::class, 'noticiasTodasPesquisar'])->name('noticias.todas');
-Route::get('noticias/{url}', [SiteController::class, 'noticiaShow'])->name('noticias.show');
+
 Route::get('vereadores/{nome}', [SiteController::class, 'vereadoresShow'])->name('vereadores.show');
 Route::get('sessoes', [SiteController::class, 'sessoesIndex'])->name('sessoes.index');
 Route::get('sessoes/{nome}', [SiteController::class, 'sessoesShow'])->name('sessões.show');

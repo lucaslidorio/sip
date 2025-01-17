@@ -61,6 +61,7 @@ class Post extends Model
                 $query->whereNull('data_expiracao')
                 ->orWhereDate('data_expiracao', '>=', Carbon::now()->format('Y-m-d'));
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
         return $resultado;        
     }
