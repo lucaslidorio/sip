@@ -8,6 +8,39 @@
     </div>
 
     <div class="slide-destaque">
+        @foreach($posts_destaque as $post)
+            <img style="width:500px; height:578px"
+                 src="{{ config('app.aws_url') . $post->img_destaque }}"
+                 alt="{{ $post->titulo }}" class="img-responsive" />
+        @endforeach
+    </div>
+    
+    <div class="highlights-texts">
+        @foreach($posts_destaque as $post)
+            <section>
+                <h2>
+                    <a href="{{ route('noticias.show', $post->url) }}">
+                        {{ $post->titulo }}
+                    </a>
+                </h2>                
+                <p>
+
+                    <a href="{{ route('noticias.show', $post->url) }}">
+                        <p id="limiteLinha">
+                            {!! Str::limit(strip_tags($post->conteudo), 100, '...') !!}
+                        </p>
+                    </a>
+                </p>
+            </section>
+        @endforeach
+    </div>
+    
+    <div class="highlights-dots"></div>
+    
+
+    {{-- <div class="slide-destaque">     
+
+
         <img style="width:500; height:578px"
             src="http://minio-producao.jelastic.saveincloud.net/teixeiropolis/posts/H4jnArhACcSgG1VKXuu5naObowAJyBRqId7FuyJX.jpg"
             alt="“Outubro Rosa e Verde”" class="img-responsive" />
@@ -49,5 +82,20 @@
         </section>
 
     </div>
-    <div class="highlights-dots"></div>
+    <div class="highlights-dots"></div> --}}
 </section>
+<script>
+     // Ajuste para limitar o número de palavras do parágrafo
+     const paragrafos = document.querySelectorAll("#limiteLinha");
+    const maxPalavras = 50;
+
+    paragrafos.forEach(paragrafo => {
+        if (paragrafo) {
+            const palavras = paragrafo.textContent.trim().split(/\s+/);
+            if (palavras.length > maxPalavras) {
+                const textoTruncado = palavras.slice(0, maxPalavras).join(" ") + "...";
+                paragrafo.textContent = textoTruncado;
+            }
+        }
+    });
+</script>

@@ -15,7 +15,7 @@ class Link extends Model
             1 => 'Esquerda',
             2 => 'Topo',
             3 => 'Direita',
-            4 => 'Rodape',
+            4 => 'Inferior',
             5 => 'Centro',
     ];
     const TIPO = [       

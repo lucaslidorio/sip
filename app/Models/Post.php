@@ -49,22 +49,46 @@ class Post extends Model
         return $resultado;
     }
     
-    public function noticiasPesquisar($pesquisar)
+        public function noticiasPesquisar($dados)
     {
-        $resultado = $this
-            ->where(function ($query) use ($pesquisar) {
-                $query->where('titulo', 'LIKE', "%{$pesquisar}%"
-                )
-                ->orWhere('conteudo', 'LIKE', "%{$pesquisar}%");
-            })
-            ->where(function ($query) {
-                $query->whereNull('data_expiracao')
+       
+        $query = $this->query();
+
+        // Filtro de título e conteúdo
+        if (!empty($dados['pesquisar'])) {
+            $query->where(function ($subQuery) use ($dados) {
+                $subQuery->where('titulo', 'LIKE', "%" . $dados['pesquisar'] . "%")
+                    ->orWhere('conteudo', 'LIKE', "%" . $dados['pesquisar'] . "%");
+            });
+        }
+
+        // Filtro por categoria (vinculado pela relação)
+        if (!empty($dados['category_id'])) {
+            $query->whereHas('categories', function ($subQuery) use ($dados) {
+                $subQuery->where('categorias.id', $dados['category_id']);
+            });
+        }
+
+        // Filtro por data de publicação inicial
+        if (!empty($dados['data_publicacao_inicial'])) {
+            $query->whereDate('data_publicacao', '>=', $dados['data_publicacao_inicial']);
+        }
+
+        // Filtro por data de publicação final
+        if (!empty($dados['data_publicacao_final'])) {
+            $query->whereDate('data_publicacao', '<=', $dados['data_publicacao_final']);
+        }
+
+        // Filtro para data de expiração (ativa ou não expirada)
+        $query->where(function ($subQuery) {
+            $subQuery->whereNull('data_expiracao')
                 ->orWhereDate('data_expiracao', '>=', Carbon::now()->format('Y-m-d'));
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        return $resultado;        
+        });
+
+        // Ordenação e paginação
+        return $query->orderBy('created_at', 'desc')->paginate(10);
     }
+
 
     public function noticiaAnterior($id){
         $postAnterior = $id - 1;

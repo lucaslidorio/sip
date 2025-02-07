@@ -1,9 +1,10 @@
 
 @extends('public_templates.leg.default')
+@section('content')
 {{-- Efeito de imagens --}} 
 <style>
      .glightbox-container .glightbox-desc{
-         color: #fff;
+        color: #fff;
         font-weight: 700;
         text-align: center;
         padding-bottom: 1rem;
@@ -71,11 +72,29 @@ img.img-fluid:hover {
         transform: scale(1.05);
     }
 }
+.carousel-controls-below {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaçamento entre os botões */
+    margin-top: 15px; /* Espaçamento acima dos botões */
+}
+
+.carousel-controls-below .carousel-control-prev,
+.carousel-controls-below .carousel-control-next {
+    position: static; /* Remove a posição absoluta padrão */
+    /*background-color: #277dcc;  Cor de fundo dos botões */
+    color: #0056b3; /* Cor do ícone */
+    padding: 10px 20px; /* Aumenta o tamanho dos botões */
+    /*border-radius: 5px;  Deixa os botões arredondados */
+    border: none; /* Remove borda */
+    cursor: pointer; /* Indica que o botão é clicável */
+    text-transform: uppercase; /* Texto em maiúsculas */    
+}
 </style>
 
 
 
-@section('content')
+
 
 <div class="row" style="height: 60px; background-color: #f5f5f5">
     <div class="container ">
@@ -159,54 +178,59 @@ img.img-fluid:hover {
                             </a>
                         </div>
                     </section>
+                    <section>
+                        <div class="mt-5">
+                            <h3 class="mb-3 fw-bold border-bottom">Outras Notícias Relacionadas</h3>
+                            <div id="noticiasCarrossel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach ($ultimasNoticias->chunk(4) as $chunkIndex => $chunk)
+                                        <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+                                            <div class="row">
+                                                @foreach ($chunk as $relacionada)
+                                                    <div class="col-md-3">
+                                                        <div class="card">
+                                                            <img src="{{ config('app.aws_url').$relacionada->img_destaque }}" class="card-img-top" alt="{{ $relacionada->titulo }}">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{ $relacionada->titulo }}</h5>
+                                                                {{-- <p class="card-text">
+                                                                    {!! Str::limit(strip_tags($relacionada->conteudo), 100, '...') !!}
+                                                                </p> --}}
+                                                                <a href="{{ route('noticias.show',$relacionada->url) }}" class="btn btn-primary  text-white">Leia Mais</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>                        
+                                 <!-- Botões abaixo -->
+                            <div class="carousel-controls-below">
+                                <button class="carousel-control-prev" type="button" data-bs-target="#noticiasCarrossel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon text-primary" aria-hidden="true">                                       
+                                        <i class="fas fa-chevron-left mt-1 me-1"></i></span>
+                                    <span class="">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#noticiasCarrossel" data-bs-slide="next">
+                                    <span class="">Próximo</span>
+                                    <span class="carousel-control-next-icon" aria-hidden="true">
+                                        <i class="fas fa-chevron-right mt-1 ms-1"></i>
+                                    </span>
+                                    
+                                   
+                                    
+                                </button>
+                            </div>
+                            </div>
+                        </div>                        
+                    </section>
                
             </main>
         </div>
 
 
         <div class="col-12 col-md-4">
-            <div class="card" >
-                <div class="card-header cor-padrao-bg" >
-                    <h5 class="card-title text-white fs-3">PESQUISE EM NOTÍCIAS</h5>
-                </div>
-                <div class="card-body">
-                    <form action="{{route('noticias.todas')}}" method="get">
-                        @csrf
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text" id="pesquisar"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input type="text" name="pesquisar" class="form-control" aria-label="pesquisar" aria-describedby="pesquisar">
-                        </div>                 
-                        
-                        <div class="input-group input-group-lg mt-3 mb-3">
-                            <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
-                            <input type="date" name="data_publicacao_inicial" class="form-control" placeholder="Username" aria-label="Username">
-                            <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
-                            <input type="date" name="data_publicacao_final" class="form-control" placeholder="Server" aria-label="Server">
-                        </div> 
-                        <select class="form-select form-select-lg mb-3" name="category_id" aria-label="Large select example">
-                            <option selected>Categorias</option>
-                            @foreach ($categorias as $item)
-                                <option value="{{$item->id}}">{{$item->nome}}</option>
-                            @endforeach                           
-                        </select>                                              
-                   
-                    <button type="submit" class="btn btn-lg btn-primary  cor-padrao-bg text-white mt-3 fs-3">Pesquisar</button>
-                    </form>
-                </div>
-                
-              </div>
-
-              <div class="card MT-3">
-                <div class="card-header cor-padrao-bg">
-                    <h5 class="card-title text-white fs-3">CATEGORIAS</h5>
-                </div>
-                <ul class="list-group list-group-flush">     
-                    @foreach ($categorias as $item)
-                    <a href="#" class="list-group-item  text " style="line-height:1.9 !important">{{$item->nome}} 
-                        <span class="badge  text-bg-secondary mt-1  float-end">{{$item->posts_count}} </span></a>
-                    @endforeach               
-                </ul>
-              </div>
+          @include('public_templates.leg.includes.noticias.pesquisa_categoria_lateral')
 
            
         </div>        
