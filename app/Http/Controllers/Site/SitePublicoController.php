@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Councilor;
 use App\Models\Link;
 use App\Models\Menu;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ use Illuminate\Support\Str;
 
 class SitePublicoController extends Controller
 {
-    private $tenant, $menu, $link, $vereadores, $noticias, $categorias;
+    private $tenant, $menu, $link, $vereadores, $noticias, $categorias, $page;
     
 
     public function __construct(
@@ -25,7 +26,8 @@ class SitePublicoController extends Controller
         Link $link, 
         Councilor $vereadores, 
         Post $noticias,
-        Categoria $categorias
+        Categoria $categorias,
+        Page $page,
         ){
 
         $this->tenant = $tenant;
@@ -34,6 +36,7 @@ class SitePublicoController extends Controller
         $this->vereadores = $vereadores;
         $this->noticias = $noticias;
         $this->categorias = $categorias;
+        $this->page = $page;
     }
 
     
@@ -119,10 +122,30 @@ class SitePublicoController extends Controller
             ->get();
 
              return view("public_templates.$template.includes.noticias.noticias_show" ,compact(
-                'noticia', 'tenant', 'menus', 'ultimasNoticias', 'categorias'));      
- 
-       
+                'noticia', 'tenant', 'menus', 'ultimasNoticias', 'categorias'));    
+  
     }
+
+    public function page($slug){          
+     
+        $page = $this->page->where('slug',$slug)->first();
+        $template = view()->shared('currentTemplate'); 
+     
+        if(!$page){
+           redirect()->back();               
+        }            
+        $tenant = $this->tenant->first();          
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();    
+         return view("public_templates.$template.page", [
+            'page' => $page,
+            'tenant' =>$tenant,
+            'menus' => $menus    
+        
+        ]);
+    
+}
     
 
 

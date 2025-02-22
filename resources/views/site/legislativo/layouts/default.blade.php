@@ -108,7 +108,6 @@
     <ul class="nav text-white fw-semibold font-14">
       @foreach ($menusSuperior as $item)
       <li class="nav-item ">
-
         @if ($item->pagina_interna == 1 && $item->url == null)
         <a href="{{route('pagina', $item->slug)}}" class="nav-link link-texto " title="{{$item->nome}} "
           data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">

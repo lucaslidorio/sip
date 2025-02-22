@@ -1,11 +1,16 @@
 <footer class="footer text-center hidden-print">
-    <div class="container">
-        <address>
-            <span class="header">
-                <div style="margin-top: 15px;">
+    <div class="container header-footer">
+        <address>           
+            
+                <div class="row">
+                    <div class="col-12 text-center" style="padding-top: 5px;">
+                        <img src="{{config('app.aws_url')."{$tenant->brasao}" }} "alt="" width="70%" height="70%">
+                    </div>
+                </div>
+                <div class="fs-1 text-white" >
                    <strong>{{$tenant->nome}}</strong>
                 </div>
-            </span>
+           
 
             <span class="inner">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>{{$tenant->endereco}}, {{$tenant->numero}}, {{$tenant->bairro}}

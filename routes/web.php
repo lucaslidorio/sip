@@ -532,7 +532,7 @@ Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvid
 Route::get('/ouvidoria/duvidas', [OuvidoriaSiteController::class, 'duvidas'])->name('ouvidoriaSite.duvidas');
 
 //Rotas Comuns do site
-Route::get('/pagina/{slug}', [SiteController::class, 'page'])->name('pagina');
+// Route::get('/pagina/{slug}', [SiteController::class, 'page'])->name('pagina');
 Route::get('/acessibilidade', [SiteController::class, 'acessibilidade'])->name('site.acessibilidade');
 Route::get('/sitemap', [SiteController::class, 'mapasite'])->name('site.mapa');
 Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');

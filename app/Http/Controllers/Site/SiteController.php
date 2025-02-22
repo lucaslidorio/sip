@@ -133,6 +133,7 @@ class SiteController extends Controller
 
     public function page($slug){          
      
+        dd('chegou aqui');
             $page = $this->page->where('slug',$slug)->first();
          
             if(!$page){

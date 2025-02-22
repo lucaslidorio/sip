@@ -8196,13 +8196,13 @@ figure.fotorama {
 }
 
 /* Abaixo do banner prefeitura municipal */
-.footer .header {
+.footer .header-footer {
     font-size: 36px;
     font-weight: 300;
     color: #FFF;
     display: block;
     padding: 172px 0 20px 0;
-    background: url("../img/prefeitura-new.jpeg") no-repeat center top;
+    /* background: url("../img/prefeitura-new.jpeg") no-repeat center top; */
 }
 
 .footer .header strong {

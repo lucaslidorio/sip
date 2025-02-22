@@ -25,7 +25,7 @@
             @include('public_templates.leg.includes.vereadores')
             @include('public_templates.leg.includes.ouvidoria')
             @include('public_templates.leg.includes.noticias')
-            @include('public_templates.leg.includes.diario-oficial')
+            {{-- @include('public_templates.leg.includes.diario-oficial') --}} 
             
             
 
