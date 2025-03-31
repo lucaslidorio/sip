@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Admin\CommissionMemberFunction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,9 +13,11 @@ class Functions extends Model
     protected $fillable = ['nome', 'descricao'];
 
 
-    // public function commissions(){
-    //     return $this->hasMany(Commission::class, 'commission_members', 'function_id', 'commission_id');
-    // }
+    public function membros()
+    {
+        return $this->hasMany(CommissionMemberFunction::class, 'function_id');
+    }
+
 
     public function search($pesquisar =null){
 

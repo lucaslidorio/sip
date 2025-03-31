@@ -18,7 +18,7 @@ Route::get('camara/comissoes', [SiteLegislativoController::class, 'comissoes'])-
 Route::get('camara/mesa-diretora', [SiteLegislativoController::class, 'mesaDiretora'])->name('camara.mesaDiretora');
 Route::get('camara/legislaturas', [SiteLegislativoController::class, 'legislaturas'])->name('camara.legislaturas');
 Route::get('camara/legislaturas/{id}', [SiteLegislativoController::class, 'legislatura'])->name('camara.legislatura');
-Route::get('/vereadores/show/{id}', [SiteLegislativoController::class, 'vereador'])->name('camara.vereador');
+Route::get('camara/vereadores/show/{id}', [SiteLegislativoController::class, 'vereador'])->name('camara.vereador');
 Route::get('camara/sessoes', [SiteLegislativoController::class, 'sessoes'])->name('camara.sessoes');
 Route::get('camara/documentos-sessoes', [SiteLegislativoController::class, 'documentosSessoes'])->name('camara.documentosSessoes');
 Route::get('camara/pareceres', [SiteLegislativoController::class, 'pareceres'])->name('camara.pareceres');
@@ -29,10 +29,10 @@ Route::get('camara/comissoes', [SiteLegislativoController::class, 'comissoes'])-
 
 Route::get('vereadores/{nome}', [SiteController::class, 'vereadoresShow'])->name('vereadores.show');
 Route::get('sessoes', [SiteController::class, 'sessoesIndex'])->name('sessoes.index');
-Route::get('sessoes/{nome}', [SiteController::class, 'sessoesShow'])->name('sessões.show');
+// Route::get('sessoes/{nome}', [SiteController::class, 'sessoesShow'])->name('sessões.show');
 Route::get('documentos-sessoes/', [SiteController::class, 'documentosSessoesPesquisar'])->name('documentosSessoes.pesquisar');
-Route::get('proposituras/', [SiteController::class, 'proposituras'])->name('camara.proposituras');
-Route::get('proposituras/{id}', [SiteController::class, 'proposituraShow'])->name('propositura.show');
+// Route::get('proposituras/', [SiteController::class, 'proposituras'])->name('camara.proposituras');
+// Route::get('proposituras/{id}', [SiteController::class, 'proposituraShow'])->name('propositura.show');
 Route::get('carta-cidadao/{id}', [SiteController::class, 'cartaCidadaoShow'])->name('cartaCidadao.show');
 Route::get('legislacoes', [SiteController::class, 'legislacoes'])->name('legislacoes.index');
 Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name('legislacao.show');

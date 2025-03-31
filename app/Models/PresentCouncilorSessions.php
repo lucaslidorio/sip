@@ -11,4 +11,11 @@ class PresentCouncilorSessions extends Model
     protected $table ='present_councilor_sessions';
     protected $fillable = ['session_id', 'councilor_id', 'situacao'];
     
+    public function vereador()
+    {
+        return $this->belongsTo(Councilor::class, 'councilor_id');
+    }
+    
+
+
 }

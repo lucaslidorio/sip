@@ -16,6 +16,15 @@ class Legislature extends Model
     protected $fillable =['id','descricao', 'ordem', 'atual'];
     protected $table = 'legislatures';  
     
+
+    //Relacionamentos novos
+
+    public function vereadores(){
+        return $this->belongsToMany(Councilor::class, 'legislature_councilors');
+    }
+
+
+    // Relacinamtentos antigos
     public function sections(){
         return $this->hasMany(Section::class, 'legislature_id');
     }

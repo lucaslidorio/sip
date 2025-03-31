@@ -17,8 +17,15 @@ class AttachmentSession extends Model
     {
         return $this->belongsTo(Session::class, 'session_id');
     }
+    public function typeDocument()
+    {
+        return $this->belongsTo(TypeDocument::class, 'type_document_id');
+    }
+
+    // relacionamento antigo
     public function type_document()
     {
         return $this->belongsTo(TypeDocument::class, 'type_document_id');
     }
+    
 }

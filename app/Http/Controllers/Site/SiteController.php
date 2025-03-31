@@ -131,9 +131,9 @@ class SiteController extends Controller
     }
     // Funções Comuns entre os site do Legislativo e Executivos
 
-    public function page($slug){          
+    public function page($slug){         
      
-        dd('chegou aqui');
+        
             $page = $this->page->where('slug',$slug)->first();
          
             if(!$page){

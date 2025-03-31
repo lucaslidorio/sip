@@ -19,21 +19,15 @@ class Commission extends Model
     {
         return $this->BelongsToMany(Councilor::class,  'commission_member_functions');
     }
-   
+    public function membros() //novo gpt
+    {
+        return $this->belongsToMany(Councilor::class, 'commission_member_functions', 'commission_id', 'councilor_id')
+            ->withPivot('function_id')
+            ->withTimestamps();
+    }
    
 
-    // }
-    //  //relaciona os função com comissão
-    //  public function functions(){
-    //     return $this->belongsToMany(Functions::class, 'commission_members', 'commission_id', 'function_id');
-
-    // }
     
-
-
-
-
-
     
 
     public function search($pesquisar =null){

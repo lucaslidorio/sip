@@ -1,6 +1,6 @@
 <div class="card" >
     <div class="card-header cor-padrao-bg" >
-        <h5 class="card-title text-white fs-3">PESQUISE EM NOTÍCIAS (Noticias show)</h5>
+        <h5 class="card-title text-white fs-3">PESQUISE EM NOTÍCIAS</h5>
     </div>
     <div class="card-body">
         <form action="{{route('noticias.todas')}}" method="get">
