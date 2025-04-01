@@ -73,7 +73,7 @@
         </div>
         <div class="col-sm-4">
             <div class="form-group">
-                <label for="estado_civil" class="label-required">Estado Civil:</label>
+                <label for="estado_civil" >Estado Civil:</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
