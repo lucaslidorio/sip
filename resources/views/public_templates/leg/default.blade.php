@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Prefeitura Municipal de Teixeiropolis/RO">
-    <title>PREFEITURA MUNICIPAL DE TEIXEIROPOLIS/RO</title>
+    <title>{{$tenant->nome}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3..2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -24,14 +24,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
    
     <meta property="og:type" content="website">
-    <meta property="og:title" content="PREFEITURA MUNICIPAL DE TEIXEIROPOLIS">
-    <meta property="og:description" content="PREFEITURA MUNICIPAL DE TEIXEIROPOLIS - RO">
-    <meta property="og:url" content="https://www.teixeiropolis.ro.gov.br/">
-    <meta property="og:site_name" content="PREFEITURA MUNICIPAL DE TEIXEIROPOLIS">
+    <meta property="og:title" content="{{$tenant->nome}}">
+    <meta property="og:description" content="{{$tenant->nome}}">
+    <meta property="og:url" content="{{ config('app.secure_url') }}">
+    <meta property="og:site_name" content="{{$tenant->nome}}">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:description" content="PREFEITURA MUNICIPAL DE TEIXEIROPOLIS - RO">
-    <meta name="twitter:title" content="PREFEITURA MUNICIPAL DE TEIXEIROPOLIS">
-    <meta name="twitter:site" content="https://www.teixeiropolis.ro.gov.br/">
+    <meta name="twitter:description" content="{{$tenant->nome}}">
+    <meta name="twitter:title" content="{{$tenant->nome}}">
+    <meta name="twitter:site" content="{{ config('app.secure_url') }}">
 
     <style>
         .dropdown-menu .dropdown-item {
