@@ -55,52 +55,10 @@ class OuvidoriaSiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $tenant = $this->tenant->first();
-        $menus = Menu::getMenusByPosition(1);
-        $menusSuperior = Menu::getMenusByPosition(2);
-        $servicosOnline = $this->link->where('tipo', 2)->get();
-        $linksDireita = $this->link
-            ->where('posicao', 3)
-            ->where('tipo', 1) //Tipo = Banner
-            ->orderby('ordem', 'ASC')
-            ->orderby('created_at')
-            ->take(6)
-            ->get();
-        $linksUteis = $this->link
-            ->where('tipo', 2) //Tipo = Links Úteis
-            ->orderby('ordem', 'ASC')
-            ->orderby('created_at')
-            ->get();
-
-
-
-        $cliente = $this->tenant->first();
-        $tipos_ouvidoria = $this->tipos_ouvidorias->get();
-
-
-
-        return view('site.legislativo.ouvidoria.index', [
-            'cliente' => $cliente,
-            'tenant' =>  $tenant,
-            'tipos_ouvidoria' => $tipos_ouvidoria,
-            'menus' => $menus,
-            'linksDireita' => $linksDireita,
-            'linksUteis' => $linksUteis,
-            'menusSuperior' => $menusSuperior,
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function createOld($id_ouvidoria)
+    // public function index()
     // {
-
-    //     $menus = Menu::getMenusByPosition(1);  
+    //     $tenant = $this->tenant->first();
+    //     $menus = Menu::getMenusByPosition(1);
     //     $menusSuperior = Menu::getMenusByPosition(2);
     //     $servicosOnline = $this->link->where('tipo', 2)->get();
     //     $linksDireita = $this->link
@@ -118,27 +76,23 @@ class OuvidoriaSiteController extends Controller
 
 
 
-    //     $tenant = $this->tenant->first();
-    //     $tipo_ouvidoria = $this->tipos_ouvidorias->findOrfail($id_ouvidoria);
-    //     $perfis_ouvidoria = $this->perfis_ouvidoria->where('situacao', true)->get();
-    //     $orgaos_ouvidoria = $this->orgaos_ouvidoria->where('situacao', true)->get();
-    //     $assuntos_ouvidoria = $this->assuntos_ouvidoria->where('situacao', true)->get();
+    //     $cliente = $this->tenant->first();
+    //     $tipos_ouvidoria = $this->tipos_ouvidorias->get();
 
-    //     return view('site.legislativo.ouvidoria.form', compact(
-    //         'tenant',
-    //         'menus',
-    //         'servicosOnline',
-    //         'linksDireita',
-    //         'linksUteis',
-    //         'tipo_ouvidoria',
-    //         'perfis_ouvidoria',
-    //         'orgaos_ouvidoria',
-    //         'assuntos_ouvidoria',
-    //         'menusSuperior',
 
-    //     ));
+
+    //     return view('site.legislativo.ouvidoria.index', [
+    //         'cliente' => $cliente,
+    //         'tenant' =>  $tenant,
+    //         'tipos_ouvidoria' => $tipos_ouvidoria,
+    //         'menus' => $menus,
+    //         'linksDireita' => $linksDireita,
+    //         'linksUteis' => $linksUteis,
+    //         'menusSuperior' => $menusSuperior,
+    //     ]);
     // }
 
+   
 
     public function create($id_ouvidoria)
     {
@@ -240,7 +194,6 @@ class OuvidoriaSiteController extends Controller
             }
         }
 
-
         return view(
             "public_templates.$template.includes.ouvidoria.acompanhamento",
             compact(
@@ -263,8 +216,7 @@ class OuvidoriaSiteController extends Controller
                 "public_templates.$template.includes.ouvidoria.duvidas",
                 compact(
                     'tenant',
-                    'menus',
-                    
+                    'menus',                    
                 )
             );
     }
