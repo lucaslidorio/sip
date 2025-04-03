@@ -96,8 +96,9 @@
             <select class="custom-select {{ $errors->has('posicao') ? 'is-invalid' : '' }}" 
                 id="posicao" name="posicao">
                 <option value=""  >Selecione uma opção</option>                    
-                <option value="1" {{isset($menu) && $menu->posicao == '1' ? 'selected': ''}}> Menu Principal </option>
-                <option value="2" {{isset($menu) && $menu->posicao == '2' ? 'selected': ''}}> Barra Superior </option>
+                <option value="1" {{isset($menu) && $menu->posicao == '1' ? 'selected': ''}}> 1 = Menu Principal </option>
+                <option value="2" {{isset($menu) && $menu->posicao == '2' ? 'selected': ''}}> 2 = Barra Superior </option>
+                <option value="3" {{isset($menu) && $menu->posicao == '3' ? 'selected': ''}}> 3 = Menu (Acesso) </option>
             </select>
             @error('posicao')
             <small class="invalid-feedback">
@@ -139,7 +140,7 @@
                   </small>
               @enderror              
             </div>
-            <span class="text-danger">icone do icons.getbootstrap.com </span>
+            <span class="text-danger">icone fontawesome.com/v5 </span>
         </div>
     </div>
 

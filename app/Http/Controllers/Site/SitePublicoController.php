@@ -57,7 +57,12 @@ class SitePublicoController extends Controller
         $now = Carbon::now();
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
-            ->get(); 
+            ->get();
+        $menus3 = $this->menu::whereNull('menu_pai_id')
+        ->where('posicao', '3')
+        ->orderBy('ordem')
+        ->get();
+             
         $vereadores = $this->vereadores->where('atual', 1)->get();
         $noticias = $this->noticias    
             ->where(function ($query) {
@@ -83,8 +88,19 @@ class SitePublicoController extends Controller
         $linksDireita = $this->link::porPosicao(3)->get(); // 3 corresponde a "Direita"
         // Recupera os links da posição "Inferior"
         $linksInferior = $this->link::porPosicao(4)->get(); // 4 corresponde a "Inferior"
-        return view("public_templates.$template.index", 
-                compact('tenant', 'menus', 'linksDireita', 'linksInferior', 'vereadores', 'noticias', 'posts_destaque'));
+        return view(
+            "public_templates.$template.index",
+            compact(
+                'tenant', 
+                'menus', 
+                'linksDireita', 
+                'linksInferior', 
+                'vereadores', 
+                'noticias', 
+                'posts_destaque',
+                'menus3'
+                )
+        );
     }
 
     public function noticiasTodas(Request $request)
