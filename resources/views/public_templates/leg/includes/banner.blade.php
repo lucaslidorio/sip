@@ -15,7 +15,7 @@
         transform: scale(1.1);
     }
 </style>
-@if($linksInferior->count())
+@if($linksInferior->isNotEmpty())
 <div class="col" style="height : 550px ;">
     <div class="col-md-12 col-sm-12">
         <section class="quick-access">
