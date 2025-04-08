@@ -498,8 +498,7 @@ class SiteLegislativoController extends Controller
             'linksUteis' => $linksUteis,
             'directorTables' => $directorTables,  
             'membrosMesaDiretora' => $membrosMesaDiretora,  
-            'menusSuperior' => $menusSuperior,
-           
+            'menusSuperior' => $menusSuperior,           
         ]);
     }
 

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/camara/sobre', [SiteLegislativoController::class, 'sobre'])->name('camara.page');mesaDiretora
 Route::get('camara/comissoes', [SiteLegislativoController::class, 'comissoes'])->name('camara.comissoes');
-Route::get('camara/mesa-diretora', [SiteLegislativoController::class, 'mesaDiretora'])->name('camara.mesaDiretora');
+//Route::get('camara/mesa-diretora', [SiteLegislativoController::class, 'mesaDiretora'])->name('camara.mesaDiretora');
 Route::get('camara/legislaturas', [SiteLegislativoController::class, 'legislaturas'])->name('camara.legislaturas');
 Route::get('camara/legislaturas/{id}', [SiteLegislativoController::class, 'legislatura'])->name('camara.legislatura');
 Route::get('camara/vereadores/show/{id}', [SiteLegislativoController::class, 'vereador'])->name('camara.vereador');

@@ -16,8 +16,9 @@ class Menu extends Model
     'posicao','ordem', 'icone' ];
 
     const POSICAO = [
-        1 => 'Menu Principal',
-        2 => 'Barra Superior',
+        1 => '1 = Menu Principal',
+        2 => '2 = Barra Superior',
+        3 => '3 = Menu (Acesso)',
     ];
 
 

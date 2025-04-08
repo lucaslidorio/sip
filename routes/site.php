@@ -18,11 +18,13 @@ Route::get('/pagina/{slug}', [SitePublicoController::class, 'page'])->name('pagi
 
 
 //Legislativo
-Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');
+Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador'); 
 Route::get('proposituras', [SitePublicoController::class, 'proposituras'])->name('camara.proposituras');
 Route::get('proposituras/{id}', [SitePublicoController::class, 'proposituraShow'])->name('camara.propositura.show');
 Route::get('sessoes', [SitePublicoController::class, 'sessoes'])->name('camara.sessoes');
 Route::get('sessoes/{id}', [SitePublicoController::class, 'sessaoShow'])->name('camara.sessao.show');
+
+Route::get('mesa-diretora', [SitePublicoController::class, 'mesasDiretoras'])->name('camara.mesas.diretoras');
 
 
 //ouvidoria

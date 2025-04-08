@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Councilor;
+use App\Models\DirectorTable;
 use App\Models\Functions;
 use App\Models\Legislature;
 use App\Models\Link;
@@ -270,8 +271,6 @@ class SitePublicoController extends Controller
         ));       
         
     }
-
-
     public function proposituraShow($id)
     {
         $propositura = Proposition::with([
@@ -370,74 +369,102 @@ class SitePublicoController extends Controller
         ));
     }
 
-public function sessaoShow($id)
-{
+    public function sessaoShow($id)
+    {       
+        $sessao = Session::with([
+            'tipo',
+            'legislatura.vereadores',
+            'secao',
+            'periodo',
+            'anexos.typeDocument',
+            'votos.propositura.tipo',
+            'presencas.vereador'
+        ])->findOrFail($id);
+        
+        if (!$sessao) {
+            redirect()->back();
+        }
 
-    $sessao = Session::with([
-        'tipo',
-        'legislatura.vereadores',
-        'secao',
-        'periodo',
-        'anexos.typeDocument',
-        'votos.propositura.tipo',
-        'presencas.vereador'
-    ])->findOrFail($id);
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        // Filtros disponíveis para os selects
+        $tipos = TypeSession::all();
+        $legislaturas = Legislature::all();
+        // Buscar anos das sessoes existentes
+        $anos = Session::whereNotNull('data')
+        ->selectRaw('YEAR(data) as ano')
+        ->groupBy('ano')
+        ->orderByDesc('ano')
+        ->pluck('ano');    
+
+        // IDs dos presentes
+        $presentesIds = $sessao->presencas->pluck('councilor_id')->toArray();
+
+        // Vereadores da legislatura da sessão
+        $vereadoresLegislatura = $sessao->legislatura->vereadores ?? collect();
+
+        // Presentes
+        $presentes = $vereadoresLegislatura->filter(function ($vereador) use ($presentesIds) {
+            return in_array($vereador->id, $presentesIds);
+        });
+
+        // Faltosos
+        $faltaram = $vereadoresLegislatura->filter(function ($vereador) use ($presentesIds) {
+            return !in_array($vereador->id, $presentesIds);
+        });
+        // Agrupa as proposituras votadas nessa sessão (evita duplicatas)
+        $propositurasVotadas = $sessao->votos
+        ->groupBy('proposition_id')
+        ->map(fn($votos) => $votos->first()->propositura)
+        ->filter(); // Remove nulos, se houver
     
-    if (!$sessao) {
-        redirect()->back();
+            return view("public_templates.$template.includes.sessoes.sessao_show", compact(
+                'tenant',
+                'menus',
+                'sessao',            
+                'propositurasVotadas',
+                'legislaturas',
+                'anos',
+                'tipos',
+                'sessao',
+                'presentes',
+                'faltaram'
+            ));
     }
 
-    $template = view()->shared('currentTemplate');
-    $tenant = $this->tenant->first();
-    $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
-        ->orderBy('ordem')
+    public function mesasDiretoras(){    
+
+
+
+        $mesas = DirectorTable::with([
+            'bienio.legislatura',
+            'membros.vereador',
+            'membros.funcao'
+        ])
+        ->orderByDesc('atual')     // Primeiro a atual
+        ->orderByDesc('id')        // Depois mais recentes
         ->get();
-    // Filtros disponíveis para os selects
-    $tipos = TypeSession::all();
-    $legislaturas = Legislature::all();
-    // Buscar anos das sessoes existentes
-    $anos = Session::whereNotNull('data')
-    ->selectRaw('YEAR(data) as ano')
-    ->groupBy('ano')
-    ->orderByDesc('ano')
-    ->pluck('ano');    
+        if(!$mesas){
+            redirect()->back();               
+         } 
+        
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
 
-    // IDs dos presentes
-    $presentesIds = $sessao->presencas->pluck('councilor_id')->toArray();
+        
 
-    // Vereadores da legislatura da sessão
-    $vereadoresLegislatura = $sessao->legislatura->vereadores ?? collect();
-
-    // Presentes
-    $presentes = $vereadoresLegislatura->filter(function ($vereador) use ($presentesIds) {
-        return in_array($vereador->id, $presentesIds);
-    });
-
-    // Faltosos
-    $faltaram = $vereadoresLegislatura->filter(function ($vereador) use ($presentesIds) {
-        return !in_array($vereador->id, $presentesIds);
-    });
-   // Agrupa as proposituras votadas nessa sessão (evita duplicatas)
-    $propositurasVotadas = $sessao->votos
-    ->groupBy('proposition_id')
-    ->map(fn($votos) => $votos->first()->propositura)
-    ->filter(); // Remove nulos, se houver
-   
-        return view("public_templates.$template.includes.sessoes.sessao_show", compact(
+        return view("public_templates.$template.includes.mesaDiretora.mesas_diretora", compact(
             'tenant',
             'menus',
-            'sessao',            
-            'propositurasVotadas',
-            'legislaturas',
-            'anos',
-            'tipos',
-            'sessao',
-            'presentes',
-            'faltaram'
+            'mesas'            
         ));
+
+
 }
-
-
-
-
 }

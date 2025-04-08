@@ -11,7 +11,6 @@
 
         <div class="slide-vereadores box-centralizada">
             <div class="highlights2-texts">
-
     @foreach($vereadores->chunk(4) as $chunk)
         <div class="container">
             <div class="row">

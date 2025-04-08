@@ -15,6 +15,24 @@ class DirectorTable extends Model
     protected $table = 'director_tables';
     protected $fillable = ['biennium_legislature_id', 'nome', 'atual', 'objetivo'];
 
+    // Relacionamentos novos   
+
+    public function bienio()
+    {
+        return $this->belongsTo(Biennium::class, 'biennium_legislature_id');
+    }
+    
+    public function membros()
+    {
+        return $this->hasMany(DirectorTableMemberFunctions::class, 'director_table_id');
+    }
+
+
+
+
+
+   // relacionamentos antigos
+
     public function biennium (){
         return $this->belongsTo(Biennium::class, 'biennium_legislature_id', 'id');
     }
