@@ -104,6 +104,138 @@ class SitePublicoController extends Controller
         );
     }
 
+
+    public function pesquisar(Request $request)
+    {
+        $template = view()->shared('currentTemplate');   
+        $tenant = $this->tenant->first();
+    
+        $menus = $this->menu::whereNull('menu_pai_id')
+            ->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+    
+        $pesquisar = $request->pesquisar;
+        $termoNormalizado = Str::lower($pesquisar);
+    
+        // Tabelas possíveis para fuzzy match
+        $tabelasPossiveis = [
+            'propositura',
+            'sessao',
+            'noticia',
+            'vereador',
+            'legislacao',
+        ];
+    
+        $maisSimilar = null;
+        $maiorSimilaridade = 0;
+    
+        foreach ($tabelasPossiveis as $tabela) {
+            similar_text($termoNormalizado, $tabela, $percent);
+            if ($percent > $maiorSimilaridade) {
+                $maiorSimilaridade = $percent;
+                $maisSimilar = $tabela;
+            }
+        }
+
+
+        $termosIgnorados = [
+            'vereador', 'vereadora',           
+            'noticia', 'notícias', 'notícia',
+            'sessao', 'sessão',
+            'legislacao', 'legislação',
+        ];
+        
+        $termoFiltrado = collect(explode(' ', Str::lower($termoNormalizado)))
+            ->reject(fn($palavra) => in_array($palavra, $termosIgnorados))
+            ->implode(' ');
+        
+        // Se sobrar algo depois da limpeza, usa ele na consulta
+        $termoParaBuscar = strlen($termoFiltrado) > 0 ? $termoFiltrado : $pesquisar;
+    
+        $resultados = collect();
+    
+        // Proposituras
+        $proposicoes = Proposition::where('descricao', 'like', "%$termoParaBuscar%")
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'titulo' => 'Propositura',
+                    'conteudo' => Str::limit(strip_tags($item->descricao), 150),
+                    'url' => route('camara.propositura.show', $item->id),
+                    'tabela' => 'propositura',
+                    'data' => $item->created_at,
+                ];
+            });
+    
+        // Sessões
+        $sessoes = Session::where('nome', 'like', "%$termoParaBuscar%")
+            ->orWhere('descricao', 'like', "%$termoParaBuscar%")
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'titulo' => $item->nome,
+                    'conteudo' => Str::limit(strip_tags($item->descricao), 150),
+                    'url' => route('camara.sessao.show', $item->id),
+                    'tabela' => 'sessao',
+                    'data' => $item->created_at,
+                ];
+            });
+    
+        // Notícias
+        $noticias = Post::where('titulo', 'like', "%$termoParaBuscar%")
+            ->orWhere('conteudo', 'like', "%$termoParaBuscar%")
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'titulo' => $item->titulo,
+                    'conteudo' => Str::limit(strip_tags($item->conteudo), 150),
+                    'url' => route('noticias.show', $item->url),
+                    'tabela' => 'noticia',
+                    'data' => $item->created_at,
+                ];
+            });
+    
+        // Vereadores
+        $vereadores = Councilor::where('nome', 'like', "%$termoParaBuscar%")
+            ->orWhere('nome_parlamentar', 'like', "%$termoParaBuscar%")
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'titulo' => $item->nome_parlamentar ?? $item->nome,
+                    'conteudo' => Str::limit(strip_tags($item->biografia), 150),
+                    'url' => route('camara.vereador', $item->id),
+                    'tabela' => 'vereador',
+                    'data' => $item->created_at,
+                ];
+            });
+    
+        // Junta todos
+        $todos = $proposicoes
+            ->concat($sessoes)
+            ->concat($noticias)
+            ->concat($vereadores);
+    
+        // Ordena primeiro pela tabela mais similar, depois por data decrescente
+        $resultados = $todos->sortByDesc(function ($item) use ($maisSimilar) {
+            return ($item['tabela'] === $maisSimilar ? 1 : 0) . '|' . $item['data'];
+        })->values();
+    
+        return view("public_templates.$template.includes.pesquisar.pesquisar", compact(
+            'tenant',
+            'menus',
+            'resultados',
+            'pesquisar'
+        ));
+    }
+    
+
+
+
     public function noticiasTodas(Request $request)
     {       
                

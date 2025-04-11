@@ -98,10 +98,10 @@
             <nav class="container nav_menu hidden-xs ">
                 <ul class="lista1 list-inline pull-right tamanho_fontes">
                     <li>
-                        <form class="d-flex">
-                            <input class="form-control input-limited" type="search" placeholder="Pesquisar"
+                        <form class="d-flex" action="{{ route('site.pesquisar') }}" method="get">
+                            <input class="form-control input-limited"  name="pesquisar" type="search" placeholder="Pesquisar"
                                 aria-label="Search">
-                            <button type="button" class="btn " style="color: white;">
+                            <button type="submit" class="btn " style="color: white;">
                                 <span class="glyphicon glyphicon-search"><i class="fa fa-search fa-lg"></i></span>
                             </button>
                         </form>

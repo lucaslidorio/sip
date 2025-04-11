@@ -535,7 +535,7 @@ Route::get('/verificador/{codigoVerificacao}', [DocumentoDofController::class, '
 // Route::get('/pagina/{slug}', [SiteController::class, 'page'])->name('pagina');
 Route::get('/acessibilidade', [SiteController::class, 'acessibilidade'])->name('site.acessibilidade');
 Route::get('/sitemap', [SiteController::class, 'mapasite'])->name('site.mapa');
-Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');
+//Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 Route::get('compras/procesos', [SiteController::class, 'processosComprasIndex'])->name('processoCompras.index');

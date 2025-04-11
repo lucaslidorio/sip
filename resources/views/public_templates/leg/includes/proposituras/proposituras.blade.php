@@ -27,7 +27,7 @@
                     <td>{!! Str::limit($propositura->descricao, 50) !!}</td>
                     <td>{{ $propositura->situacao->nome }}</td>
                     <td class="text-center">
-                        <a href="{{ route('camara.propositura.show', $propositura->id) }}" class="btn btn-primary  cor-padrao-bg text-white btn-sm fs-4">
+                        <a href="{{ route('camara.propositura.show', $propositura->slug) }}" class="btn btn-primary  cor-padrao-bg text-white btn-sm fs-4">
                             Ver Detalhes
                         </a>
                     </td>

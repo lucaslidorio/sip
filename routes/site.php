@@ -14,7 +14,7 @@ Route::prefix('/')->group(base_path('routes/legislativo.php'));
 Route::any('noticias', [SitePublicoController::class, 'noticiasTodas'])->name('noticias.todas');
 Route::get('noticias/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
 Route::get('/pagina/{slug}', [SitePublicoController::class, 'page'])->name('pagina');
-
+Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
 
 
 //Legislativo
