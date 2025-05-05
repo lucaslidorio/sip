@@ -20,7 +20,7 @@ class Legislature extends Model
     //Relacionamentos novos
 
     public function vereadores(){
-        return $this->belongsToMany(Councilor::class, 'legislature_councilors');
+        return $this->belongsToMany(Councilor::class, 'legislature_councilors', 'legislature_id', 'councilor_id');
     }
 
 

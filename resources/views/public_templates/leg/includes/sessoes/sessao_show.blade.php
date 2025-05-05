@@ -66,7 +66,7 @@
     }
 </style>
 <div class="container">
-    <h2 class="mb-4">Detalhes da <strong>{{ $sessao->nome }} </strong> {{ $sessao->tipo->nome ?? '-' }}</h2>
+    <h2 class="mb-4">Detalhes da <strong>{{ $sessao->nome }} Sessão</strong> {{ $sessao->tipo->nome ?? '-' }}</h2>
     @include('public_templates.leg.includes.sessoes.form_pesquisa')
     <!-- Tabela de Sessão -->
     <h3 class="mb-4">
@@ -118,7 +118,7 @@
                         <strong>{{ $anexo->typeDocument->nome ?? '-' }}</strong> - {{ $anexo->descricao ??
                         $anexo->nome_original }}
                     </span>
-                    <a href="{{config('app.aws_url')." {$anexo->anexo}" }}" target="_blank" class="btn btn-lg
+                    <a href="{{config('app.aws_url')."{$anexo->anexo}" }}" target="_blank" class="btn btn-lg
                         btn-outline-primary">Visualizar</a>
                 </li>
                 @empty
@@ -161,17 +161,25 @@
                 @endif
             </div>
         </div>
-        @php
-        $hoje = \Carbon\Carbon::now()->toDateString();
-        $dataSessao = $sessao->data ? \Carbon\Carbon::parse($sessao->data)->toDateString() : null;
+      @php
+        use Carbon\Carbon;
+        
+        $dataSessao = Carbon::parse($sessao->data)->startOfDay();
+        $hoje = Carbon::now()->startOfDay();
+        
+        $temPresencas = isset($presencas) && $presencas->isNotEmpty();
+        
+        $mostrarPresencas = $hoje->greaterThan($dataSessao) || $temPresencas;
         @endphp
+
 
 
         <div class="card-header cor-padrao-bg text-white">
             <h5 class="mb-0">Presença dos Vereadores</h5>
         </div>
         <div class="card-body p-0">
-            @if($dataSessao && $dataSessao <= $hoje) <div class="card mb-4">
+            @if($mostrarPresencas)
+            <div class="card mb-4">
                 <table class="table table-bordered mb-0">
                     <thead>
                         <tr>
@@ -198,7 +206,9 @@
                 @else
                 {{-- Sessão futura, ainda não ocorreu --}}
                 <div class="alert alert-warning m-2">
-                    A sessão está agendada para o dia {{ \Carbon\Carbon::parse($sessao->data)->format('d/m/Y') }}.<br>
+                    A sessão está agendada para o dia {{ \Carbon\Carbon::parse($sessao->data)->format('d/m/Y') }}
+                     às {{ \Carbon\Carbon::parse($sessao->hora)->format('H:i') }}.<br>
+
                     Os dados de presença estarão disponíveis após a realização da sessão.
                 </div>
                 @endif

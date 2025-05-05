@@ -15,15 +15,18 @@ Route::any('noticias', [SitePublicoController::class, 'noticiasTodas'])->name('n
 Route::get('noticias/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
 Route::get('/pagina/{slug}', [SitePublicoController::class, 'page'])->name('pagina');
 Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
+Route::get('/agenda', [SitePublicoController::class, 'agendaIndex'])->name('site.agenda');
+Route::get('/agenda/show', [SitePublicoController::class, 'agendaShow'])->name('site.agenda.show');
 
 
 //Legislativo
-Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador'); 
+Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');
+Route::get('legislaturas', [SitePublicoController::class, 'legislaturas'])->name('camara.legislaturas'); 
+Route::get('legislaturas/{id}/vereadores', [SitePublicoController::class, 'vereadores'])->name('camara.legislatura.vereadores');
 Route::get('proposituras', [SitePublicoController::class, 'proposituras'])->name('camara.proposituras');
 Route::get('proposituras/{id}', [SitePublicoController::class, 'proposituraShow'])->name('camara.propositura.show');
 Route::get('sessoes', [SitePublicoController::class, 'sessoes'])->name('camara.sessoes');
 Route::get('sessoes/{id}', [SitePublicoController::class, 'sessaoShow'])->name('camara.sessao.show');
-
 Route::get('mesa-diretora', [SitePublicoController::class, 'mesasDiretoras'])->name('camara.mesas.diretoras');
 
 
