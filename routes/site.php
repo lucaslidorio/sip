@@ -28,6 +28,8 @@ Route::get('proposituras/{id}', [SitePublicoController::class, 'proposituraShow'
 Route::get('sessoes', [SitePublicoController::class, 'sessoes'])->name('camara.sessoes');
 Route::get('sessoes/{id}', [SitePublicoController::class, 'sessaoShow'])->name('camara.sessao.show');
 Route::get('mesa-diretora', [SitePublicoController::class, 'mesasDiretoras'])->name('camara.mesas.diretoras');
+Route::get('comissoes', [SitePublicoController::class, 'comissoes'])->name('camara.comissoes');
+Route::get('comissoes/{id}', [SitePublicoController::class, 'comissaoShow'])->name('camara.comissao.show');
 
 
 //ouvidoria

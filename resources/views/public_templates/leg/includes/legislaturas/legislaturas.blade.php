@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container py-4">
-    <h2 class="mb-4">Mesas Diretoras</h2>
+    <h2 class="mb-4">Legislaturas</h2>
 
     <div class="row">
         @forelse($legislaturas as $legislatura)

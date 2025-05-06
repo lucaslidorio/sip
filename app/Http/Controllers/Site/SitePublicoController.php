@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\Commission;
 use App\Models\Councilor;
 use App\Models\DirectorTable;
 use App\Models\Functions;
@@ -458,14 +459,9 @@ class SitePublicoController extends Controller
             'votos.tipoVoto',
             'votos.sessao'
         ])->findOrFail($id);
-
-
-
-
         if (!$propositura) {
             redirect()->back();
         }
-
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
@@ -634,9 +630,6 @@ class SitePublicoController extends Controller
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
-
-
-
         return view("public_templates.$template.includes.mesaDiretora.mesas_diretora", compact(
             'tenant',
             'menus',
@@ -683,10 +676,38 @@ class SitePublicoController extends Controller
         ));
     }
 
+    public function comissoes()
+    {
+        $template = view()->shared('currentTemplate');  
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
 
+        $comissoes = Commission::withCount('membros')->orderByDesc('id')->get();
+            return view("public_templates.$template.includes.comissoes.comissoes", compact(
+                'tenant',
+                'menus',
+                'comissoes'                
+            ));
+    }
 
+    public function comissaoShow($id)
+    {
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')->orderBy('ordem')->get();
 
+        $comissao = Commission::with(['membros.vereador', 'membros.funcao'])->findOrFail($id);
+        // Paginação separada para as proposições da comissão
+       $materias = $comissao->proposicoes()->paginate(10);
 
-
+        return view("public_templates.$template.includes.comissoes.show", compact(
+            'tenant',
+            'menus',
+            'comissao',
+            'materias'
+        ));
+    }
 
 }

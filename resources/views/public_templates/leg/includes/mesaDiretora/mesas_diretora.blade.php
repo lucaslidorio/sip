@@ -14,12 +14,12 @@
 }
 
 .vereador-img {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .vereador-card:hover .vereador-img {
-    transform: scale(1.08);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03); /* menos agressivo */
+    filter: brightness(1.08);
 }
 
 .foto-wrapper {
@@ -72,7 +72,7 @@
                             style="
                             width: 120px;
                             height: 120px;
-                            object-fit: cover;
+                            object-fit: contain;
                             border: 4px solid {{ $isPresidente ? '#FFD700' : '#dee2e6' }};
                             "
                             >
