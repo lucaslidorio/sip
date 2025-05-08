@@ -8,11 +8,11 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
-use App\Models\DocumentosDof;
+
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-    $trail->push('Início', route('site.home'));
+    $trail->push('Início', route('site.index'));
 });
 
 
@@ -45,19 +45,26 @@ Breadcrumbs::for('legislaturas', function (BreadcrumbTrail $trail) {
 // Home > Legislatura > [Legislatura]
 Breadcrumbs::for('legislatura', function (BreadcrumbTrail $trail, $legislature) {
     $trail->parent('legislaturas');
-    $trail->push($legislature->descricao, route('camara.legislatura', $legislature));
+    $trail->push($legislature->descricao, route('camara.legislatura.vereadores', $legislature));
 });
-// // Home > Legislaturas > Legislatura [vereador]
-// Breadcrumbs::for('vereador', function (BreadcrumbTrail $trail, $vereador) {
-//     $trail->parent('legislatura');
-//     $trail->push($vereador->nome, route('camara.vereador', $vereador));
-// });
+
 
 // Home > Sessão > 
 Breadcrumbs::for('sessoes', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Sessões', route('camara.sessoes'));
 });
+
+Breadcrumbs::for('sessao', function (BreadcrumbTrail $trail, $sessao) {
+    $trail->parent('sessoes');
+    $trail->push($sessao->nome, route('camara.sessao.show', $sessao));
+});
+
+Breadcrumbs::for('documentos_sessoes', function (BreadcrumbTrail $trail) {
+    $trail->parent('sessoes');
+    $trail->push('Documentos das Sessões', route('camara.documetos.sessoes'));
+});
+
 // Home > Sessão > 
 Breadcrumbs::for('documentos_sessao', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
@@ -68,6 +75,10 @@ Breadcrumbs::for('documentos_sessao', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('comissoes', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Comissões', route('camara.comissoes'));
+});
+Breadcrumbs::for('comissao', function (BreadcrumbTrail $trail, $comissao) {
+    $trail->parent('comissoes');
+    $trail->push($comissao->nome, route('camara.comissao.show', $comissao));
 });
 
 // Home > Comissões >Pareceres 
@@ -89,13 +100,13 @@ Breadcrumbs::for('proposituras', function (BreadcrumbTrail $trail) {
 // Home > Proposituras > [propositura]
 Breadcrumbs::for('propositura', function (BreadcrumbTrail $trail, $propositura) {
     $trail->parent('proposituras');
-    $trail->push($propositura->type_proposition->nome, route('propositura.show', $propositura));
+    $trail->push($propositura->type_proposition->nome, route('camara.propositura.show', $propositura));
 });
 
 // Home > Mesa Diretora > 
 Breadcrumbs::for('mesas_diretora', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Mesas Diretoras', route('camara.mesaDiretora'));
+    $trail->push('Mesas Diretoras', route('camara.mesas.diretoras'));
 });
 // Home > Mapa do Site > 
 Breadcrumbs::for('siteMap', function (BreadcrumbTrail $trail) {
@@ -159,7 +170,7 @@ Breadcrumbs::for('ouvidoria_duvidas', function (BreadcrumbTrail $trail) {
 // Home > Ouvidoria >[Tipo]
 Breadcrumbs::for('ouvidora_tipo', function (BreadcrumbTrail $trail, $tipo_ouvidoria) {
     $trail->parent('ouvidoria_index');
-    $trail->push($tipo_ouvidoria->nome, route('propositura.show', $tipo_ouvidoria));
+    $trail->push($tipo_ouvidoria->nome, route('ouvidoria.create', $tipo_ouvidoria));
 });
 // Home > Ouvidoria >[Acompanhamento]
 Breadcrumbs::for('ouvidora_acompanhamento', function (BreadcrumbTrail $trail, $ouvidoria) {

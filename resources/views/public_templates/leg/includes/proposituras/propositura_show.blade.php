@@ -1,9 +1,18 @@
 @extends('public_templates.leg.default')
 
 @section('content')
-
+<div class="row" style="height: 60px; background-color: #f5f5f5">
+  <div class="container ">
+      <div class="row mt-4">
+          <div class="col-8">
+              <p class="fs-1">Proposituras</p>
+          </div>
+          <div class="col-4 fs-4">{{Breadcrumbs::render('propositura', $propositura)}}</div>
+      </div>
+  </div>
+</div>
 <div class="container">
-    <h2 class="mb-4">Proposituras</h2>
+   
     @include('public_templates.leg.includes.proposituras.form_pesquisa') 
     <!-- Tabela de Proposituras -->
     <h3 class="mb-4">

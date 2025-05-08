@@ -1,15 +1,23 @@
 @extends('public_templates.leg.default')
 
 @section('content')
-
+<div class="row " style="height: 60px; background-color: #f5f5f5">
+  <div class="container  ">
+      <div class="row mt-4">
+          <div class="col-8">
+              <p class="fs-1">Acompanhamento de Manifestação</p>
+          </div>
+          <div class="col-4 fs-4">{{ Breadcrumbs::render('ouvidora_acompanhamento', $ouvidoria) }}</div>
+           
+      </div>
+  </div>
+</div>
 <main class="container my-5">
     @if($ouvidoria !== null)
-      {{-- {{ Breadcrumbs::render('ouvidora_acompanhamento', $ouvidoria) }} --}}
+      {{--  --}}
     @endif
   
-    <header class="mb-4">
-      <h1 class="h2">Acompanhamento de Manifestação</h1>
-    </header>
+  
   
     <section class="row">
       <div class="col-12">

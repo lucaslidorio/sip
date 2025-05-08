@@ -17,6 +17,9 @@ Route::get('/pagina/{slug}', [SitePublicoController::class, 'page'])->name('pagi
 Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
 Route::get('/agenda', [SitePublicoController::class, 'agendaIndex'])->name('site.agenda');
 Route::get('/agenda/show', [SitePublicoController::class, 'agendaShow'])->name('site.agenda.show');
+Route::get('/sitemap', [SitePublicoController::class, 'sitemap'])->name('site.mapa');
+Route::get('/acessibilidade', [SitePublicoController::class, 'acessibilidade'])->name('site.acessibilidade');
+
 
 
 //Legislativo
@@ -30,6 +33,7 @@ Route::get('sessoes/{id}', [SitePublicoController::class, 'sessaoShow'])->name('
 Route::get('mesa-diretora', [SitePublicoController::class, 'mesasDiretoras'])->name('camara.mesas.diretoras');
 Route::get('comissoes', [SitePublicoController::class, 'comissoes'])->name('camara.comissoes');
 Route::get('comissoes/{id}', [SitePublicoController::class, 'comissaoShow'])->name('camara.comissao.show');
+Route::get('documentos-sessoes/{tipo_id?}', [SitePublicoController::class, 'documentosSessoes'])->name('camara.documetos.sessoes');
 
 
 //ouvidoria

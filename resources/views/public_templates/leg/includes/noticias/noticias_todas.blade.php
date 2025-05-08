@@ -44,15 +44,14 @@
     color: #fff; /* Cor do texto do botão ativo */
     border-color: #007bff; /* Borda do botão ativo */
 }
-
 </style>
-<div class="row" style="height: 60px; background-color: #f5f5f5">
-    <div class="container ">
+<div class="row  border-top-blue" style="height: 60px; background-color: #f5f5f5">
+    <div class="container  ">
         <div class="row mt-4">
             <div class="col-8">
                 <p class="fs-1">Noticias e informativos</p>
             </div>
-            <div class="col-4">breadcump</div>
+            <div class="col-4 fs-4">{{ Breadcrumbs::render('noticias') }}</div>
         </div>
     </div>
 </div>

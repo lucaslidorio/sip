@@ -30,18 +30,27 @@
     margin: 0 auto;
 }
     
-    </style>
-<div class="container py-4">
-    <h2 class="mb-4">Comissões Legislativas</h2>
-    <div class="card mb-4 shadow">
-    <div class="card-header cor-padrao-bg text-white">
-        <h3 class="mb-0 mt-2">
-            {{ $comissao->nome }}
-        </h3>
-        @if($comissao->tipo)
-            <h5>Tipo: {{ $comissao->tipo_texto }}</h5> {{-- Personalize isso se quiser traduzir o tipo --}}
-        @endif
+</style>
+<div class="row " style="height: 60px; background-color: #f5f5f5">
+    <div class="container  ">
+        <div class="row mt-4">
+            <div class="col-8">
+                <p class="fs-1">Comissões Legislativas</p>
+            </div>
+            <div class="col-4 fs-4">{{ Breadcrumbs::render('comissao',$comissao) }} </div>
+        </div>
     </div>
+</div>
+    <div class="container py-4">        
+        <div class="card mb-4 shadow">
+            <div class="card-header cor-padrao-bg text-white">
+                <h3 class="mb-0 mt-2">
+                    {{ $comissao->nome }}
+                </h3>
+                @if($comissao->tipo)
+                <h5>Tipo: {{ $comissao->tipo_texto }}</h5> {{-- Personalize isso se quiser traduzir o tipo --}}
+                @endif
+            </div>
 
     <div class="card-body">
         @if($comissao->objetivo)

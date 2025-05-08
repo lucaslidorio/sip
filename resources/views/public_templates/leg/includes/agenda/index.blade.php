@@ -90,7 +90,7 @@
       </script>
       
       @section('content')
-      {{-- {{ Breadcrumbs::render('agenda') }}  --}}
+         
         <div>
           <h3 class="font-blue text-center">Agenda</h3>
           <p  class="text-center fs-5">Agenda Legislativa</p>

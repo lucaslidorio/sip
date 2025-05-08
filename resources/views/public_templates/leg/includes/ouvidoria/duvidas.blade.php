@@ -1,12 +1,20 @@
 @extends('public_templates.leg.default')
 
 @section('content')
+<div class="row " style="height: 60px; background-color: #f5f5f5">
+  <div class="container  ">
+      <div class="row mt-4">
+          <div class="col-8">
+              <p class="fs-1">Dúvidas sobre a Ouvidoria</p>
+          </div>
+          <div class="col-4 fs-4">{{ Breadcrumbs::render('ouvidoria_duvidas') }} </div>
+           
+      </div>
+  </div>
+</div>
 <div class="container">
   <section class="row my-5">
-    <div class="col-12">
-      <header class="mb-4">
-        <h1 class="h2">Dúvidas sobre a Ouvidoria</h1>       
-      </header>
+    <div class="col-12">  
   
       <div class="accordion" id="accordionOuvidoria">
         <article class="accordion-item">

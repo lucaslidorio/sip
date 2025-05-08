@@ -2,9 +2,18 @@
 
 @section('content')
 
-<div class="container py-4">
-    <h2 class="mb-4">Comissões Legislativas</h2>
+<div class="row " style="height: 60px; background-color: #f5f5f5">
+    <div class="container  ">
+        <div class="row mt-4">
+            <div class="col-8">
+                <p class="fs-1">Comissões Legislativas</p>
+            </div>
+            <div class="col-4 fs-4">{{ Breadcrumbs::render('comissoes') }} </div>
+        </div>
+    </div>
+</div>
 
+<div class="container py-4"> 
     <div class="row">
         @foreach($comissoes as $comissao)
             <div class="col-md-6 mb-4">

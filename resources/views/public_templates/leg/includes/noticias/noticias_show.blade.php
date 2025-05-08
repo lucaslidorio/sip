@@ -102,7 +102,7 @@ img.img-fluid:hover {
             <div class="col-8">
                 <p class="fs-1">Noticias e informativos</p>
             </div>
-            <div class="col-4">breadcump</div>
+            <div class="col-4 fs-4">{{ Breadcrumbs::render('noticia', $noticia) }}</div>
         </div>
     </div>
 </div>
@@ -122,13 +122,13 @@ img.img-fluid:hover {
 
                     <!-- Título -->
                     <hr>
-                    <h2 class="fw-bold mb-4" id="titulo">{{ $noticia->titulo }}</h2>         
+                    <h2 class="fw-bold mb-4 fs-2" id="titulo">{{ $noticia->titulo }}</h2>         
                    
                     <!-- Conteúdo da Notícia -->
-                    <article class="mb-5">                        
+                    <article class="mb-5 fs-2 " style="text-align: justify;">                        
                         <img src="{{config('app.aws_url').$noticia->img_destaque }}" 
                         class="img-fluid  float-start me-3 img-zoom-bounce" style="width:400px; height:300px" title="{{$noticia->titulo}}" alt="{{$noticia->titulo}}">               
-                        <p>{!!$noticia->conteudo!!}</p>
+                        <p class="fs-3">{!!$noticia->conteudo!!}</p>
                     </article>                   
 
                     <section class="mb-5">

@@ -97,24 +97,6 @@
         
 
 
-
-        {{-- @foreach ($noticias as $noticia)
-        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 5px;">
-            <a href={{route('noticias.show',$noticia->url) }}>
-                <section class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-                    <img width="100%" height="100%"
-                        src="{{config('app.aws_url').$noticia->img_destaque}}"
-                        alt="" class="img-responsive" />
-                </section>
-                <section class="col-lg-10 col-md-10 col-sm-8 col-xs-8" style="color: #666;">
-                    <h5><strong>{{Carbon\Carbon::parse($noticia->data_publicacao)->format('d/m/Y')}}</strong> - {{$noticia->titulo}}</h5>
-                    <p id="limiteLinha">                        
-                        {!! Str::limit(strip_tags($noticia->conteudo), 250, '...') !!}
-                    </p>
-                </section>
-            </a>
-        </div>
-        @endforeach     --}}
         <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 5px;">
             <a href="{{route('noticias.todas') }}">
                 <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12"

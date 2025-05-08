@@ -108,7 +108,7 @@
                     </li>
 
                     <li>
-                        <a target="_blank" href="https://www.teixeiropolis.ro.gov.br/sitemap" accesskey="6">
+                        <a target="_blank" href="sitemap" accesskey="6">
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
                             Mapa do site
                         </a>
@@ -136,7 +136,7 @@
                     </li>
 
                     <li>
-                        <a href="" accesskey="a"><strong>3</strong>
+                        <a href="{{route('site.acessibilidade')}}" accesskey="a"><strong>3</strong>
                             Acessibilidade</a>
                     </li>
 
@@ -164,11 +164,15 @@
         </div>
         <!-- container topo - image prefeitura -->
         <div class="container ">
+            <a href="{{route('site.index')}}" class="text-decoration-none text-reset">
             <div class="row">
                 <div class="col-12 text-center" style="padding-top: 5px;">
+                
                     <img src="{{config('app.aws_url')."{$tenant->brasao}" }} "alt="" width="70%" height="70%">
+              
                 </div>
             </div>
+        </a>
         </div>
     </header>
     <div class="row">
@@ -176,10 +180,10 @@
             <div class="cor-padrao-bg" style="height: 5px;"></div>
         </div>
     </div>
-    
+   
 
     @yield('content')
-
+  
     @include('public_templates.leg.includes.footer')   
 
     <!-- Plugin libras -->

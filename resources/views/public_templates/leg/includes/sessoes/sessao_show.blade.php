@@ -65,8 +65,17 @@
         z-index: 2;
     }
 </style>
-<div class="container">
-    <h2 class="mb-4">Detalhes da <strong>{{ $sessao->nome }} Sessão</strong> {{ $sessao->tipo->nome ?? '-' }}</h2>
+<div class="row" style="height: 60px; background-color: #f5f5f5">
+    <div class="container ">
+        <div class="row mt-4">
+            <div class="col-8">
+                <p class="fs-1">Detalhes da <strong>{{ $sessao->nome }} Sessão</strong> {{ $sessao->tipo->nome ?? '-' }}</p>
+            </div>
+            <div class="col-4 fs-4">{{Breadcrumbs::render('sessao', $sessao)}}</div>
+        </div>
+    </div>
+</div>
+<div class="container">   
     @include('public_templates.leg.includes.sessoes.form_pesquisa')
     <!-- Tabela de Sessão -->
     <h3 class="mb-4">

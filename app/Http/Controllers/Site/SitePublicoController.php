@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\AttachmentSession;
 use App\Models\Categoria;
 use App\Models\Commission;
 use App\Models\Councilor;
@@ -18,6 +19,7 @@ use App\Models\Proposition;
 use App\Models\Schedule;
 use App\Models\Session;
 use App\Models\Tenant;
+use App\Models\TypeDocument;
 use App\Models\TypeProposition;
 use App\Models\TypeSession;
 use Illuminate\Http\Request;
@@ -345,6 +347,35 @@ class SitePublicoController extends Controller
       
         return response()->json($dados['eventos']);
     }
+
+    public function sitemap() {
+
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', 1)
+            ->orderBy('ordem')
+            ->get();
+
+        return view("public_templates.$template.includes.mapasite", compact(
+            'tenant',
+            'menus',       
+        ));        
+        
+    } 
+    public function acessibilidade() {
+
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', 1)
+            ->orderBy('ordem')
+            ->get();
+
+        return view("public_templates.$template.includes.acessibilidade", compact(
+            'tenant',
+            'menus',       
+        ));
+        
+    } 
 
 
 
@@ -708,6 +739,41 @@ class SitePublicoController extends Controller
             'comissao',
             'materias'
         ));
+    }
+    public function documentosSessoes (Request $request, $tipo_id = null)
+    {
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')->orderBy('ordem')->get();
+        
+        // Tipos de documentos marcados como disponíveis para sessão
+        $tipos = TypeDocument::where('sessao', 1)->orderBy('nome')->get();
+
+        // Filtros
+        $tipoSelecionado = $request->tipo_id ?? $tipo_id;
+        $dataInicio = $request->data_inicio;
+        $dataFim = $request->data_fim;
+
+        $documentos = AttachmentSession::with('typeDocument')
+        ->when($tipoSelecionado, fn($q) => $q->where('type_document_id', $tipoSelecionado))
+        ->when($dataInicio, fn($q) => $q->whereDate('created_at', '>=', $dataInicio))
+        ->when($dataFim, fn($q) => $q->whereDate('created_at', '<=', $dataFim))
+        ->orderByDesc('created_at')
+        ->paginate(10);
+       
+        return view("public_templates.$template.includes.sessoes.documentos", compact(
+            'tenant',
+            'menus',
+            'tipos',
+            'documentos',
+            'tipoSelecionado',
+            'dataInicio',
+            'dataFim'
+        ));
+
+
+
+
     }
 
 }

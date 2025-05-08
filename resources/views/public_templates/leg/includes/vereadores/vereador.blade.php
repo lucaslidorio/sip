@@ -3,17 +3,13 @@
 @section('content')
 
 
-
-
-
-
 <div class="row" style="height: 60px; background-color: #f5f5f5">
     <div class="container ">
         <div class="row mt-4">
             <div class="col-8">
                 <p class="fs-1">Vereador(a)   {{$vereador->nome}}</p>
             </div>
-            <div class="col-4">breadcump</div>
+            <div class="col-4 fs-4">{{ Breadcrumbs::render('vereador', $vereador) }}</div>
         </div>
     </div>
 </div>
@@ -77,7 +73,8 @@
               <div class="row">
                 <div class="row border-top mt-3 pl-4 pr-4" style="padding-right:20px; " >
                     <h2 class="fw-bold" >Biografia:</h2>
-                  <p class="card-text text-justify"> {{$vereador->biografia}}</p>
+                  <p class="card-text text-justify fs-3" style="text-align: justify;">
+                     {{$vereador->biografia}}</p>
                 </div>
               </div>                       
                           
