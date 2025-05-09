@@ -439,14 +439,20 @@ class SitePublicoController extends Controller
         $tipos = TypeProposition::orderBy('nome')->get();
         $situacoes = ProceedingSituation::orderBy('id')->get();
 
+        //dd($request->all());
         // Iniciar a query
         $query = Proposition::query()->with(['tipo', 'situacao', 'autores']);
 
+       
         // Aplicar filtros dinamicamente
-        if ($request->filled('vereador')) {
-            $query->whereHas('autores', function ($q) use ($request) {
-                $q->where('councilor_id', $request->vereador);
-            });
+        if ($request->filled('autor')) {
+            if ($request->autor === 'executivo') {
+                $query->whereDoesntHave('autores');
+            } else {
+                $query->whereHas('autores', function ($q) use ($request) {
+                    $q->where('councilor_id', $request->autor);
+                });
+            }
         }
 
         if ($request->filled('tipo')) {
@@ -467,6 +473,8 @@ class SitePublicoController extends Controller
         } else {
             $query->orderBy('data', 'desc'); // Padrão: data decrescente
         }
+
+     
 
         $proposituras = $query->paginate(15);
 
