@@ -29,11 +29,15 @@
           </thead>
           <tbody>        
             <tr>
-              <th scope="row">Autor(s)</th>
+              <th scope="row">Autor(es)</th>
               <td>
-                @foreach ($propositura->author as $autor)
-                <p>{{$autor->nome}} - {{$autor->party->sigla}}</p>                
-                @endforeach
+                @if ($propositura->author->isNotEmpty())
+                  @foreach ($propositura->author as $autor)
+                    <p>{{ $autor->nome }} - {{ $autor->party->sigla }}</p>
+                  @endforeach
+                @else
+                  <p>Poder Executivo</p>
+                @endif
               </td>             
             </tr>
             <tr>

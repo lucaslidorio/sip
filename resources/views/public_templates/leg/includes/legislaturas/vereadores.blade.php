@@ -24,8 +24,7 @@
         </div>
     </div>
 </div>
-<div class="container py-4">
-    
+<div class="container py-4">  
    
 
     <div class="row">
@@ -37,7 +36,7 @@
                             src="{{ $vereador->img ? config('app.aws_url') . "{$vereador->img}" : config('app.aws_url') . 'uteis/no-image256.jpg' }}"
                             alt="{{ $vereador->nome }}"
                             class="img-fluid vereador-img"
-                            style="width: 100%; height: 280px; object-fit: cover;"
+                            style="width: 100%; height: 280px; object-fit: contain; background-color: #fff"
                         />
                     </div>
     

@@ -407,7 +407,11 @@
   <script src="{{asset('js/nivo-lightbox.js')}}"></script>
   <script src="{{asset('js/alloy_finger.min.js')}}"></script>
   <script src="{{asset('js/lc_lightbox.lite.min.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+
   {{-- Full Calendar parou de funcionar esta linkado direto na pagina --}}
   {{-- <script src="{{ asset('dashboard/js/fullcalendar/main.js') }}"></script> --}}
   {{-- <script src="{{ asset('dashboard/js/fullcalendar/pt-br.js') }}"></script> --}}

@@ -343,8 +343,9 @@ class SitePublicoController extends Controller
 
     public function agendaShow()
     {
+
         $dados['eventos'] = Schedule::all();
-      
+        
         return response()->json($dados['eventos']);
     }
 

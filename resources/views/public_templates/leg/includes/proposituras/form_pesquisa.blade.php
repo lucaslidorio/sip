@@ -7,18 +7,18 @@
              @csrf
              <div class="row">
                  <div class="col-md-6">
-
-
-                    <label for="vereador">Vereador:</label>
+                    <label for="vereador">Autor <span class="fs-5"> (parlamentar ou poder executivo):</span></label>
                      <div class="input-group input-group-lg">   
-                        <select class="form-select form-select-lg mb-3" name="vereador" aria-label="Large select example">
-                            <option value="" selected>VEREADORES </option>
-                            @foreach ($vereadores as $vereador)
-                            <option value="{{ $vereador->id }}" {{ request('vereador') == $vereador->id ? 'selected' : '' }}>
-                                {{ $vereador->nome }}
-                            </option>
-                            @endforeach                           
-                        </select></div> 
+                        <select name="autor" class="form-select">
+                            <option value="">Todos os autores</option>
+                            <option value="executivo" {{ request('autor') === 'executivo' ? 'selected' : '' }}>Poder Executivo</option>
+                            @foreach($vereadores as $autor)
+                              <option value="{{ $autor->id }}" {{ request('autor') == $autor->id ? 'selected' : '' }}>
+                                {{ $autor->nome }}
+                              </option>
+                            @endforeach
+                          </select>                          
+                    </div> 
                  </div>
 
                 <div class="col-md-6">
