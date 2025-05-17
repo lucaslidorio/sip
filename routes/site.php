@@ -30,10 +30,14 @@ Route::get('proposituras', [SitePublicoController::class, 'proposituras'])->name
 Route::get('proposituras/{id}', [SitePublicoController::class, 'proposituraShow'])->name('camara.propositura.show');
 Route::get('sessoes', [SitePublicoController::class, 'sessoes'])->name('camara.sessoes');
 Route::get('sessoes/{id}', [SitePublicoController::class, 'sessaoShow'])->name('camara.sessao.show');
+Route::get('documentos-sessoes/{tipo_id?}', [SitePublicoController::class, 'documentosSessoes'])->name('camara.documetos.sessoes');
+
 Route::get('mesa-diretora', [SitePublicoController::class, 'mesasDiretoras'])->name('camara.mesas.diretoras');
 Route::get('comissoes', [SitePublicoController::class, 'comissoes'])->name('camara.comissoes');
 Route::get('comissoes/{id}', [SitePublicoController::class, 'comissaoShow'])->name('camara.comissao.show');
-Route::get('documentos-sessoes/{tipo_id?}', [SitePublicoController::class, 'documentosSessoes'])->name('camara.documetos.sessoes');
+Route::get('pareceres', [SitePublicoController::class, 'pareceres'])->name('camara.pareceres');
+Route::get('pareceres/{id}', [SitePublicoController::class, 'parecerShow'])->name('camara.parecer.show');
+
 
 
 //ouvidoria

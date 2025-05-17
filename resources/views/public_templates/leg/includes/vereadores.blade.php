@@ -11,12 +11,12 @@
 
         <div class="slide-vereadores box-centralizada">
             <div class="highlights2-texts">
-    @foreach($vereadores->chunk(4) as $chunk)
+    @foreach($vereadores->chunk(3) as $chunk)
         <div class="container">
             <div class="row">
                 @foreach($chunk as $vereador)
                     <div class="col">
-                        <img style="width:100%; height:280px" class="img-fluid"
+                        <img style="width:100%; height:400px" class="img-fluid"
                             src="{{ config('app.aws_url') . "{$vereador->img}" }}"
                             alt="{{ $vereador->nome }}" class="img-responsive" />
                         <section>

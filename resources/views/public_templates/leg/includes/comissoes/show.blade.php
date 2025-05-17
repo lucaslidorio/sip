@@ -103,6 +103,7 @@
                     <th>Data</th>
                     <th>Assunto</th>
                     <th>Descrição</th>
+                    <th>Parecer</th>
                     <th class="text-center">Ver</th>
                 </tr>
             </thead>
@@ -112,6 +113,13 @@
                         <td>{{ \Carbon\Carbon::parse($item->data)->format('d/m/Y') }}</td>
                         <td>{{ $item->assunto }}</td>
                         <td>{{ Str::limit(strip_tags($item->descricao), 100) }}</td>
+                        <td>
+                            <a href="{{ route('camara.parecer.show', $item->id) }}" >
+                                Parecer -
+                                {{$item->proposition->tipo->nome ?? '-' }} Nº {{
+                                $item->proposition->numero ?? '' }}
+                            </a>              
+                        </td>
                         <td class="text-center">
                             <a href="{{ route('camara.propositura.show', $item->proposition_id) }}"
                                class="btn btn-primary cor-padrao-bg text-white btn-sm fs-4">

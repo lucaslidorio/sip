@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container mt-2">
 
     @include('public_templates.leg.includes.sessoes.form_pesquisa') 
     

@@ -17,6 +17,7 @@ use App\Models\Post;
 use App\Models\ProceedingSituation;
 use App\Models\Proposition;
 use App\Models\Schedule;
+use App\Models\SeemCommission;
 use App\Models\Session;
 use App\Models\Tenant;
 use App\Models\TypeDocument;
@@ -470,13 +471,13 @@ class SitePublicoController extends Controller
 
         // Ordenação
         if ($request->filled('ordenacao') && in_array($request->ordenacao, ['asc', 'desc'])) {
-            $query->orderBy('numero', $request->ordenacao);
+            $query->orderBy('numero', $request->ordenacao)
+                ->orderBy('created_at', $request->ordenacao); // critério secundário
         } else {
-            $query->orderBy('data', 'desc'); // Padrão: data decrescente
+            $query->orderBy('data', 'desc')
+                ->orderBy('created_at', 'desc'); // desempate por criação
         }
-
      
-
         $proposituras = $query->paginate(15);
 
 
@@ -497,7 +498,8 @@ class SitePublicoController extends Controller
             'autores',
             'votos.vereador',
             'votos.tipoVoto',
-            'votos.sessao'
+            'votos.sessao',
+            'pareceres.comissao'
         ])->findOrFail($id);
         if (!$propositura) {
             redirect()->back();
@@ -651,8 +653,6 @@ class SitePublicoController extends Controller
     public function mesasDiretoras()
     {
 
-
-
         $mesas = DirectorTable::with([
             'bienio.legislatura',
             'membros.vereador',
@@ -740,15 +740,80 @@ class SitePublicoController extends Controller
 
         $comissao = Commission::with(['membros.vereador', 'membros.funcao'])->findOrFail($id);
         // Paginação separada para as proposições da comissão
-       $materias = $comissao->proposicoes()->paginate(10);
+        $materias = $comissao->proposicoes()
+        ->with('proposition.tipo') // carrega a proposição e o tipo dela
+        ->paginate(10);
+        // Buscar pareceres emitidos pela comissão (relacionamento com proposição incluído)
+        $pareceres = $comissao->pareceres()->with('proposition')->paginate(10, ['*'], 'pareceres');
 
         return view("public_templates.$template.includes.comissoes.show", compact(
             'tenant',
             'menus',
             'comissao',
-            'materias'
+            'materias',
+            'pareceres'
         ));
     }
+
+
+    public function pareceres(Request $request)
+    {       
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')->get();
+
+        // Buscar comissões para o filtro
+        $comissoes = Commission::orderBy('nome')->get();
+
+        // Iniciar query
+        $query = SeemCommission::with(['commission', 'proposition.tipo']);
+
+        if ($request->filled('comissao')) {
+            $query->where('commission_id', $request->comissao);
+        }
+
+        if ($request->filled('assunto')) {
+            $query->where('assunto', 'like', "%{$request->assunto}%");
+        }
+
+        if ($request->filled('data_inicial')) {
+            $query->whereDate('data', '>=', $request->data_inicial);
+        }
+
+        if ($request->filled('data_final')) {
+            $query->whereDate('data', '<=', $request->data_final);
+        }
+
+        $pareceres = $query->orderBy('data', 'desc')->paginate(10);
+
+        return view("public_templates.$template.includes.pareceres.index", compact(
+            'tenant',
+            'menus',
+            'pareceres',
+            'comissoes'
+        ));
+    }
+    public function parecerShow($id)
+    {
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')
+            ->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        $comissoes = Commission::orderBy('nome')->get();
+        $parecer = SeemCommission::with(['commission', 'proposition.tipo'])
+            ->findOrFail($id);
+
+        return view("public_templates.$template.includes.pareceres.show", compact(
+            'tenant', 
+            'menus', 
+            'parecer',
+            'comissoes'
+        ));
+    }
+
     public function documentosSessoes (Request $request, $tipo_id = null)
     {
         $template = view()->shared('currentTemplate');

@@ -75,7 +75,7 @@
         </div>
     </div>
 </div>
-<div class="container">   
+<div class="container mt-3">   
     @include('public_templates.leg.includes.sessoes.form_pesquisa')
     <!-- Tabela de Sessão -->
     <h3 class="mb-4">

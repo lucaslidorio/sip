@@ -80,17 +80,23 @@ Breadcrumbs::for('comissao', function (BreadcrumbTrail $trail, $comissao) {
     $trail->parent('comissoes');
     $trail->push($comissao->nome, route('camara.comissao.show', $comissao));
 });
+Breadcrumbs::for('pareceres', function (BreadcrumbTrail $trail) {
+    $trail->parent('comissoes');
+    $trail->push('Pareceres das comissões', route('camara.pareceres'));
+});
+// Home > Comissões >Pareceres  > [parecer]
+Breadcrumbs::for('parecer', function (BreadcrumbTrail $trail, $parecer) {
+    $trail->parent('pareceres');
+    $nome = $parecer->proposition->tipo->nome . ' ' . $parecer->proposition->numero;
+    $trail->push(  $nome,  route('camara.parecer.show', $parecer));
+});
 
 // Home > Comissões >Pareceres 
 Breadcrumbs::for('pareceres_comissao', function (BreadcrumbTrail $trail) {
     $trail->parent('comissoes');
     $trail->push('Pareceres', route('camara.pareceres'));
 });
-// Home > Comissões >Pareceres  > [parecer]
-Breadcrumbs::for('parecer', function (BreadcrumbTrail $trail, $seemCommission) {
-    $trail->parent('pareceres_comissao');
-    $trail->push($seemCommission->assunto, route('camara.parecerShow', $seemCommission));
-});
+
 
 // Home > Proposituras > 
 Breadcrumbs::for('proposituras', function (BreadcrumbTrail $trail) {

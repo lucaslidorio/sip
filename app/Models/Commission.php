@@ -25,6 +25,10 @@ class Commission extends Model
             return $this->hasMany(SeemCommission::class, 'commission_id');
         }
 
+        public function pareceres()
+        {
+            return $this->hasMany(SeemCommission::class, 'commission_id');
+        }
 
 
 

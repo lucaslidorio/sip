@@ -28,6 +28,10 @@ class Proposition extends Model
     {
         return $this->belongsTo(TypeProposition::class, 'type_proposition_id');
     }
+    public function pareceres()
+    {
+        return $this->hasMany(SeemCommission::class, 'proposition_id', 'id');
+    }
 
     // Relacionamento com a Situação (Proceeding Situation)
     public function situacao()
@@ -42,9 +46,9 @@ class Proposition extends Model
     }
 
     public function votos()
-{
-    return $this->hasMany(VotoVereadorPropositura::class, 'proposition_id');
-}
+    {
+        return $this->hasMany(VotoVereadorPropositura::class, 'proposition_id');
+    }
 
 
 
@@ -72,11 +76,7 @@ class Proposition extends Model
         return $this->belongsToMany(TipoVoto::class, 'voto_vereador_proposituras')->withPivot('session_id','councilor_id','tipo_voto_id');
     }
 
-    // public function votos()
-    // {
-    //     return $this->belongsToMany(VotoVereadorPropositura::class, 'voto_vereador_proposituras', 'proposition_id', 'tipo_voto_id')
-    //         ->withPivot('councilor_id', 'tipo_voto_id');
-    // }
+    
    
 
 }

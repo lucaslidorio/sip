@@ -107,6 +107,30 @@
                   @endif
                 </td>
               </tr>
+              <tr>
+                <th scope="row">Parecer(es) da Comissão:</th>               
+              <td>
+                @if($propositura->pareceres->count())                           
+                <ul class="list-unstyled">
+                    @foreach($propositura->pareceres as $parecer)
+                        <li class="">
+                          <p><i class="fas fa-scroll me-2 text-primary fs-1"></i>
+                            COMISSÃO:  <strong>{{ $parecer->commission->nome ?? '---' }}</strong></p>
+                            <p>{{ $parecer->assunto }}</p>
+                            <a href="{{ route('camara.parecer.show', $parecer->id) }}" class="btn btn-primary cor-padrao-bg text-white btn-sm fs-4">
+                                Ver Parecer
+                            </a>
+                        </li>
+                      <hr>
+                    @endforeach
+                </ul>
+            @else
+                <div class="alert alert-secondary mb-0" role="alert">
+                  A propositura nao possui pareceres.
+                </div>  
+            @endif
+              </td>
+              </tr>
               
           </tbody>
         
