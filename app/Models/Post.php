@@ -86,7 +86,7 @@ class Post extends Model
         });
 
         // Ordenação e paginação
-        return $query->orderBy('created_at', 'desc')->paginate(10);
+        return $query->orderBy('data_publicacao', 'desc')->paginate(10);
     }
 
 

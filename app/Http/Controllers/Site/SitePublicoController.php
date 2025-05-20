@@ -499,7 +499,7 @@ class SitePublicoController extends Controller
             'votos.vereador',
             'votos.tipoVoto',
             'votos.sessao',
-            'pareceres.comissao'
+            'pareceres.commission'
         ])->findOrFail($id);
         if (!$propositura) {
             redirect()->back();
