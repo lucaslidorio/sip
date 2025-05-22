@@ -56,7 +56,7 @@
                         <strong>{{ $anexo->type_document->nome ?? '-' }}</strong> - {{ $anexo->descricao ??
                         $anexo->nome_original }}
                     </span>
-                    <a href="{{config('app.aws_url')." {$anexo->anexo}" }}" target="_blank" class="btn btn-lg
+                    <a href="{{config('app.aws_url')."{$anexo->anexo}" }}" target="_blank" class="btn btn-lg
                         btn-outline-primary">Visualizar</a>
                 </li>
                 @empty

@@ -41,7 +41,7 @@
                     </div>
     
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ $vereador->nome_parlamentar ?? $vereador->nome }}</h5>
+                        <h5 class="card-title">{{   $vereador->nome ?? $vereador->nome_parlamentar }}</h5>
                         <a href="{{ route('camara.vereador', $vereador->id) }}" class="btn btn-primary cor-padrao-bg text-white btn-sm fs-4">
                             Ver detalhes
                         </a>
