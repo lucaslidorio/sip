@@ -326,13 +326,33 @@ return [
             'can' => 'ver-carta-cidadao',
           
         ],   
+        
+
         [
-            'text' => 'Ouvidoria',
-            'url'  => 'admin/ouvidorias',
-            'icon' => 'fas fa-phone-alt',
-            'can' => 'ver-ouvidoria',
-            
-        ], 
+            'text'   => 'Ouvidoria',
+            'icon'   => 'fas fa-phone-square-alt', 
+            'active' => ['admin/ouvidoria/*'] ,
+            'can'    =>   'ver-ouvidoria',                        
+            'submenu' => [
+                [
+                    'text' => 'Configuração',
+                    'url'  => 'admin/configuracao/ouvidoria',
+                    'active' => ['admin/configuracao/ouvidorias/*' ],
+                    'icon' => 'fas fa-sliders-h',
+                    'can' => 'ver-ouvidoria',
+                ], 
+                [
+                    'text' => 'Ouvidoria',
+                    'url'  => 'admin/ouvidorias',
+                    'active' => ['admin/ouvidorias/*' ],
+                    'icon' => 'fas fa-phone-alt',
+                    'can' => 'ver-ouvidoria',
+                ], 
+                              
+           ],
+        ],
+
+        
         [
             'text' => ' Agenda',
             'url'  => 'admin/agenda',

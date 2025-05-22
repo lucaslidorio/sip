@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Propositura')
+@section('title', 'Ouvidorias')
 @section('content_header')
 @include('sweetalert::alert')
 

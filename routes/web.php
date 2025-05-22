@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ACL\ProfileUserController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
+use App\Http\Controllers\Admin\ConfiguracaoOuvidoriaController;
 use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
@@ -40,6 +41,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserFunctionController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
+use App\Models\ConfiguracaoOuvidoria;
 use Illuminate\Support\Facades\Route;
 
 
@@ -412,6 +414,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
             //Rotas de Ouvidoria             
+            Route::get('/configuracao/ouvidoria', [ConfiguracaoOuvidoriaController::class, 'index'])->name('ouvidoria.configuracao.index');
+            Route::put('/configuracao/ouvidoria/{id}', [ConfiguracaoOuvidoriaController::class, 'update'])->name('ouvidoria.configuracao.update');
+            Route::get('/configuracao/ouvidoria/{id}/edit', [ConfiguracaoOuvidoriaController::class, 'edit'])->name('ouvidoria.configuracao.edit');
+            Route::get('/configuracao/ouvidoria/create', [ConfiguracaoOuvidoriaController::class, 'create'])->name('ouvidoria.configuracao.create');
+            Route::post('/configuracao/ouvidoria', [ConfiguracaoOuvidoriaController::class, 'store'])->name('ouvidoria.configuracao.store');
+
             Route::any('/ouvidorias/search', [OuvidoriaController::class, 'search'])->name('ouvidorias.search');
             Route::put('/ouvidorias/{id}', [OuvidoriaController::class, 'update'])->name('ouvidorias.update');
             Route::get('/ouvidorias/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidorias.show');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AttachmentSession;
 use App\Models\Categoria;
 use App\Models\Commission;
+use App\Models\ConfiguracaoOuvidoria;
 use App\Models\Councilor;
 use App\Models\DirectorTable;
 use App\Models\Functions;
@@ -30,7 +31,8 @@ use Illuminate\Support\Str;
 
 class SitePublicoController extends Controller
 {
-    private $tenant, $menu, $link, $vereadores, $noticias, $categorias, $page, $vereador;
+    private $tenant, $menu, $link, $vereadores, $noticias, $categorias, $page,
+     $vereador, $configuracaoOuvidoria;
 
 
     public function __construct(
@@ -42,6 +44,7 @@ class SitePublicoController extends Controller
         Categoria $categorias,
         Page $page,
         Councilor $vereador,
+        ConfiguracaoOuvidoria $configuracaoOuvidoria
 
     ) {
 
@@ -53,6 +56,7 @@ class SitePublicoController extends Controller
         $this->categorias = $categorias;
         $this->page = $page;
         $this->vereador = $vereador;
+        $this->configuracaoOuvidoria = $configuracaoOuvidoria;
     }
 
 
@@ -95,6 +99,7 @@ class SitePublicoController extends Controller
         $linksDireita = $this->link::porPosicao(3)->get(); // 3 corresponde a "Direita"
         // Recupera os links da posição "Inferior"
         $linksInferior = $this->link::porPosicao(4)->get(); // 4 corresponde a "Inferior"
+        $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
         return view(
             "public_templates.$template.index",
             compact(
@@ -105,7 +110,8 @@ class SitePublicoController extends Controller
                 'vereadores',
                 'noticias',
                 'posts_destaque',
-                'menus3'
+                'menus3',
+                'configuracaoOuvidoria'
             )
         );
     }

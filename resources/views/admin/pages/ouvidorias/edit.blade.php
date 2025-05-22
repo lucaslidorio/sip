@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', "Atualizar o atas")
+@section('title', "Responder Ouvidoria de protocolo $ouvidoria->codigo")
 @section('content_header')
 @section('plugins.icheck-bootstrap', true)
 @section('plugins.Select2', true)

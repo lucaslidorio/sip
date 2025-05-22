@@ -89,7 +89,7 @@
 
                         <div>
                             <strong>{{ $membro->funcao->nome ?? '-' }}</strong><br>
-                            <small>{{ $membro->vereador->nome_parlamentar ?? $membro->vereador->nome }}</small>
+                            <small>{{  $membro->vereador->nome ?? $membro->vereador->nome_parlamentar  }}</small>
                         </div>
                     </div>
                 </a>
