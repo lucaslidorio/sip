@@ -16,8 +16,7 @@
                     <div class="row">
                         @foreach($chunk as $vereador)
                         <div class="col">
-                            <img style="width:100%; height:400px" class="img-fluid" src="{{ config('app.aws_url') . "
-                                {$vereador->img}" }}"
+                            <img style="width:100%; height:400px" class="img-fluid" src="{{ config('app.aws_url')."{$vereador->img}"}}"
                             alt="{{ $vereador->nome }}" class="img-responsive" />
                             <section>
                                 <a href="{{ route('camara.vereador', $vereador->id) }}" role="button">
