@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileUserController;
+use App\Http\Controllers\Admin\AlternativaPesquisaController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\OuvidoriaController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PartyController;
+use App\Http\Controllers\Admin\PerguntaPesquisaController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProcessoCompraController;
@@ -435,6 +437,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
             Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+
+            // Perguntas
+            Route::get('/questionarios', [PerguntaPesquisaController::class, 'index'])->name('perguntas.index');
+            Route::get('/perguntas/create', [PerguntaPesquisaController::class, 'create'])->name('perguntas.create');
+            Route::post('/perguntas', [PerguntaPesquisaController::class, 'store'])->name('perguntas.store');
+            Route::get('/perguntas/{id}/edit', [PerguntaPesquisaController::class, 'edit'])->name('perguntas.edit');
+            Route::put('/perguntas/{id}', [PerguntaPesquisaController::class, 'update'])->name('perguntas.update');
+            Route::delete('/perguntas/{id}', [PerguntaPesquisaController::class, 'destroy'])->name('perguntas.destroy');
+
+            // Alternativas (opcional, se quiser rotas separadas)
+            Route::post('/alternativas', [AlternativaPesquisaController::class, 'store'])->name('alternativas.store');
+            Route::delete('/alternativas/{id}', [AlternativaPesquisaController::class, 'destroy'])->name('alternativas.destroy');
+
 
             // Suas rotas protegidas so acessa se o cadastro estiver completo
             Route::middleware(['auth', 'profile.complete'])->group(function () {

@@ -366,7 +366,12 @@ return [
             'icon' => 'fas fa-tasks',
             'can'  => 'ver-enquete',
         ],
-
+        [
+            'text' => 'Pesquisas',
+            'url'  => 'admin/questionarios',
+            'icon' => 'far fa-grin-stars',
+            'can'  => 'ver-pesquisa',
+        ],
         [
             'text'    => 'Diário Oficial',
             'icon'    => 'fas fa-book', 
