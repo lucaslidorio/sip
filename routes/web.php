@@ -439,8 +439,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
 
             // Perguntas
-            Route::get('/questionarios', [PerguntaPesquisaController::class, 'index'])->name('perguntas.index');
-            Route::get('/perguntas/create', [PerguntaPesquisaController::class, 'create'])->name('perguntas.create');
+            Route::get('/pesquisas', [PerguntaPesquisaController::class, 'index'])->name('pesquisa.index');
+            Route::get('/pesquisa/{questionario}/perguntas', [PerguntaPesquisaController::class, 'perguntas'])
+            ->name('perguntas.index');
+            Route::get('/perguntas/{questionario_id}/create', [PerguntaPesquisaController::class, 'create'])->name('perguntas.create');
+            
             Route::post('/perguntas', [PerguntaPesquisaController::class, 'store'])->name('perguntas.store');
             Route::get('/perguntas/{id}/edit', [PerguntaPesquisaController::class, 'edit'])->name('perguntas.edit');
             Route::put('/perguntas/{id}', [PerguntaPesquisaController::class, 'update'])->name('perguntas.update');

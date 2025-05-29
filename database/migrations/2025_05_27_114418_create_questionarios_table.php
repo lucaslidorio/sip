@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('questionarios', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('descricao')->nullable();
+            $table->boolean('ativo')->default(true);
             $table->timestamps();
         });
     }

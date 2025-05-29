@@ -368,7 +368,7 @@ return [
         ],
         [
             'text' => 'Pesquisas',
-            'url'  => 'admin/questionarios',
+            'url'  => 'admin/pesquisas',
             'icon' => 'far fa-grin-stars',
             'can'  => 'ver-pesquisa',
         ],

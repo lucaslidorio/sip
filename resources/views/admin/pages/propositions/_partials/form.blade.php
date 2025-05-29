@@ -74,7 +74,7 @@
                   </div>                
                   <input type="date" class="form-control" 
                       id="data" name="data"
-                      value="{{ old('data', optional($proposition->data)->format('Y-m-d')) }}">                
+                      value="{{ old('data', isset($proposition) ? optional($proposition->data)->format('Y-m-d') : '') }}">                
               </div>
             </div>
         </div>

@@ -1,74 +1,47 @@
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group">
-            <label for="nome" class="label-required">Nome: </label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
-                    </div>                    
-                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid': '' }}" id="nome" name="nome" placeholder="Nome do partido" value="{{$party->nome ??  old('nome')}}">
-                    @error('nome')
-                    <small class="invalid-feedback">
-                        {{ $message }}
-                    </small>
-                    @enderror
-                </div>
-            </div>          
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="texto" class="label-required">Texto da Pergunta:</label>
+            <input type="text" class="form-control {{ $errors->has('texto') ? 'is-invalid' : '' }}"
+                   id="texto" name="texto" placeholder="Digite a pergunta"
+                   value="{{ $pergunta->texto ?? old('texto') }}">
+            @error('texto')
+            <small class="invalid-feedback">{{ $message }}</small>
+            @enderror
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group">
-            <label for="sigla" class="label-required">Sigla</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-ad"></i></span>
-                    </div>                
-                    <input type="text"class="form-control {{ $errors->has('sigla') ? 'is-invalid': '' }}" 
-                    id="sigla" name="sigla" placeholder="Sigla do partido"  
-                    value="{{$party->sigla ?? old('sigla')}}">              
-                    @error('sigla')
-                        <small class="invalid-feedback">
-                        {{ $message }}
-                        </small>
-                    @enderror
-                </div>
-            </div> 
+</div>
 
+<!-- Campo oculto do questionário -->
+<input type="hidden" name="questionario_pesquisa_id" value="{{ $questionario_id }}">
+
+<div class="row">
+    <div class="col-sm-12">
+        <label class="label-required">Alternativas:</label>
+        <div id="alternativas-wrapper">
+            @if(isset($alternativas) && count($alternativas) > 0)
+                @foreach($alternativas as $alternativa)
+                    <div class="input-group mb-2">
+                        <input type="text" name="alternativas[]" class="form-control" placeholder="Texto da alternativa" required value="{{ $alternativa->texto }}">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-danger remove-alternativa" title="Remover alternativa"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="input-group mb-2">
+                    <input type="text" name="alternativas[]" class="form-control" placeholder="Texto da alternativa" required>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-danger remove-alternativa" title="Remover alternativa"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            @endif
         </div>
-    </div>                       
-           <div class="row">
-                <div class="col-sm-12">
-                  <div class="form-group">                  
-                      <label for="img" class="">Logo do partido:</label>
-                      @isset($party)
-                      <br>
-                          <img src="{{config('app.aws_url')."{$party->img}" }}"" alt="{{$party->nome}}" style="max-width: 200px; padding-bottom: 20px">
-                      @endisset      
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
-                            </div> 
-                        <input type="file" class="form-control {{ $errors->has('img') ? 'is-invalid' : '' }}" id="img"
-                            name="img" placeholder="Nenhuma imagem selecionada" value="{{ $party->img ?? old('img') }}">
-                        @error('img')
-                            <small class="invalid-feedback">
-                                {{ $message }}
-                            </small>
-                        @enderror
-                      </div>
-                  </div>
-      
-                </div>
-            </div>  
+        <button type="button" class="btn btn-success mt-2 btn-sm" id="add-alternativa"><i class="fas fa-plus"></i> Adicionar Alternativa</button>
+    </div>
+</div>
 
-
-
-
-            <div class="col-sm-12 text-center" >
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg align-middle" data-toggle="tooltip" data-placement="top"
-                    title="Salvar registro">Salvar</button>
-                </div>   
-            </div>
+<div class="col-sm-12 text-center mt-4">
+    <button type="submit" class="btn btn-primary btn-lg align-middle" data-toggle="tooltip" data-placement="top"
+            title="Salvar pergunta e alternativas">Salvar</button>
+</div>
