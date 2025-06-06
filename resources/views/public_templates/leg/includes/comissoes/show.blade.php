@@ -84,7 +84,7 @@
                         </div>
                         <div>
                             <strong>{{ $membro->funcao->nome ?? '-' }}</strong><br>
-                            <p>{{ $membro->vereador->nome_parlamentar ?? $membro->vereador->nome }}</p>
+                            <p>{{ $membro->vereador->nome ?? $membro->vereador->nome_parlamentar }}</p>
                         </div>
                     </div>
                 </a>

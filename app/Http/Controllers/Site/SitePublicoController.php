@@ -465,21 +465,10 @@ class SitePublicoController extends Controller
             'dados' => $dados,
             'cores' => $cores,
         ];
-        // $dadosGrafico = [
-        //     [
-        //         'pergunta' => 'Como você avalia o atendimento?',
-        //         'alternativas' => ['Excelente', 'Bom', 'Regular', 'Ruim'],
-        //         'respostas' => [12, 8, 5, 2],
-        //     ],
-        //     [
-        //         'pergunta' => 'O site é fácil de navegar?',
-        //         'alternativas' => ['Sim', 'Parcialmente', 'Não'],
-        //         'respostas' => [15, 6, 4],
-        //     ],
-        // ];
+     
     }
 
-    //dd($graficos);
+    
 
     return view('public_templates.leg.includes.pesquisaSatisfacao.estatisticas', compact(
         'questionario', 
