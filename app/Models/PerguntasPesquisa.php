@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PerguntasPesquisa extends Model
 {
     protected $table = 'perguntas_pesquisa';
-    protected $fillable = ['pergunta', 'questionario_id'];
+    protected $fillable = ['numero','pergunta', 'questionario_id'];
 
     public function questionario()
     {
@@ -18,5 +18,15 @@ class PerguntasPesquisa extends Model
     {
         return $this->hasMany(AlternativasPesquisa::class, 'pergunta_pesquisa_id');
     }
-
+    public function respostas()
+    {
+        return $this->hasManyThrough(
+            RespostasPesquisa::class,
+            AlternativasPesquisa::class,
+            'pergunta_pesquisa_id', // foreign key em Alternativa
+            'alternativa_pesquisa_id', // foreign key em Resposta
+            'id',
+            'id'
+        );
+    }
 }

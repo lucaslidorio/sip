@@ -39,6 +39,7 @@
           <thead>
             <tr>
               <th>#</th>
+              <th>número</th>
               <th>Pergunta</th>
               <th width="20%" class="text-center">Ações</th>
             </tr>
@@ -47,15 +48,21 @@
             @foreach ($perguntas as $pergunta)
               <tr>
                 <td>{{ $pergunta->id }}</td>
-                <td>{{ $pergunta->texto }}</td>
+                <td>{{ $pergunta->numero }}</td>
+                <td>{{ $pergunta->pergunta }}</td>
                 <td class="text-center">
+                  @can('editar-pesquisa')
                   <a href="{{ route('perguntas.edit', $pergunta->id) }}" class="btn bg-gradient-primary btn-flat" data-toggle="tooltip" title="Editar">
                     <i class="fas fa-edit"></i>
                   </a>
-
-                  <a href="{{ route('perguntas.destroy', $pergunta->id) }}" data-id="{{ $pergunta->id }}" class="btn bg-gradient-danger btn-flat delete-confirm" data-toggle="tooltip" title="Excluir">
-                    <i class="fas fa-trash-alt"></i>
+                  @endcan
+                  @can('excluir-pesquisa')
+                  <a href="{{route('perguntas.destroy', $pergunta->id)}}" data-id="{{$pergunta->id}}"
+                    class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Excluir">
+                    <i class="fas fa-trash-alt" ></i>
                   </a>
+                 @endcan
                 </td>
               </tr>
             @endforeach

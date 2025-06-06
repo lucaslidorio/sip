@@ -17,6 +17,8 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\ProceedingSituation;
 use App\Models\Proposition;
+use App\Models\Questionario;
+use App\Models\RespostasPesquisa;
 use App\Models\Schedule;
 use App\Models\SeemCommission;
 use App\Models\Session;
@@ -384,6 +386,109 @@ class SitePublicoController extends Controller
         ));
         
     } 
+
+    public function pesquisaSatisfacao()
+    {
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        $questionario = Questionario::with(['perguntas.alternativas'])
+            ->where('ativo', true)
+            ->firstOrFail();
+
+            return view("public_templates.$template.includes.pesquisaSatisfacao.index", compact(
+                'tenant',
+                'questionario' ,
+                'menus'                    
+            ));
+       ;
+    }
+
+    
+    public function pesquisaSatisfacaoResponder(Request $request)
+    {
+
+        $dados = $request->validate([
+            'respostas' => 'required|array',
+            'respostas.*' => 'required|exists:alternativas_pesquisa,id',
+            'questionario_id' => 'required|exists:questionarios,id'
+        ]);
+
+        DB::beginTransaction();
+        
+        try {
+            
+            foreach ($dados['respostas'] as $perguntaId => $alternativaId) {
+              RespostasPesquisa::create([
+                    'questionario_id' => $request->questionario_id,
+                    'pergunta_pesquisa_id' => $perguntaId,
+                    'alternativa_pesquisa_id' => $alternativaId,                    
+                ]);
+                             
+            }
+
+            
+            DB::commit();
+            
+            return redirect()->route('site.pesquisa.resultado', $request->questionario_id);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Ocorreu um erro ao salvar as respostas.');
+        }
+    }
+    public function estatisticas($questionario_id)
+{
+    $questionario = Questionario::with('perguntas.alternativas.respostas')->findOrFail($questionario_id);
+    $graficos = [];
+    $template = view()->shared('currentTemplate');
+    $tenant = $this->tenant->first();
+    $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+        ->orderBy('ordem')
+        ->get();
+
+    foreach ($questionario->perguntas as $pergunta) {
+        $labels = [];
+        $dados = [];
+        $cores = [];
+
+        foreach ($pergunta->alternativas as $alternativa) {
+            $labels[] = $alternativa->alternativa;
+            $dados[] = $alternativa->respostas->count();
+            $cores[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF)); // cor aleatória
+        }
+
+        $graficos[] = [
+            'titulo' => $pergunta->numero . '. ' . $pergunta->pergunta,
+            'labels' => $labels,
+            'dados' => $dados,
+            'cores' => $cores,
+        ];
+        // $dadosGrafico = [
+        //     [
+        //         'pergunta' => 'Como você avalia o atendimento?',
+        //         'alternativas' => ['Excelente', 'Bom', 'Regular', 'Ruim'],
+        //         'respostas' => [12, 8, 5, 2],
+        //     ],
+        //     [
+        //         'pergunta' => 'O site é fácil de navegar?',
+        //         'alternativas' => ['Sim', 'Parcialmente', 'Não'],
+        //         'respostas' => [15, 6, 4],
+        //     ],
+        // ];
+    }
+
+    //dd($graficos);
+
+    return view('public_templates.leg.includes.pesquisaSatisfacao.estatisticas', compact(
+        'questionario', 
+        'graficos',
+        'tenant',
+        'menus'
+
+    ));
+}
 
 
 

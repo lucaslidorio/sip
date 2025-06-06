@@ -19,8 +19,9 @@ Route::get('/agenda', [SitePublicoController::class, 'agendaIndex'])->name('site
 Route::get('/agenda/show', [SitePublicoController::class, 'agendaShow'])->name('site.agenda.show');
 Route::get('/sitemap', [SitePublicoController::class, 'sitemap'])->name('site.mapa');
 Route::get('/acessibilidade', [SitePublicoController::class, 'acessibilidade'])->name('site.acessibilidade');
-
-
+Route::get('/pesquisa-satisfacao', [SitePublicoController::class, 'pesquisaSatisfacao'])->name('site.pesquisa');
+Route::post('/pesquisa-satisfacao/responder', [SitePublicoController::class, 'pesquisaSatisfacaoResponder'])->name('site.pesquisa.responder');
+Route::get('/pesquisa/{id}/estatisticas', [SitePublicoController::class, 'estatisticas'])->name('site.pesquisa.resultado');
 
 //Legislativo
 Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');

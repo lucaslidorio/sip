@@ -37,6 +37,16 @@ Breadcrumbs::for('noticia', function (BreadcrumbTrail $trail, $noticia) {
     $trail->parent('noticias');
     $trail->push($noticia->titulo, route('noticias.todas', $noticia));
 });
+// Home > Pesquisa de satisfação
+Breadcrumbs::for('pesquisa_satisfacao', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Pesquisa de Satisfação', route('site.pesquisa'));
+});
+Breadcrumbs::for('estatisticas', function (BreadcrumbTrail $trail) {
+    $trail->parent('pesquisa_satisfacao');
+    $trail->push('Estatistícas', route('site.pesquisa'));
+});
+
 // Home > Legislaturas
 Breadcrumbs::for('legislaturas', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

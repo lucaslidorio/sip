@@ -447,12 +447,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/perguntas', [PerguntaPesquisaController::class, 'store'])->name('perguntas.store');
             Route::get('/perguntas/{id}/edit', [PerguntaPesquisaController::class, 'edit'])->name('perguntas.edit');
             Route::put('/perguntas/{id}', [PerguntaPesquisaController::class, 'update'])->name('perguntas.update');
-            Route::delete('/perguntas/{id}', [PerguntaPesquisaController::class, 'destroy'])->name('perguntas.destroy');
+            Route::get('/perguntas/{id}', [PerguntaPesquisaController::class, 'destroy'])->name('perguntas.destroy');
 
-            // Alternativas (opcional, se quiser rotas separadas)
-            Route::post('/alternativas', [AlternativaPesquisaController::class, 'store'])->name('alternativas.store');
-            Route::delete('/alternativas/{id}', [AlternativaPesquisaController::class, 'destroy'])->name('alternativas.destroy');
-
+          
 
             // Suas rotas protegidas so acessa se o cadastro estiver completo
             Route::middleware(['auth', 'profile.complete'])->group(function () {
