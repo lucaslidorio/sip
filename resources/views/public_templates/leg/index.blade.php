@@ -14,6 +14,7 @@
         @yield('content')
     </div>
     <div class="row-content">
+
         <section class="col-12">
             <div class="container">
                 <div class="row">
@@ -21,7 +22,7 @@
                     @include('public_templates.leg.includes.banner')
                 </div>
             </div>
-            
+            @include('public_templates.leg.includes.popup')
             @include('public_templates.leg.includes.vereadores')
             @include('public_templates.leg.includes.ouvidoria')
             @include('public_templates.leg.includes.noticias')

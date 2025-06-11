@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\PerguntaPesquisaController;
 use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\Admin\PopupsController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProcessoCompraController;
 use App\Http\Controllers\Admin\PropositionController;
@@ -277,6 +278,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
             Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
+            //Rotas de Popups
+            Route::any('/popups/search', [PopupsController::class, 'search'])->name('popups.search');
+            Route::put('/popups/{id}', [PopupsController::class, 'update'])->name('popups.update');
+            Route::get('/popups/{id}/edit', [PopupsController::class, 'edit'])->name('popups.edit');
+            Route::get('/popups/deleteImage/{id}', [PopupsController::class, 'removeImage'])->name('popups.deleteImage');
+            Route::get('/popups/show/{id}', [PopupsController::class, 'show'])->name('popups.show');
+            Route::get('/popups/create', [PopupsController::class, 'create'])->name('popups.create');
+            Route::get('/popups/{id}', [PopupsController::class, 'destroy'])->name('popups.destroy');
+            Route::post('/popups', [PopupsController::class, 'store'])->name('popups.store');
+            Route::get('/popups', [PopupsController::class, 'index'])->name('popups.index');
+
             //Rotas de Enquetes
             
             Route::any('/enquetes/search', [EnqueteController::class, 'search'])->name('enquetes.search');
@@ -443,8 +455,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/pesquisa/{questionario}/perguntas', [PerguntaPesquisaController::class, 'perguntas'])
             ->name('perguntas.index');
             Route::get('/perguntas/{questionario_id}/create', [PerguntaPesquisaController::class, 'create'])->name('perguntas.create');
-            
-            Route::post('/perguntas', [PerguntaPesquisaController::class, 'store'])->name('perguntas.store');
+                        Route::post('/perguntas', [PerguntaPesquisaController::class, 'store'])->name('perguntas.store');
             Route::get('/perguntas/{id}/edit', [PerguntaPesquisaController::class, 'edit'])->name('perguntas.edit');
             Route::put('/perguntas/{id}', [PerguntaPesquisaController::class, 'update'])->name('perguntas.update');
             Route::get('/perguntas/{id}', [PerguntaPesquisaController::class, 'destroy'])->name('perguntas.destroy');

@@ -14,6 +14,7 @@ use App\Models\Legislature;
 use App\Models\Link;
 use App\Models\Menu;
 use App\Models\Page;
+use App\Models\Popups;
 use App\Models\Post;
 use App\Models\ProceedingSituation;
 use App\Models\Proposition;
@@ -102,6 +103,8 @@ class SitePublicoController extends Controller
         // Recupera os links da posição "Inferior"
         $linksInferior = $this->link::porPosicao(4)->get(); // 4 corresponde a "Inferior"
         $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
+        $popups = Popups::visiveis()->get();
+
         return view(
             "public_templates.$template.index",
             compact(
@@ -113,7 +116,8 @@ class SitePublicoController extends Controller
                 'noticias',
                 'posts_destaque',
                 'menus3',
-                'configuracaoOuvidoria'
+                'configuracaoOuvidoria',
+                'popups'
             )
         );
     }

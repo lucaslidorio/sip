@@ -314,6 +314,12 @@ return [
             'can' => 'ver-post',
         ],
         [
+            'text' => 'Popups',
+            'url'  => 'admin/popups',
+            'icon' => 'fas fa-fire',
+            'can' => 'ver-post',
+        ],
+        [
             'text' => 'Leis',
             'url'  => 'admin/legislations',
             'icon' => 'fas fa-balance-scale',

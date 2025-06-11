@@ -10,6 +10,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      {{-- CSS do SweetAlert2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
@@ -92,7 +95,7 @@
         .dropdown-menu .dropdown-item i {
           margin-right: 5px; /* Espaço entre o ícone e o texto*/
        }
- </style>
+    </style>
 
 </head>
 
@@ -176,6 +179,15 @@
         </a>
         </div>
     </header>
+
+    
+
+
+
+
+
+
+    
     <div class="row">
         <div class="col-12">
             <div class="cor-padrao-bg" style="height: 5px;"></div>
@@ -193,6 +205,16 @@
             <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
+
+
+    
+
+  
+
+
+
+
+
     <script src="{{asset('leg/js/commons.min.js')}}"></script>
     <script src="{{asset('leg/js/slick.min.js')}}"></script>
     <script src="{{asset('leg/js/vlibras-plugin.js')}}"></script>
@@ -204,7 +226,9 @@
   
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     
-     <!-- glightbox JS -->
+    {{-- JS do SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     
             
    </body>
 
