@@ -423,6 +423,12 @@ return [
             'icon' => 'fas fa-file-invoice',
             'can' => 'ver-propositura',
         ],
+        [
+            'text' => 'Pronunciamentos',
+            'url'  => 'admin/pronunciamentos',
+            'icon' => 'fas fa-microphone-alt',
+            'can' => 'ver-pronunciamento',
+        ],
 
       
         [

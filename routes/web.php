@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PopupsController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProcessoCompraController;
+use App\Http\Controllers\Admin\PronunciamentoController;
 use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SecretaryController;
@@ -180,7 +181,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/propositions/{id}', [PropositionController::class, 'destroy'])->name('propositions.destroy');
             Route::post('/propositions', [PropositionController::class, 'store'])->name('propositions.store');
 
-
+            //Rotas de pronunciamentos  
+             Route::any('/pronunciamentos/search', [PronunciamentoController::class, 'search'])->name('pronunciamentos.search');
+             Route::get('/pronunciamentos', [PronunciamentoController::class, 'index'])->name('pronunciamentos.index');
+             Route::put('/pronunciamentos/{id}', [PronunciamentoController::class, 'update'])->name('pronunciamentos.update');
+             Route::get('/pronunciamentos/show/{id}', [PronunciamentoController::class, 'show'])->name('pronunciamentos.show');
+             Route::get('/pronunciamentos/{id}/edit', [PronunciamentoController::class, 'edit'])->name('pronunciamentos.edit');
+             Route::get('/pronunciamentos/create', [PronunciamentoController::class, 'create'])->name('pronunciamentos.create');
+             Route::get('/pronunciamentos/{id}', [PronunciamentoController::class, 'destroy'])->name('pronunciamentos.destroy');
+             Route::post('/pronunciamentos', [PronunciamentoController::class, 'store'])->name('pronunciamentos.store');
+ 
             Route::get('/propositions/{id}/votoCreate', [PropositionController::class, 'createVotoCouncilor'])->name('propositionVotoCreate.create');
             Route::post('/propositions/{id}/votoStore', [PropositionController::class, 'storeVotoCouncilor'])->name('storeVotoCouncilor.store');
             Route::get('/propositions/{id}/votoEdit', [PropositionController::class, 'editVotoCouncilor'])->name('propositionVotoEdit.edit');
