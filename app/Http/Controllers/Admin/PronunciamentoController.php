@@ -84,8 +84,7 @@ class PronunciamentoController extends Controller
     {
         $this->authorize('ver-pronunciamento');
 
-        $pronunciamento = Pronunciamento::with(['    public function councilor()
-', 'session'])->findOrFail($id);
+        $pronunciamento = Pronunciamento::with(['councilor', 'session'])->findOrFail($id);
     
         return view('admin.pages.pronunciamentos.show', compact('pronunciamento'));
     }

@@ -24,7 +24,10 @@ Route::post('/pesquisa-satisfacao/responder', [SitePublicoController::class, 'pe
 Route::get('/pesquisa/{id}/estatisticas', [SitePublicoController::class, 'estatisticas'])->name('site.pesquisa.resultado');
 
 //Legislativo
-Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');
+Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');Route::get('pronunciamentos/{id}', [SitePublicoController::class, 'pronunciamentoShow'])->name('camara.pronunciamento.show');
+Route::get('pronunciamentos', [SitePublicoController::class, 'pronunciamentos'])->name('camara.pronunciamentos');
+Route::get('pronunciamentos/{id}', [SitePublicoController::class, 'pronunciamentoShow'])->name('camara.pronunciamento.show');
+
 Route::get('legislaturas', [SitePublicoController::class, 'legislaturas'])->name('camara.legislaturas'); 
 Route::get('legislaturas/{id}/vereadores', [SitePublicoController::class, 'vereadores'])->name('camara.legislatura.vereadores');
 Route::get('proposituras', [SitePublicoController::class, 'proposituras'])->name('camara.proposituras');

@@ -118,6 +118,16 @@ Breadcrumbs::for('propositura', function (BreadcrumbTrail $trail, $propositura) 
     $trail->parent('proposituras');
     $trail->push($propositura->type_proposition->nome, route('camara.propositura.show', $propositura));
 });
+// Home > Pronunciamentos
+Breadcrumbs::for('pronunciamentos', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Pronunciamentos', route('camara.pronunciamentos'));
+});
+// Home > Pronunciamentos -> [pronunciamento]
+Breadcrumbs::for('pronunciamento', function (BreadcrumbTrail $trail, $pronunciamento) {
+    $trail->parent('pronunciamentos');   
+    $trail->push(  $pronunciamento->session->nome,  route('camara.pronunciamento.show', $pronunciamento));
+});
 
 // Home > Mesa Diretora > 
 Breadcrumbs::for('mesas_diretora', function (BreadcrumbTrail $trail) {

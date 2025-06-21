@@ -17,6 +17,7 @@ use App\Models\Page;
 use App\Models\Popups;
 use App\Models\Post;
 use App\Models\ProceedingSituation;
+use App\Models\Pronunciamento;
 use App\Models\Proposition;
 use App\Models\Questionario;
 use App\Models\RespostasPesquisa;
@@ -470,9 +471,7 @@ class SitePublicoController extends Controller
             'cores' => $cores,
         ];
      
-    }
-
-    
+    }   
 
     return view('public_templates.leg.includes.pesquisaSatisfacao.estatisticas', compact(
         'questionario', 
@@ -520,13 +519,20 @@ class SitePublicoController extends Controller
                 'funcao' => Functions::find($comissao->pivot->function_id)->nome ?? 'Membro'
             ];
         });
+        $pronunciamentos = Pronunciamento::select('pronunciamentos.*')
+        ->join('sessions', 'sessions.id', '=', 'pronunciamentos.session_id')
+        ->where('pronunciamentos.councilor_id', $id)
+        ->orderByDesc('sessions.data')
+        ->with('session')
+        ->get(); // ou ->take(6)->get() se preferir controlar no controller
 
         return view("public_templates.$template.includes.vereadores.vereador", compact(
             'vereador',
             'tenant',
             'menus',
             'proposituras',
-            'comissoes'
+            'comissoes',
+            'pronunciamentos'
         ));
     }
 
@@ -592,6 +598,82 @@ class SitePublicoController extends Controller
             'vereadores',
             'tipos',
             'situacoes'
+        ));
+    }
+
+    public function pronunciamentos(Request $request){
+   
+        $query = Pronunciamento::with(['councilor', 'session']);
+        // Filtro por vereador
+        if ($request->filled('councilor_id')) {
+            $query->where('councilor_id', $request->councilor_id);
+        }
+    
+        // Filtro por sessão
+        if ($request->filled('session_id')) {
+            $query->where('session_id', $request->session_id);
+        }
+    
+        // Filtro por texto do discurso
+        if ($request->filled('pesquisa')) {
+            $query->where('discurso', 'like', '%' . $request->pesquisa . '%');
+        }
+    
+        $pronunciamentos = $query->orderByDesc('id')->paginate(10);
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        // Para os selects
+        $vereadores = Councilor::orderBy('nome')->get();
+        $sessoes = Session::orderByDesc('data')->get();
+        return view("public_templates.$template.includes.pronunciamentos.index", compact(
+            'tenant',
+            'menus',
+            'pronunciamentos',
+            'vereadores',
+            'sessoes'      
+             
+        ));
+    }
+    public function pronunciamentoShow($id)
+    {
+
+        $pronunciamento = Pronunciamento::with(['councilor', 'session'])->findOrFail($id);
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        // Para os selects
+        $vereadores = Councilor::orderBy('nome')->get();
+        $sessoes = Session::orderByDesc('data')->get();
+         // Últimos 6 pronunciamentos do mesmo vereador (exceto o atual)
+        $outrosDoVereador = Pronunciamento::with('session')
+        ->where('councilor_id', $pronunciamento->councilor_id)
+        ->where('id', '!=', $pronunciamento->id)
+        ->orderByDesc('id')
+        ->take(6)
+        ->get();
+
+        // Últimos 6 pronunciamentos da mesma sessão (exceto o atual)
+        $outrosDaSessao = Pronunciamento::with('councilor')
+            ->where('session_id', $pronunciamento->session_id)
+            ->where('id', '!=', $pronunciamento->id)
+            ->orderByDesc('id')
+            ->take(6)
+            ->get();
+
+        return view("public_templates.$template.includes.pronunciamentos.show", compact(
+            'tenant',
+            'menus',
+            'vereadores',
+            'sessoes',
+            'pronunciamento',
+            'outrosDoVereador',
+            'outrosDaSessao'
+
         ));
     }
     public function proposituraShow($id)
