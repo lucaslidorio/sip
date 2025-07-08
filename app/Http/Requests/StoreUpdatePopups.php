@@ -28,7 +28,7 @@ class StoreUpdatePopups extends FormRequest
             'img' => $this->isMethod('post') ? 'required|image' : 'nullable|image',
             'url' => 'nullable|url',
             'ativo' => 'required|boolean',
-            'data_expiracao' => 'required|date',
+            'data_expiracao' => 'nullable|date',
             
         ]; 
         if($this->method() =='PUT'){

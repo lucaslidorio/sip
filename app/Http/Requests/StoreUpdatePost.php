@@ -29,7 +29,7 @@ class StoreUpdatePost extends FormRequest
             'secretary_id' => ['required'],
             'data_expiracao' => ['nullable','date_format:Y-m-d'],
             'categories' =>['required_without_all'],
-            'img_destaque' => ['required','image','max:1024' ],
+            'img_destaque' => ['required','image','max:2048' ],
             'destaque' => ['required'],
             'conteudo' => ['required', 'min:10'],
             //'img_galeria.*' => ['image|max:9000'] 
