@@ -1,0 +1,259 @@
+/* ===== CORREÇÃO DA FUNCIONALIDADE DE CONTRASTE ===== */
+
+/* Estilos para alto contraste */
+body.high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.high-contrast *:not(img):not(svg):not(i.fab):not(i.far):not(i.fas) {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Links em alto contraste */
+body.high-contrast a {
+    color: #ffff00 !important;
+    background-color: transparent !important;
+    text-decoration: underline !important;
+}
+
+body.high-contrast a:hover,
+body.high-contrast a:focus {
+    color: #ffffff !important;
+    background-color: #ffff00 !important;
+    text-decoration: none !important;
+}
+
+/* Botões em alto contraste */
+body.high-contrast .btn {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .btn:hover,
+body.high-contrast .btn:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    border-color: #ffff00 !important;
+}
+
+body.high-contrast .btn-primary {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Cards e containers */
+body.high-contrast .card,
+body.high-contrast .navbar,
+body.high-contrast .header-main,
+body.high-contrast .header-accessibility,
+body.high-contrast .footer {
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+/* Inputs e forms */
+body.high-contrast input,
+body.high-contrast textarea,
+body.high-contrast select {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.high-contrast input:focus,
+body.high-contrast textarea:focus,
+body.high-contrast select:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    border-color: #ffff00 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 0, 0.25) !important;
+}
+
+/* Imagens em alto contraste */
+body.high-contrast img {
+    filter: contrast(150%) brightness(120%) !important;
+    border: 2px solid #ffffff !important;
+}
+
+/* Ícones em alto contraste */
+body.high-contrast i {
+    color: inherit !important;
+}
+
+/* Tabelas em alto contraste */
+body.high-contrast table,
+body.high-contrast th,
+body.high-contrast td {
+    border-color: #ffffff !important;
+}
+
+body.high-contrast th {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+}
+
+/* Dropdowns e modals */
+body.high-contrast .dropdown-menu,
+body.high-contrast .modal-content {
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+/* Barra de acessibilidade aprimorada */
+.header-accessibility {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-accessibility .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accessibility-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-accessibility {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-accessibility:hover,
+.btn-accessibility:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-accessibility.active {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: white;
+}
+
+.header-info {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+}
+
+/* Controles de fonte */
+.font-size-small {
+    font-size: 0.9rem !important;
+}
+
+.font-size-normal {
+    font-size: 1rem !important;
+}
+
+.font-size-large {
+    font-size: 1.2rem !important;
+}
+
+.font-size-extra-large {
+    font-size: 1.4rem !important;
+}
+
+/* Aplicar tamanhos de fonte globalmente */
+body.font-small * {
+    font-size: 0.9em !important;
+}
+
+body.font-large * {
+    font-size: 1.2em !important;
+}
+
+body.font-extra-large * {
+    font-size: 1.4em !important;
+}
+
+/* Preservar proporções de títulos */
+body.font-small h1 { font-size: 2.2rem !important; }
+body.font-small h2 { font-size: 1.8rem !important; }
+body.font-small h3 { font-size: 1.5rem !important; }
+
+body.font-large h1 { font-size: 3rem !important; }
+body.font-large h2 { font-size: 2.4rem !important; }
+body.font-large h3 { font-size: 2rem !important; }
+
+body.font-extra-large h1 { font-size: 3.5rem !important; }
+body.font-extra-large h2 { font-size: 2.8rem !important; }
+body.font-extra-large h3 { font-size: 2.3rem !important; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header-accessibility .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .accessibility-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .btn-accessibility {
+        font-size: 0.75rem;
+        padding: 3px 6px;
+    }
+}
+
+/* Animações suaves */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Foco visível para navegação por teclado */
+*:focus {
+    outline: 2px solid #ffff00;
+    outline-offset: 2px;
+}
+
+body.high-contrast *:focus {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 3px !important;
+}
+
+/* Melhorar visibilidade de elementos interativos */
+body.high-contrast button,
+body.high-contrast a,
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
+    border-width: 2px !important;
+    font-weight: bold !important;
+}
+
+/* Indicador visual para elementos ativos */
+body.high-contrast .active,
+body.high-contrast .current {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    border-color: #ffff00 !important;
+}
+

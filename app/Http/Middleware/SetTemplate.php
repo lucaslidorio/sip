@@ -13,7 +13,7 @@ class SetTemplate
         $tenant = Tenant::first();
 
         if ($tenant) {
-            // Compartilha o template com todas as views
+            // Compartilha o template com todas as views           
             View::share('currentTemplate', $tenant->template);
         } else {
             // Fallback para o template padrão

@@ -67,6 +67,7 @@ class SitePublicoController extends Controller
 
     public function index()
     {
+      
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $now = Carbon::now();

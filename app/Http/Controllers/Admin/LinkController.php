@@ -36,6 +36,7 @@ class LinkController extends Controller
      */
     public function create()
     {
+        $this->authorize('novo-link');
         $links = $this->repository->get();
         return view('admin.pages.links.create', compact('links'));
     }
@@ -48,6 +49,7 @@ class LinkController extends Controller
      */
     public function store(StoreUpadateLink $request)
     {
+        $this->authorize('novo-link');
         $dadosLink = $request->all();
         $dadosLink['tenant_id'] = auth()->user()->tenant_id;
         //dd($dadosLink);
@@ -80,6 +82,7 @@ class LinkController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-link');
         $link = $this->repository->where('id', $id)->first();
         return view('admin.pages.links.edit', compact('link'));
     }
@@ -93,6 +96,7 @@ class LinkController extends Controller
      */
     public function update(StoreUpadateLink $request, $id)
     {
+        $this->authorize('editar-link');
         $link =  $this->repository->where('id', $id)->first();
         if(!$link){
             redirect()->back();
@@ -117,6 +121,7 @@ class LinkController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-link');
         $link = $this->repository->where('id', $id)->first();
         if(!$link){
             return redirect()->back();                      

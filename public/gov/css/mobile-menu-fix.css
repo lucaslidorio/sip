@@ -1,0 +1,185 @@
+/* ===== CORREÇÃO PARA TEXTO DO MENU MOBILE ===== */
+
+/* Correção específica para menu mobile - texto visível */
+@media (max-width: 991.98px) {
+    
+    /* Garantir que todos os textos dos links sejam visíveis no mobile */
+    .navbar-collapse .nav-link {
+        color: var(--text-primary, #333333) !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Texto dos dropdowns principais */
+    .navbar-collapse .nav-link.dropdown-toggle {
+        color: var(--text-primary, #333333) !important;
+    }
+    
+    /* Hover state para links no mobile */
+    .navbar-collapse .nav-link:hover,
+    .navbar-collapse .nav-link:focus {
+        color: var(--primary-color, #28a745) !important;
+        background-color: var(--primary-lighter, rgba(40, 167, 69, 0.1)) !important;
+    }
+    
+    /* Link ativo no mobile */
+    .navbar-collapse .nav-link.active {
+        color: white !important;
+        background-color: var(--primary-color, #28a745) !important;
+    }
+    
+    /* Ícones dos links no mobile */
+    .navbar-collapse .nav-link i {
+        color: inherit !important;
+    }
+    
+    /* Texto dos spans dentro dos links */
+    .navbar-collapse .nav-link span {
+        color: inherit !important;
+    }
+    
+    /* Correção específica para mega menu no mobile */
+    .navbar-collapse .mega-menu .nav-link {
+        color: var(--text-primary, #333333) !important;
+    }
+    
+    /* Seções do mega menu no mobile */
+    .navbar-collapse .mega-menu-section h6 {
+        color: var(--primary-color, #28a745) !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Items do dropdown no mobile */
+    .navbar-collapse .dropdown-item {
+        color: var(--text-secondary, #666666) !important;
+        padding: 8px 16px !important;
+    }
+    
+    .navbar-collapse .dropdown-item:hover,
+    .navbar-collapse .dropdown-item:focus {
+        color: var(--primary-color, #28a745) !important;
+        background-color: var(--primary-lighter, rgba(40, 167, 69, 0.1)) !important;
+    }
+    
+    /* Garantir contraste adequado para o fundo do collapse */
+    .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Correção para tema azul */
+    .navbar-collapse[data-theme="blue"] .nav-link {
+        color: #333333 !important;
+    }
+    
+    .navbar-collapse[data-theme="blue"] .nav-link:hover {
+        color: #007bff !important;
+        background-color: rgba(0, 123, 255, 0.1) !important;
+    }
+    
+    .navbar-collapse[data-theme="blue"] .nav-link.active {
+        background-color: #007bff !important;
+    }
+    
+    /* Correção para tema verde */
+    .navbar-collapse[data-theme="green"] .nav-link {
+        color: #333333 !important;
+    }
+    
+    .navbar-collapse[data-theme="green"] .nav-link:hover {
+        color: #28a745 !important;
+        background-color: rgba(40, 167, 69, 0.1) !important;
+    }
+    
+    .navbar-collapse[data-theme="green"] .nav-link.active {
+        background-color: #28a745 !important;
+    }
+    
+    /* Força a cor do texto para ser sempre visível */
+    .navbar-collapse * {
+        text-shadow: none !important;
+    }
+    
+    /* Garantir que o texto não seja transparente */
+    .navbar-collapse .nav-link,
+    .navbar-collapse .nav-link span,
+    .navbar-collapse .dropdown-toggle,
+    .navbar-collapse .dropdown-toggle span {
+        opacity: 1 !important;
+        color: #333333 !important;
+    }
+    
+    /* Hover específico para melhor visibilidade */
+    .navbar-collapse .nav-item:hover .nav-link,
+    .navbar-collapse .nav-item:hover .nav-link span {
+        color: var(--primary-color, #28a745) !important;
+    }
+    
+    /* Estado focus para acessibilidade */
+    .navbar-collapse .nav-link:focus,
+    .navbar-collapse .nav-link:focus span {
+        color: var(--primary-color, #28a745) !important;
+        outline: 2px solid var(--primary-color, #28a745) !important;
+        outline-offset: 2px !important;
+    }
+}
+
+/* Correção adicional para alto contraste no mobile */
+@media (max-width: 991.98px) {
+    body.high-contrast .navbar-collapse {
+        background: #000000 !important;
+        border-color: #ffffff !important;
+    }
+    
+    body.high-contrast .navbar-collapse .nav-link {
+        color: #ffffff !important;
+    }
+    
+    body.high-contrast .navbar-collapse .nav-link:hover {
+        color: #ffff00 !important;
+        background-color: #333333 !important;
+    }
+    
+    body.high-contrast .navbar-collapse .nav-link.active {
+        color: #000000 !important;
+        background-color: #ffff00 !important;
+    }
+}
+
+/* Garantir que o texto seja sempre legível independente do tema */
+@media (max-width: 991.98px) {
+    .navbar-collapse .nav-link {
+        /* Força a cor do texto */
+        color: #2c3e50 !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+    }
+    
+    .navbar-collapse .nav-link:not(.active):not(:hover) {
+        color: #2c3e50 !important;
+    }
+    
+    .navbar-collapse .nav-link:not(.active):not(:hover) span {
+        color: #2c3e50 !important;
+    }
+    
+    /* Garantir que ícones também sejam visíveis */
+    .navbar-collapse .nav-link i {
+        color: #2c3e50 !important;
+    }
+    
+    .navbar-collapse .nav-link:hover i {
+        color: var(--primary-color, #28a745) !important;
+    }
+}
+
+/* Animação suave para mudança de cor */
+@media (max-width: 991.98px) {
+    .navbar-collapse .nav-link,
+    .navbar-collapse .nav-link span,
+    .navbar-collapse .nav-link i {
+        transition: color 0.3s ease !important;
+    }
+}
+
+

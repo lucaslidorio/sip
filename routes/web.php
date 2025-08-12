@@ -594,4 +594,31 @@ Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'
 
 
 
+
+// Rotas principais (já devem existir)
+//Route::get('/', [SitePublicoController::class, 'index'])->name('site.index');
+// Route::get('/noticias', [SitePublicoController::class, 'noticias'])->name('site.noticias.todas');
+//Route::get('/noticia/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
+Route::get('/agenda', [SitePublicoController::class, 'agenda'])->name('site.agenda');
+Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
+
+
+// Rotas adicionais (adicione se não existirem)
+Route::get('/acessibilidade', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.acessibilidade');
+})->name('site.acessibilidade');
+
+Route::get('/sitemap', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.sitemap');
+})->name('site.sitemap');
+
+// Rotas futuras (opcional - adicione quando implementar)
+Route::get('/secretarias', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.secretarias.index');
+})->name('site.secretarias');
+
+Route::get('/decretos', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.decretos.index');
+})->name('site.decretos');
+
 require __DIR__ . '/auth.php';

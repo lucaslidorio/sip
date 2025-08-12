@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Paginas')
+@section('title', 'Páginas')
 @section('content_header')
-@section('plugins.Sweetalert2', false)
+@section('plugins.Sweetalert2', true)
 @include('sweetalert::alert')
 
 <div class="container-fluid">
@@ -100,29 +100,29 @@
 
 @section('js')
 <script>
-//Swal.fire('Any fool can use a computer');  
-  //Inicia os tooltip
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })  
-    //Alert de confirmação de exclusão
-    $('.delete-confirm').on('click', function (event) {
-    event.preventDefault();
-    const url = $(this).attr('href');    
-          Swal.fire({
-          title: 'Deseja continuar?',
-          text: "Este registro e seus detalhes serão excluídos permanentemente!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          cancelButtonText:'Cancelar',
-          confirmButtonText: 'Sim, Exclua!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = url;
-          }
-        })  
-});
-</script>
+  //Swal.fire('Any fool can use a computer');  
+    //Inicia os tooltip
+      $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+      })  
+      //Alert de confirmação de exclusão
+      $('.delete-confirm').on('click', function (event) {
+      event.preventDefault();
+      const url = $(this).attr('href');    
+            Swal.fire({
+            title: 'Deseja continuar?',
+            text: "Este registro e seus detalhes serão excluídos permanentemente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText:'Cancelar',
+            confirmButtonText: 'Sim, Exclua!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = url;
+            }
+          })  
+  });
+  </script>
 @stop
