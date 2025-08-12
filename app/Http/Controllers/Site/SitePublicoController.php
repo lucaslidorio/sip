@@ -65,6 +65,12 @@ class SitePublicoController extends Controller
 
 
 
+/*************  ✨ Windsurf Command ⭐  *************/
+    /**
+     * Display the public site homepage with various resources.
+     *
+
+/*******  1b78401f-ffb4-41ec-8b4f-d8d661c43373  *******/
     public function index()
     {
       

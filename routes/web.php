@@ -45,7 +45,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserFunctionController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
-use App\Models\ConfiguracaoOuvidoria;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -112,13 +112,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ->namespace('layout')
                 ->group(function () {
 
+
                     // Route::any('/menus/search', [PartyController::class, 'search'])->name('menus.search');
-                    Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
-                    Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
-                    Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
-                    Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
-                    Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
-                    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+                    // Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
+                    // Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+                    // Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
+                    // Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+                    // Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+                    // Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+
+                    Route::get('/menus/{menu}/edit', [MenuController::class, 'edit'])->name('admin.menus.edit');
+                    Route::get('/menus/create', [MenuController::class, 'create'])->name('admin.menus.create');
+                    Route::get('/menus/show/{id}', [MenuController::class, 'show'])->name('admin.menus.show');
+                    Route::put('/menus/{id}', [MenuController::class, 'update'])->name('admin.menus.update');
+                   
+                    Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('admin.menus.destroy');
+                    Route::post('/menus', [MenuController::class, 'store'])->name('admin.menus.store');
+                    Route::get('/menus', [MenuController::class, 'index'])->name('admin.menus.index');
+                    
+                    
+                    //Route::resource('menus',[MenuController::class]);
+                    Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('admin.menus.reorder');
+                    Route::post('menus/{menu}/toggle', [MenuController::class, 'toggleStatus'])->name('admin.menus.toggle');
+                    Route::post('menus/{menu}/duplicate', [MenuController::class, 'duplicate'])->name('admin.menus.duplicate');
+                    Route::get('menus/preview', [MenuController::class, 'preview'])->name('admin.menus.preview');
+                
 
                     Route::put('/links/{id}', [LinkController::class, 'update'])->name('links.update');
                     Route::get('/links/{id}/edit', [LinkController::class, 'edit'])->name('links.edit');

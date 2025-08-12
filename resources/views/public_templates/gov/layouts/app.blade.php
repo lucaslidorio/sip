@@ -132,68 +132,67 @@
         </div>
     </header>
 
-    <!-- Navegação Principal Moderna -->
+   <!-- Navegação Principal Moderna -->
     <nav class="navbar navbar-expand-lg navbar-main" id="mainNavbar">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
-                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+    
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('site.index') ? 'active' : '' }}" 
-                           href="{{ route('site.index') }}">
-                            <i class="fas fa-home"></i>
-                            <span>Início</span>
+                    @foreach($menus as $menu)
+                    @if($menu->isMegaMenu())
+                    {{-- Mega Menu --}}
+                    <li class="nav-item dropdown mega-menu">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            {!! $menu->getIconeHtml() !!} {{ $menu->nome }}
                         </a>
-                    </li>
-                    
-                    @if($menus && $menus->count() > 0)
-                        @foreach($menus as $menu)
-                            @if($menu->submenus && $menu->submenus->count() > 0)
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @if($menu->icone)
-                                    <i class="{{ $menu->icone }}"></i>
-                                    @endif
-                                    <span>{{ $menu->nome }}</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    @foreach($menu->submenus as $submenu)
-                                    <li>
-                                        <a class="dropdown-item" href="{{ $submenu->url }}">
-                                            @if($submenu->icone)
-                                            <i class="{{ $submenu->icone }}"></i>
-                                            @endif
-                                            {{ $submenu->nome }}
-                                        </a>
-                                    </li>
+                        <div class="dropdown-menu mega-menu-content">
+                            <div class="row">
+                                @foreach($menu->categorias as $categoria)
+                                <div class="col-md-4">
+                                    <h6 style="color: {{ $categoria->cor_destaque }}" class="border-bottom border-light-subtle ">
+                                        {!! $categoria->getIconeHtml() !!} {{ $categoria->nome }}
+                                    </h6>
+                                    @foreach($categoria->itensCategoria as $item)
+                                    <a href="{{ $item->getUrlCompleta() }}" class="dropdown-item">
+                                        {!! $item->getIconeHtml() !!} {{ $item->nome }}
+                                    </a>
                                     @endforeach
-                                </ul>
-                            </li>
-                            @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ $menu->url }}">
-                                    @if($menu->icone)
-                                    <i class="{{ $menu->icone }}"></i>
-                                    @endif
-                                    <span>{{ $menu->nome }}</span>
-                                </a>
-                            </li>
-                            @endif
-                        @endforeach
-                    @endif
-                    
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </li>
+    
+                    @elseif($menu->isDropdown())
+                    {{-- Dropdown Tradicional --}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            {!! $menu->getIconeHtml() !!} {{ $menu->nome }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach($menu->children as $submenu)
+                            <li><a class="dropdown-item" href="{{ $submenu->getUrlCompleta() }}">
+                                    {!! $submenu->getIconeHtml() !!} {{ $submenu->nome }}
+                                </a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+    
+                    @else
+                    {{-- Menu Simples --}}
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('site.noticias.*') ? 'active' : '' }}" 
-                           href="{{ route('noticias.todas') }}">
-                            <i class="fas fa-newspaper"></i>
-                            <span>Notícias</span>
+                        <a class="nav-link" href="{{ $menu->getUrlCompleta() }}">
+                            {!! $menu->getIconeHtml() !!} {{ $menu->nome }}
                         </a>
                     </li>
+                    @endif
+                    @endforeach                          
                     
+{{--                                       
                     <li class="nav-item dropdown mega-menu">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-balance-scale"></i>
@@ -248,9 +247,9 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
                     
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-laptop"></i>
                             <span>Serviços Online</span>
@@ -261,26 +260,26 @@
                             <li><a class="dropdown-item" href="#"><i class="fas fa-certificate"></i> Certidões</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-file-alt"></i> Protocolo Online</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('site.agenda*') ? 'active' : '' }}" 
                            href="{{ route('site.agenda') }}">
                             <i class="fas fa-calendar-alt"></i>
                             <span>Agenda</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
                 
                 <!-- Botões de ação no menu -->
-                <div class="navbar-nav ms-auto">
+                {{-- <div class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contatoModal">
                             <i class="fas fa-envelope"></i>
                             <span>Contato</span>
                         </a>
                     </li>
-                </div>
+                </div> --}}
             </div>
         </div>
     </nav>

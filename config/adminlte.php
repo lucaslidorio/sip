@@ -139,7 +139,7 @@ return [
     'usermenu_image' => true,
     'usermenu_desc' => true,
     'usermenu_profile_url' => true,
-  
+
 
     /*
     |--------------------------------------------------------------------------
@@ -330,35 +330,35 @@ return [
             'url'  => 'admin/citizenLetters',
             'icon' => 'far fa-envelope',
             'can' => 'ver-carta-cidadao',
-          
-        ],   
-        
+
+        ],
+
 
         [
             'text'   => 'Ouvidoria',
-            'icon'   => 'fas fa-phone-square-alt', 
-            'active' => ['admin/ouvidoria/*'] ,
-            'can'    =>   'ver-ouvidoria',                        
+            'icon'   => 'fas fa-phone-square-alt',
+            'active' => ['admin/ouvidoria/*'],
+            'can'    =>   'ver-ouvidoria',
             'submenu' => [
                 [
                     'text' => 'Configuração',
                     'url'  => 'admin/configuracao/ouvidoria',
-                    'active' => ['admin/configuracao/ouvidorias/*' ],
+                    'active' => ['admin/configuracao/ouvidorias/*'],
                     'icon' => 'fas fa-sliders-h',
                     'can' => 'ver-ouvidoria',
-                ], 
+                ],
                 [
                     'text' => 'Ouvidoria',
                     'url'  => 'admin/ouvidorias',
-                    'active' => ['admin/ouvidorias/*' ],
+                    'active' => ['admin/ouvidorias/*'],
                     'icon' => 'fas fa-phone-alt',
                     'can' => 'ver-ouvidoria',
-                ], 
-                              
-           ],
+                ],
+
+            ],
         ],
 
-        
+
         [
             'text' => ' Agenda',
             'url'  => 'admin/agenda',
@@ -380,37 +380,39 @@ return [
         ],
         [
             'text'    => 'Diário Oficial',
-            'icon'    => 'fas fa-book', 
-            'active' => ['admin/diario/*'] ,
-            'can'    =>   'ver-diario-oficial',                        
+            'icon'    => 'fas fa-book',
+            'active' => ['admin/diario/*'],
+            'can'    =>   'ver-diario-oficial',
             'submenu' => [
                 [
                     'text' => 'Tipos de Matéria',
                     'url'  => 'admin/diario/tipoMaterias',
-                    'active' => ['admin/diario/tipoMaterias*' ],
+                    'active' => ['admin/diario/tipoMaterias*'],
                     'icon' => 'fas  fa-text-width',
                     'can' => 'ver-tipo-materia',
-                ], 
+                ],
                 [
                     'text' => 'Sub Tipo de Matérias',
                     'url'  => 'admin/diario/subTipoMateria',
-                    'active' => ['admin/diario/subTipoMateria*' ],
+                    'active' => ['admin/diario/subTipoMateria*'],
                     'icon' => 'fas fa-text-width',
                     'can' => 'ver-tipo-materia',
                 ],
                 [
                     'text' => 'Documentos',
                     'url'  => 'admin/diario/documentos',
-                    'active' => ['admin/diario/documentos*' ],
+                    'active' => ['admin/diario/documentos*'],
                     'icon' => 'fas fa-file-word',
                     'can' => 'ver-documento-dof',
-                ],                 
-           ],
+                ],
+            ],
         ],
-        
-        
-        ['header' => 'LEGISLATIVO',
-        'can'    =>   'legislativo',],
+
+
+        [
+            'header' => 'LEGISLATIVO',
+            'can'    =>   'legislativo',
+        ],
         [
             'text' => 'Sessões',
             'url'  => 'admin/legislativo/sessions',
@@ -430,14 +432,14 @@ return [
             'can' => 'ver-pronunciamento',
         ],
 
-      
+
         [
             'text' => 'Vereadores',
             'url'  => 'admin/legislativo/councilors',
             'icon' => 'fas fa-user-tie',
             'can' => 'ver-vereador',
         ],
-      
+
         [
             'text' => 'Legislaturas',
             'url'  => 'admin/legislativo/legislatures',
@@ -461,17 +463,19 @@ return [
             'url'  => 'admin/directorTables',
             'icon' => 'fas fa-tablets',
             'can'  => 'ver-mesa-diretora',
-        ],        
+        ],
 
-      
-        ['header' => 'ADMINISTRAÇÃO',
-        'can'    =>   'administrativo',],
+
+        [
+            'header' => 'ADMINISTRAÇÃO',
+            'can'    =>   'administrativo',
+        ],
         [
             'text' => 'Orgão',
             'url'  => 'admin/tenants',
             'icon' => 'fas fa-university',
             'can'  => 'ver-orgao',
-            
+
         ],
         [
             'text' => 'Secretarias',
@@ -496,7 +500,7 @@ return [
             'url'  => 'admin/parties',
             'icon' => 'fas fa-ad',
             'can'  => 'ver-partido',
-            
+
         ],
         [
             'text' => 'Funções',
@@ -504,65 +508,69 @@ return [
             'icon' => 'fas fa-plus-square',
             'can'  => 'ver-funcoes',
         ],
-       
-        ['header' => 'COMPRAS',
-        'can'    =>   'compras',],
+
+        [
+            'header' => 'COMPRAS',
+            'can'    =>   'compras',
+        ],
         [
             'text' => 'Processos',
             'url'  => 'admin/processos',
             'icon' => 'fas fa-folder',
-            'can'  => ['ver-processos-usuario-externo','ver-processo-compras'],            
+            'can'  => ['ver-processos-usuario-externo', 'ver-processo-compras'],
         ],
         [
             'text' => 'Fornecedores',
             'url'  => 'admin/fornecedores',
             'icon' => 'fas fa-folder',
-            'can'  => ['ver-fornecedor'],            
+            'can'  => ['ver-fornecedor'],
         ],
 
-        ['header' => 'CONFIGURAÇÕES',
-        'can'    =>   'admin',],
+        [
+            'header' => 'CONFIGURAÇÕES',
+            'can'    =>   'admin',
+        ],
         [
             'text'    => 'Layout',
-            'icon'    => 'fas fa-layer-group', 
-            'active' => ['admin/layout*'] ,
-            'can'    =>   'admin',                        
+            'icon'    => 'fas fa-layer-group',
+            'active' => ['admin/layout*'],
+            'can'    =>   'admin',
             'submenu' => [
                 [
                     'text' => 'Menu',
                     'url'  => 'admin/layout/menus',
-                    'active' => ['admin/menus*' ],
+                    'active' => ['admin/menus*'],
                     'icon' => 'fas fa-bars',
                     'can' => 'admin',
-                ],  
+                ],
                 [
                     'text' => 'Links',
                     'url'  => 'admin/layout/links',
-                    'active' => ['admin/links*' ],
+                    'active' => ['admin/links*'],
                     'icon' => 'fas fa-link',
                     'can' => 'admin',
-                ],  
+                ],
                 [
                     'text' => 'Páginas',
                     'url'  => 'admin/layout/pages',
-                    'active' => ['admin/pages*' ],
+                    'active' => ['admin/pages*'],
                     'icon' => 'far fa-file-word',
                     'can' => 'admin',
-                ],                      
-               
+                ],
+
             ],
         ],
-        
+
         [
             'text'    => 'Segurança',
-            'icon'    => 'fas fa-lock', 
-            'active' => ['admin/users*','admin/profiles*','admin/permissions*'] ,
-            'can'    =>   'admin',                        
+            'icon'    => 'fas fa-lock',
+            'active' => ['admin/users*', 'admin/profiles*', 'admin/permissions*'],
+            'can'    =>   'admin',
             'submenu' => [
                 [
                     'text' => 'Usuários',
                     'url'  => 'admin/users',
-                    'active' => ['admin/users*' ],
+                    'active' => ['admin/users*'],
                     'icon' => 'fas fa-users',
                     'can' => 'admin',
                 ],
@@ -570,22 +578,22 @@ return [
                     'text' => 'Planos',
                     'url'  => 'admin/plans',
                     'active' => ['admin/plans*'],
-                    'icon' => 'far fa-address-card', 
-                                    
+                    'icon' => 'far fa-address-card',
+
                 ],
                 [
                     'text' => 'Perfis',
                     'url'  => 'admin/profiles',
                     'active' => ['admin/profiles*'],
-                    'icon' => 'fas fa-id-badge',                    
+                    'icon' => 'fas fa-id-badge',
                 ],
                 [
                     'text' => 'Permissões',
                     'url'  => 'admin/permissions',
                     'active' => ['admin/permissions*'],
                     'icon' => 'fas fa-key',
-                ],               
-               
+                ],
+
             ],
         ],
     ],
@@ -650,22 +658,22 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,  
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',               
-                    
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+
                 ],
 
                 [
                     'type' => 'css',
-                    'asset' => false,                   
+                    'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,                   
+                    'asset' => false,
                     'location' => 'https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css',
                 ],
-               
+
             ],
         ],
         'Chartjs' => [
@@ -703,60 +711,85 @@ return [
                 ],
             ],
         ],
-                'icheck-bootstrap' => [
-                    'active' => true,
-                    'files' => [
-                        [
-                            'type' => 'css',
-                            'asset' => false,
-                            'location' => '//cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css',
-                        ],
-                        
-                    ],
-                ],
-                'inputmask' => [
-                    'active' => true,
-                    'files' => [              
-                        [
-                            'type' => 'js',
-                            'asset' => true,
-                            'location' => 'vendor/inputmask/jquery.inputmask.min.js',
-                        ],
-                    ],
-                ], 
-
-                'Dropzone' => [
-                    'active' => true,
-                    'files' => [
-                        [
-                            'type' => 'js',
-                            'asset' => true,
-                            'location' => 'https://unpkg.com/dropzone@5/dist/min/dropzone.min.js',
-                        ],
-                        [
-                            'type' => 'css',
-                            'asset' => false,
-                            'location' => 'https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css',
-                        ],
-                    ],
+        'icheck-bootstrap' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css',
                 ],
 
-
-                'Summernote' => [
-                    'active' => false,
-                    'files' => [
-                        [
-                            'type' => 'css',
-                            'asset' => false,
-                            'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css',
-                        ],
-                        [
-                            'type' => 'js',
-                            'asset' => false,
-                            'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js',
-                        ],
-                    ],
+            ],
+        ],
+        'inputmask' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/inputmask/jquery.inputmask.min.js',
                 ],
+            ],
+        ],
+
+        'Dropzone' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'https://unpkg.com/dropzone@5/dist/min/dropzone.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => 'https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css',
+                ],
+            ],
+        ],
+
+
+        'Summernote' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js',
+                ],
+            ],
+        ],
+        'Toast' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
+                ],
+            ],//cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js
+        ],
+        'Sortable' => [
+            'active' => false,
+            'files' => [                
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js',
+                ],
+            ],
+        ],
     ],
 
     /*
