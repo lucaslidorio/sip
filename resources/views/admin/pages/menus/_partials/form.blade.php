@@ -182,6 +182,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
+                <input type="hidden" name="target" value="0">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" name="target" id="target" class="custom-control-input" 
                            value="1" {{ old('target', $menu->target ?? false) ? 'checked' : '' }}>
@@ -194,6 +195,8 @@
         
         <div class="col-md-4">
             <div class="form-group">
+
+                <input type="hidden" name="ativo" value="0">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" name="ativo" id="ativo" class="custom-control-input" 
                            value="1" {{ old('ativo', $menu->ativo ?? true) ? 'checked' : '' }}>
@@ -206,6 +209,7 @@
         
         <div class="col-md-4">
             <div class="form-group">
+                <input type="hidden" name="destaque" value="0">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" name="destaque" id="destaque" class="custom-control-input" 
                            value="1" {{ old('destaque', $menu->destaque ?? false) ? 'checked' : '' }}>

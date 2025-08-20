@@ -4,33 +4,8 @@
 
 @section('content')
 <!-- Banner Principal -->
-<section class="hero-banner">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <div class="hero-content">
-                    <h1 class="hero-title">{{ $tenant->nome }}</h1>
-                    <p class="hero-subtitle">Transparência, eficiência e compromisso com o cidadão</p>
-                    <div class="hero-actions">
-                        <a href="{{ route('noticias.todas') }}" class="btn btn-light btn-lg">
-                            <i class="fas fa-newspaper me-2"></i>
-                            Últimas Notícias
-                        </a>
-                        <a href="{{ route('site.agenda') }}" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-calendar me-2"></i>
-                            Agenda do Prefeito
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center">
-                @if($tenant->logo)
-                    <img src="{{ asset('storage/' . $tenant->logo) }}" alt="Logo {{ $tenant->nome }}" class="img-fluid" style="max-height: 200px;">
-                @endif
-            </div>
-        </div>
-    </div>
-</section>
+@include('public_templates.gov.includes.hero-carousel')
+
 
 <!-- Serviços Principais -->
 <section class="section-padding">

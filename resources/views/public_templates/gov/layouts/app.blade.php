@@ -14,8 +14,8 @@
     <title>@yield('title', $tenant->nome . ' - Portal Oficial')</title>
     
     <!-- Favicon -->
-    @if($tenant->favicon)
-    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $tenant->favicon) }}">
+    @if($tenant->brasao)
+    <link rel="icon" type="image/x-icon" href="{{config('app.aws_url')."{$tenant->favicon}" }}">
     @endif
     
     <!-- Bootstrap CSS -->
@@ -28,7 +28,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Sistema de Cores Dinâmico -->
-    @if($tenant->arquivo_cor_css === 'blue')
+    @if($tenant->arquivo_cor_css === 'colors-blue.css')
         <link href="{{ asset('gov/css/colors-blue.css') }}" rel="stylesheet">
     @else
         <link href="{{ asset('gov/css/colors-green.css') }}" rel="stylesheet">
@@ -43,7 +43,8 @@
     <!-- CSS do Menu Moderno -->
     <link href="{{ asset('gov/css/modern-menu.css') }}" rel="stylesheet">
     <link href="{{ asset('gov/css/mobile-menu-fix.css') }}" rel="stylesheet">
-    
+    <!-- CSS do Carrocel de noticias -->
+    <link href="{{ asset('gov/css/hero-carousel.css') }}" rel="stylesheet">
     <!-- CSS Adicional -->
     @stack('styles')
     
@@ -81,7 +82,7 @@
             </div>
             
             <div class="header-info">
-                <span><i class="fas fa-clock me-1"></i> {{ now()->format('d/m/Y H:i') }}</span>
+                <span><i class="fas fa-clock me-1"></i> {{ now()->setTimezone('America/Porto_Velho')->format('d/m/Y H:i') }}</span>
             </div>
         </div>
     </div>
@@ -92,16 +93,20 @@
             <div class="row align-items-center">
                 <div class="col-lg-4">
                     <div class="header-brand">
-                        @if($tenant->logo)
-                        <img src="{{ asset('storage/' . $tenant->logo) }}" alt="Logo {{ $tenant->nome }}">
-                        @endif
+                        @if($tenant->brasao)
+                        <a href="{{route('site.index')}}" class="text-decoration-none">
+                            <img src="{{config('app.aws_url')."{$tenant->brasao}" }}" class="img-fluid" alt="Logo {{ $tenant->nome }}">  
+                        </a>                              
+                        @else
                         <div class="header-brand-text">
                             <h1>{{ $tenant->nome }}</h1>
                             <p>{{ $tenant->slogan ?? 'Portal Oficial' }}</p>
                         </div>
+                        @endif                     
+                        
                     </div>
-                </div>
-                
+                     
+                </div>                
                 <div class="col-lg-4">
                     <div class="header-search">
                         <form action="{{ route('site.pesquisar') }}" method="GET">
@@ -366,7 +371,8 @@
     
     <!-- JavaScript do Menu Moderno -->
     <script src="{{asset('gov/js/modern-menu.js') }}"></script>
-    
+    <!-- JavaScript do Carroce de noticias -->
+    <script src="{{ asset('gov/js/hero-carousel.js') }}"></script>
     <!-- Scripts Adicionais -->
     @stack('scripts')
 </body>

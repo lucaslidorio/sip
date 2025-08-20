@@ -23,18 +23,15 @@
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-edit"></i> Dados do Menu</h3>
                 </div>
-                <form method="POST" action="{{ route('admin.menus.update', $menu) }}" id="menu-form">
+                <form method="POST" action="{{ route('admin.menus.update', $menu->id) }}" id="menu-form">
                     @csrf
                     @method('PUT')
-                    @include('admin.menus.partials.form')
+                    @include('admin.pages.menus._partials.form')
                     
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Atualizar
-                        </button>
-                        <button type="button" class="btn btn-success" id="save-and-continue">
-                            <i class="fas fa-check"></i> Salvar e Continuar Editando
-                        </button>
+                        </button>                        
                         <a href="{{ route('admin.menus.index') }}" class="btn btn-secondary">
                             <i class="fas fa-times"></i> Cancelar
                         </a>

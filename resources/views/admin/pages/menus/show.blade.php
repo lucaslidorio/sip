@@ -6,13 +6,12 @@
     <div class="d-flex justify-content-between">
        
         <h1><i class="fas fa-eye"></i> {{ $menu->nome }}</h1>
-        <div>           
-            <a href="{{ route('admin.menus.edit', 19) }}" class="btn btn-warning">
+        <div>     
+            @can('editar-menu')      
+            <a href="{{ route('admin.menus.edit', $menu->id) }}" class="btn btn-warning">
                 <i class="fas fa-edit"></i> Editar
-            </a>
-            <button type="button" class="btn btn-secondary duplicate-btn" data-id="{{ $menu->id }}">
-                <i class="fas fa-copy"></i> Duplicar
-            </button>
+            </a> 
+            @endcan           
             <a href="{{ route('admin.menus.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Voltar
             </a>
@@ -402,9 +401,6 @@
                             </a>
                         @endif
                         
-                        <button type="button" class="btn btn-secondary btn-block duplicate-btn" data-id="{{ $menu->id }}">
-                            <i class="fas fa-copy"></i> Duplicar Menu
-                        </button>
                         
                         @if($menu->url)
                             <a href="{{ $menu->getUrlCompleta() }}" target="_blank" class="btn btn-primary btn-block">
@@ -418,30 +414,4 @@
     </div>
 @stop
 
-@section('js')
-<script>
-$(document).ready(function() {
-    // Duplicar Menu
-    $('.duplicate-btn').click(function() {
-        const id = $(this).data('id');
-        
-        if (confirm('Deseja duplicar este menu?')) {
-            $.ajax({
-                url: `/admin/menus/${id}/duplicate`,
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    toastr.success('Menu duplicado com sucesso!');
-                    setTimeout(() => location.reload(), 1500);
-                },
-                error: function() {
-                    toastr.error('Erro ao duplicar menu');
-                }
-            });
-        }
-    });
-});
-</script>
-@stop
+

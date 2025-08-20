@@ -534,14 +534,14 @@ return [
             'text'    => 'Layout',
             'icon'    => 'fas fa-layer-group',
             'active' => ['admin/layout*'],
-            'can'    =>   'admin',
+            // 'can'    =>   'admin',
             'submenu' => [
                 [
                     'text' => 'Menu',
                     'url'  => 'admin/layout/menus',
                     'active' => ['admin/menus*'],
                     'icon' => 'fas fa-bars',
-                    'can' => 'admin',
+                    'can' => 'ver-menu',
                 ],
                 [
                     'text' => 'Links',

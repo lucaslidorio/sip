@@ -62,15 +62,7 @@ class SitePublicoController extends Controller
         $this->vereador = $vereador;
         $this->configuracaoOuvidoria = $configuracaoOuvidoria;
     }
-
-
-
-/*************  ✨ Windsurf Command ⭐  *************/
-    /**
-     * Display the public site homepage with various resources.
-     *
-
-/*******  1b78401f-ffb4-41ec-8b4f-d8d661c43373  *******/
+ 
     public function index()
     {
       
@@ -106,12 +98,16 @@ class SitePublicoController extends Controller
             ->orderBy('created_at', 'DESC')
             ->limit(6)
             ->get();
+        $ultimaAtualizacao = $posts_destaque
+            ->map(fn($post) => $post->updated_at ?? $post->created_at)
+            ->max();
         // Recupera os links da posição "Direita"
         $linksDireita = $this->link::porPosicao(3)->get(); // 3 corresponde a "Direita"
         // Recupera os links da posição "Inferior"
         $linksInferior = $this->link::porPosicao(4)->get(); // 4 corresponde a "Inferior"
         $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
         $popups = Popups::visiveis()->get();
+        $totalNoticias = $this->noticias->count();
 
         return view(
             "public_templates.$template.index",
@@ -122,7 +118,9 @@ class SitePublicoController extends Controller
                 'linksInferior',
                 'vereadores',
                 'noticias',
+                'totalNoticias',
                 'posts_destaque',
+                'ultimaAtualizacao',
                 'menus3',
                 'configuracaoOuvidoria',
                 'popups'

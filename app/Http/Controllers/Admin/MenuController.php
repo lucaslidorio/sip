@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateMenu;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MenuController extends Controller
 {
@@ -15,6 +17,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('ver-menu');
         $query = Menu::with(['parent', 'categoria', 'children']);
 
         // Filtros
@@ -33,24 +36,24 @@ class MenuController extends Controller
         if ($request->filled('pesquisa')) {
             $query->where(function ($q) use ($request) {
                 $q->where('nome', 'like', '%' . $request->pesquisa . '%')
-                  ->orWhere('url', 'like', '%' . $request->pesquisa . '%')
-                  ->orWhere('descricao', 'like', '%' . $request->pesquisa . '%');
+                    ->orWhere('url', 'like', '%' . $request->pesquisa . '%')
+                    ->orWhere('descricao', 'like', '%' . $request->pesquisa . '%');
             });
         }
 
         // Ordenação hierárquica
         $menus = $query->orderBy('posicao')
-                      ->orderBy('ordem')
-                      ->paginate(20);
+            ->orderBy('ordem')
+            ->paginate(20);
 
         // Dados para filtros
         $menusPais = Menu::whereNull('menu_pai_id')
-                        ->orderBy('nome')
-                        ->get();
+            ->orderBy('nome')
+            ->get();
 
         $categorias = Menu::where('tipo_menu', 'categoria')
-                         ->orderBy('nome')
-                         ->get();
+            ->orderBy('nome')
+            ->get();
 
         return view('admin.pages.menus.index', compact('menus', 'menusPais', 'categorias'));
     }
@@ -60,13 +63,14 @@ class MenuController extends Controller
      */
     public function create()
     {
+        $this->authorize('novo-menu');
         $menusPais = Menu::whereIn('tipo_menu', ['dropdown', 'mega_menu'])
-                        ->orderBy('nome')
-                        ->get();
+            ->orderBy('nome')
+            ->get();
 
         $categorias = Menu::where('tipo_menu', 'categoria')
-                         ->orderBy('nome')
-                         ->get();
+            ->orderBy('nome')
+            ->get();
 
         return view('admin.pages.menus.create', compact('menusPais', 'categorias'));
     }
@@ -74,38 +78,11 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUpdateMenu $request)
     {
         $this->authorize('novo-menu');
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'url' => 'nullable|string|max:500',
-            'slug' => 'nullable|string|max:255|unique:menus,slug',
-            'tipo_menu' => 'required|in:simples,dropdown,mega_menu,categoria',
-            'menu_pai_id' => 'nullable|exists:menus,id',
-            'categoria_id' => 'nullable|exists:menus,id',
-            'icone' => 'nullable|string|max:100',
-            'descricao' => 'nullable|string|max:1000',
-            'posicao' => 'required|integer|min:1|max:3',
-            'ordem' => 'nullable|integer|min:0',
-            'target' => 'boolean',
-            'pagina_interna' => 'boolean',
-            'cor_destaque' => 'nullable|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
-            'ativo' => 'boolean',
-            'configuracao' => 'nullable|array'
-        ]);
 
-        // Validações específicas
-        if ($validated['tipo_menu'] === 'categoria' && empty($validated['menu_pai_id'])) {
-            return back()->withErrors(['categoria_id' => 'Categorias devem ter um menu pai.'])->withInput();
-        }
-
-        if (!empty($validated['categoria_id'])) {
-            $categoria = Menu::find($validated['categoria_id']);
-            if (!$categoria || $categoria->tipo_menu !== 'categoria') {
-                return back()->withErrors(['categoria_id' => 'Categoria inválida.'])->withInput();
-            }
-        }
+        $validated = $request->validated();
 
         // Gerar slug se não informado
         if (empty($validated['slug'])) {
@@ -114,24 +91,27 @@ class MenuController extends Controller
 
         // Definir ordem se não informada
         if (empty($validated['ordem'])) {
-            $maxOrdem = Menu::where('menu_pai_id', $validated['menu_pai_id'])
-                           ->where('posicao', $validated['posicao'])
-                           ->max('ordem');
+            $maxOrdem = \App\Models\Menu::where('menu_pai_id', $validated['menu_pai_id'] ?? null)
+                ->where('posicao', $validated['posicao'])
+                ->max('ordem');
             $validated['ordem'] = ($maxOrdem ?? 0) + 1;
         }
 
         try {
             DB::beginTransaction();
-            
-            $menu = Menu::create($validated);
-            
+
+            $menu = \App\Models\Menu::create($validated);
+
             DB::commit();
 
-            return redirect()->route('admin.menus.index')
-                           ->with('success', 'Menu criado com sucesso!');
-        } catch (\Exception $e) {
+            Alert::toast('Menu criado com sucesso!', 'success')->position('top-end');
+            return redirect()->route('admin.menus.index');
+        } catch (\Throwable $e) {
             DB::rollBack();
-            return back()->withErrors(['error' => 'Erro ao criar menu: ' . $e->getMessage()])->withInput();
+
+            // Você pode usar error bag OU SweetAlert. Aqui vai SweetAlert + redirect back com input
+            Alert::toast('Erro ao criar menu: ' . $e->getMessage(), 'error')->position('top-end');
+            return back()->withInput();
         }
     }
 
@@ -142,204 +122,150 @@ class MenuController extends Controller
     {
         $this->authorize('ver-menu');
         $menu = Menu::with(['parent', 'categoria', 'children.children', 'categorias.itensCategoria'])->findOrFail($id);
-        
-        
-        $menu->load(['parent', 'categoria', 'children.children', 'categorias.itensCategoria']);        
-       
+
+
+        $menu->load(['parent', 'categoria', 'children.children', 'categorias.itensCategoria']);
+
         return view('admin.pages.menus.show', compact('menu'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Menu $menu)
+    public function edit($id)
     {
-        $this->authorize('update', $menu);
+        
+        $this->authorize('editar-menu');
+        $menu = Menu::findOrFail($id);
+        $menusPais = Menu::query()
+        ->whereIn('tipo_menu', ['dropdown', 'mega_menu'])
+        ->where('id', '!=', $menu->id)
+        ->orderBy('nome')
+        ->get();
 
-        $menusPais = Menu::where('tenant_id', auth()->user()->tenant_id)
-                        ->whereIn('tipo_menu', ['dropdown', 'mega_menu'])
-                        ->where('id', '!=', $menu->id)
-                        ->orderBy('nome')
-                        ->get();
 
-        $categorias = Menu::where('tenant_id', auth()->user()->tenant_id)
-                         ->where('tipo_menu', 'categoria')
-                         ->where('id', '!=', $menu->id)
-                         ->orderBy('nome')
-                         ->get();
+        $categorias = Menu::where('tipo_menu', 'categoria')
+            ->where('id', '!=', $menu->id)
+            ->orderBy('nome')
+            ->get();
 
-                        
-
-        return view('admin.menus.edit', compact('menu', 'menusPais', 'categorias'));
+        return view('admin.pages.menus.edit', compact('menu', 'menusPais', 'categorias'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Menu $menu)
+    public function update(StoreUpdateMenu $request, $id)
     {
-        $this->authorize('update', $menu);
+        $this->authorize('editar-menu');
 
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'url' => 'nullable|string|max:500',
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('menus')->ignore($menu->id)],
-            'tipo_menu' => 'required|in:simples,dropdown,mega_menu,categoria',
-            'menu_pai_id' => 'nullable|exists:menus,id',
-            'categoria_id' => 'nullable|exists:menus,id',
-            'icone' => 'nullable|string|max:100',
-            'descricao' => 'nullable|string|max:1000',
-            'posicao' => 'required|integer|min:1|max:3',
-            'ordem' => 'required|integer|min:0',
-            'target' => 'boolean',
-            'pagina_interna' => 'boolean',
-            'cor_destaque' => 'nullable|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
-            'ativo' => 'boolean',
-            'configuracao' => 'nullable|array'
-        ]);
+        $menu = Menu::findOrFail($id);
+        $data = $request->validated(); // regras e condicionais já estão no FormRequest
 
-        // Validar hierarquia (não pode ser pai de si mesmo)
-        if ($validated['menu_pai_id'] == $menu->id) {
-            return back()->withErrors(['menu_pai_id' => 'Um menu não pode ser pai de si mesmo.'])->withInput();
+        // Não pode ser pai de si mesmo
+        if (isset($data['menu_pai_id']) && (int)$data['menu_pai_id'] === (int)$menu->id) {
+            Alert::toast('Um menu não pode ser pai de si mesmo.', 'error')->position('top-end');
+            return back()->withInput();
         }
 
-        // Gerar slug se não informado
-        if (empty($validated['slug'])) {
-            $validated['slug'] = \Str::slug($validated['nome']);
+        // Gera slug se vier vazio
+        if (empty($data['slug'])) {
+            $data['slug'] = \Str::slug($data['nome']);
         }
 
         try {
             DB::beginTransaction();
-            
-            $menu->update($validated);
-            
+
+            $menu->update($data);
+
             DB::commit();
 
-            return redirect()->route('admin.menus.index')
-                           ->with('success', 'Menu atualizado com sucesso!');
-        } catch (\Exception $e) {
+            Alert::toast('Menu atualizado com sucesso!', 'success')->position('top-end');
+            return redirect()->route('admin.menus.index');
+        } catch (\Throwable $e) {
             DB::rollBack();
-            return back()->withErrors(['error' => 'Erro ao atualizar menu: ' . $e->getMessage()])->withInput();
+
+            Alert::toast('Erro ao atualizar menu: ' . $e->getMessage(), 'error')->position('top-end');
+            return back()->withInput();
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Menu $menu)
+    public function destroy($id)
     {
-        $this->authorize('delete', $menu);
+        $this->authorize('excluir-menu');
+        $menu = Menu::findOrFail($id);
+
 
         try {
             DB::beginTransaction();
-            
+
             // Verificar se tem filhos
             if ($menu->children()->count() > 0) {
-                return back()->withErrors(['error' => 'Não é possível excluir um menu que possui submenus.']);
+                Alert::toast('Não é possível excluir um menu que possui submenus.', 'error')->position('top-end');
+                return back();
             }
-
             $menu->delete();
-            
+
             DB::commit();
 
-            return redirect()->route('admin.menus.index')
-                           ->with('success', 'Menu excluído com sucesso!');
+            Alert::toast('Menu excluído com sucesso!', 'success')->position('top-end');
+            return redirect()->route('admin.menus.index');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withErrors(['error' => 'Erro ao excluir menu: ' . $e->getMessage()]);
+            Alert::toast('Erro ao excluir menu: ' . $e->getMessage(), 'error')->position('top-end');
+            return back();
         }
     }
 
     /**
      * Reordenar menus via AJAX
      */
+    // Método para reordenar menus via AJAX
     public function reorder(Request $request)
     {
-        $validated = $request->validate([
-            'items' => 'required|array',
-            'items.*.id' => 'required|exists:menus,id',
-            'items.*.ordem' => 'required|integer|min:0'
+        $this->authorize('editar-menu');
+        $items = $request->input('items', []);
+
+        foreach ($items as $item) {
+            Menu::where('id', $item['id'])->update(['ordem' => $item['ordem']]);
+        }
+
+        return response()->json(['message' => 'Ordem atualizada com sucesso!']);
+    }
+
+
+    // Método para toggle de status via AJAX
+    public function toggleStatus($id)
+    {
+        $this->authorize('editar-menu');
+        $menu = Menu::findOrFail($id);
+        $menu->update(['ativo' => !$menu->ativo]);
+
+        return response()->json([
+            'message' => 'Status alterado com sucesso!',
+            'ativo' => $menu->ativo
         ]);
-
-        try {
-            DB::beginTransaction();
-
-            foreach ($validated['items'] as $item) {
-                Menu::where('id', $item['id'])
-                    ->where('tenant_id', auth()->user()->tenant_id)
-                    ->update(['ordem' => $item['ordem']]);
-            }
-
-            DB::commit();
-
-            return response()->json(['success' => true, 'message' => 'Ordem atualizada com sucesso!']);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['success' => false, 'message' => 'Erro ao reordenar: ' . $e->getMessage()], 500);
-        }
     }
 
-    /**
-     * Alternar status ativo/inativo
-     */
-    public function toggleStatus(Menu $menu)
-    {
-        $this->authorize('update', $menu);
 
-        try {
-            $menu->update(['ativo' => !$menu->ativo]);
 
-            $status = $menu->ativo ? 'ativado' : 'desativado';
-            
-            return response()->json([
-                'success' => true, 
-                'message' => "Menu {$status} com sucesso!",
-                'ativo' => $menu->ativo
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Erro ao alterar status: ' . $e->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Duplicar menu
-     */
-    public function duplicate(Menu $menu)
-    {
-        $this->authorize('create', Menu::class);
-
-        try {
-            DB::beginTransaction();
-
-            $novoMenu = $menu->replicate();
-            $novoMenu->nome = $menu->nome . ' (Cópia)';
-            $novoMenu->slug = $menu->slug . '-copia';
-            $novoMenu->ordem = $menu->ordem + 1;
-            $novoMenu->ativo = false; // Criar inativo por segurança
-            $novoMenu->save();
-
-            DB::commit();
-
-            return redirect()->route('admin.menus.edit', $novoMenu)
-                           ->with('success', 'Menu duplicado com sucesso! Lembre-se de ativá-lo quando estiver pronto.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Erro ao duplicar menu: ' . $e->getMessage()]);
-        }
-    }
 
     /**
      * Preview do menu (AJAX)
      */
     public function preview(Request $request)
     {
+        $this->authorize('ver-menu');
         $menus = Menu::with(['children.children', 'categorias.itensCategoria'])
-                    ->where('tenant_id', auth()->user()->tenant_id)
-                    ->where('posicao', $request->get('posicao', 1))
-                    ->principais()
-                    ->ativos()
-                    ->ordenado()
-                    ->get();
+            ->where('tenant_id', auth()->user()->tenant_id)
+            ->where('posicao', $request->get('posicao', 1))
+            ->principais()
+            ->ativos()
+            ->ordenado()
+            ->get();
 
         return response()->json([
             'html' => view('admin.menus.preview', compact('menus'))->render()
@@ -351,11 +277,12 @@ class MenuController extends Controller
      */
     public function search(Request $request)
     {
+        $this->authorize('ver-menu');
         $term = $request->get('q');
         $tipo = $request->get('tipo');
 
         $query = Menu::where('tenant_id', auth()->user()->tenant_id)
-                    ->where('ativo', true);
+            ->where('ativo', true);
 
         if ($term) {
             $query->where('nome', 'like', "%{$term}%");
@@ -366,8 +293,8 @@ class MenuController extends Controller
         }
 
         $menus = $query->orderBy('nome')
-                      ->limit(20)
-                      ->get(['id', 'nome', 'tipo_menu']);
+            ->limit(20)
+            ->get(['id', 'nome', 'tipo_menu']);
 
         return response()->json([
             'results' => $menus->map(function ($menu) {
@@ -379,4 +306,3 @@ class MenuController extends Controller
         ]);
     }
 }
-

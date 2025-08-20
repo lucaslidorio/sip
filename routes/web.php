@@ -126,15 +126,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::get('/menus/show/{id}', [MenuController::class, 'show'])->name('admin.menus.show');
                     Route::put('/menus/{id}', [MenuController::class, 'update'])->name('admin.menus.update');
                    
-                    Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('admin.menus.destroy');
+                    Route::delete('/menus/{id}', [MenuController::class, 'destroy'])->name('admin.menus.destroy');
                     Route::post('/menus', [MenuController::class, 'store'])->name('admin.menus.store');
                     Route::get('/menus', [MenuController::class, 'index'])->name('admin.menus.index');
                     
                     
                     //Route::resource('menus',[MenuController::class]);
                     Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('admin.menus.reorder');
-                    Route::post('menus/{menu}/toggle', [MenuController::class, 'toggleStatus'])->name('admin.menus.toggle');
-                    Route::post('menus/{menu}/duplicate', [MenuController::class, 'duplicate'])->name('admin.menus.duplicate');
+                    Route::post('menus/{id}/toggle', [MenuController::class, 'toggleStatus'])->name('admin.menus.toggle');                    
                     Route::get('menus/preview', [MenuController::class, 'preview'])->name('admin.menus.preview');
                 
 

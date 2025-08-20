@@ -23,13 +23,10 @@
                     @include('admin.pages.menus._partials.form')
                     
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary btn-lg ">
                             <i class="fas fa-save"></i> Salvar
-                        </button>
-                        <button type="button" class="btn btn-success" id="save-and-new">
-                            <i class="fas fa-plus"></i> Salvar e Criar Novo
-                        </button>
-                        <a href="{{ route('admin.menus.index') }}" class="btn btn-secondary">
+                        </button>                       
+                        <a href="{{ route('admin.menus.index') }}" class="btn btn-secondary btn-lg ">
                             <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>

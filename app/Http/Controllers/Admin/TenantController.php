@@ -45,7 +45,10 @@ class TenantController extends Controller
         } 
         if($request->hasFile('bandeira') && $request->bandeira->isValid()){
             $dadosTenant['bandeira'] = $request->bandeira->store('tenants');
-        }          
+        } 
+        if($request->hasFile('favicon') && $request->favicon->isValid()){
+            $dadosTenant['favicon'] = $request->favicon->store('tenants');
+        }           
         //Grava os dados na tabela post
         $this->repository->create($dadosTenant);              
       
@@ -95,17 +98,34 @@ class TenantController extends Controller
         
           //verifica se existe um arquivo e se é do tipo image e faz o upload 
           //antes de fazer salvar, remove a imagem já existente    
-          if($request->hasFile('brasao') && $request->brasao->isValid()){
-             if(Storage::exists($tenant->brasao)){
-                Storage::delete($tenant->brasao);
-             }
-             $dadosTenant['brasao'] = $request->brasao->store('tenants');
-         }
-         if($request->hasFile('bandeira') && $request->bandeira->isValid()){
-            if(Storage::exists($tenant->bandeira)){
-               Storage::delete($tenant->bandeira);
+          if ($request->hasFile('brasao') && $request->file('brasao')->isValid()) {
+            // Se já havia um arquivo, tenta apagar com segurança
+            $oldPath = $tenant->brasao; // pode ser null        
+            // Salva o novo arquivo (ajuste o disk se precisar)
+            // ex.: Storage::disk('s3')->putFile('tenants', $request->file('brasao'));
+            $newPath = $request->file('brasao')->store('tenants'); // disk default        
+            // Atualiza o dado que será salvo no model
+            $dadosTenant['brasao'] = $newPath;
+            // Apaga o antigo, se existir
+            if ($oldPath && Storage::exists($oldPath)) {
+                Storage::delete($oldPath);
             }
-            $dadosTenant['bandeira'] = $request->bandeira->store('tenants');
+        }
+         if ($request->hasFile('bandeira') && $request->file('bandeira')->isValid()) {  
+            $oldPath = $tenant->bandeira;      
+            $newPath = $request->file('bandeira')->store('tenants');      
+            $dadosTenant['bandeira'] = $newPath; // Apaga o antigo, se existir
+            if ($oldPath && Storage::exists($oldPath)) {
+                Storage::delete($oldPath);
+            }
+        }
+        if ($request->hasFile('favicon') && $request->file('favicon')->isValid()) {// Se já havia um arquivo, tenta apagar com segurança
+            $oldPath = $tenant->favicon; 
+            $newPath = $request->file('favicon')->store('tenants'); 
+            $dadosTenant['favicon'] = $newPath;
+            if ($oldPath && Storage::exists($oldPath)) {
+                Storage::delete($oldPath);
+            }
         }
          //Atualila a tabela post
          $tenant->update($dadosTenant); 
