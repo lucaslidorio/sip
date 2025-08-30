@@ -12,7 +12,7 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-    $trail->push('Início', route('site.index'));
+    $trail->push('Início', route('site.index'), ['icon' =>'fas fa-home']);
 });
 
 
@@ -30,12 +30,12 @@ Breadcrumbs::for('agenda', function (BreadcrumbTrail $trail) {
 // Home > Noticias
 Breadcrumbs::for('noticias', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Notícias', route('noticias.todas'));
+    $trail->push('Notícias', route('noticias.todas'),['icon' =>'fas fa-newspaper'] );
 });
 // Home > Noticias > [Noticia]
 Breadcrumbs::for('noticia', function (BreadcrumbTrail $trail, $noticia) {
     $trail->parent('noticias');
-    $trail->push($noticia->titulo, route('noticias.todas', $noticia));
+    $trail->push($noticia->titulo, route('noticias.todas', $noticia),['icon' =>'fab fa-readme'] );
 });
 // Home > Pesquisa de satisfação
 Breadcrumbs::for('pesquisa_satisfacao', function (BreadcrumbTrail $trail) {

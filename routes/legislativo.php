@@ -36,7 +36,7 @@ Route::get('sessoes', [SiteController::class, 'sessoesIndex'])->name('sessoes.in
 Route::get('carta-cidadao/{id}', [SiteController::class, 'cartaCidadaoShow'])->name('cartaCidadao.show');
 Route::get('legislacoes', [SiteController::class, 'legislacoes'])->name('legislacoes.index');
 Route::get('legislacoes/{id}', [SiteController::class, 'legislacaoShow'])->name('legislacao.show');
-Route::get('agenda', [SiteController::class, 'agendaIndex'])->name('agenda');
+//Route::get('agenda', [SiteController::class, 'agendaIndex'])->name('agenda');
 Route::get('/agenda/show', [SiteController::class, 'agendaShow'])->name('agenda.show');
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 // Route::get('/', function () {

@@ -6,16 +6,10 @@
 @section('content')
 <div class="container section-padding">
     <!-- Breadcrumb -->
+
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="{{ route('site.index') }}">
-                    <i class="fas fa-home"></i> Início
-                </a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                Notícias
-            </li>
+            {{ Breadcrumbs::render('noticias') }}
         </ol>
     </nav>
 
@@ -186,28 +180,17 @@
         <div class="col-lg-4">
             <aside class="news-sidebar">
                 <!-- Categorias -->
-                @if($categorias->count() > 0)
+                @if($categorias && $categorias->count() > 0)
                 <div class="sidebar-widget">
                     <h3 class="sidebar-widget-title">Categorias</h3>
                     <div class="list-group">
-                        <a href="{{ route('noticias.todas') }}" 
-                           class="list-group-item list-group-item-action {{ !request('category_id') ? 'active' : '' }}">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>Todas as categorias</span>
-                                <span class="badge bg-primary rounded-pill">
-                                    {{ $categorias->sum('posts_count') }}
-                                </span>
-                            </div>
-                        </a>
-                        @foreach($categorias as $categoria)
+                        @foreach($categorias->take(8) as $categoria)
                         <a href="{{ route('noticias.todas', ['category_id' => $categoria->id]) }}" 
-                           class="list-group-item list-group-item-action {{ request('category_id') == $categoria->id ? 'active' : '' }}">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>{{ $categoria->nome }}</span>
-                                <span class="badge bg-primary rounded-pill">
-                                    {{ $categoria->posts_count }}
-                                </span>
-                            </div>
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>{{ $categoria->nome }}</span>
+                            <span class="badge bg-primary rounded-pill">
+                                {{ $categoria->posts_count }}
+                            </span>
                         </a>
                         @endforeach
                     </div>
@@ -231,44 +214,11 @@
                     </form>
                 </div>
 
-                <!-- Acesso Rápido -->
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Acesso Rápido</h3>
-                    <div class="d-grid gap-2">
-                        <a href="{{ route('site.index') }}" class="btn btn-outline-primary">
-                            <i class="fas fa-home me-2"></i> Página Inicial
-                        </a>
-                        <a href="{{ route('site.agenda') }}" class="btn btn-outline-primary">
-                            <i class="fas fa-calendar me-2"></i> Agenda
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-gavel me-2"></i> Licitações
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-balance-scale me-2"></i> Transparência
-                        </a>
-                    </div>
-                </div>
+               {{-- Acesso Rápido --}}
 
+                 @include('public_templates.gov.includes.acesso-rapido')
                 <!-- Newsletter -->
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Newsletter</h3>
-                    <p class="small text-muted mb-3">
-                        Receba as principais notícias diretamente no seu e-mail.
-                    </p>
-                    <form>
-                        <div class="mb-3">
-                            <input type="email" 
-                                   class="form-control" 
-                                   placeholder="Seu e-mail"
-                                   required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-envelope me-2"></i>
-                            Inscrever-se
-                        </button>
-                    </form>
-                </div>
+                {{-- @include('public_templates.gov.includes.newsletter') --}}
             </aside>
         </div>
     </div>

@@ -9,12 +9,21 @@ class Schedule extends Model
 {
     use HasFactory;
     protected $table = 'schedules';
-    protected $fillable = ['tenant_id', 'user_id', 'councilor_id', 'title',
-                            'description', 'color', 'textColor', 'start', 'end', 'backgroundColor'];
-
-    protected $casts =[
+    protected $fillable = [
+        'tenant_id',
+        'user_id',
+        'councilor_id',
+        'title',
+        'description',
+        'color',
+        'textColor',
         'start',
-        'end'
+        'end',
+        'backgroundColor'
     ];
-                            
+
+    protected $casts = [
+        'start' => 'datetime',
+        'end'   => 'datetime',
+    ];
 }

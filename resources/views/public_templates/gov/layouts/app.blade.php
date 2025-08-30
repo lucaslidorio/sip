@@ -128,7 +128,7 @@
                         <a href="{{ route('site.agenda') }}" class="btn btn-outline-primary">
                             <i class="fas fa-calendar me-1"></i> Agenda
                         </a>
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('site.contato') }}" class="btn btn-primary">
                             <i class="fas fa-phone me-1"></i> Contato
                         </a>
                     </div>

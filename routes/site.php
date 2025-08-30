@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PropositionController;
+use App\Http\Controllers\Site\ContatoController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SitePublicoController;
@@ -23,6 +24,8 @@ Route::get('/pesquisa-satisfacao', [SitePublicoController::class, 'pesquisaSatis
 Route::post('/pesquisa-satisfacao/responder', [SitePublicoController::class, 'pesquisaSatisfacaoResponder'])->name('site.pesquisa.responder');
 Route::get('/pesquisa/{id}/estatisticas', [SitePublicoController::class, 'estatisticas'])->name('site.pesquisa.resultado');
 
+Route::get('/contato', [ContatoController::class, 'index'])->name('site.contato');
+Route::post('/contato/enviar', [ContatoController::class, 'enviar'])->name('site.contato.enviar');
 //Legislativo
 Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');Route::get('pronunciamentos/{id}', [SitePublicoController::class, 'pronunciamentoShow'])->name('camara.pronunciamento.show');
 Route::get('pronunciamentos', [SitePublicoController::class, 'pronunciamentos'])->name('camara.pronunciamentos');

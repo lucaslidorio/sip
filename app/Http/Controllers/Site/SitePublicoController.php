@@ -343,8 +343,9 @@ class SitePublicoController extends Controller
         ]);
     }
 
-    public function agendaIndex()
-    {
+
+    public function agendaIndex()    
+    {       
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
 
@@ -352,21 +353,39 @@ class SitePublicoController extends Controller
             ->orderBy('ordem')
             ->get();
 
-
-
         return view("public_templates.$template.includes.agenda.index", compact(
             'tenant',
             'menus',       
         ));
     }
 
+    //Funcionava antes do novo layout executivo
+    // public function agendaShow()
+    // {
+    //     $dados['eventos'] = Schedule::all();        
+    //     return response()->json($dados['eventos']);
+    // }
     public function agendaShow()
     {
-
-        $dados['eventos'] = Schedule::all();
-        
-        return response()->json($dados['eventos']);
+        $tz = 'America/Porto_Velho';
+    
+        $eventos = \App\Models\Schedule::query()->get()->map(function ($e) use ($tz) {
+            return [
+                'id'              => $e->id,
+                'title'           => $e->title ?? '(Sem título)',
+                // ISO com offset: Y-m-dTH:i:s-04:00
+                'start'           => optional($e->start)->setTimezone($tz)->format('Y-m-d\TH:i:sP'),
+                'end'             => optional($e->end)->setTimezone($tz)->format('Y-m-d\TH:i:sP'),
+                'description'     => $e->description,
+                'backgroundColor' => $e->backgroundColor ?? $e->color,
+                'borderColor'     => $e->backgroundColor ?? $e->color,
+                'textColor'       => $e->textColor,
+            ];
+        });
+    
+        return response()->json($eventos);
     }
+
 
     public function sitemap() {
 

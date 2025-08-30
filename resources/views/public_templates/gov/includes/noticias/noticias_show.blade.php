@@ -10,17 +10,7 @@
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('site.index') }}">
-                            <i class="fas fa-home"></i> Início
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('noticias.todas') }}">Notícias</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        {{ Str::limit($noticia->titulo, 50) }}
-                    </li>
+                    {{ Breadcrumbs::render('noticia', $noticia) }}
                 </ol>
             </nav>
 
@@ -253,23 +243,7 @@
                 @endif
 
                 <!-- Acesso Rápido -->
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Acesso Rápido</h3>
-                    <div class="d-grid gap-2">
-                        <a href="{{ route('site.index') }}" class="btn btn-outline-primary">
-                            <i class="fas fa-home me-2"></i> Página Inicial
-                        </a>
-                        <a href="{{ route('site.agenda') }}" class="btn btn-outline-primary">
-                            <i class="fas fa-calendar me-2"></i> Agenda
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-gavel me-2"></i> Licitações
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-balance-scale me-2"></i> Transparência
-                        </a>
-                    </div>
-                </div>
+                @include('public_templates.gov.includes.acesso-rapido')
 
                 <!-- Contato -->
                 <div class="sidebar-widget">

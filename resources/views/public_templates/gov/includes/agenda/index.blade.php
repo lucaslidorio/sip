@@ -35,24 +35,16 @@
         <div class="col-lg-8">
             <div class="calendar-container">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="card-header bg-primary text-white ">
+                        <div class="d-flex justify-content-between align-items-center ">
                             <h5 class="mb-0">
                                 <i class="fas fa-calendar-alt me-2"></i>
                                 Calendário de Eventos
                             </h5>
-                            <div class="calendar-controls">
-                                <button class="btn btn-light btn-sm" id="prevMonth">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <span class="mx-3" id="currentMonth"></span>
-                                <button class="btn btn-light btn-sm" id="nextMonth">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
+                            
                         </div>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body pt-1">
                         <div id="calendar"></div>
                     </div>
                 </div>
@@ -81,38 +73,7 @@
         <div class="col-lg-4">
             <aside class="agenda-sidebar">
                 <!-- Filtros -->
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Filtros</h3>
-                    <form id="filterForm">
-                        <div class="mb-3">
-                            <label for="eventType" class="form-label">Tipo de Evento</label>
-                            <select class="form-select" id="eventType">
-                                <option value="">Todos os tipos</option>
-                                <option value="reuniao">Reuniões</option>
-                                <option value="audiencia">Audiências Públicas</option>
-                                <option value="evento">Eventos</option>
-                                <option value="sessao">Sessões</option>
-                                <option value="outros">Outros</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="dateRange" class="form-label">Período</label>
-                            <select class="form-select" id="dateRange">
-                                <option value="all">Todos os períodos</option>
-                                <option value="today">Hoje</option>
-                                <option value="week">Esta semana</option>
-                                <option value="month">Este mês</option>
-                                <option value="next_month">Próximo mês</option>
-                            </select>
-                        </div>
-                        
-                        <button type="button" class="btn btn-primary w-100" onclick="applyFilters()">
-                            <i class="fas fa-filter me-2"></i>
-                            Aplicar Filtros
-                        </button>
-                    </form>
-                </div>
+                <div class="sidebar-widget">                    
 
                 <!-- Próximos Eventos -->
                 <div class="sidebar-widget">
@@ -159,7 +120,7 @@
                         <p class="small text-muted mb-3">
                             Esta agenda apresenta os eventos públicos da administração municipal.
                         </p>
-                        
+
                         <div class="contact-info">
                             @if($tenant->telefone)
                             <p class="mb-2">
@@ -167,7 +128,7 @@
                                 <a href="tel:{{ $tenant->telefone }}">{{ $tenant->telefone }}</a>
                             </p>
                             @endif
-                            
+
                             @if($tenant->email)
                             <p class="mb-0">
                                 <i class="fas fa-envelope text-primary me-2"></i>
@@ -185,7 +146,7 @@
                         <a href="{{ route('site.index') }}" class="btn btn-outline-primary">
                             <i class="fas fa-home me-2"></i> Página Inicial
                         </a>
-                        <a href="{{ route('site.noticias.todas') }}" class="btn btn-outline-primary">
+                        <a href="{{ route('noticias.todas') }}" class="btn btn-outline-primary">
                             <i class="fas fa-newspaper me-2"></i> Notícias
                         </a>
                         <a href="#" class="btn btn-outline-primary">
@@ -225,160 +186,169 @@
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
 <style>
-.calendar-container .card {
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--gray-200);
-}
+    .calendar-container .card {
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--gray-200);
+    }
 
-.page-header {
-    padding: 2rem 0;
-}
+    .page-header {
+        padding: 2rem 0;
+    }
 
-.page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.page-subtitle {
-    font-size: 1.25rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.sidebar-widget {
-    background: var(--bg-primary);
-    border-radius: var(--border-radius-lg);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--gray-200);
-}
-
-.sidebar-widget-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-lighter);
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-}
-
-.legend-color {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-}
-
-.legend-text {
-    font-size: 0.9rem;
-}
-
-.contact-info a {
-    color: var(--text-primary);
-    text-decoration: none;
-}
-
-.contact-info a:hover {
-    color: var(--primary-color);
-}
-
-.event-item {
-    border-left: 4px solid var(--primary-color);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-md);
-    transition: var(--transition-normal);
-}
-
-.event-item:hover {
-    background: var(--primary-lighter);
-    cursor: pointer;
-}
-
-.event-time {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.event-title {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.event-description {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-/* Customização do FullCalendar */
-.fc {
-    font-family: inherit;
-}
-
-.fc-event {
-    border: none;
-    border-radius: var(--border-radius-sm);
-    padding: 2px 4px;
-}
-
-.fc-event-title {
-    font-weight: 500;
-}
-
-.fc-daygrid-event {
-    margin: 1px 0;
-}
-
-.fc-button-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.fc-button-primary:hover {
-    background-color: var(--primary-dark);
-    border-color: var(--primary-dark);
-}
-
-.fc-today-button {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-}
-
-@media (max-width: 768px) {
     .page-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
     }
-    
+
     .page-subtitle {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin: 0 auto;
     }
-    
-    .calendar-controls {
+
+    .sidebar-widget {
+        background: var(--bg-primary);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+    }
+
+    .sidebar-widget-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-lighter);
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .legend-color {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+
+    .legend-text {
         font-size: 0.9rem;
     }
-}
+
+    .contact-info a {
+        color: var(--text-primary);
+        text-decoration: none;
+    }
+
+    .contact-info a:hover {
+        color: var(--primary-color);
+    }
+
+    .event-item {
+        border-left: 4px solid var(--primary-color);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background: var(--bg-secondary);
+        border-radius: var(--border-radius-md);
+        transition: var(--transition-normal);
+    }
+
+    .event-item:hover {
+        background: var(--primary-lighter);
+        cursor: pointer;
+    }
+
+    .event-time {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .event-title {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .event-description {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+
+    /* Customização do FullCalendar */
+    .fc {
+        font-family: inherit;
+    }
+
+    .fc-event {
+        border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 2px 4px;
+    }
+
+    .fc-event-title {
+        font-weight: 500;
+    }
+
+    .fc-daygrid-event {
+        margin: 1px 0;
+    }
+
+    .fc-button-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .fc-button-primary:hover {
+        background-color: var(--primary-dark);
+        border-color: var(--primary-dark);
+    }
+
+    .fc-today-button {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .calendar-controls {
+            font-size: 0.9rem;
+        }
+    }
 </style>
 @endpush
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/pt-br.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/locales/pt-br.global.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('calendar');
     let calendar;
     
     // Inicializar calendário
     calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'pt-br',
+        buttonText: {
+    today: 'Hoje',
+    month: 'Mês',
+    week: 'Semana',
+    day: 'Dia',
+    list: 'Lista',
+    listWeek: 'Agenda'
+  },
+  noEventsContent: 'Sem eventos para mostrar',
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next today',
@@ -387,42 +357,53 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         height: 'auto',
         events: function(fetchInfo, successCallback, failureCallback) {
-            // Carregar eventos via AJAX
             fetch('{{ route("site.agenda.show") }}')
                 .then(response => response.json())
                 .then(data => {
-                    const events = data.map(event => ({
-                        id: event.id,
-                        title: event.titulo,
-                        start: event.data_inicio,
-                        end: event.data_fim,
-                        description: event.descricao,
-                        location: event.local,
-                        backgroundColor: getEventColor(event.tipo),
-                        borderColor: getEventColor(event.tipo),
-                        extendedProps: {
-                            tipo: event.tipo,
-                            horario: event.horario,
-                            responsavel: event.responsavel
-                        }
-                    }));
-                    successCallback(events);
-                    updateUpcomingEvents(events);
-                    updateTodayEvents(events);
+                const events = (Array.isArray(data) ? data : []).map(e => {
+                    const start = normalizeIso(e.start);
+                    const end   = normalizeIso(e.end);
+
+                    return {
+                    id: String(e.id),
+                    title: e.title || '(Sem título)',
+                    start: start,             // ISO 8601
+                    end: end,                 // ISO 8601
+                    backgroundColor: e.backgroundColor || getEventColor('outros'),
+                    borderColor: e.borderColor || e.backgroundColor || getEventColor('outros'),
+                    textColor: e.textColor || undefined,
+                    extendedProps: {
+                        description: e.description || '',
+                        // se no futuro tiver location/tipo/etc., adicione aqui
+                    }
+                    };
+                }).filter(ev => !!ev.start); // ignora eventos sem início
+
+                //console.log('Eventos normalizados:', events);
+                successCallback(events);
+                updateUpcomingEvents(events);
+                updateTodayEvents(events); // reative se quiser
                 })
                 .catch(error => {
-                    console.error('Erro ao carregar eventos:', error);
-                    failureCallback(error);
+                console.error('Erro ao carregar eventos:', error);
+                failureCallback(error);
                 });
-        },
-        eventClick: function(info) {
-            showEventModal(info.event);
-        },
-        dateClick: function(info) {
-            // Destacar data clicada e mostrar eventos do dia
-            showDayEvents(info.date);
-        }
-    });
+            },
+                eventClick: function(info) {
+                    showEventModal(info.event);
+                    },
+                    dateClick: function(info) {
+                        // Destacar data clicada e mostrar eventos do dia
+                        showDayEvents(info.date);
+                    }
+                });
+
+            function normalizeIso(dt) {
+            if (!dt) return null;
+            // Se vier como "YYYY-MM-DD HH:MM:SS", troca espaço por "T"
+            const s = String(dt);
+            return s.includes('T') ? s : s.replace(' ', 'T');
+            }
     
     calendar.render();
     
@@ -502,7 +483,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         container.innerHTML = upcoming.map(event => `
             <div class="event-item" onclick="showEventFromList('${event.id}')">
-                <div class="event-time">${formatDate(event.start)}</div>
+                <div class="event-time">${formatDate(event.start)} - ${formatTime(event.start)}</div>
+            
                 <div class="event-title">${event.title}</div>
                 ${event.extendedProps.location ? `<div class="event-description"><i class="fas fa-map-marker-alt me-1"></i>${event.extendedProps.location}</div>` : ''}
             </div>
@@ -511,12 +493,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Atualizar eventos de hoje
     function updateTodayEvents(events) {
-        const today = new Date();
-        const todayStr = today.toISOString().split('T')[0];
-        
-        const todayEvents = events.filter(event => 
-            event.start.startsWith(todayStr)
-        );
+        const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+        const todayEvents = (events || []).filter(ev => {
+        if (!ev.start) return false;
+        const d = new Date(ev.start);
+        return !isNaN(d) && d.toISOString().slice(0,10) === todayStr;
+        });
         
         const container = document.getElementById('todayEvents');
         
@@ -532,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         container.innerHTML = todayEvents.map(event => `
             <div class="event-item" onclick="showEventFromList('${event.id}')">
-                <div class="event-time">${event.extendedProps.horario || 'Horário não informado'}</div>
+                <div class="event-time"> ${formatTime(event.start)}</div>
                 <div class="event-title">${event.title}</div>
                 ${event.extendedProps.location ? `<div class="event-description"><i class="fas fa-map-marker-alt me-1"></i>${event.extendedProps.location}</div>` : ''}
             </div>
@@ -565,7 +548,11 @@ document.addEventListener('DOMContentLoaded', function() {
             year: 'numeric'
         });
     }
-    
+    // data + hora
+    function formatTime(val) {
+        const d = new Date(val); // já vem com -04:00 no string
+        return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
     // Mostrar eventos do dia
     function showDayEvents(date) {
         calendar.gotoDate(date);
@@ -574,4 +561,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endpush
-
