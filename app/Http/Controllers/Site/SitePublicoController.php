@@ -105,6 +105,11 @@ class SitePublicoController extends Controller
         $linksDireita = $this->link::porPosicao(3)->get(); // 3 corresponde a "Direita"
         // Recupera os links da posição "Inferior"
         $linksInferior = $this->link::porPosicao(4)->get(); // 4 corresponde a "Inferior"
+        $linksUteisInferior = $this->link::porTipo(2)->porPosicao(4)->get();
+        $linksAcessoRapido = $this->link::porTipo(4)->porPosicao(5)->orderBy('ordem')->get();// acesso rápido "4 => Acesso Rápido" e "5 => Centro"
+        $linksServicosOnline = $this->link::porTipo(3)->orderBy('ordem')->get();// serviços online "3 => Serviços Online"
+        
+        
         $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
         $popups = Popups::visiveis()->get();
         $totalNoticias = $this->noticias->count();
@@ -116,6 +121,9 @@ class SitePublicoController extends Controller
                 'menus',
                 'linksDireita',
                 'linksInferior',
+                'linksUteisInferior',
+                'linksAcessoRapido',
+                'linksServicosOnline',
                 'vereadores',
                 'noticias',
                 'totalNoticias',
@@ -289,7 +297,14 @@ class SitePublicoController extends Controller
     public function noticiaShow($url)
     {
 
-        $noticia = $this->noticias->where('url', $url)->first();
+        $noticia = $this->noticias
+        ->with('imagens')
+        ->where('url', $url)
+        ->firstOrFail();
+        
+
+    
+      
         $categorias = $this->categorias::withCount('posts')->get();
 
         if (!$noticia)
@@ -313,6 +328,7 @@ class SitePublicoController extends Controller
             ->take(8)
             ->get();
 
+            
         return view("public_templates.$template.includes.noticias.noticias_show", compact(
             'noticia',
             'tenant',

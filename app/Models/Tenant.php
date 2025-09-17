@@ -48,4 +48,8 @@ class Tenant extends Model
     {
         return $this->belongsTo(DevelopmentSetting::class, 'id', 'tenant_id'); 
     }
+    public function anexos()
+{
+    return $this->hasMany(AnexoTenant::class, 'tenants_id');
+}
 }

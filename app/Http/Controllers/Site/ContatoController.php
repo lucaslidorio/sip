@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailables\Address as MailAddress;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\ContatoMail;
 use App\Models\Menu;
 use App\Models\Tenant;
-use Symfony\Component\Mime\Address;
+use Throwable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Mail\Mailables\Address; // se usar envelope()
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class ContatoController extends Controller
 {
@@ -42,67 +46,70 @@ class ContatoController extends Controller
     /**
      * Processa o envio do formulário de contato
      */
-    public function enviar(Request $request)
-    {
-        try {
-            // Validação dos dados
-            $validator = $this->validarFormulario($request);
-            
-            if ($validator->fails()) {
-                return back()
-                    ->withErrors($validator)
-                    ->withInput()
-                    ->with('error', 'Por favor, corrija os erros abaixo e tente novamente.');
-            }
-            
-            $dados = $validator->validated();
-            $tenant = $this->getTenant();
-            
-            // Verificar se o tenant tem email configurado
-            if (!$tenant->email) {
-                return back()
-                    ->withInput()
-                    ->with('error', 'Email de contato não configurado. Entre em contato por telefone.');
-            }
-            
-            // Preparar dados para o email
-            $dadosEmail = [
-                'nome' => $dados['nome'],
-                'email' => $dados['email'],
-                'telefone' => $dados['telefone'] ?? null,
-                'assunto' => $dados['assunto'] ?? 'Contato via Site',
-                'mensagem' => $dados['mensagem'],
-                'tenant' => $tenant,
-                'data_envio' => now()->format('d/m/Y H:i:s'),
-                'ip_origem' => $request->ip(),
-                'user_agent' => $request->userAgent()
-            ];
-            
-            // Enviar email
-            Mail::to(new Address($tenant->email, $tenant->nome ?? null))
-    ->send(new ContatoMail($dadosEmail));
-            
-            // Log da ação (opcional)
-            $this->logContato($dadosEmail);
-            
-            return back()->with('success', 
-                'Sua mensagem foi enviada com sucesso! Entraremos em contato em breve.'
-            );
-            
-        } catch (\Exception $e) {
-            // Log do erro
-            \Log::error('Erro ao enviar contato: ' . $e->getMessage(), [
-                'dados' => $request->all(),
-                'tenant_id' => $this->getTenant()->id ?? null
-            ]);
-            
-            return back()
-                ->withInput()
-                ->with('error', 
-                    'Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.'
-                );
+
+public function enviar(Request $request)
+{
+    try {
+        // validação + montagem dos dados...
+        $validator = $this->validarFormulario($request);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()
+                ->with('error', 'Por favor, corrija os erros abaixo e tente novamente.');
         }
+
+        $dados   = $validator->validated();
+        $tenant  = $this->getTenant();
+
+        if (!$tenant || !$tenant->email) {
+            return back()->withInput()
+                ->with('error', 'Email de contato não configurado. Entre em contato por telefone.');
+        }
+
+        $dadosEmail = [
+            'nome'       => $dados['nome'],
+            'email'      => $dados['email'],
+            'telefone'   => $dados['telefone'] ?? null,
+            'assunto'    => $dados['assunto'] ?? 'Contato via Site',
+            'mensagem'   => $dados['mensagem'],
+            'tenant'     => $tenant,
+            'data_envio' => now()->format('d/m/Y H:i:s'),
+            'ip_origem'  => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ];
+
+        // Envio
+        Mail::to($tenant->email)->send(new \App\Mail\ContatoMail($dadosEmail));
+
+        // opcional: log de sucesso
+        Log::info('Contato enviado', ['to' => $tenant->email, 'nome' => $dados['nome']]);
+
+        return back()->with('success', 'Sua mensagem foi enviada com sucesso! Entraremos em contato em breve.');
     }
+    catch (TransportExceptionInterface $e) {
+        // Erros do transporte (SMTP/Auth/Conexão)
+        Log::error('Erro de transporte de email', [
+            'to'     => $tenant->email ?? null,
+            'msg'    => $e->getMessage(),
+            'debug'  => method_exists($e, 'getDebug') ? $e->getDebug() : null,
+            'trace'  => $e->getTraceAsString(),
+        ]);
+
+        $msg = config('app.debug') ? $e->getMessage() : 'Falha no envio de e-mail. Tente novamente mais tarde.';
+        return back()->withInput()->with('error', $msg);
+    }
+    catch (Throwable $e) {
+        // Qualquer outro erro
+        Log::error('Erro ao enviar contato', [
+            'msg'       => $e->getMessage(),
+            'tenant_id' => $this->getTenant()->id ?? null,
+            'trace'     => $e->getTraceAsString(),
+        ]);
+
+        $msg = config('app.debug') ? $e->getMessage() : 'Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.';
+        return back()->withInput()->with('error', $msg);
+    }
+}
+
     
     /**
      * Validação do formulário de contato

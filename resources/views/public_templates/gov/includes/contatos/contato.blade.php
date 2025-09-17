@@ -363,9 +363,9 @@ Formulário de contato online.')
                                         <textarea class="form-control @error('mensagem') is-invalid @enderror"
                                             id="mensagem" name="mensagem" rows="6" required maxlength="2000"
                                             placeholder="Digite sua mensagem...">{{ old('mensagem') }}</textarea>
-                                        <div class="form-text">
+                                        {{-- <div class="form-text">
                                             <span id="charCount">0</span>/2000 caracteres
-                                        </div>
+                                        </div> --}}
                                         @error('mensagem')
                                         <div class="invalid-feedback">
                                             <i class="fas fa-exclamation-triangle me-1"></i>
@@ -789,29 +789,12 @@ Formulário de contato online.')
 
 @section('js')
 <script>
+    
     document.addEventListener('DOMContentLoaded', function() {
     // Contador de caracteres
-    const mensagemTextarea = document.getElementById('mensagem');
-    const charCount = document.getElementById('charCount');
-    
-    if (mensagemTextarea && charCount) {
-        function updateCharCount() {
-            const count = mensagemTextarea.value.length;
-            charCount.textContent = count;
-            
-            if (count > 1800) {
-                charCount.style.color = '#dc3545';
-            } else if (count > 1500) {
-                charCount.style.color = '#ffc107';
-            } else {
-                charCount.style.color = '#6c757d';
-            }
-        }
-        
-        mensagemTextarea.addEventListener('input', updateCharCount);
-        updateCharCount(); // Inicializar
-    }
-    
+
+
+
     // Máscara de telefone
     const telefoneInput = document.getElementById('telefone');
     if (telefoneInput) {

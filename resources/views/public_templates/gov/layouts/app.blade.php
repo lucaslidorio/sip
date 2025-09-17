@@ -296,58 +296,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer-main">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h5>{{ $tenant->nome }}</h5>
-                    <p>{{ $tenant->endereco ?? 'Endereço não informado' }}</p>
-                    @if($tenant->telefone)
-                    <p><i class="fas fa-phone me-2"></i> {{ $tenant->telefone }}</p>
-                    @endif
-                    @if($tenant->email)
-                    <p><i class="fas fa-envelope me-2"></i> {{ $tenant->email }}</p>
-                    @endif
-                </div>
-                
-                <div class="footer-section">
-                    <h5>Acesso Rápido</h5>
-                    <ul>
-                        <li><a href="{{ route('noticias.todas') }}">Notícias</a></li>
-                        <li><a href="{{ route('site.agenda') }}">Agenda</a></li>
-                        <li><a href="#">Licitações</a></li>
-                        <li><a href="#">Portal da Transparência</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h5>Serviços</h5>
-                    <ul>
-                        <li><a href="#">Nota Fiscal Eletrônica</a></li>
-                        <li><a href="#">Secretarias</a></li>
-                        <li><a href="#">Decretos e Portarias</a></li>
-                        <li><a href="#">Ouvidoria</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h5>Informações</h5>
-                    <ul>
-                        <li><a href="{{ route('site.acessibilidade') }}">Acessibilidade</a></li>
-                        <li><a href="{{ route('site.sitemap') }}">Mapa do Site</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} {{ $tenant->nome }}. Todos os direitos reservados.</p>
-                <p>Desenvolvido com <i class="fas fa-heart text-danger"></i> pelo Sistema SIP</p>
-            </div>
-        </div>
-    </footer>
+   @include('public_templates.gov.includes.rodape')
 
     <!-- VLibras Widget -->
     <div vw class="enabled">

@@ -16,6 +16,27 @@
             </div>
         </div>
     </div>   
+
+    <div class="col-sm-8">
+        <div class="form-group">                  
+            <label for="descricao">Descrição</label>
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                  </div> 
+              <input type="text" maxlength="255" class="form-control {{ $errors->has('descricao') ? 'is-invalid' : '' }}" id="descricao"
+                  name="descricao" placeholder="Descrição" value="{{ $link->descricao ?? old('descricao') }}">
+              @error('descricao')
+                  <small class="invalid-feedback">
+                      {{ $message }}
+                  </small>
+              @enderror
+            </div>
+        </div>
+    </div>
+      
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">                  
             <label for="url" class="label-required">Url </label>
@@ -67,7 +88,7 @@
                 </small>
             @enderror
         </div>
-    </div>  
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-2">
@@ -79,6 +100,7 @@
                 <option value="1" {{isset($link) && $link->tipo == '1' ? 'selected': ''}} > Banner </option>
                 <option value="2" {{isset($link) && $link->tipo == '2' ? 'selected': ''}} > Links úteis </option>
                 <option value="3" {{isset($link) && $link->tipo == '3' ? 'selected': ''}}> Serviços Online </option>
+                <option value="4" {{isset($link) && $link->tipo == '4' ? 'selected': ''}}> Acesso Rápido </option>
             </select>
             @error('tipo')
             <small class="invalid-feedback">
@@ -97,6 +119,7 @@
                 <option value="2" {{isset($link) && $link->posicao == '2' ? 'selected': ''}}> Topo </option>
                 <option value="3" {{isset($link) && $link->posicao == '3' ? 'selected': ''}}> Direita </option>
                 <option value="4" {{isset($link) && $link->posicao == '4' ? 'selected': ''}}> Inferior </option>
+                <option value="5" {{isset($link) && $link->posicao == '5' ? 'selected': ''}}> Centro </option>
                 {{-- <option value="5" {{isset($link) && $link->posicao == '5' ? 'selected': ''}}> Centro </option> --}}
 
             </select>

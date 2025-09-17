@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnexoTenant;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -145,4 +146,58 @@ class TenantController extends Controller
     {
         //
     }
+
+    //Anexos do órgão
+    public function anexos($id)
+{
+    $tenant = $this->repository->find($id);
+    $anexos = $tenant->anexos;
+    return view('admin.pages.tenants.anexos.index', compact('tenant', 'anexos'));
+}
+
+public function storeAnexo(Request $request, $id)
+{
+    $tenant = $this->repository->find($id);
+    
+    $request->validate([
+        'anexo' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+        'tipo_anexo' => 'required|integer'
+    ]);
+
+    if ($request->hasFile('anexo')) {
+        $file = $request->file('anexo');
+        $nome_original = $file->getClientOriginalName();
+        $path = $file->store('tenants/anexos', 's3');
+
+        $tenant->anexos()->create([
+            'anexo' => $path,
+            'nome_original' => $nome_original,
+            'tipo_anexo' => $request->tipo_anexo,
+            'situacao' => 1
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'Anexo adicionado com sucesso!');
+}
+
+public function destroyAnexo($id, $anexo_id)
+{
+    $anexo = AnexoTenant::find($anexo_id);
+    Storage::disk('s3')->delete($anexo->anexo);
+    $anexo->delete();
+
+    return redirect()->back()->with('success', 'Anexo removido com sucesso!');
+}
+
+public function toggleSituacaoAnexo($id, $anexo_id)
+{
+    $anexo = AnexoTenant::find($anexo_id);
+    $anexo->situacao = !$anexo->situacao;
+    $anexo->save();
+
+    return redirect()->back()->with('success', 'Situação alterada com sucesso!');
+}
+
+
+
 }

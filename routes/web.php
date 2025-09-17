@@ -164,6 +164,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
 
 
+            Route::get('tenants/{id}/anexos',  [TenantController::class, 'anexos'])->name('tenants.anexos');
+            Route::post('tenants/{id}/anexos', [TenantController::class, 'storeAnexo'])->name('tenants.anexos.store');
+            Route::delete('tenants/{id}/anexos/{anexo_id}', [TenantController::class, 'destroyAnexo'])->name('tenants.anexos.destroy');
+            Route::patch('tenants/{id}/anexos/{anexo_id}/toggle', [TenantController::class, 'toggleSituacaoAnexo'])->name('tenants.anexos.toggle');
+
             //Rotas de leis             
             Route::any('/legislations/search', [LegislationController::class, 'search'])->name('legislations.search');
             Route::put('/legislations/{id}', [LegislationController::class, 'update'])->name('legislations.update');

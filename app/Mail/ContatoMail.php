@@ -4,10 +4,10 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;   // <- IMPORTANTE (Laravel)
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Symfony\Component\Mime\Address;
 
 class ContatoMail extends Mailable
 {
@@ -24,11 +24,10 @@ class ContatoMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contato via site - ' . ($this->dados['assunto'] ?? 'Contato via Site'),
-            // replyTo precisa ser Address (ou string), não array associativo
-            replyTo: [
-                new Address($this->dados['email'], $this->dados['nome'] ?? null),
-            ],
+              subject: 'Contato via site - ' . ($this->dados['assunto'] ?? 'Contato via Site'),
+        replyTo: [
+            new Address($this->dados['email'], $this->dados['nome'] ?? null),
+        ],
         );
     }
 
@@ -36,7 +35,7 @@ class ContatoMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.contato',
+            markdown: 'views.emails.contato',
             with: ['dados' => $this->dados],
         );
     }

@@ -397,8 +397,8 @@ p {
 }
 
 .quick-access-card-icon {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     margin: 0 auto 1rem;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
@@ -417,13 +417,11 @@ p {
     font-size: 0.875rem;
     margin-bottom: 0;
 }
-.quick-access a,
-.quick-access-card {
+
+.quick-access-card a {
     color: inherit;
-    text-decoration: none !important;
+    text-decoration: none;
 }
-
-
 
 /* Footer */
 .footer-main {

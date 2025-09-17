@@ -8,70 +8,38 @@
 
 
 <!-- Serviços Principais -->
+
+@if($linksServicosOnline && $linksServicosOnline->count() > 0)
 <section class="section-padding">
     <div class="container">
         <div class="section-title">
             <h2>Serviços Online</h2>
             <p>Acesse os principais serviços da prefeitura de forma rápida e prática</p>
         </div>
-        
         <div class="services-grid">
+            @foreach($linksServicosOnline as $link)
             <div class="service-card">
                 <div class="service-card-icon">
-                    <i class="fas fa-file-invoice"></i>
+                    @if($link->icone)
+                    <img src="{{ config('app.aws_url').$link->icone }}" alt="{{ $link->nome }}" class="img-fluid mb-2"
+                        style="max-height:60px;">
+                    @endif
                 </div>
-                <h3>Nota Fiscal Eletrônica</h3>
-                <p>Emita e consulte suas notas fiscais de serviços de forma digital</p>
-                <a href="#" class="btn btn-primary">Acessar Serviço</a>
+                <h3>{{ $link->nome }}</h3>
+                @if($link->descricao)
+                <p>{{ $link->descricao }}</p>
+                @endif
+                <a href="{{ $link->url }}" class="btn btn-primary">Acessar Serviço</a>
             </div>
-            
-            <div class="service-card">
-                <div class="service-card-icon">
-                    <i class="fas fa-gavel"></i>
-                </div>
-                <h3>Licitações</h3>
-                <p>Acompanhe editais, processos licitatórios e oportunidades de negócio</p>
-                <a href="#" class="btn btn-primary">Ver Licitações</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-card-icon">
-                    <i class="fas fa-balance-scale"></i>
-                </div>
-                <h3>Portal da Transparência</h3>
-                <p>Consulte gastos públicos, contratos e informações sobre a gestão</p>
-                <a href="#" class="btn btn-primary">Acessar Portal</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-card-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <h3>Secretarias</h3>
-                <p>Conheça as secretarias municipais e seus serviços</p>
-                <a href="#" class="btn btn-primary">Ver Secretarias</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-card-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <h3>Decretos e Portarias</h3>
-                <p>Consulte a legislação municipal e atos normativos</p>
-                <a href="#" class="btn btn-primary">Consultar Decretos</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-card-icon">
-                    <i class="fas fa-phone"></i>
-                </div>
-                <h3>Ouvidoria</h3>
-                <p>Registre sugestões, reclamações e elogios</p>
-                <a href="#" class="btn btn-primary">Falar Conosco</a>
-            </div>
+            @endforeach
+
+
         </div>
     </div>
 </section>
+@endif
+
+
 
 <!-- Notícias em Destaque -->
 @if($posts_destaque && $posts_destaque->count() > 0)
@@ -124,6 +92,31 @@
 @endif
 
 <!-- Acesso Rápido -->
+@if($linksAcessoRapido && $linksAcessoRapido->count() > 0)
+<section class="quick-access">
+    <div class="container">
+        <h2>Acesso Rápido</h2>        
+        <div class="quick-access-grid">
+            @foreach($linksAcessoRapido as $link)
+                <a href="{{ $link->url }}" class="quick-access-card" @if($link->target) target="_blank" @endif>
+                    <div class="quick-access-card-icon">
+                        @if($link->icone)
+                            <img src="{{ config('app.aws_url').$link->icone }}" alt="{{ $link->nome }}" class="img-fluid mb-2" style="max-height:60px;">
+                        @endif
+                    </div>
+                    <h4 >{{ $link->nome }}</h4>
+                    @if($link->descricao)
+                        <p >{{ $link->descricao }}</p>
+                    @endif
+                </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+
+{{-- @if($linksAcessoRapido && $linksUteisInferior->count() > 0)
 <section class="quick-access">
     <div class="container">
         <h2>Acesso Rápido</h2>
@@ -163,9 +156,10 @@
         </div>
     </div>
 </section>
+@endif --}}
 
 <!-- Links Úteis -->
-@if($linksDireita && $linksDireita->count() > 0)
+@if($linksUteisInferior && $linksUteisInferior->count() > 0)
 <section class="section-padding bg-light">
     <div class="container">
         <div class="section-title">
@@ -174,14 +168,14 @@
         </div>
         
         <div class="row">
-            @foreach($linksDireita as $link)
+            @foreach($linksUteisInferior as $link)
             <div class="col-md-4 col-lg-3 mb-3">
                 <a href="{{ $link->url }}" target="_blank" class="card h-100 text-decoration-none">
                     <div class="card-body text-center">
-                        @if($link->imagem)
-                        <img src="{{ asset('storage/' . $link->imagem) }}" alt="{{ $link->titulo }}" class="img-fluid mb-3" style="max-height: 60px;">
+                        @if($link->icone)
+                        <img src="{{config('app.aws_url').$link->icone}}" alt="{{ $link->titulo }}" class="img-fluid mb-3" style="max-height: 60px;">
                         @endif
-                        <h6 class="card-title">{{ $link->titulo }}</h6>
+                        <h6 class="card-title">{{ $link->nome }}</h6>
                         @if($link->descricao)
                         <p class="card-text small text-muted">{{ $link->descricao }}</p>
                         @endif
