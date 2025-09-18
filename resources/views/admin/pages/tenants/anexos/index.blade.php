@@ -1,9 +1,27 @@
 @extends('adminlte::page')
-
 @section('title', 'Anexos do Tenant')
 
+{{-- Habilita plugins do AdminLTE --}}
+@section('plugins.Toast', true)
+@section('plugins.Sortable', true)
+@section('plugins.Sweetalert2', true)
 @section('content_header')
-    <h1>Anexos - {{ $tenant->nome }}</h1>
+{{-- Conteúdo da página --}}
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-sm-6">
+      <h1>Entidade</h1>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{route('tenants.index')}}">Orgão</a></li>
+        <li class="breadcrumb-item ">Anexos</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
 @stop
 
 @section('content')
@@ -26,7 +44,7 @@
                 </thead>
                 <tbody>
                     @foreach($anexos as $anexo)
-                        <tr>
+                        <tr id="anexo-{{ $anexo->id }}">
                             <td class="text-center">
                                 <a href="{{ config('app.aws_url').$anexo->anexo }}" target="_blank">
                                     @php
@@ -48,27 +66,27 @@
                                 </a>
                             </td>
                             <td>{{ $anexo->nome_original }}</td>
-                            <td>{{ $anexo->tipo_anexo == 1 ? 'Selo de Transparência' : 'Outro' }}</td>
-                            <td>
-                                <span class="badge badge-{{ $anexo->situacao ? 'success' : 'danger' }}">
-                                    {{ $anexo->situacao ? 'Ativo' : 'Inativo' }}
-                                </span>
+                            <td>{{ $anexo->tipo_nome }}</td>
+                            <td class="text-center">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" 
+                                           class="custom-control-input" 
+                                           id="customSwitch{{ $anexo->id }}"
+                                           {{ $anexo->situacao ? 'checked' : '' }}
+                                           onchange="toggleStatus(this, '{{ $tenant->id }}', '{{ $anexo->id }}')">
+                                    <label class="custom-control-label" for="customSwitch{{ $anexo->id }}">
+                                        {{ $anexo->situacao ? 'Ativo' : 'Inativo' }}
+                                    </label>
+                                </div>
                             </td>
                             <td>
-                                <form action="{{ route('tenants.anexos.toggle', [$tenant->id, $anexo->id]) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-sync"></i>
-                                    </button>
-                                </form>
-                                <form action="{{ route('tenants.anexos.destroy', [$tenant->id, $anexo->id]) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                <!-- Replace the delete form with this button -->
+                                <button type="button" class="btn btn-flat bg-gradient-danger delete-btn" onclick="confirmDelete('{{ $tenant->id }}', '{{ $anexo->id }}', '{{ $anexo->nome_original }}')"
+                                  title="Excluir Anexo">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+                                
                             </td>
                         </tr>
                     @endforeach
@@ -97,8 +115,10 @@
                         <div class="form-group">
                             <label>Tipo</label>
                             <select name="tipo_anexo" class="form-control" required>
-                                <option value="1">Selo de Transparência</option>
-                            </select>
+                            @foreach(App\Models\AnexoTenant::TIPO as $key => $tipo)
+                                <option value="{{ $key }}">{{ $tipo }}</option>
+                            @endforeach
+                        </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,4 +148,89 @@
         transform: scale(1.1);
     }
 </style>
+@stop
+
+@section('js')
+<script>
+function toggleStatus(button, tenantId, anexoId) {
+    $.ajax({
+        url: `/admin/tenants/${tenantId}/anexos/${anexoId}/toggle`,
+        type: 'PATCH',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            // Atualiza o botão
+            if (response.situacao) {
+                $(button).removeClass('btn-danger').addClass('btn-success');
+                $(button).html('<i class="fas fa-check"></i> Ativo');
+            } else {
+                $(button).removeClass('btn-success').addClass('btn-danger');
+                $(button).html('<i class="fas fa-times"></i> Inativo');
+            }
+
+            // Mostra mensagem de sucesso
+            Toast.fire({
+                icon: 'success',
+                title: response.message
+            });
+        },
+        error: function(xhr) {
+            Toast.fire({
+                icon: 'error',
+                title: 'Erro ao alterar status'
+            });
+        }
+    });
+}
+
+// Função para confirmar a exclusão
+function confirmDelete(tenantId, anexoId, nomeAnexo) {
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: `Deseja realmente excluir o anexo "${nomeAnexo}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Create and submit form
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/admin/tenants/${tenantId}/anexos/${anexoId}`;
+            
+            const csrf = document.createElement('input');
+            csrf.type = 'hidden';
+            csrf.name = '_token';
+            csrf.value = $('meta[name="csrf-token"]').attr('content');
+            
+            const method = document.createElement('input');
+            method.type = 'hidden';
+            method.name = '_method';
+            method.value = 'DELETE';
+            
+            form.appendChild(csrf);
+            form.appendChild(method);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+}
+
+// SweetAlert Toast
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+</script>
 @stop

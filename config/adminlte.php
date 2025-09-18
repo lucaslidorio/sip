@@ -474,6 +474,7 @@ return [
             'text' => 'Orgão',
             'url'  => 'admin/tenants',
             'icon' => 'fas fa-university',
+            'active' => ['admin/tenants*'],
             'can'  => 'ver-orgao',
 
         ],

@@ -195,7 +195,10 @@ public function toggleSituacaoAnexo($id, $anexo_id)
     $anexo->situacao = !$anexo->situacao;
     $anexo->save();
 
-    return redirect()->back()->with('success', 'Situação alterada com sucesso!');
+    return response()->json([
+        'message' => 'Status alterado com sucesso!',
+        'situacao' => $anexo->situacao
+    ]);
 }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnexoTenant;
 use App\Models\AttachmentSession;
 use App\Models\Categoria;
 use App\Models\Commission;
@@ -48,7 +49,8 @@ class SitePublicoController extends Controller
         Categoria $categorias,
         Page $page,
         Councilor $vereador,
-        ConfiguracaoOuvidoria $configuracaoOuvidoria
+        ConfiguracaoOuvidoria $configuracaoOuvidoria,
+        
 
     ) {
 
@@ -108,8 +110,13 @@ class SitePublicoController extends Controller
         $linksUteisInferior = $this->link::porTipo(2)->porPosicao(4)->get();
         $linksAcessoRapido = $this->link::porTipo(4)->porPosicao(5)->orderBy('ordem')->get();// acesso rápido "4 => Acesso Rápido" e "5 => Centro"
         $linksServicosOnline = $this->link::porTipo(3)->orderBy('ordem')->get();// serviços online "3 => Serviços Online"
+        // Busca os selos de transparência ativos
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
         
-        
+     
         $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
         $popups = Popups::visiveis()->get();
         $totalNoticias = $this->noticias->count();
@@ -124,6 +131,7 @@ class SitePublicoController extends Controller
                 'linksUteisInferior',
                 'linksAcessoRapido',
                 'linksServicosOnline',
+                'selosTransparencia',
                 'vereadores',
                 'noticias',
                 'totalNoticias',

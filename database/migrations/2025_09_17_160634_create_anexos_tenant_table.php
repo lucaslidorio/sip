@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenants_id')->constrained('tenants');
             $table->string('anexo');
-            $table->string('nome_original', 45)->nullable();
+            $table->string('nome_original', 255)->nullable();
             $table->integer('tipo_anexo')->comment('1 = Selo de Transparência');
             $table->tinyInteger('situacao')->default(1)->comment('ativo e inativo');
             $table->timestamps();

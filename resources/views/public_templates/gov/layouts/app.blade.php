@@ -91,7 +91,7 @@
     <header class="header-main">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4">
+                <div class=" col-xs-12 col-md-6 col-lg-3">
                     <div class="header-brand">
                         @if($tenant->brasao)
                         <a href="{{route('site.index')}}" class="text-decoration-none">
@@ -107,7 +107,7 @@
                     </div>
                      
                 </div>                
-                <div class="col-lg-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="header-search">
                         <form action="{{ route('site.pesquisar') }}" method="GET">
                             <div class="input-group">
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-4">
+                <div class="col-xs-12 col-md-6 col-lg-3 pt-2 pt-sm-0">
                     <div class="header-actions">
                         <a href="{{ route('site.agenda') }}" class="btn btn-outline-primary">
                             <i class="fas fa-calendar me-1"></i> Agenda
@@ -131,6 +131,15 @@
                         <a href="{{ route('site.contato') }}" class="btn btn-primary">
                             <i class="fas fa-phone me-1"></i> Contato
                         </a>
+                    </div>
+                </div>
+                <div class="d-none d-md-block col-md-3 col-lg-2 text-end">
+                    <div class="header-actions">
+                       @foreach($selosTransparencia as $selo)                    
+                        <img src="{{ config('app.aws_url').$selo->anexo }}" alt="{{ $selo->nome_original }}"
+                            class="img-fluid mb-2" style="max-height: 80px; margin-right: 10px;">
+                    
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -197,83 +206,7 @@
                     @endif
                     @endforeach                          
                     
-{{--                                       
-                    <li class="nav-item dropdown mega-menu">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-balance-scale"></i>
-                            <span>Transparência</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <div class="mega-menu-content">
-                                <div class="mega-menu-section">
-                                    <h6>Receitas e Despesas</h6>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-money-bill-wave"></i>
-                                        Receitas Municipais
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        Despesas Públicas
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-chart-pie"></i>
-                                        Execução Orçamentária
-                                    </a>
-                                </div>
-                                <div class="mega-menu-section">
-                                    <h6>Contratos e Licitações</h6>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-file-contract"></i>
-                                        Contratos Vigentes
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-gavel"></i>
-                                        Licitações Abertas
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-handshake"></i>
-                                        Convênios
-                                    </a>
-                                </div>
-                                <div class="mega-menu-section">
-                                    <h6>Recursos Humanos</h6>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-users"></i>
-                                        Servidores Públicos
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-money-check"></i>
-                                        Folha de Pagamento
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-plane"></i>
-                                        Diárias e Viagens
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li> --}}
-                    
-                    {{-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-laptop"></i>
-                            <span>Serviços Online</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice"></i> Nota Fiscal Eletrônica</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-home"></i> IPTU Online</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-certificate"></i> Certidões</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-file-alt"></i> Protocolo Online</a></li>
-                        </ul>
-                    </li> --}}
-                    
-                    {{-- <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('site.agenda*') ? 'active' : '' }}" 
-                           href="{{ route('site.agenda') }}">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>Agenda</span>
-                        </a>
-                    </li> --}}
+
                 </ul>
                 
                 <!-- Botões de ação no menu -->
@@ -294,8 +227,14 @@
         <div class="content-wrapper">
             @yield('content')
         </div>
-    </main>
 
+
+
+
+
+
+    </main>
+   @include('public_templates.gov.includes.redes-sociais-flutuante')
    @include('public_templates.gov.includes.rodape')
 
     <!-- VLibras Widget -->
@@ -305,6 +244,7 @@
             <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
+
 
     <!-- Scripts -->
     <!-- Bootstrap JS -->

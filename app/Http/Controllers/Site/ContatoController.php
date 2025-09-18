@@ -39,8 +39,12 @@ class ContatoController extends Controller
             ->where('posicao', '3')
             ->orderBy('ordem')
             ->get();  
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
            
-        return view("public_templates.$template.includes.contatos.contato", compact('tenant', 'menus', 'menus3'));
+        return view("public_templates.$template.includes.contatos.contato", compact('tenant', 'menus', 'menus3', 'selosTransparencia'));
     }
     
     /**

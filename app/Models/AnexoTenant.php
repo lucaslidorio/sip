@@ -15,6 +15,19 @@ class AnexoTenant extends Model
         'tipo_anexo',
         'situacao'
     ];
+    const TIPO = [
+        1 => 'Selo de Transparência',
+        2 => 'Outros',       
+    ];
+
+     const SITUACAO = [
+        1 => 'Ativo',
+        0 => 'Inativo',
+    ];
+     public function getTipoNomeAttribute()
+    {
+        return self::TIPO[$this->tipo_anexo] ?? 'Não definido';
+    }
 
     public function tenant()
     {

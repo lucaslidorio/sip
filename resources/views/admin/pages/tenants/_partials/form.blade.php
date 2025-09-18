@@ -303,7 +303,7 @@
                   </div>                    
                   <input type="text" class="form-control {{ $errors->has('twitter') ? 'is-invalid' : '' }}"
                       id="twitter" name="twitter" placeholder="Link do Twiter"
-                      value="{{ $tenant->twiter ?? old('twitter') }}">
+                      value="{{ $tenant->twitter ?? old('twitter') }}">
                   @error('twitter')
                       <small class="invalid-feedback">
                           {{ $message }}
@@ -322,8 +322,8 @@
                       <span class="input-group-text"><i class="fab fa-tiktok"></i></span>
                   </div>                    
                   <input type="text" class="form-control {{ $errors->has('tiktok') ? 'is-invalid' : '' }}"
-                      id="tiktok" name="tiktok" placeholder="Link do Twiter"
-                      value="{{ $tenant->twiter ?? old('tiktok') }}">
+                      id="tiktok" name="tiktok" placeholder="Link do TikTok"
+                      value="{{ $tenant->tiktok ?? old('tiktok') }}">
                   @error('tiktok')
                       <small class="invalid-feedback">
                           {{ $message }}

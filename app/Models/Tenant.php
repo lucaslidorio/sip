@@ -26,7 +26,7 @@ class Tenant extends Model
     'facebook', 
     'youtube', 
     'instagram',
-    'twiter',
+    'twitter',
     'tiktok', 
     'brasao', 
     'bandeira',
