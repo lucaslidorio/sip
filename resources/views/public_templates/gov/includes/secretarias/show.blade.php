@@ -342,8 +342,8 @@
                             <i class="fab fa-whatsapp me-1"></i> WhatsApp
                         </a>
                         <button type="button" 
-                                class="btn btn-outline-secondary btn-sm mb-2" 
-                                onclick="copyToClipboard('{{ request()->fullUrl() }}')">
+                                class="btn btn-outline-secondary btn-sm" 
+                                data-copy-to-clipboard="{{ request()->fullUrl() }}">
                             <i class="fas fa-link me-1"></i> Copiar Link
                         </button>
                     </div>
@@ -717,154 +717,7 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Função para copiar link
-    window.copyToClipboard = function(text) {
-        navigator.clipboard.writeText(text).then(function() {
-            // Mostrar feedback visual
-            const button = event.target.closest('button');
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check me-1"></i> Copiado!';
-            button.classList.remove('btn-outline-secondary');
-            button.classList.add('btn-success');
-            
-            setTimeout(function() {
-                button.innerHTML = originalText;
-                button.classList.remove('btn-success');
-                button.classList.add('btn-outline-secondary');
-            }, 2000);
-        }).catch(function() {
-            // Fallback para navegadores mais antigos
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            // Mostrar notificação
-            showNotification('Link copiado para a área de transferência!', 'success');
-        });
-    };
 
-    // Animações de entrada
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const fadeInObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Aplicar animação aos elementos
-    const animatedElements = document.querySelectorAll('.service-item, .action-btn, .sidebar-widget');
-    animatedElements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        fadeInObserver.observe(element);
-    });
-
-    // Smooth scroll para links internos
-    const internalLinks = document.querySelectorAll('a[href^="#"]');
-    internalLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                const headerHeight = document.querySelector('.main-header')?.offsetHeight || 0;
-                const targetPosition = target.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Melhorar acessibilidade - navegação por teclado
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Tab') {
-            document.body.classList.add('keyboard-navigation');
-        }
-    });
-
-    document.addEventListener('mousedown', function() {
-        document.body.classList.remove('keyboard-navigation');
-    });
-
-    // Adicionar estilos para navegação por teclado
-    if (!document.querySelector('#keyboard-navigation-styles')) {
-        const style = document.createElement('style');
-        style.id = 'keyboard-navigation-styles';
-        style.textContent = `
-            .keyboard-navigation *:focus {
-                outline: 2px solid var(--primary-color) !important;
-                outline-offset: 2px !important;
-            }
-            
-            .keyboard-navigation *:focus:not(:focus-visible) {
-                outline: none !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // Função para mostrar notificações
-    function showNotification(message, type = 'info', duration = 5000) {
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-        notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
-        notification.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        if (duration > 0) {
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, duration);
-        }
-    }
-
-    // Feedback visual nos botões de ação
-    const actionButtons = document.querySelectorAll('.action-btn, .share-buttons a');
-    actionButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-
-    // Destacar cor personalizada da secretaria
-    const secretariaIcon = document.querySelector('.secretaria-icon');
-    if (secretariaIcon) {
-        const corDestaque = secretariaIcon.style.getPropertyValue('--cor-destaque');
-        if (corDestaque && corDestaque !== 'var(--primary-color)') {
-            // Aplicar cor de destaque em outros elementos
-            const elementsToColor = document.querySelectorAll('.secretaria-title, .section-title, .sidebar-widget-title');
-            elementsToColor.forEach(element => {
-                element.style.color = corDestaque;
-            });
-        }
-    }
-});
 </script>
 @endpush
 

@@ -48,7 +48,7 @@
                     {!! $page->conteudo !!}
                 </div>
 
-                @if($page->anexos && $page->anexos->count() > 0)
+                @if($page->attachments && $page->attachments->count() > 0)
                 <div class="page-attachments mt-5">
                     <h3 class="h5 text-primary-color mb-3">
                         <i class="fas fa-paperclip me-2"></i>
@@ -56,15 +56,16 @@
                     </h3>
                     
                     <div class="list-group">
-                        @foreach($page->anexos as $anexo)
-                        <a href="{{ asset('storage/' . $anexo->arquivo) }}" 
+                        @foreach($page->attachments as $anexo)
+                        <a href="{{config('app.aws_url')."{$anexo->anexo}" }}" 
                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                            target="_blank">
                             <div>
                                 <i class="fas fa-file-pdf text-danger me-2"></i>
-                                {{ $anexo->nome }}
-                                @if($anexo->descricao)
-                                <small class="text-muted d-block">{{ $anexo->descricao }}</small>
+                                {{ $anexo->nome_original }}
+                                @if($anexo->type_document->nome)
+                              
+                                    <small class="text-muted d-block">Tipo: {{ $anexo->type_document->nome }}</small>
                                 @endif
                             </div>
                             <span class="badge bg-primary rounded-pill">
@@ -98,7 +99,7 @@
                     </a>
                     <button type="button" 
                             class="btn btn-outline-secondary btn-sm" 
-                            onclick="copyToClipboard('{{ request()->fullUrl() }}')">
+                            data-copy-to-clipboard="{{ request()->fullUrl() }}">
                         <i class="fas fa-link me-1"></i> Copiar Link
                     </button>
                 </div>
@@ -107,104 +108,15 @@
 
         <!-- Sidebar -->
         <div class="col-lg-4">
-            <aside class="page-sidebar">
-                <!-- Menu de Navegação -->
-                @if($menus && $menus->count() > 0)
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Navegação</h3>
-                    <div class="list-group">
-                        @foreach($menus->take(8) as $menu)
-                        <a href="{{ $menu->url }}" 
-                           class="list-group-item list-group-item-action {{ request()->url() === $menu->url ? 'active' : '' }}">
-                            @if($menu->icone)
-                            <i class="{{ $menu->icone }} me-2"></i>
-                            @endif
-                            {{ $menu->nome }}
-                        </a>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
+            <aside class="page-sidebar">              
 
                 <!-- Acesso Rápido -->
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Acesso Rápido</h3>
-                    <div class="d-grid gap-2">
-                        <a href="{{ route('noticias.todas') }}" class="btn btn-outline-primary">
-                            <i class="fas fa-newspaper me-2"></i> Notícias
-                        </a>
-                        <a href="{{ route('site.agenda') }}" class="btn btn-outline-primary">
-                            <i class="fas fa-calendar me-2"></i> Agenda
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-gavel me-2"></i> Licitações
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-balance-scale me-2"></i> Transparência
-                        </a>
-                    </div>
-                </div>
+                @include('public_templates.gov.includes.acesso-rapido')
 
                 <!-- Contato -->
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Contato</h3>
-                    <div class="contact-info">
-                        @if($tenant->endereco)
-                        <p class="mb-2">
-                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                            {{ $tenant->endereco }}
-                        </p>
-                        @endif
-                        
-                        @if($tenant->telefone)
-                        <p class="mb-2">
-                            <i class="fas fa-phone text-primary me-2"></i>
-                            <a href="tel:{{ $tenant->telefone }}">{{ $tenant->telefone }}</a>
-                        </p>
-                        @endif
-                        
-                        @if($tenant->email)
-                        <p class="mb-2">
-                            <i class="fas fa-envelope text-primary me-2"></i>
-                            <a href="mailto:{{ $tenant->email }}">{{ $tenant->email }}</a>
-                        </p>
-                        @endif
-                        
-                        @if($tenant->horario_funcionamento)
-                        <p class="mb-0">
-                            <i class="fas fa-clock text-primary me-2"></i>
-                            {{ $tenant->horario_funcionamento }}
-                        </p>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Banner Lateral -->
-                @if($linksDireita && $linksDireita->count() > 0)
-                <div class="sidebar-widget">
-                    <h3 class="sidebar-widget-title">Links Úteis</h3>
-                    @foreach($linksDireita->take(4) as $link)
-                    <div class="mb-3">
-                        <a href="{{ $link->url }}" target="_blank" class="text-decoration-none">
-                            @if($link->imagem)
-                            <img src="{{ asset('storage/' . $link->imagem) }}" 
-                                 alt="{{ $link->titulo }}" 
-                                 class="img-fluid rounded shadow-sm">
-                            @else
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <h6 class="card-title">{{ $link->titulo }}</h6>
-                                    @if($link->descricao)
-                                    <p class="card-text small">{{ $link->descricao }}</p>
-                                    @endif
-                                </div>
-                            </div>
-                            @endif
-                        </a>
-                    </div>
-                    @endforeach
-                </div>
-                @endif
+                @include('public_templates.gov.includes.contato-lateral')
+                <!--  Links Úteis Lateral -->
+                @include('public_templates.gov.includes.links-uteis-lateral')
             </aside>
         </div>
     </div>
@@ -286,6 +198,7 @@
     color: var(--primary-color);
 }
 
+
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
@@ -299,23 +212,6 @@
 @endpush
 
 @push('scripts')
-<script>
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(function() {
-        // Mostrar feedback visual
-        const button = event.target.closest('button');
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check me-1"></i> Copiado!';
-        button.classList.remove('btn-outline-secondary');
-        button.classList.add('btn-success');
-        
-        setTimeout(function() {
-            button.innerHTML = originalText;
-            button.classList.remove('btn-success');
-            button.classList.add('btn-outline-secondary');
-        }, 2000);
-    });
-}
-</script>
+
 @endpush
 

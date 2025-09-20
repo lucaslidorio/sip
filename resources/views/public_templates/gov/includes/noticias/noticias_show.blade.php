@@ -192,7 +192,7 @@
                         </a>
                         <button type="button" 
                                 class="btn btn-outline-secondary btn-sm" 
-                                onclick="copyToClipboard('{{ request()->fullUrl() }}')">
+                                data-copy-to-clipboard="{{ request()->fullUrl() }}">
                             <i class="fas fa-link me-1"></i> Copiar Link
                         </button>
                     </div>
@@ -916,38 +916,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 });
 
-// Função para copiar link
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(function() {
-        // Mostrar feedback visual
-        const button = event.target.closest('button');
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check me-1"></i> Copiado!';
-        button.classList.remove('btn-outline-secondary');
-        button.classList.add('btn-success');
-        
-        setTimeout(function() {
-            button.innerHTML = originalText;
-            button.classList.remove('btn-success');
-            button.classList.add('btn-outline-secondary');
-        }, 2000);
-    }).catch(function() {
-        // Fallback para navegadores mais antigos
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        
-        // Mostrar feedback
-        if (window.showNotification) {
-            window.showNotification('Link copiado para a área de transferência!', 'success');
-        }
-    });
-}
-
-// Incrementar visualizações (se a rota existir)
 
 </script>
 @endpush

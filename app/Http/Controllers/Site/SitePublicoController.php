@@ -367,6 +367,7 @@ class SitePublicoController extends Controller
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
+         $linksUteisInferior = $this->link::porTipo(2)->porPosicao(4)->get();
         $selosTransparencia = $tenant->anexos()
             ->where('tipo_anexo', 1)
             ->where('situacao', 1)
@@ -376,6 +377,7 @@ class SitePublicoController extends Controller
             'page' => $page,
             'tenant' => $tenant,
             'menus' => $menus,
+            'linksUteisInferior' => $linksUteisInferior,
             'selosTransparencia' => $selosTransparencia
         ]);
     }
@@ -553,7 +555,8 @@ class SitePublicoController extends Controller
             ->where('tipo_anexo', 1)
             ->where('situacao', 1)
             ->get();
-        $secretarias = $this->secretarias::where('situacao', true)->orderBy('nome')->get();
+        $secretarias = $this->secretarias->search(request('q'));
+$secretarias->appends(request()->query());
             return view("public_templates.$template.includes.secretarias.index", compact(
             'tenant',
             'menus',

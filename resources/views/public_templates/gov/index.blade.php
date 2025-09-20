@@ -170,10 +170,10 @@
         <div class="row">
             @foreach($linksUteisInferior as $link)
             <div class="col-md-4 col-lg-3 mb-3">
-                <a href="{{ $link->url }}" target="_blank" class="card h-100 text-decoration-none">
+                <a href="{{ $link->url }}" target="_blank" class="card h-100 text-decoration-none link-util-card">
                     <div class="card-body text-center">
                         @if($link->icone)
-                        <img src="{{config('app.aws_url').$link->icone}}" alt="{{ $link->titulo }}" class="img-fluid mb-3" style="max-height: 60px;">
+                        <img src="{{config('app.aws_url').$link->icone}}" alt="{{ $link->nome }}" class="img-fluid mb-3 link-util-icon" style="max-height: 60px;">
                         @endif
                         <h6 class="card-title">{{ $link->nome }}</h6>
                         @if($link->descricao)

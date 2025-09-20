@@ -423,6 +423,67 @@ p {
     text-decoration: none !important;
 }
 
+/* Seção de Links Úteis */
+.link-util-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+}
+
+.link-util-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--primary-color, #0d6efd);
+}
+
+.link-util-card:hover .card-title {
+    color: var(--primary-color, #0d6efd);
+}
+
+.link-util-icon {
+    transition: transform 0.5s ease;
+}
+
+.link-util-card:hover .link-util-icon {
+    transform: scale(1.1);
+}
+
+.link-util-card:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color, #0d6efd);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.link-util-card:hover:after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Seção de Links Úteis na Sidebar */
+.link-util-sidebar {
+    padding: 0.75rem;
+    border-radius: var(--border-radius-md);
+    transition: background-color 0.3s;
+}
+
+.link-util-sidebar:hover {
+    background-color: var(--primary-lighter);
+}
+
+.link-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: var(--border-radius-md);
+    flex-shrink: 0;
+}
 
 
 /* Footer */

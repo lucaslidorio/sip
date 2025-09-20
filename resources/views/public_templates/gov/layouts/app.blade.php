@@ -262,6 +262,7 @@
     <script src="{{asset('gov/js/modern-menu.js') }}"></script>
     <!-- JavaScript do Carroce de noticias -->
     <script src="{{ asset('gov/js/hero-carousel.js') }}"></script>
+    <script src="{{ asset('gov/js/copy-to-clipboard.js') }}"></script>
     <!-- Scripts Adicionais -->
     @stack('scripts')
 </body>

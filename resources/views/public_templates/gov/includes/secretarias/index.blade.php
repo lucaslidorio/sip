@@ -24,33 +24,17 @@
     </div>
 
     <!-- Filtros -->
-    {{-- <div class="filters-section mb-5">
+    <div class="filters-section mb-5">
         <div class="card">
             <div class="card-body">
                 <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="searchSecretaria" class="form-label">Buscar secretaria</label>
+                    <div class="col-md-10">
+                        <label for="searchSecretaria" class="form-label">Buscar secretaria (nome, sigla ou slogan)</label>
                         <input type="text" 
                                class="form-control" 
                                id="searchSecretaria" 
-                               placeholder="Digite o nome da secretaria..."
+                               placeholder="Digite o nome, sigla ou slogan da secretaria..."
                                onkeyup="filterSecretarias()">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="areaFilter" class="form-label">Área de atuação</label>
-                        <select class="form-select" id="areaFilter" onchange="filterSecretarias()">
-                            <option value="">Todas as áreas</option>
-                            <option value="administracao">Administração</option>
-                            <option value="saude">Saúde</option>
-                            <option value="educacao">Educação</option>
-                            <option value="obras">Obras e Infraestrutura</option>
-                            <option value="social">Assistência Social</option>
-                            <option value="meio-ambiente">Meio Ambiente</option>
-                            <option value="cultura">Cultura e Turismo</option>
-                            <option value="esporte">Esporte e Lazer</option>
-                            <option value="agricultura">Agricultura</option>
-                            <option value="financas">Finanças</option>
-                        </select>
                     </div>
                     <div class="col-md-2 d-flex align-items-end">
                         <button type="button" class="btn btn-outline-secondary w-100" onclick="clearFilters()">
@@ -60,12 +44,16 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Grid de Secretarias -->
     <div class="secretarias-grid" id="secretariasGrid">
         @foreach($secretarias as $secretaria)
-            <div class="secretaria-card" data-area="{{ \Illuminate\Support\Str::slug($secretaria->sigla ?? $secretaria->nome) }}">
+            <div class="secretaria-card"
+                 data-nome="{{ \Illuminate\Support\Str::lower($secretaria->nome) }}"
+                 data-sigla="{{ \Illuminate\Support\Str::lower($secretaria->sigla) }}"
+
+                 data-area="{{ \Illuminate\Support\Str::slug($secretaria->sigla ?? $secretaria->nome) }}">
                 <div class="card h-100">
                     <div class="card-header text-white" style="background: {{ $secretaria->cor_destaque ?? 'var(--primary-color)' }}">
                         <div class="d-flex align-items-center">
@@ -83,7 +71,7 @@
                     <div class="card-body">
                         @if(!empty($secretaria->sobre))
                             <p class="card-text">
-                                {!!$secretaria->sobre!!}
+                                {!! $secretaria->sobre !!}
                             </p>
                         @endif
                         @if($secretaria->telefone || $secretaria->email || $secretaria->endereco)
@@ -119,7 +107,7 @@
     </div>
 
     <!-- Nenhum resultado -->
-    {{-- <div id="noResults" class="no-results text-center py-5" style="display: none;">
+    <div id="noResults" class="no-results text-center py-5" style="display: none;">
         <div class="mb-4">
             <i class="fas fa-search fa-3x text-muted"></i>
         </div>
@@ -130,7 +118,7 @@
         <button type="button" class="btn btn-primary" onclick="clearFilters()">
             Ver todas as secretarias
         </button>
-    </div> --}}
+    </div>
 
     <!-- Informações Gerais -->
     <div class="info-section mt-5">
@@ -292,46 +280,44 @@
 @push('scripts')
 <script>
 function filterSecretarias() {
-    const searchTerm = document.getElementById('searchSecretaria').value.toLowerCase();
-    const areaFilter = document.getElementById('areaFilter').value;
+    const searchTerm = (document.getElementById('searchSecretaria').value || '').toLowerCase().trim();
     const cards = document.querySelectorAll('.secretaria-card');
     let visibleCount = 0;
-    
+
     cards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const area = card.getAttribute('data-area');
-        const content = card.querySelector('.card-text').textContent.toLowerCase();
-        
-        const matchesSearch = title.includes(searchTerm) || content.includes(searchTerm);
-        const matchesArea = !areaFilter || area === areaFilter;
-        
-        if (matchesSearch && matchesArea) {
+        const nome = card.dataset.nome || '';
+        const sigla = card.dataset.sigla || '';
+        const slogan = card.dataset.slogan || '';
+        const bodyText = card.querySelector('.card-text')?.textContent?.toLowerCase() || '';
+
+        const matchesSearch =
+            !searchTerm ||
+            nome.includes(searchTerm) ||
+            sigla.includes(searchTerm) ||
+            slogan.includes(searchTerm) ||
+            bodyText.includes(searchTerm);
+
+        if (matchesSearch) {
             card.style.display = 'block';
             visibleCount++;
         } else {
             card.style.display = 'none';
         }
     });
-    
-    // Mostrar/ocultar mensagem de "nenhum resultado"
+
     const noResults = document.getElementById('noResults');
-    if (visibleCount === 0) {
-        noResults.style.display = 'block';
-    } else {
-        noResults.style.display = 'none';
-    }
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
 }
 
 function clearFilters() {
     document.getElementById('searchSecretaria').value = '';
-    document.getElementById('areaFilter').value = '';
     filterSecretarias();
 }
 
 // Animação de entrada dos cards
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.secretaria-card');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
@@ -342,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     cards.forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
