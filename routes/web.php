@@ -635,9 +635,7 @@ Route::get('/sitemap', function() {
 })->name('site.sitemap');
 
 // Rotas futuras (opcional - adicione quando implementar)
-Route::get('/secretarias', function() {
-    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.secretarias.index');
-})->name('site.secretarias');
+
 
 Route::get('/decretos', function() {
     return view('public_templates.' . view()->shared('currentTemplate') . '.includes.decretos.index');

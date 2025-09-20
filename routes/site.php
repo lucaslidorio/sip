@@ -26,6 +26,12 @@ Route::get('/pesquisa/{id}/estatisticas', [SitePublicoController::class, 'estati
 
 Route::get('/contato', [ContatoController::class, 'index'])->name('site.contato');
 Route::post('/contato/enviar', [ContatoController::class, 'enviar'])->name('site.contato.enviar');
+
+//Executivo
+Route::get('/secretarias', [SitePublicoController::class, 'secretarias'])->name('site.secretarias.index');
+Route::get('/secretarias/{sigla}', [SitePublicoController::class, 'secretariaShow'])->name('site.secretarias.show');
+
+
 //Legislativo
 Route::get('vereador/{id}', [SitePublicoController::class, 'vereador'])->name('camara.vereador');Route::get('pronunciamentos/{id}', [SitePublicoController::class, 'pronunciamentoShow'])->name('camara.pronunciamento.show');
 Route::get('pronunciamentos', [SitePublicoController::class, 'pronunciamentos'])->name('camara.pronunciamentos');

@@ -8,14 +8,7 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="{{ route('site.index') }}">
-                    <i class="fas fa-home"></i> Início
-                </a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                Secretarias
-            </li>
+            {{ Breadcrumbs::render('secretarias') }}
         </ol>
     </nav>
 
@@ -31,7 +24,7 @@
     </div>
 
     <!-- Filtros -->
-    <div class="filters-section mb-5">
+    {{-- <div class="filters-section mb-5">
         <div class="card">
             <div class="card-body">
                 <div class="row g-3">
@@ -67,283 +60,66 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Grid de Secretarias -->
     <div class="secretarias-grid" id="secretariasGrid">
-        <!-- Secretaria de Administração -->
-        <div class="secretaria-card" data-area="administracao">
-            <div class="card h-100">
-                <div class="card-header bg-primary text-white">
-                    <div class="d-flex align-items-center">
-                        <div class="secretaria-icon me-3">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-0">Secretaria de Administração</h3>
-                            <small>Gestão administrativa e recursos humanos</small>
+        @foreach($secretarias as $secretaria)
+            <div class="secretaria-card" data-area="{{ \Illuminate\Support\Str::slug($secretaria->sigla ?? $secretaria->nome) }}">
+                <div class="card h-100">
+                    <div class="card-header text-white" style="background: {{ $secretaria->cor_destaque ?? 'var(--primary-color)' }}">
+                        <div class="d-flex align-items-center">
+                            <div class="secretaria-icon me-3">
+                                <i class="{{ $secretaria->icone ?: 'fas fa-building' }}"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-0">{{ $secretaria->nome }}</h3>
+                                @if(!empty($secretaria->slogan) || !empty($secretaria->sigla))
+                                    <small>{{ $secretaria->slogan ?? $secretaria->sigla }}</small>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Responsável pela gestão administrativa, recursos humanos, patrimônio público e modernização da gestão municipal.
-                    </p>
-                    
-                    <h6 class="text-primary-color">Principais Serviços:</h6>
-                    <ul class="services-list">
-                        <li>Concursos públicos</li>
-                        <li>Gestão de pessoal</li>
-                        <li>Controle patrimonial</li>
-                        <li>Protocolo e arquivo</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <div class="contact-info">
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i> (65) 3000-0001</p>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> administracao@prefeitura.gov.br</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Rua Principal, 123 - Centro</p>
+                    <div class="card-body">
+                        @if(!empty($secretaria->sobre))
+                            <p class="card-text">
+                                {!!$secretaria->sobre!!}
+                            </p>
+                        @endif
+                        @if($secretaria->telefone || $secretaria->email || $secretaria->endereco)
+                            <h6 class="text-primary-color">Contato</h6>
+                            <div class="contact-info">
+                                @if($secretaria->telefone || $secretaria->celular)
+                                    <p class="mb-1"><i class="fas fa-phone me-2"></i> {{ $secretaria->telefone }} - {{ $secretaria->celular }}</p>
+                                @endif
+                                @if($secretaria->email)
+                                    <p class="mb-1"><i class="fas fa-envelope me-2"></i> {{ $secretaria->email }}</p>
+                                @endif
+                                @if($secretaria->endereco)
+                                    <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> {{ $secretaria->endereco }}</p>
+                                @endif
+                            </div>
+                        @endif
                     </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-info-circle me-1"></i> Mais Detalhes
-                        </a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-phone me-1"></i> Contato
-                        </a>
+                    <div class="card-footer">
+                        <div class="mt-3">
+                            <a href="{{ route('site.secretarias.show', $secretaria->sigla) }}" class="btn btn-outline-primary btn-sm me-2">
+                                <i class="fas fa-info-circle me-1"></i> Mais Detalhes
+                            </a>
+                            @if($secretaria->email)
+                            <a href="mailto:{{ $secretaria->email }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-envelope me-1"></i> Contato
+                            </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Secretaria de Saúde -->
-        <div class="secretaria-card" data-area="saude">
-            <div class="card h-100">
-                <div class="card-header bg-success text-white">
-                    <div class="d-flex align-items-center">
-                        <div class="secretaria-icon me-3">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-0">Secretaria de Saúde</h3>
-                            <small>Atenção básica e vigilância sanitária</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Coordena as ações de saúde pública, atenção básica, vigilância sanitária e epidemiológica no município.
-                    </p>
-                    
-                    <h6 class="text-primary-color">Principais Serviços:</h6>
-                    <ul class="services-list">
-                        <li>Unidades básicas de saúde</li>
-                        <li>Vigilância sanitária</li>
-                        <li>Programas de vacinação</li>
-                        <li>Farmácia básica municipal</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <div class="contact-info">
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i> (65) 3000-0002</p>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> saude@prefeitura.gov.br</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Av. da Saúde, 456 - Centro</p>
-                    </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-info-circle me-1"></i> Mais Detalhes
-                        </a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-phone me-1"></i> Contato
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Secretaria de Educação -->
-        <div class="secretaria-card" data-area="educacao">
-            <div class="card h-100">
-                <div class="card-header bg-info text-white">
-                    <div class="d-flex align-items-center">
-                        <div class="secretaria-icon me-3">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-0">Secretaria de Educação</h3>
-                            <small>Ensino fundamental e educação infantil</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Gerencia a rede municipal de ensino, educação infantil, ensino fundamental e programas educacionais.
-                    </p>
-                    
-                    <h6 class="text-primary-color">Principais Serviços:</h6>
-                    <ul class="services-list">
-                        <li>Escolas municipais</li>
-                        <li>Creches e pré-escolas</li>
-                        <li>Transporte escolar</li>
-                        <li>Merenda escolar</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <div class="contact-info">
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i> (65) 3000-0003</p>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> educacao@prefeitura.gov.br</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Rua da Educação, 789 - Centro</p>
-                    </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-info-circle me-1"></i> Mais Detalhes
-                        </a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-phone me-1"></i> Contato
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Secretaria de Obras -->
-        <div class="secretaria-card" data-area="obras">
-            <div class="card h-100">
-                <div class="card-header bg-warning text-dark">
-                    <div class="d-flex align-items-center">
-                        <div class="secretaria-icon me-3">
-                            <i class="fas fa-hard-hat"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-0">Secretaria de Obras</h3>
-                            <small>Infraestrutura e obras públicas</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Executa obras de infraestrutura urbana, manutenção de vias públicas e projetos de engenharia.
-                    </p>
-                    
-                    <h6 class="text-primary-color">Principais Serviços:</h6>
-                    <ul class="services-list">
-                        <li>Pavimentação e recapeamento</li>
-                        <li>Obras de drenagem</li>
-                        <li>Manutenção de prédios públicos</li>
-                        <li>Iluminação pública</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <div class="contact-info">
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i> (65) 3000-0004</p>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> obras@prefeitura.gov.br</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Av. das Obras, 321 - Industrial</p>
-                    </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-info-circle me-1"></i> Mais Detalhes
-                        </a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-phone me-1"></i> Contato
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Secretaria de Assistência Social -->
-        <div class="secretaria-card" data-area="social">
-            <div class="card h-100">
-                <div class="card-header bg-danger text-white">
-                    <div class="d-flex align-items-center">
-                        <div class="secretaria-icon me-3">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-0">Secretaria de Assistência Social</h3>
-                            <small>Programas sociais e assistência</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Desenvolve programas de assistência social, proteção às famílias em vulnerabilidade social.
-                    </p>
-                    
-                    <h6 class="text-primary-color">Principais Serviços:</h6>
-                    <ul class="services-list">
-                        <li>CRAS - Centro de Referência</li>
-                        <li>Bolsa Família</li>
-                        <li>Auxílio emergencial</li>
-                        <li>Programas habitacionais</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <div class="contact-info">
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i> (65) 3000-0005</p>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> social@prefeitura.gov.br</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Rua da Solidariedade, 654 - Centro</p>
-                    </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-info-circle me-1"></i> Mais Detalhes
-                        </a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-phone me-1"></i> Contato
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Secretaria de Meio Ambiente -->
-        <div class="secretaria-card" data-area="meio-ambiente">
-            <div class="card h-100">
-                <div class="card-header bg-success text-white">
-                    <div class="d-flex align-items-center">
-                        <div class="secretaria-icon me-3">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-0">Secretaria de Meio Ambiente</h3>
-                            <small>Preservação e sustentabilidade</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Promove a preservação ambiental, licenciamento e educação ambiental no município.
-                    </p>
-                    
-                    <h6 class="text-primary-color">Principais Serviços:</h6>
-                    <ul class="services-list">
-                        <li>Licenciamento ambiental</li>
-                        <li>Coleta seletiva</li>
-                        <li>Educação ambiental</li>
-                        <li>Fiscalização ambiental</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <div class="contact-info">
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i> (65) 3000-0006</p>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> meioambiente@prefeitura.gov.br</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Av. Verde, 987 - Parque</p>
-                    </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-info-circle me-1"></i> Mais Detalhes
-                        </a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-phone me-1"></i> Contato
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 
     <!-- Nenhum resultado -->
-    <div id="noResults" class="no-results text-center py-5" style="display: none;">
+    {{-- <div id="noResults" class="no-results text-center py-5" style="display: none;">
         <div class="mb-4">
             <i class="fas fa-search fa-3x text-muted"></i>
         </div>
@@ -354,7 +130,7 @@
         <button type="button" class="btn btn-primary" onclick="clearFilters()">
             Ver todas as secretarias
         </button>
-    </div>
+    </div> --}}
 
     <!-- Informações Gerais -->
     <div class="info-section mt-5">
@@ -369,18 +145,21 @@
                         <h5 class="h6 text-primary-color">Horário de Funcionamento</h5>
                         <p class="mb-3">
                             <i class="fas fa-clock me-2"></i>
-                            Segunda a Sexta: 7h às 17h<br>
-                            <i class="fas fa-clock me-2"></i>
-                            Sábado: 7h às 11h
+                            {{$tenant->dia_atendimento}}<br>
+                            
                         </p>
                     </div>
                     <div class="col-md-6">
                         <h5 class="h6 text-primary-color">Atendimento ao Público</h5>
                         <p class="mb-3">
-                            <i class="fas fa-users me-2"></i>
-                            Protocolo Geral: 7h às 16h<br>
+                            <i class="fas fa-location-arrow me-2"></i>
+                            {{ $tenant->endereco ?? 'Endereço não informado' }}
+                            {{ $tenant->numero ?? ' ' }}
+                            {{ $tenant->bairro ?? ' ' }}
+                            {{ $tenant->cidade ?? ' ' }}
+                        <br>
                             <i class="fas fa-phone me-2"></i>
-                            Central de Atendimento: (65) 3000-0000
+                            Central de Atendimento: {{$tenant->telefone}}<br>
                         </p>
                     </div>
                 </div>

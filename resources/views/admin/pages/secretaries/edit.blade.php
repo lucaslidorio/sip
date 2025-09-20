@@ -1,4 +1,5 @@
 @extends('adminlte::page')
+@section('plugins.Summernote', true)
 @section('title', "Atualizar o secretaria")
 @section('content_header')
 
@@ -22,7 +23,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form action="{{route('secretaries.update', $secretary->id)}}" method="POST">
+        <form action="{{route('secretaries.update', $secretary->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             @include('admin.pages.secretaries._partials.form')
@@ -35,5 +36,11 @@
     $(function () {
      $('[data-toggle="tooltip"]').tooltip()
     }) 
+    $(document).ready(function() {
+      $('#summernote').summernote({
+      height: 400,
+      lang: 'pt-BR'
+      });
+    });
   </script>
 @endsection

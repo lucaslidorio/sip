@@ -11,17 +11,25 @@ class Secretary extends Model
     protected $fillable = [
         'nome',
         'sigla',
+        'slogan',           // novo
         'url',
         'nome_responsavel',
+        'img_secretario',
+        'icone',            // novo
+        'sobre_secretario',
         'telefone',
         'celular',
         'endereco',
         'email',
         'situacao',
         'sobre',
+        'cor_destaque',     // novo
         ];
 
-
+        public function noticias()
+            {
+                return $this->hasMany(Post::class, 'secretary_id');
+            }
         //Faz a pesquisa na index
         public function search($pesquisar = null)
         {

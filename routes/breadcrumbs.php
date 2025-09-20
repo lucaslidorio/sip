@@ -37,6 +37,16 @@ Breadcrumbs::for('noticia', function (BreadcrumbTrail $trail, $noticia) {
     $trail->parent('noticias');
     $trail->push($noticia->titulo, route('noticias.todas', $noticia),['icon' =>'fab fa-readme'] );
 });
+// Home > Secretarias
+Breadcrumbs::for('secretarias', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Secretarias', route('site.secretarias.index'),['icon' =>'fas fa-network-wired'] );
+});
+// Home > Secretarias > [Secretaria]
+Breadcrumbs::for('secretaria', function (BreadcrumbTrail $trail, $secretaria) {
+    $trail->parent('secretarias');
+    $trail->push($secretaria->nome, route('site.secretarias.show', $secretaria),['icon' =>'fas fa-building'] );
+});
 // Home > Pesquisa de satisfação
 Breadcrumbs::for('pesquisa_satisfacao', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

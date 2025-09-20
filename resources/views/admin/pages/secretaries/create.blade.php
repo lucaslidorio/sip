@@ -2,6 +2,7 @@
 
 @section('title', 'Cadastrar nova secretaria')
 @section('plugins.inputmask', true)
+@section('plugins.Summernote', true)
 @section('plugins.icheck-bootstrap', true)
 
 @section('content_header')
@@ -30,7 +31,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('secretaries.store')}}" method="POST">
+        <form action="{{route('secretaries.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @include('admin.pages.secretaries._partials.form')
 
@@ -43,6 +44,13 @@
     $(function () {
      $('[data-toggle="tooltip"]').tooltip()
     }) 
+    //inicia o summernote  
+    $(document).ready(function() {
+      $('#summernote').summernote({
+      height: 400,
+      lang: 'pt-BR'
+      });
+    });
   </script>
 @endsection
 

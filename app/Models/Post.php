@@ -26,8 +26,12 @@ class Post extends Model
 
     public function secretary(){
         return $this->belongsTo(Secretary::class);
+    } 
+    //Novo relacionamento
+    public function secretaria()
+    {
+        return $this->belongsTo(Secretary::class, 'secretary_id');
     }
-
     public function user(){
         return $this->belongsTo('App\Models\User', 'user_id');
     }

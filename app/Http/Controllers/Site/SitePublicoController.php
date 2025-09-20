@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Models\AnexoTenant;
 use App\Models\AttachmentSession;
 use App\Models\Categoria;
 use App\Models\Commission;
@@ -23,6 +22,7 @@ use App\Models\Proposition;
 use App\Models\Questionario;
 use App\Models\RespostasPesquisa;
 use App\Models\Schedule;
+use App\Models\Secretary;
 use App\Models\SeemCommission;
 use App\Models\Session;
 use App\Models\Tenant;
@@ -37,7 +37,7 @@ use Illuminate\Support\Str;
 class SitePublicoController extends Controller
 {
     private $tenant, $menu, $link, $vereadores, $noticias, $categorias, $page,
-     $vereador, $configuracaoOuvidoria;
+        $vereador, $configuracaoOuvidoria, $secretarias;
 
 
     public function __construct(
@@ -50,7 +50,8 @@ class SitePublicoController extends Controller
         Page $page,
         Councilor $vereador,
         ConfiguracaoOuvidoria $configuracaoOuvidoria,
-        
+        Secretary $secretarias,
+
 
     ) {
 
@@ -63,11 +64,12 @@ class SitePublicoController extends Controller
         $this->page = $page;
         $this->vereador = $vereador;
         $this->configuracaoOuvidoria = $configuracaoOuvidoria;
+        $this->secretarias = $secretarias;
     }
- 
+
     public function index()
     {
-      
+
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $now = Carbon::now();
@@ -108,15 +110,15 @@ class SitePublicoController extends Controller
         // Recupera os links da posição "Inferior"
         $linksInferior = $this->link::porPosicao(4)->get(); // 4 corresponde a "Inferior"
         $linksUteisInferior = $this->link::porTipo(2)->porPosicao(4)->get();
-        $linksAcessoRapido = $this->link::porTipo(4)->porPosicao(5)->orderBy('ordem')->get();// acesso rápido "4 => Acesso Rápido" e "5 => Centro"
-        $linksServicosOnline = $this->link::porTipo(3)->orderBy('ordem')->get();// serviços online "3 => Serviços Online"
+        $linksAcessoRapido = $this->link::porTipo(4)->porPosicao(5)->orderBy('ordem')->get(); // acesso rápido "4 => Acesso Rápido" e "5 => Centro"
+        $linksServicosOnline = $this->link::porTipo(3)->orderBy('ordem')->get(); // serviços online "3 => Serviços Online"
         // Busca os selos de transparência ativos
         $selosTransparencia = $tenant->anexos()
             ->where('tipo_anexo', 1)
             ->where('situacao', 1)
             ->get();
-        
-     
+
+
         $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
         $popups = Popups::visiveis()->get();
         $totalNoticias = $this->noticias->count();
@@ -143,7 +145,6 @@ class SitePublicoController extends Controller
             )
         );
     }
-
 
     public function pesquisar(Request $request)
     {
@@ -278,9 +279,6 @@ class SitePublicoController extends Controller
         ));
     }
 
-
-
-
     public function noticiasTodas(Request $request)
     {
 
@@ -293,36 +291,46 @@ class SitePublicoController extends Controller
             ->get();
         $categorias = $this->categorias::withCount('posts')->get();
         $noticias = (new Post())->noticiasPesquisar($dados)->appends($dados);
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
 
-        return view("public_templates.$template.includes.noticias.noticias_todas", compact(
-            'noticias',
-            'tenant',
-            'menus',
-            'categorias'
-        ));
+        return view(
+            "public_templates.$template.includes.noticias.noticias_todas",
+            compact(
+                'noticias',
+                'tenant',
+                'menus',
+                'categorias',
+                'selosTransparencia'
+            )
+        );
     }
 
     public function noticiaShow($url)
     {
 
-        $noticia = $this->noticias
-        ->with('imagens')
-        ->where('url', $url)
-        ->firstOrFail();
-        
-
-    
-      
-        $categorias = $this->categorias::withCount('posts')->get();
-
-        if (!$noticia)
-            return redirect()->back();
         $tenant = $this->tenant->first();
         $template = view()->shared('currentTemplate');
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
         // Obter as 6 últimas notícias da mesma categoria
+
+
+
+        $noticia = $this->noticias
+            ->with('imagens')
+            ->where('url', $url)
+            ->firstOrFail();
+        $categorias = $this->categorias::withCount('posts')->get();
+        if (!$noticia)
+            return redirect()->back();
         $ultimasNoticias = $this->noticias
             ->whereHas('categories', function ($query) use ($noticia) {
                 $query->whereIn('categorias.id', $noticia->categories->pluck('id')); // Qualifique o ID com 'categorias.id'
@@ -336,16 +344,16 @@ class SitePublicoController extends Controller
             ->take(8)
             ->get();
 
-            
+
         return view("public_templates.$template.includes.noticias.noticias_show", compact(
             'noticia',
             'tenant',
             'menus',
             'ultimasNoticias',
-            'categorias'
+            'categorias',
+            'selosTransparencia'
         ));
     }
-
     public function page($slug)
     {
 
@@ -359,40 +367,42 @@ class SitePublicoController extends Controller
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
+
         return view("public_templates.$template.page", [
             'page' => $page,
             'tenant' => $tenant,
-            'menus' => $menus
-
+            'menus' => $menus,
+            'selosTransparencia' => $selosTransparencia
         ]);
     }
 
 
-    public function agendaIndex()    
-    {       
+    public function agendaIndex()
+    {
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
 
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', 1)
             ->orderBy('ordem')
             ->get();
-
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
         return view("public_templates.$template.includes.agenda.index", compact(
             'tenant',
-            'menus',       
+            'menus',
+            'selosTransparencia'
         ));
     }
-
-    //Funcionava antes do novo layout executivo
-    // public function agendaShow()
-    // {
-    //     $dados['eventos'] = Schedule::all();        
-    //     return response()->json($dados['eventos']);
-    // }
     public function agendaShow()
     {
         $tz = 'America/Porto_Velho';
-    
+
         $eventos = \App\Models\Schedule::query()->get()->map(function ($e) use ($tz) {
             return [
                 'id'              => $e->id,
@@ -406,12 +416,12 @@ class SitePublicoController extends Controller
                 'textColor'       => $e->textColor,
             ];
         });
-    
+
         return response()->json($eventos);
     }
 
-
-    public function sitemap() {
+    public function sitemap()
+    {
 
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
@@ -421,11 +431,11 @@ class SitePublicoController extends Controller
 
         return view("public_templates.$template.includes.mapasite", compact(
             'tenant',
-            'menus',       
-        ));        
-        
-    } 
-    public function acessibilidade() {
+            'menus',
+        ));
+    }
+    public function acessibilidade()
+    {
 
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
@@ -435,10 +445,9 @@ class SitePublicoController extends Controller
 
         return view("public_templates.$template.includes.acessibilidade", compact(
             'tenant',
-            'menus',       
+            'menus',
         ));
-        
-    } 
+    }
 
     public function pesquisaSatisfacao()
     {
@@ -447,19 +456,23 @@ class SitePublicoController extends Controller
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
         $questionario = Questionario::with(['perguntas.alternativas'])
             ->where('ativo', true)
             ->firstOrFail();
 
-            return view("public_templates.$template.includes.pesquisaSatisfacao.index", compact(
-                'tenant',
-                'questionario' ,
-                'menus'                    
-            ));
-       ;
+        return view("public_templates.$template.includes.pesquisaSatisfacao.index", compact(
+            'tenant',
+            'questionario',
+            'menus',
+            'selosTransparencia'
+        ));;
     }
 
-    
+
     public function pesquisaSatisfacaoResponder(Request $request)
     {
 
@@ -470,21 +483,20 @@ class SitePublicoController extends Controller
         ]);
 
         DB::beginTransaction();
-        
+
         try {
-            
+
             foreach ($dados['respostas'] as $perguntaId => $alternativaId) {
-              RespostasPesquisa::create([
+                RespostasPesquisa::create([
                     'questionario_id' => $request->questionario_id,
                     'pergunta_pesquisa_id' => $perguntaId,
-                    'alternativa_pesquisa_id' => $alternativaId,                    
+                    'alternativa_pesquisa_id' => $alternativaId,
                 ]);
-                             
             }
 
-            
+
             DB::commit();
-            
+
             return redirect()->route('site.pesquisa.resultado', $request->questionario_id);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -492,44 +504,103 @@ class SitePublicoController extends Controller
         }
     }
     public function estatisticas($questionario_id)
-{
-    $questionario = Questionario::with('perguntas.alternativas.respostas')->findOrFail($questionario_id);
-    $graficos = [];
-    $template = view()->shared('currentTemplate');
-    $tenant = $this->tenant->first();
-    $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
-        ->orderBy('ordem')
-        ->get();
+    {
+        $questionario = Questionario::with('perguntas.alternativas.respostas')->findOrFail($questionario_id);
+        $graficos = [];
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
 
-    foreach ($questionario->perguntas as $pergunta) {
-        $labels = [];
-        $dados = [];
-        $cores = [];
+        foreach ($questionario->perguntas as $pergunta) {
+            $labels = [];
+            $dados = [];
+            $cores = [];
 
-        foreach ($pergunta->alternativas as $alternativa) {
-            $labels[] = $alternativa->alternativa;
-            $dados[] = $alternativa->respostas->count();
-            $cores[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF)); // cor aleatória
+            foreach ($pergunta->alternativas as $alternativa) {
+                $labels[] = $alternativa->alternativa;
+                $dados[] = $alternativa->respostas->count();
+                $cores[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF)); // cor aleatória
+            }
+
+            $graficos[] = [
+                'titulo' => $pergunta->numero . '. ' . $pergunta->pergunta,
+                'labels' => $labels,
+                'dados' => $dados,
+                'cores' => $cores,
+            ];
         }
 
-        $graficos[] = [
-            'titulo' => $pergunta->numero . '. ' . $pergunta->pergunta,
-            'labels' => $labels,
-            'dados' => $dados,
-            'cores' => $cores,
-        ];
-     
-    }   
+        return view('public_templates.leg.includes.pesquisaSatisfacao.estatisticas', compact(
+            'questionario',
+            'graficos',
+            'tenant',
+            'menus'
 
-    return view('public_templates.leg.includes.pesquisaSatisfacao.estatisticas', compact(
-        'questionario', 
-        'graficos',
-        'tenant',
-        'menus'
+        ));
+    }
 
-    ));
-}
+    public function secretarias()
+    {
+    
+        $tenant = $this->tenant->first();
+        $template = view()->shared('currentTemplate');
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
+        $secretarias = $this->secretarias::where('situacao', true)->orderBy('nome')->get();
+            return view("public_templates.$template.includes.secretarias.index", compact(
+            'tenant',
+            'menus',
+            'selosTransparencia',
+            'secretarias'
+        ));
+    }
+    public function secretariaShow(string $sigla){
 
+       
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
+        $secretaria = $this->secretarias::whereRaw('LOWER(sigla) = ?', [strtolower($sigla)])->where('situacao', 1)->firstOrFail();
+        // Buscar outras secretarias para a sidebar (excluindo a atual)
+        $outrasSecretarias = $this->secretarias::where('situacao', true)
+            ->where('id', '!=', $secretaria->id)
+            ->orderBy('nome')
+            ->limit(6)
+            ->get();
+        // Buscar notícias relacionadas à secretaria (se houver relacionamento)
+        $noticiasRelacionadas = collect(); // Implementar conforme necessário        
+        // Se houver relacionamento entre secretarias e notícias:
+        $noticiasRelacionadas = $secretaria->noticias()           
+            ->where(function ($q) {
+                $q->whereNull('data_expiracao')
+                ->orWhereDate('data_expiracao', '>=', Carbon::today());
+            })
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+       
+            return view("public_templates.$template.includes.secretarias.show", compact(
+            'tenant',
+            'menus',
+            'selosTransparencia',
+            'secretaria',
+            'outrasSecretarias',
+            'noticiasRelacionadas'
+        ));
+    }
 
 
     // LEGISLATIVOS
@@ -568,11 +639,11 @@ class SitePublicoController extends Controller
             ];
         });
         $pronunciamentos = Pronunciamento::select('pronunciamentos.*')
-        ->join('sessions', 'sessions.id', '=', 'pronunciamentos.session_id')
-        ->where('pronunciamentos.councilor_id', $id)
-        ->orderByDesc('sessions.data')
-        ->with('session')
-        ->get(); // ou ->take(6)->get() se preferir controlar no controller
+            ->join('sessions', 'sessions.id', '=', 'pronunciamentos.session_id')
+            ->where('pronunciamentos.councilor_id', $id)
+            ->orderByDesc('sessions.data')
+            ->with('session')
+            ->get(); // ou ->take(6)->get() se preferir controlar no controller
 
         return view("public_templates.$template.includes.vereadores.vereador", compact(
             'vereador',
@@ -603,7 +674,7 @@ class SitePublicoController extends Controller
         // Iniciar a query
         $query = Proposition::query()->with(['tipo', 'situacao', 'autores']);
 
-       
+
         // Aplicar filtros dinamicamente
         if ($request->filled('autor')) {
             if ($request->autor === 'executivo') {
@@ -635,7 +706,7 @@ class SitePublicoController extends Controller
             $query->orderBy('data', 'desc')
                 ->orderBy('created_at', 'desc'); // desempate por criação
         }
-     
+
         $proposituras = $query->paginate(15);
 
 
@@ -649,24 +720,25 @@ class SitePublicoController extends Controller
         ));
     }
 
-    public function pronunciamentos(Request $request){
-   
+    public function pronunciamentos(Request $request)
+    {
+
         $query = Pronunciamento::with(['councilor', 'session']);
         // Filtro por vereador
         if ($request->filled('councilor_id')) {
             $query->where('councilor_id', $request->councilor_id);
         }
-    
+
         // Filtro por sessão
         if ($request->filled('session_id')) {
             $query->where('session_id', $request->session_id);
         }
-    
+
         // Filtro por texto do discurso
         if ($request->filled('pesquisa')) {
             $query->where('discurso', 'like', '%' . $request->pesquisa . '%');
         }
-    
+
         $pronunciamentos = $query->orderByDesc('id')->paginate(10);
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
@@ -681,8 +753,8 @@ class SitePublicoController extends Controller
             'menus',
             'pronunciamentos',
             'vereadores',
-            'sessoes'      
-             
+            'sessoes'
+
         ));
     }
     public function pronunciamentoShow($id)
@@ -697,13 +769,13 @@ class SitePublicoController extends Controller
         // Para os selects
         $vereadores = Councilor::orderBy('nome')->get();
         $sessoes = Session::orderByDesc('data')->get();
-         // Últimos 6 pronunciamentos do mesmo vereador (exceto o atual)
+        // Últimos 6 pronunciamentos do mesmo vereador (exceto o atual)
         $outrosDoVereador = Pronunciamento::with('session')
-        ->where('councilor_id', $pronunciamento->councilor_id)
-        ->where('id', '!=', $pronunciamento->id)
-        ->orderByDesc('id')
-        ->take(6)
-        ->get();
+            ->where('councilor_id', $pronunciamento->councilor_id)
+            ->where('id', '!=', $pronunciamento->id)
+            ->orderByDesc('id')
+            ->take(6)
+            ->get();
 
         // Últimos 6 pronunciamentos da mesma sessão (exceto o atual)
         $outrosDaSessao = Pronunciamento::with('councilor')
@@ -930,17 +1002,18 @@ class SitePublicoController extends Controller
     }
 
 
-    public function vereadores($id_legislatura){        
-        $template = view()->shared('currentTemplate');  
+    public function vereadores($id_legislatura)
+    {
+        $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
 
-            $legislatura = Legislature::with('vereadores')->findOrFail($id_legislatura);
-            $outrasLegislaturas = Legislature::where('id', '!=', $id_legislatura)
-        ->orderByDesc('data_inicio')
-        ->get();
+        $legislatura = Legislature::with('vereadores')->findOrFail($id_legislatura);
+        $outrasLegislaturas = Legislature::where('id', '!=', $id_legislatura)
+            ->orderByDesc('data_inicio')
+            ->get();
 
         return view("public_templates.$template.includes.legislaturas.vereadores", compact(
             'tenant',
@@ -952,18 +1025,18 @@ class SitePublicoController extends Controller
 
     public function comissoes()
     {
-        $template = view()->shared('currentTemplate');  
+        $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
 
         $comissoes = Commission::withCount('membros')->orderByDesc('id')->get();
-            return view("public_templates.$template.includes.comissoes.comissoes", compact(
-                'tenant',
-                'menus',
-                'comissoes'                
-            ));
+        return view("public_templates.$template.includes.comissoes.comissoes", compact(
+            'tenant',
+            'menus',
+            'comissoes'
+        ));
     }
 
     public function comissaoShow($id)
@@ -975,8 +1048,8 @@ class SitePublicoController extends Controller
         $comissao = Commission::with(['membros.vereador', 'membros.funcao'])->findOrFail($id);
         // Paginação separada para as proposições da comissão
         $materias = $comissao->proposicoes()
-        ->with('proposition.tipo') // carrega a proposição e o tipo dela
-        ->paginate(10);
+            ->with('proposition.tipo') // carrega a proposição e o tipo dela
+            ->paginate(10);
         // Buscar pareceres emitidos pela comissão (relacionamento com proposição incluído)
         $pareceres = $comissao->pareceres()->with('proposition')->paginate(10, ['*'], 'pareceres');
 
@@ -991,7 +1064,7 @@ class SitePublicoController extends Controller
 
 
     public function pareceres(Request $request)
-    {       
+    {
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
@@ -1041,19 +1114,19 @@ class SitePublicoController extends Controller
             ->findOrFail($id);
 
         return view("public_templates.$template.includes.pareceres.show", compact(
-            'tenant', 
-            'menus', 
+            'tenant',
+            'menus',
             'parecer',
             'comissoes'
         ));
     }
 
-    public function documentosSessoes (Request $request, $tipo_id = null)
+    public function documentosSessoes(Request $request, $tipo_id = null)
     {
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
         $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')->orderBy('ordem')->get();
-        
+
         // Tipos de documentos marcados como disponíveis para sessão
         $tipos = TypeDocument::where('sessao', 1)->orderBy('nome')->get();
 
@@ -1063,12 +1136,12 @@ class SitePublicoController extends Controller
         $dataFim = $request->data_fim;
 
         $documentos = AttachmentSession::with('typeDocument')
-        ->when($tipoSelecionado, fn($q) => $q->where('type_document_id', $tipoSelecionado))
-        ->when($dataInicio, fn($q) => $q->whereDate('created_at', '>=', $dataInicio))
-        ->when($dataFim, fn($q) => $q->whereDate('created_at', '<=', $dataFim))
-        ->orderByDesc('created_at')
-        ->paginate(10);
-       
+            ->when($tipoSelecionado, fn($q) => $q->where('type_document_id', $tipoSelecionado))
+            ->when($dataInicio, fn($q) => $q->whereDate('created_at', '>=', $dataInicio))
+            ->when($dataFim, fn($q) => $q->whereDate('created_at', '<=', $dataFim))
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
         return view("public_templates.$template.includes.sessoes.documentos", compact(
             'tenant',
             'menus',
@@ -1078,10 +1151,5 @@ class SitePublicoController extends Controller
             'dataInicio',
             'dataFim'
         ));
-
-
-
-
     }
-
 }
