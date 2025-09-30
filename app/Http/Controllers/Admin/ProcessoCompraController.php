@@ -321,29 +321,33 @@ class ProcessoCompraController extends Controller
         // Obter as contagens
         $counts = $processo->countCredenciamentosWithLastMovements();
 
-        // Inicializar um array para armazenar os dados dos credenciados e suas últimas movimentações
+        // Inicializar um array para armazenar os dados dos credenciados
         $credenciadosData = [];
 
         foreach ($processo->credenciamentos as $credenciado) {
             $ultimaMovimentacao = CredenciamentosProcessosCompras::ultimaMovimentacaoCredenciado($processo->id, $credenciado->dado_pessoa_id);
+            $primeiraMovimentacao = CredenciamentosProcessosCompras::primeiraMovimentacaoCredenciado($processo->id, $credenciado->dado_pessoa_id);
 
             $credenciadosData[] = [
                 'credenciado' => $credenciado,
-                'ultima_movimentacao' => $ultimaMovimentacao
+                'ultima_movimentacao' => $ultimaMovimentacao,
+                'primeira_movimentacao' => $primeiraMovimentacao
             ];
         }
-        // Ordenar os credenciados por última movimentação em ordem decrescente
+        
+        // Ordenar os credenciados pela data da primeira solicitação (ordem crescente)
         usort($credenciadosData, function ($a, $b) {
-            if ($a['ultima_movimentacao'] && $b['ultima_movimentacao']) {
-                return strtotime($b['ultima_movimentacao']->created_at) - strtotime($a['ultima_movimentacao']->created_at);
-            } elseif ($a['ultima_movimentacao']) {
+            if ($a['primeira_movimentacao'] && $b['primeira_movimentacao']) {
+                return strtotime($a['primeira_movimentacao']->created_at) - strtotime($b['primeira_movimentacao']->created_at);
+            } elseif ($a['primeira_movimentacao']) {
                 return -1;
-            } elseif ($b['ultima_movimentacao']) {
+            } elseif ($b['primeira_movimentacao']) {
                 return 1;
             } else {
                 return 0;
             }
         });
+        
         return view(
             'admin.pages.processos.credenciamento.credenciados',
             compact('processo', 'credenciadosData', 'tiposMovimentacoes', 'counts')

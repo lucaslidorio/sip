@@ -47,6 +47,19 @@ Breadcrumbs::for('secretaria', function (BreadcrumbTrail $trail, $secretaria) {
     $trail->parent('secretarias');
     $trail->push($secretaria->nome, route('site.secretarias.show', $secretaria),['icon' =>'fas fa-building'] );
 });
+
+
+// Home > Procesos  
+Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Processos de compras', route('site.compras.index'),['icon' =>'fas fa-gavel me-1'] );
+});
+// Home > Processo de compras > [Processo]
+Breadcrumbs::for('processo', function (BreadcrumbTrail $trail, $processo) {
+    $trail->parent('processo_compras');
+    $trail->push($processo->numero, route('site.compras.show', $processo),['icon' =>'fas fa-file-alt'] );
+});
+
 // Home > Pesquisa de satisfação
 Breadcrumbs::for('pesquisa_satisfacao', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
@@ -170,11 +183,7 @@ Breadcrumbs::for('enquete_nome', function (BreadcrumbTrail $trail, $enquete) {
     $trail->push($enquete->nome, route('propositura.show', $enquete));
 });
 
-// Home > Procesos  
-Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Processos de compras', route('processoCompras.index'));
-});
+
 
 // Home > Diário Oficial  
 Breadcrumbs::for('diario_oficial', function (BreadcrumbTrail $trail) {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CredenciamentosProcessosCompras extends Model
 {
@@ -54,11 +55,33 @@ class CredenciamentosProcessosCompras extends Model
                     ->first();
     }
 
-
-
-
-
-
+/**
+ * Retorna a primeira movimentação de solicitação de credenciamento (tipo_id = 1)
+ * 
+ * @param int $processoId ID do processo
+ * @param int $dadoPessoaId ID da pessoa/empresa
+ * @return object|null Primeira movimentação ou null se não existir
+ */
+public static function primeiraMovimentacaoCredenciado($processo_compra_id, $dado_pessoa_id)
+{
+    return DB::table('movimentacoes_credenciamentos as mc')
+        ->join('credenciamentos_processos_compras as cpc', 'mc.credenciamento_compra_id', '=', 'cpc.id')
+        ->join('tipos_movimentacoes_credenciamentos as tmc', 'mc.tipo_movimentacao_id', '=', 'tmc.id')
+        ->where('cpc.processo_compra_id', $processo_compra_id)
+        ->where('cpc.dado_pessoa_id', $dado_pessoa_id)
+        ->where('mc.tipo_movimentacao_id', 1) // Tipo 1 = Solicitação inicial
+        ->select(
+            'mc.id',
+            'mc.credenciamento_compra_id',
+            'mc.tipo_movimentacao_id',
+            'mc.user_id',
+            'mc.observacao',
+            'mc.created_at',
+            'tmc.nome as tipo_nome'
+        )
+        ->orderBy('mc.created_at', 'asc') // A primeira movimentação do tipo 1
+        ->first();
+}
 
      // Função para obter a última movimentação de um credenciamento específico
      public static function ultimaMovimentacaoCredenciado($processo_compra_id, $dado_pessoa_id)

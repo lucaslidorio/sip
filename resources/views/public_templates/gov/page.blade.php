@@ -63,8 +63,7 @@
                             <div>
                                 <i class="fas fa-file-pdf text-danger me-2"></i>
                                 {{ $anexo->nome_original }}
-                                @if($anexo->type_document->nome)
-                              
+                                @if($anexo->type_document->nome)                              
                                     <small class="text-muted d-block">Tipo: {{ $anexo->type_document->nome }}</small>
                                 @endif
                             </div>

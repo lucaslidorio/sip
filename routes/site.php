@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Site\ContatoController;
+use App\Http\Controllers\Site\LicitacoesController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SitePublicoController;
@@ -30,6 +31,21 @@ Route::post('/contato/enviar', [ContatoController::class, 'enviar'])->name('site
 //Executivo
 Route::get('/secretarias', [SitePublicoController::class, 'secretarias'])->name('site.secretarias.index');
 Route::get('/secretarias/{sigla}', [SitePublicoController::class, 'secretariaShow'])->name('site.secretarias.show');
+
+//Executivo - Licitações e processo de compras
+
+ // Página principal - listagem de licitações
+    Route::get('/compras', [LicitacoesController::class, 'index'])->name('site.compras.index');    
+    // Página de detalhes de uma licitação específica
+    Route::get('/compras/{id}', [LicitacoesController::class, 'show'])->where('id', '[0-9]+')->name('site.compras.show');    
+    // Exportação de dados
+    Route::get('/compras/export', [LicitacoesController::class, 'export'])->name('site.compras.export');    
+    // Estatísticas (para dashboard ou widgets)
+    Route::get('/api/estatisticas', [LicitacoesController::class, 'estatisticas'])->name('site.compras.estatisticas');    
+    // Busca AJAX para autocomplete
+    Route::get('/api/search', [LicitacoesController::class, 'search'])->name('search');    
+    // Busca avançada (API)
+    Route::post('/api/busca-avancada', [LicitacoesController::class, 'buscaAvancada'])->name('busca-avancada');
 
 
 //Legislativo
