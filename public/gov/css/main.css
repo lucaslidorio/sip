@@ -701,3 +701,118 @@ p {
         display: none;
     }
 }
+
+
+/* Estilos para popup moderno */
+.modal-content.bg-transparent {
+    box-shadow: none;
+}
+
+.btn-close-custom {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+
+.btn-close-custom:hover {
+    background-color: #fff;
+    transform: scale(1.1);
+}
+
+.btn-close-custom i {
+    color: #333;
+    font-size: 14px;
+}
+
+/* Efeitos de hover nos botões do popup */
+.modal-footer .btn {
+    transition: all 0.2s;
+}
+
+.modal-footer .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Para garantir que a imagem se ajuste bem */
+.modal-body.p-0 img {
+    display: block;
+    border-radius: 4px;
+    overflow: hidden;
+}
+/* Barra de Cookies LGPD */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(33, 37, 41, 0.95);
+    color: #fff;
+    padding: 1rem 0;
+    z-index: 9999;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%);
+    transition: transform 0.4s ease-in-out;
+}
+
+.cookie-consent-banner.show {
+    transform: translateY(0);
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.cookie-text {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cookie-icon {
+    font-size: 1.5rem;
+    color: #ffc107;
+}
+
+.cookie-text p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.cookie-text a {
+    color: #8be9fd;
+    text-decoration: underline;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cookie-text {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}

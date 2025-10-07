@@ -17,6 +17,7 @@ Route::any('noticias', [SitePublicoController::class, 'noticiasTodas'])->name('n
 Route::get('noticias/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
 Route::get('/pagina/{slug}', [SitePublicoController::class, 'page'])->name('pagina');
 Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
+Route::get('/politica-privacidade', [SitePublicoController::class, 'politicaPrivacidade'])->name('site.politica.privacidade');
 Route::get('/agenda', [SitePublicoController::class, 'agendaIndex'])->name('site.agenda');
 Route::get('/agenda/show', [SitePublicoController::class, 'agendaShow'])->name('site.agenda.show');
 Route::get('/sitemap', [SitePublicoController::class, 'sitemap'])->name('site.mapa');
@@ -27,6 +28,7 @@ Route::get('/pesquisa/{id}/estatisticas', [SitePublicoController::class, 'estati
 
 Route::get('/contato', [ContatoController::class, 'index'])->name('site.contato');
 Route::post('/contato/enviar', [ContatoController::class, 'enviar'])->name('site.contato.enviar');
+Route::get('/legislacao', [SitePublicoController::class, 'legislacao'])->name('site.legislacao.index');
 
 //Executivo
 Route::get('/secretarias', [SitePublicoController::class, 'secretarias'])->name('site.secretarias.index');

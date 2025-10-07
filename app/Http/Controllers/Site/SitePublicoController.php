@@ -37,7 +37,7 @@ use Illuminate\Support\Str;
 class SitePublicoController extends Controller
 {
     private $tenant, $menu, $link, $vereadores, $noticias, $categorias, $page,
-        $vereador, $configuracaoOuvidoria, $secretarias;
+        $vereador, $configuracaoOuvidoria, $secretarias, $popups;
 
 
     public function __construct(
@@ -51,6 +51,7 @@ class SitePublicoController extends Controller
         Councilor $vereador,
         ConfiguracaoOuvidoria $configuracaoOuvidoria,
         Secretary $secretarias,
+        Popups $popups
 
 
     ) {
@@ -65,6 +66,7 @@ class SitePublicoController extends Controller
         $this->vereador = $vereador;
         $this->configuracaoOuvidoria = $configuracaoOuvidoria;
         $this->secretarias = $secretarias;
+        $this->popups = $popups;
     }
 
     public function index()
@@ -117,10 +119,11 @@ class SitePublicoController extends Controller
             ->where('tipo_anexo', 1)
             ->where('situacao', 1)
             ->get();
-
+        
 
         $configuracaoOuvidoria = $this->configuracaoOuvidoria->first();
         $popups = Popups::visiveis()->get();
+        
         $totalNoticias = $this->noticias->count();
 
         return view(
@@ -279,6 +282,25 @@ class SitePublicoController extends Controller
         ));
     }
 
+    public function politicaPrivacidade()
+    {
+
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
+
+        return view("public_templates.$template.includes.privacidades.index", compact(
+            'tenant',
+            'menus',
+            'selosTransparencia'
+        ));
+    }
     public function noticiasTodas(Request $request)
     {
 
@@ -605,6 +627,27 @@ $secretarias->appends(request()->query());
         ));
     }
 
+    public function legislacao(){
+
+       
+        $template = view()->shared('currentTemplate');
+        $tenant = $this->tenant->first();
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+            ->orderBy('ordem')
+            ->get();
+        $selosTransparencia = $tenant->anexos()
+            ->where('tipo_anexo', 1)
+            ->where('situacao', 1)
+            ->get();
+       
+       
+            return view("public_templates.$template.includes.decretos.index", compact(
+            'tenant',
+            'menus',
+            'selosTransparencia',
+           
+        ));
+    }
 
     // LEGISLATIVOS
     public function vereador($id)

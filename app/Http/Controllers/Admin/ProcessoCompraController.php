@@ -147,15 +147,20 @@ class ProcessoCompraController extends Controller
     {
         $this->authorize('editar-processo-compras');
         $processo = $this->repository->where('id', $id)->first();
-        // Formatar data usando Carbon
-
-        $dataFormatada = $processo->inicio_sessao ? $processo->inicio_sessao->format('Y-m-d') : null; // Altere o formato conforme necessário       
-        // Adicionar data formatada ao objeto $processo
-        $processo->data_formatada = $dataFormatada;
-
+        
+        // Formatar data de início da sessão
+        $dataFormatadaSessao = $processo->inicio_sessao ? $processo->inicio_sessao->format('Y-m-d') : null;
+        
+        // Formatar data de validade - ADICIONAR ESTA PARTE
+        $dataFormatadaValidade = $processo->data_validade ? $processo->data_validade->format('Y-m-d') : null;
+        
+        // Adicionar datas formatadas ao objeto $processo
+        $processo->data_formatada = $dataFormatadaSessao;
+        $processo->data_validade_formatada = $dataFormatadaValidade; // Nova propriedade para data_validade
+        
         $modalidades = $this->modalidade->get();
         $criteriosJulgamento = $this->criteriosJulgamento->get();
-        $situacoes = $this->situacao->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
+        $situacoes = $this->situacao->where('processo_compra', true)->get();
 
         if (!$processo) {
             return redirect()->back();
@@ -177,11 +182,17 @@ class ProcessoCompraController extends Controller
         $processo = $this->repository->where('id', $id)->first();
 
         if (!$processo) {
-            redirect()->back();
+            return redirect()->back();
         }
 
         $dadosProcesso = $request->all();
         $dadosProcesso['user_last_updated'] = auth()->user()->id;
+        
+        // Tratar a data_validade para incluir a hora
+        if (isset($dadosProcesso['data_validade']) && !empty($dadosProcesso['data_validade'])) {
+            // Adiciona a hora 23:59:59 para representar o final do dia
+            $dadosProcesso['data_validade'] = $dadosProcesso['data_validade'] . ' 23:59:59';
+        }
 
         $processo->update($dadosProcesso);
 

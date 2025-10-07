@@ -422,7 +422,7 @@
                         <a href="{{ route('site.index') }}" class="btn btn-outline-primary">
                             <i class="fas fa-home me-2"></i> Página Inicial
                         </a>
-                        <a href="{{ route('site.noticias.todas') }}" class="btn btn-outline-primary">
+                        <a href="{{ route('noticias.todas') }}" class="btn btn-outline-primary">
                             <i class="fas fa-newspaper me-2"></i> Notícias
                         </a>
                         <a href="#" class="btn btn-outline-primary">

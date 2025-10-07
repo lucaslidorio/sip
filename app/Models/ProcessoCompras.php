@@ -20,15 +20,25 @@ class ProcessoCompras extends Model
         'objeto',
         'descricao',
         'data_publicacao',
+        'data_validade',
         'inicio_sessao',
         'qtd_lotes',
         'user_created',
         'user_last_updated'
     ];
 
+    protected $casts = [
+        'data_validade' => 'datetime',
+        'data_publicacao' => 'datetime',
+        'inicio_sessao' => 'datetime',
+        // outros campos de data...
+    ];
 
-
-    protected $dates = ['data_publicacao'];
+    protected $dates = [
+        'data_publicacao',
+        'data_validade',
+        'inicio_sessao'
+    ];
     //força a conversão das datas
     public function getDataPublicacaoAttribute($value)
     {
