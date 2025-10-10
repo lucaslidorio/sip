@@ -109,13 +109,14 @@
                 </div>                
                 <div class="col-md-6 col-lg-4">
                     <div class="header-search">
-                        <form action="{{ route('site.pesquisar') }}" method="GET">
+                        <form method="GET" action="{{ route('pesquisar') }}" class="search-container">
                             <div class="input-group">
-                                <input type="text" name="pesquisar" class="form-control" 
-                                       placeholder="Buscar no site..." 
-                                       value="{{ request('pesquisar') }}"
-                                       required>
-                                <button type="submit" class="btn btn-primary">
+                                <input type="text" 
+                                    name="pesquisar" 
+                                    class="form-control" 
+                                    placeholder="Pesquisar no site..." 
+                                    autocomplete="off">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>

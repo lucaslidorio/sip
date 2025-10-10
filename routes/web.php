@@ -45,7 +45,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserFunctionController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
-
+use App\Http\Controllers\Site\SitePublicoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -622,7 +622,7 @@ Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'
 // Route::get('/noticias', [SitePublicoController::class, 'noticias'])->name('site.noticias.todas');
 //Route::get('/noticia/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
 //Route::get('/agenda', [SitePublicoController::class, 'agenda'])->name('site.agenda');
-Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
+Route::get('/pesquisar/site', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
 
 
 // Rotas adicionais (adicione se não existirem)

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Site\ContatoController;
 use App\Http\Controllers\Site\LicitacoesController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
+use App\Http\Controllers\Site\PesquisaController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SitePublicoController;
 use Illuminate\Support\Facades\Route;
@@ -12,11 +13,12 @@ Route::get('/', [SitePublicoController::class, 'index'])->name('site.index');
 
 Route::prefix('/')->group(base_path('routes/legislativo.php'));
 
-
+// Pesquisa
+Route::get('/pesquisar', [PesquisaController::class, 'pesquisar'])->name('pesquisar');
 Route::any('noticias', [SitePublicoController::class, 'noticiasTodas'])->name('noticias.todas');
 Route::get('noticias/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
 Route::get('/pagina/{slug}', [SitePublicoController::class, 'page'])->name('pagina');
-Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
+//Route::get('/pesquisar', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
 Route::get('/politica-privacidade', [SitePublicoController::class, 'politicaPrivacidade'])->name('site.politica.privacidade');
 Route::get('/agenda', [SitePublicoController::class, 'agendaIndex'])->name('site.agenda');
 Route::get('/agenda/show', [SitePublicoController::class, 'agendaShow'])->name('site.agenda.show');
