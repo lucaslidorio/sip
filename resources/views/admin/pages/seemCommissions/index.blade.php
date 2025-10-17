@@ -58,7 +58,9 @@
                   <option value="2021" {{ request()->query('ano') == '2021' ? 'selected': ''}}>2021 </option>  
                   <option value="2022" {{ request()->query('ano') == '2022' ? 'selected': ''}}>2022 </option>  
                   <option value="2023" {{ request()->query('ano') == '2023' ? 'selected': ''}}>2023 </option>  
-                  <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option>    
+                  <option value="2024" {{ request()->query('ano') == '2024' ? 'selected': ''}}>2024 </option> 
+                  <option value="2025" {{ request()->query('ano') == '2025' ? 'selected': ''}}>2025 </option>
+                  <option value="2026" {{ request()->query('ano') == '2026' ? 'selected': ''}}>2026 </option>   
                  
               </select>
               </div>

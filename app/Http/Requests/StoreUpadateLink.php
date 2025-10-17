@@ -27,6 +27,7 @@ class StoreUpadateLink extends FormRequest
         
         $rules = [           
             'nome' => ['required', 'min:2','max:45', "unique:links,nome,{$id},id"],
+            'descricao' => ['nullable', 'string', 'max:255'],
             'url' => ['required', 'min:1', 'max:255'],
             'target' =>['required','boolean'], 
             'tipo' =>['required'],

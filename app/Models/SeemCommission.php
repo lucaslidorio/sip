@@ -13,6 +13,9 @@ class SeemCommission extends Model
     
     protected $fillable = ['commission_id', 'proposition_id', 'data', 'autoria','assunto', 'descricao'];
      
+   
+
+    
     public function commission(){
         return $this->belongsTo(Commission::class, 'commission_id', 'id');
     }

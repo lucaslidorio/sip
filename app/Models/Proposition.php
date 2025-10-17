@@ -19,8 +19,41 @@ class Proposition extends Model
      'descricao',
      
     ];
+    protected $casts = [
+        'data' => 'date',
+    ];
+ //Relacionamentos Novos
+ // Relacionamento com o Tipo de Propositura
+    public function tipo()
+    {
+        return $this->belongsTo(TypeProposition::class, 'type_proposition_id');
+    }
+    public function pareceres()
+    {
+        return $this->hasMany(SeemCommission::class, 'proposition_id', 'id');
+    }
 
-    //Relacionamento a situaçao do processo, mostra qual a situação de tramitação
+    // Relacionamento com a Situação (Proceeding Situation)
+    public function situacao()
+    {
+        return $this->belongsTo(ProceedingSituation::class, 'proceeding_situation_id');
+    }
+
+    // Relacionamento com os Autores (Vereadores)
+    public function autores()
+    {
+        return $this->belongsToMany(Councilor::class, 'author_propositions', 'proposition_id', 'councilor_id');
+    }
+
+    public function votos()
+    {
+        return $this->hasMany(VotoVereadorPropositura::class, 'proposition_id');
+    }
+
+
+
+
+    //Relacionamento antigos
     public function situation(){
         return $this->belongsTo(ProceedingSituation::class,'proceeding_situation_id', 'id' );
     }
@@ -43,10 +76,7 @@ class Proposition extends Model
         return $this->belongsToMany(TipoVoto::class, 'voto_vereador_proposituras')->withPivot('session_id','councilor_id','tipo_voto_id');
     }
 
-    public function votos()
-    {
-        return $this->belongsToMany(VotoVereadorPropositura::class, 'voto_vereador_proposituras', 'proposition_id', 'tipo_voto_id')
-            ->withPivot('councilor_id', 'tipo_voto_id');
-    }
+    
+   
 
 }

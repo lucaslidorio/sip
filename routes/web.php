@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\ACL\ProfileUserController;
+use App\Http\Controllers\Admin\AlternativaPesquisaController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CitizenLetterController;
 use App\Http\Controllers\Admin\CommissionController;
+use App\Http\Controllers\Admin\ConfiguracaoOuvidoriaController;
 use App\Http\Controllers\Admin\CouncilorController;
 use App\Http\Controllers\Admin\CredenciamentoProcessoComprasController;
 use App\Http\Controllers\Admin\DadosPessoasController;
@@ -24,9 +26,12 @@ use App\Http\Controllers\Admin\MinuteController;
 use App\Http\Controllers\Admin\OuvidoriaController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PartyController;
+use App\Http\Controllers\Admin\PerguntaPesquisaController;
 use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\Admin\PopupsController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProcessoCompraController;
+use App\Http\Controllers\Admin\PronunciamentoController;
 use App\Http\Controllers\Admin\PropositionController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SecretaryController;
@@ -40,12 +45,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserFunctionController;
 use App\Http\Controllers\Site\OuvidoriaSiteController;
 use App\Http\Controllers\Site\SiteController;
-use App\Models\SubTipoMateria;
-use App\Models\TipoMateria;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Site\SitePublicoController;
 use Illuminate\Support\Facades\Route;
-use PhpParser\Node\Expr\FuncCall;
+
 
 //Grupo de roda para Middleware de autenticação
 
@@ -110,13 +112,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ->namespace('layout')
                 ->group(function () {
 
+
                     // Route::any('/menus/search', [PartyController::class, 'search'])->name('menus.search');
-                    Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
-                    Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
-                    Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
-                    Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
-                    Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
-                    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+                    // Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
+                    // Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+                    // Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
+                    // Route::get('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+                    // Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+                    // Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+
+                    Route::get('/menus/{menu}/edit', [MenuController::class, 'edit'])->name('admin.menus.edit');
+                    Route::get('/menus/create', [MenuController::class, 'create'])->name('admin.menus.create');
+                    Route::get('/menus/show/{id}', [MenuController::class, 'show'])->name('admin.menus.show');
+                    Route::put('/menus/{id}', [MenuController::class, 'update'])->name('admin.menus.update');
+                   
+                    Route::delete('/menus/{id}', [MenuController::class, 'destroy'])->name('admin.menus.destroy');
+                    Route::post('/menus', [MenuController::class, 'store'])->name('admin.menus.store');
+                    Route::get('/menus', [MenuController::class, 'index'])->name('admin.menus.index');
+                    
+                    
+                    //Route::resource('menus',[MenuController::class]);
+                    Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('admin.menus.reorder');
+                    Route::post('menus/{id}/toggle', [MenuController::class, 'toggleStatus'])->name('admin.menus.toggle');                    
+                    Route::get('menus/preview', [MenuController::class, 'preview'])->name('admin.menus.preview');
+                
 
                     Route::put('/links/{id}', [LinkController::class, 'update'])->name('links.update');
                     Route::get('/links/{id}/edit', [LinkController::class, 'edit'])->name('links.edit');
@@ -144,6 +163,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/tenants', [TenantController::class, 'store'])->name('tenants.store');
             Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
 
+
+            Route::get('tenants/{id}/anexos',  [TenantController::class, 'anexos'])->name('tenants.anexos');
+            Route::post('tenants/{id}/anexos', [TenantController::class, 'storeAnexo'])->name('tenants.anexos.store');
+            Route::delete('tenants/{id}/anexos/{anexo_id}', [TenantController::class, 'destroyAnexo'])->name('tenants.anexos.destroy');
+            Route::patch('tenants/{id}/anexos/{anexo_id}/toggle', [TenantController::class, 'toggleSituacaoAnexo'])->name('tenants.anexos.toggle');
 
             //Rotas de leis             
             Route::any('/legislations/search', [LegislationController::class, 'search'])->name('legislations.search');
@@ -179,7 +203,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/propositions/{id}', [PropositionController::class, 'destroy'])->name('propositions.destroy');
             Route::post('/propositions', [PropositionController::class, 'store'])->name('propositions.store');
 
-
+            //Rotas de pronunciamentos  
+             Route::any('/pronunciamentos/search', [PronunciamentoController::class, 'search'])->name('pronunciamentos.search');
+             Route::get('/pronunciamentos', [PronunciamentoController::class, 'index'])->name('pronunciamentos.index');
+             Route::put('/pronunciamentos/{id}', [PronunciamentoController::class, 'update'])->name('pronunciamentos.update');
+             Route::get('/pronunciamentos/show/{id}', [PronunciamentoController::class, 'show'])->name('pronunciamentos.show');
+             Route::get('/pronunciamentos/{id}/edit', [PronunciamentoController::class, 'edit'])->name('pronunciamentos.edit');
+             Route::get('/pronunciamentos/create', [PronunciamentoController::class, 'create'])->name('pronunciamentos.create');
+             Route::get('/pronunciamentos/{id}', [PronunciamentoController::class, 'destroy'])->name('pronunciamentos.destroy');
+             Route::post('/pronunciamentos', [PronunciamentoController::class, 'store'])->name('pronunciamentos.store');
+ 
             Route::get('/propositions/{id}/votoCreate', [PropositionController::class, 'createVotoCouncilor'])->name('propositionVotoCreate.create');
             Route::post('/propositions/{id}/votoStore', [PropositionController::class, 'storeVotoCouncilor'])->name('storeVotoCouncilor.store');
             Route::get('/propositions/{id}/votoEdit', [PropositionController::class, 'editVotoCouncilor'])->name('propositionVotoEdit.edit');
@@ -276,6 +309,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
             Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+            //Rotas de Popups
+            Route::any('/popups/search', [PopupsController::class, 'search'])->name('popups.search');
+            Route::put('/popups/{id}', [PopupsController::class, 'update'])->name('popups.update');
+            Route::get('/popups/{id}/edit', [PopupsController::class, 'edit'])->name('popups.edit');
+            Route::get('/popups/deleteImage/{id}', [PopupsController::class, 'removeImage'])->name('popups.deleteImage');
+            Route::get('/popups/show/{id}', [PopupsController::class, 'show'])->name('popups.show');
+            Route::get('/popups/create', [PopupsController::class, 'create'])->name('popups.create');
+            Route::get('/popups/{id}', [PopupsController::class, 'destroy'])->name('popups.destroy');
+            Route::post('/popups', [PopupsController::class, 'store'])->name('popups.store');
+            Route::get('/popups', [PopupsController::class, 'index'])->name('popups.index');
 
             //Rotas de Enquetes
             
@@ -416,6 +460,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
             //Rotas de Ouvidoria             
+            Route::get('/configuracao/ouvidoria', [ConfiguracaoOuvidoriaController::class, 'index'])->name('ouvidoria.configuracao.index');
+            Route::put('/configuracao/ouvidoria/{id}', [ConfiguracaoOuvidoriaController::class, 'update'])->name('ouvidoria.configuracao.update');
+            Route::get('/configuracao/ouvidoria/{id}/edit', [ConfiguracaoOuvidoriaController::class, 'edit'])->name('ouvidoria.configuracao.edit');
+            Route::get('/configuracao/ouvidoria/create', [ConfiguracaoOuvidoriaController::class, 'create'])->name('ouvidoria.configuracao.create');
+            Route::post('/configuracao/ouvidoria', [ConfiguracaoOuvidoriaController::class, 'store'])->name('ouvidoria.configuracao.store');
+
             Route::any('/ouvidorias/search', [OuvidoriaController::class, 'search'])->name('ouvidorias.search');
             Route::put('/ouvidorias/{id}', [OuvidoriaController::class, 'update'])->name('ouvidorias.update');
             Route::get('/ouvidorias/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidorias.show');
@@ -431,6 +481,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/agenda/show', [ScheduleController::class, 'show'])->name('schedule.index');
             Route::delete('/agenda/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
             Route::put('/agenda/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+
+            // Perguntas
+            Route::get('/pesquisas', [PerguntaPesquisaController::class, 'index'])->name('pesquisa.index');
+            Route::get('/pesquisa/{questionario}/perguntas', [PerguntaPesquisaController::class, 'perguntas'])
+            ->name('perguntas.index');
+            Route::get('/perguntas/{questionario_id}/create', [PerguntaPesquisaController::class, 'create'])->name('perguntas.create');
+                        Route::post('/perguntas', [PerguntaPesquisaController::class, 'store'])->name('perguntas.store');
+            Route::get('/perguntas/{id}/edit', [PerguntaPesquisaController::class, 'edit'])->name('perguntas.edit');
+            Route::put('/perguntas/{id}', [PerguntaPesquisaController::class, 'update'])->name('perguntas.update');
+            Route::get('/perguntas/{id}', [PerguntaPesquisaController::class, 'destroy'])->name('perguntas.destroy');
+
+          
 
             // Suas rotas protegidas so acessa se o cadastro estiver completo
             Route::middleware(['auth', 'profile.complete'])->group(function () {
@@ -515,7 +577,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 });
 
-Route::prefix('/')->group(base_path('routes/legislativo.php'));
+//Route::prefix('/')->group(base_path('routes/legislativo.php'));
+Route::prefix('/')->group(base_path('routes/site.php'));
 //Route::prefix('/')->group(base_path('routes/executivo.php'));
 /*
 Route::get('/dashboard', function () {
@@ -527,18 +590,18 @@ Route::get('/dashboard', function () {
 Route::get('/verificador/{codigoVerificacao}', [DocumentoDofController::class, 'verificarDocumento'])->name('verificador');
 //Rotas de ouvidoria do site
 
-Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
-Route::get('/ouvidoria/create/{tipo}', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
-Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
-Route::get('/ouvidoria/confirmacao', [OuvidoriaSiteController::class, 'confirmacao'])->name('ouvidoria.confirmacao');
-Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');
-Route::get('/ouvidoria/duvidas', [OuvidoriaSiteController::class, 'duvidas'])->name('ouvidoriaSite.duvidas');
+// Route::get('/ouvidoria/acompanhamento', [OuvidoriaSiteController::class, 'acompanhamento'])->name('ouvidoria.acompanhamento');
+// Route::get('/ouvidoria/create/{tipo}', [OuvidoriaSiteController::class, 'create'])->name('ouvidoria.create');
+// Route::post('/ouvidoria', [OuvidoriaSiteController::class, 'store'])->name('ouvidoria.store');
+// Route::get('/ouvidoria/confirmacao', [OuvidoriaSiteController::class, 'confirmacao'])->name('ouvidoria.confirmacao');
+// Route::get('/ouvidoria', [OuvidoriaSiteController::class, 'index'])->name('ouvidoriaSite.index');
+// Route::get('/ouvidoria/duvidas', [OuvidoriaSiteController::class, 'duvidas'])->name('ouvidoriaSite.duvidas');
 
 //Rotas Comuns do site
-Route::get('/pagina/{slug}', [SiteController::class, 'page'])->name('pagina');
-Route::get('/acessibilidade', [SiteController::class, 'acessibilidade'])->name('site.acessibilidade');
-Route::get('/sitemap', [SiteController::class, 'mapasite'])->name('site.mapa');
-Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');
+// Route::get('/pagina/{slug}', [SiteController::class, 'page'])->name('pagina');
+//Route::get('/acessibilidade', [SiteController::class, 'acessibilidade'])->name('site.acessibilidade');
+//Route::get('/sitemap', [SiteController::class, 'mapasite'])->name('site.mapa');
+//Route::get('/pesquisar', [SiteController::class, 'pesquisar'])->name('site.pesquisar');
 
 Route::post('contato/', [SiteController::class, 'contato'])->name('contato.enviar');
 Route::get('compras/procesos', [SiteController::class, 'processosComprasIndex'])->name('processoCompras.index');
@@ -552,13 +615,30 @@ Route::post('/enquete/votar/{id}', [SiteController::class, 'votar'])->name('enqu
 Route::get('/enquete/resultado/{id}', [SiteController::class, 'resultadoEnquete'])->name('enquete.resultado');
 
 
-// Route::get('/', function () {
-//     //Alert::success('Success Title', 'Success Message');
-//     //toast('Success Toast','success');
-
-//     return view('site/index');
-// });
 
 
+// Rotas principais (já devem existir)
+//Route::get('/', [SitePublicoController::class, 'index'])->name('site.index');
+// Route::get('/noticias', [SitePublicoController::class, 'noticias'])->name('site.noticias.todas');
+//Route::get('/noticia/{url}', [SitePublicoController::class, 'noticiaShow'])->name('noticias.show');
+//Route::get('/agenda', [SitePublicoController::class, 'agenda'])->name('site.agenda');
+Route::get('/pesquisar/site', [SitePublicoController::class, 'pesquisar'])->name('site.pesquisar');
+
+
+// Rotas adicionais (adicione se não existirem)
+Route::get('/acessibilidade', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.acessibilidade');
+})->name('site.acessibilidade');
+
+Route::get('/sitemap', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.sitemap');
+})->name('site.sitemap');
+
+// Rotas futuras (opcional - adicione quando implementar)
+
+
+Route::get('/decretos', function() {
+    return view('public_templates.' . view()->shared('currentTemplate') . '.includes.decretos.index');
+})->name('site.decretos');
 
 require __DIR__ . '/auth.php';

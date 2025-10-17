@@ -87,14 +87,13 @@ class CouncilorController extends Controller
             redirect()->back();
         }
         
-        $dadosCouncilor= $request->all();
-        if($request->hasFile('img') && $request->img->isValid()){
-            if(Storage::exists($councilor->img)){
-               Storage::delete($councilor->img);
+        if ($request->hasFile('img') && $request->img->isValid()) {
+            if (!empty($councilor->img) && Storage::exists($councilor->img)) {
+                Storage::delete($councilor->img);
             }
-           
+        
             $dadosCouncilor['img'] = $request->img->store('councilors');
-        }      
+        }     
         $councilor->update($dadosCouncilor);
 
         toast('Parlamentar atualizado com sucesso!','success')->toToast('top') ;

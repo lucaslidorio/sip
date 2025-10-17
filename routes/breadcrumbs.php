@@ -8,11 +8,11 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
-use App\Models\DocumentosDof;
+
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-    $trail->push('Início', route('site.home'));
+    $trail->push('Início', route('site.index'), ['icon' =>'fas fa-home']);
 });
 
 
@@ -30,13 +30,46 @@ Breadcrumbs::for('agenda', function (BreadcrumbTrail $trail) {
 // Home > Noticias
 Breadcrumbs::for('noticias', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Notícias', route('noticias.todas'));
+    $trail->push('Notícias', route('noticias.todas'),['icon' =>'fas fa-newspaper'] );
 });
 // Home > Noticias > [Noticia]
 Breadcrumbs::for('noticia', function (BreadcrumbTrail $trail, $noticia) {
     $trail->parent('noticias');
-    $trail->push($noticia->titulo, route('noticias.todas', $noticia));
+    $trail->push($noticia->titulo, route('noticias.todas', $noticia),['icon' =>'fab fa-readme'] );
 });
+// Home > Secretarias
+Breadcrumbs::for('secretarias', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Secretarias', route('site.secretarias.index'),['icon' =>'fas fa-network-wired'] );
+});
+// Home > Secretarias > [Secretaria]
+Breadcrumbs::for('secretaria', function (BreadcrumbTrail $trail, $secretaria) {
+    $trail->parent('secretarias');
+    $trail->push($secretaria->nome, route('site.secretarias.show', $secretaria),['icon' =>'fas fa-building'] );
+});
+
+
+// Home > Procesos  
+Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Processos de compras', route('site.compras.index'),['icon' =>'fas fa-gavel me-1'] );
+});
+// Home > Processo de compras > [Processo]
+Breadcrumbs::for('processo', function (BreadcrumbTrail $trail, $processo) {
+    $trail->parent('processo_compras');
+    $trail->push($processo->numero, route('site.compras.show', $processo),['icon' =>'fas fa-file-alt'] );
+});
+
+// Home > Pesquisa de satisfação
+Breadcrumbs::for('pesquisa_satisfacao', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Pesquisa de Satisfação', route('site.pesquisa'));
+});
+Breadcrumbs::for('estatisticas', function (BreadcrumbTrail $trail) {
+    $trail->parent('pesquisa_satisfacao');
+    $trail->push('Estatistícas', route('site.pesquisa'));
+});
+
 // Home > Legislaturas
 Breadcrumbs::for('legislaturas', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
@@ -45,19 +78,26 @@ Breadcrumbs::for('legislaturas', function (BreadcrumbTrail $trail) {
 // Home > Legislatura > [Legislatura]
 Breadcrumbs::for('legislatura', function (BreadcrumbTrail $trail, $legislature) {
     $trail->parent('legislaturas');
-    $trail->push($legislature->descricao, route('camara.legislatura', $legislature));
+    $trail->push($legislature->descricao, route('camara.legislatura.vereadores', $legislature));
 });
-// // Home > Legislaturas > Legislatura [vereador]
-// Breadcrumbs::for('vereador', function (BreadcrumbTrail $trail, $vereador) {
-//     $trail->parent('legislatura');
-//     $trail->push($vereador->nome, route('camara.vereador', $vereador));
-// });
+
 
 // Home > Sessão > 
 Breadcrumbs::for('sessoes', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Sessões', route('camara.sessoes'));
 });
+
+Breadcrumbs::for('sessao', function (BreadcrumbTrail $trail, $sessao) {
+    $trail->parent('sessoes');
+    $trail->push($sessao->nome, route('camara.sessao.show', $sessao));
+});
+
+Breadcrumbs::for('documentos_sessoes', function (BreadcrumbTrail $trail) {
+    $trail->parent('sessoes');
+    $trail->push('Documentos das Sessões', route('camara.documetos.sessoes'));
+});
+
 // Home > Sessão > 
 Breadcrumbs::for('documentos_sessao', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
@@ -69,17 +109,27 @@ Breadcrumbs::for('comissoes', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Comissões', route('camara.comissoes'));
 });
+Breadcrumbs::for('comissao', function (BreadcrumbTrail $trail, $comissao) {
+    $trail->parent('comissoes');
+    $trail->push($comissao->nome, route('camara.comissao.show', $comissao));
+});
+Breadcrumbs::for('pareceres', function (BreadcrumbTrail $trail) {
+    $trail->parent('comissoes');
+    $trail->push('Pareceres das comissões', route('camara.pareceres'));
+});
+// Home > Comissões >Pareceres  > [parecer]
+Breadcrumbs::for('parecer', function (BreadcrumbTrail $trail, $parecer) {
+    $trail->parent('pareceres');
+    $nome = $parecer->proposition->tipo->nome . ' ' . $parecer->proposition->numero;
+    $trail->push(  $nome,  route('camara.parecer.show', $parecer));
+});
 
 // Home > Comissões >Pareceres 
 Breadcrumbs::for('pareceres_comissao', function (BreadcrumbTrail $trail) {
     $trail->parent('comissoes');
     $trail->push('Pareceres', route('camara.pareceres'));
 });
-// Home > Comissões >Pareceres  > [parecer]
-Breadcrumbs::for('parecer', function (BreadcrumbTrail $trail, $seemCommission) {
-    $trail->parent('pareceres_comissao');
-    $trail->push($seemCommission->assunto, route('camara.parecerShow', $seemCommission));
-});
+
 
 // Home > Proposituras > 
 Breadcrumbs::for('proposituras', function (BreadcrumbTrail $trail) {
@@ -89,13 +139,23 @@ Breadcrumbs::for('proposituras', function (BreadcrumbTrail $trail) {
 // Home > Proposituras > [propositura]
 Breadcrumbs::for('propositura', function (BreadcrumbTrail $trail, $propositura) {
     $trail->parent('proposituras');
-    $trail->push($propositura->type_proposition->nome, route('propositura.show', $propositura));
+    $trail->push($propositura->type_proposition->nome, route('camara.propositura.show', $propositura));
+});
+// Home > Pronunciamentos
+Breadcrumbs::for('pronunciamentos', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Pronunciamentos', route('camara.pronunciamentos'));
+});
+// Home > Pronunciamentos -> [pronunciamento]
+Breadcrumbs::for('pronunciamento', function (BreadcrumbTrail $trail, $pronunciamento) {
+    $trail->parent('pronunciamentos');   
+    $trail->push(  $pronunciamento->session->nome,  route('camara.pronunciamento.show', $pronunciamento));
 });
 
 // Home > Mesa Diretora > 
 Breadcrumbs::for('mesas_diretora', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Mesas Diretoras', route('camara.mesaDiretora'));
+    $trail->push('Mesas Diretoras', route('camara.mesas.diretoras'));
 });
 // Home > Mapa do Site > 
 Breadcrumbs::for('siteMap', function (BreadcrumbTrail $trail) {
@@ -123,11 +183,7 @@ Breadcrumbs::for('enquete_nome', function (BreadcrumbTrail $trail, $enquete) {
     $trail->push($enquete->nome, route('propositura.show', $enquete));
 });
 
-// Home > Procesos  
-Breadcrumbs::for('processo_compras', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Processos de compras', route('processoCompras.index'));
-});
+
 
 // Home > Diário Oficial  
 Breadcrumbs::for('diario_oficial', function (BreadcrumbTrail $trail) {
@@ -159,7 +215,7 @@ Breadcrumbs::for('ouvidoria_duvidas', function (BreadcrumbTrail $trail) {
 // Home > Ouvidoria >[Tipo]
 Breadcrumbs::for('ouvidora_tipo', function (BreadcrumbTrail $trail, $tipo_ouvidoria) {
     $trail->parent('ouvidoria_index');
-    $trail->push($tipo_ouvidoria->nome, route('propositura.show', $tipo_ouvidoria));
+    $trail->push($tipo_ouvidoria->nome, route('ouvidoria.create', $tipo_ouvidoria));
 });
 // Home > Ouvidoria >[Acompanhamento]
 Breadcrumbs::for('ouvidora_acompanhamento', function (BreadcrumbTrail $trail, $ouvidoria) {

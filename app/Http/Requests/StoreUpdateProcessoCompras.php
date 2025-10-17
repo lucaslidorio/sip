@@ -28,7 +28,7 @@ class StoreUpdateProcessoCompras extends FormRequest
             'modalidade_id' => ['required'],
             'proceeding_situation_id' => ['required'],
             'criterio_julgamento_id' => ['required'],
-            'data_validade' => ['required'],
+            'data_validade' => 'required|date', // Confirme que esta validação existe
             'destaque' => ['numeric'],
             'objeto' => ['required', 'min:10', 'max:5000'],
             'descricao' => ['nullable', 'min:10', 'max:5000'],         

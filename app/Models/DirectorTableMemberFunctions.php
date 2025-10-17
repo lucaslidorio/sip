@@ -13,7 +13,19 @@ class DirectorTableMemberFunctions extends Model
     
     protected $table = 'director_table_member_functions';
     protected $fillable = ['director_table_id', 'councilor_id', 'function_id'];
+    
+    //Relacinamentos novos
 
+    public function vereador()
+    {
+        return $this->belongsTo(Councilor::class, 'councilor_id');
+    }
+
+    public function funcao()
+    {
+        return $this->belongsTo(Functions::class, 'function_id');
+    }
+    //Relacionamentos antigos
     public function functions(){
         return $this->belongsTo(Functions::class, 'function_id', 'id');
 

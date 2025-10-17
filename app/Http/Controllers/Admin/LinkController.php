@@ -36,6 +36,7 @@ class LinkController extends Controller
      */
     public function create()
     {
+        $this->authorize('novo-link');
         $links = $this->repository->get();
         return view('admin.pages.links.create', compact('links'));
     }
@@ -48,6 +49,7 @@ class LinkController extends Controller
      */
     public function store(StoreUpadateLink $request)
     {
+        $this->authorize('novo-link');
         $dadosLink = $request->all();
         $dadosLink['tenant_id'] = auth()->user()->tenant_id;
         //dd($dadosLink);
@@ -80,6 +82,7 @@ class LinkController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('editar-link');
         $link = $this->repository->where('id', $id)->first();
         return view('admin.pages.links.edit', compact('link'));
     }
@@ -93,17 +96,26 @@ class LinkController extends Controller
      */
     public function update(StoreUpadateLink $request, $id)
     {
+
+        
+        $this->authorize('editar-link');
         $link =  $this->repository->where('id', $id)->first();
         if(!$link){
             redirect()->back();
         }        
         $dadoslink = $request->all();
-        if($request->hasFile('icone') && $request->icone->isValid()){
-            if(Storage::exists($link->icone)){
-               Storage::delete($link->icone);
-            }           
-            $dadoslink['icone'] = $request->icone->store('links');
-        }      
+       if ($request->hasFile('icone') && $request->file('icone')->isValid()) {
+            $oldPath = $link->icone; // key antiga (ex.: "links/arquivo.png")
+
+            // salva o novo no S3 (pasta "links") e guarda só a key
+            $newPath = $request->file('icone')->store('links', 's3');
+            $dadoslink['icone'] = $newPath;
+
+            // apaga o antigo se existir (se não existir, só ignora)
+            if ($oldPath && Storage::disk('s3')->exists($oldPath)) {
+                Storage::disk('s3')->delete($oldPath);
+            }
+        }    
         $link->update($dadoslink);
 
         toast('Link atualizado com sucesso!','success')->toToast('top') ;
@@ -117,6 +129,7 @@ class LinkController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('excluir-link');
         $link = $this->repository->where('id', $id)->first();
         if(!$link){
             return redirect()->back();                      

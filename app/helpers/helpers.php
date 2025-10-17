@@ -12,3 +12,30 @@ if (!function_exists('mascararCpfCnpj')) {
         }
     }
 }
+
+// Função para extrair o ID do YouTube
+if (!function_exists('embedVideo')) {
+    function embedVideo($url) {
+        if (strpos($url, 'youtu') !== false) {
+            if (strpos($url, 'youtu.be') !== false) {
+                $id = explode('youtu.be/', $url)[1];
+            } else {
+                parse_str(parse_url($url, PHP_URL_QUERY), $params);
+                $id = $params['v'] ?? '';
+            }
+            return $id ? "https://www.youtube.com/embed/$id" : '';
+        }
+
+        if (strpos($url, 'vimeo.com') !== false) {
+            if (preg_match('/vimeo\.com\/(\d+)/', $url, $matches)) {
+                return "https://player.vimeo.com/video/{$matches[1]}";
+            }
+        }
+
+        if (strpos($url, 'facebook.com') !== false) {
+            return "https://www.facebook.com/plugins/video.php?href=" . urlencode($url) . "&show_text=false&width=560";
+        }
+
+        return '';
+    }
+}

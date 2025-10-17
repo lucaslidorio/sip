@@ -12,10 +12,12 @@ class Tenant extends Model
 
     protected $fillable = [
     'nome', 
+    'slogan',
     'endereco', 
     'numero', 
     'bairro', 
     'cidade', 
+    'maps',
     'telefone',
     'celular', 
     'dia_atendimento',
@@ -24,13 +26,16 @@ class Tenant extends Model
     'facebook', 
     'youtube', 
     'instagram',
-    'twiter', 
+    'twitter',
+    'tiktok', 
     'brasao', 
     'bandeira',
+    'favicon',
     'nome_resp_transparencia', 
     'telefone_resp_transparencia',
     'email_resp_transparencia',
-    'arquivo_cor_css'
+    'arquivo_cor_css',
+    'template'
     ];
 
      public function users(){
@@ -43,4 +48,8 @@ class Tenant extends Model
     {
         return $this->belongsTo(DevelopmentSetting::class, 'id', 'tenant_id'); 
     }
+    public function anexos()
+{
+    return $this->hasMany(AnexoTenant::class, 'tenants_id');
+}
 }

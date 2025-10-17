@@ -16,6 +16,7 @@
   z-index: 1;
 }
 </style>
+
 @extends('site.legislativo.layouts.default')
 
  @section('content') 
@@ -43,8 +44,7 @@
                 <a href="" id="whatsapp-share-btt" rel="nofollow" target="_blank"><i class="bi bi-whatsapp text-success fs-3"></i></a>
                 <a href="" id="facebook-share-btt" rel="nofollow" target="_blank" class="facebook-share-button"><i class="bi bi-facebook fs-3"></i></a>
 
-              </div>
-              
+              </div>             
               
             </div>
 
@@ -69,12 +69,5 @@
         for (let i = 0; i < imagens.length; i++) { imagens[i].addEventListener('click', function() {
           this.classList.toggle('expandir'); }); }
 
-
-    //  lc_lightbox('.galeria_post', {
-    //    wrap_class:'lcl_fade_oc',
-    //    gallery:true,
-    //    counter: true,
-    //    fullscreen: true,
-    //    download: true,
-    //  })
+    
    </script>

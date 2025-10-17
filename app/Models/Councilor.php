@@ -47,11 +47,16 @@ class Councilor extends Model
     {
         return $this->BelongsToMany(Functions::class,  'director_table_member_functions', 'councilor_id', 'function_id');
     }
+    public function comissoes()
+    {
+        return $this->belongsToMany(Commission::class, 'commission_member_functions', 'councilor_id', 'commission_id')
+            ->withPivot('function_id') // Adiciona a função do vereador na comissão
+            ->withTimestamps();
+    }
     public function functionCommission()
     {
         return $this->BelongsToMany(Functions::class,  'commission_member_functions', 'councilor_id', 'function_id');
     }
-   
     public function votosPropositura()
     {
         return $this->hasMany(VotoVereadorPropositura::class);
@@ -61,6 +66,10 @@ class Councilor extends Model
         return $this->belongsToMany(Legislature::class, 'legislature_councilors');
     }
 
+        public function proposituras()
+    {
+        return $this->belongsToMany(Proposition::class, 'author_propositions', 'councilor_id', 'proposition_id');
+    }
     //metodo de pesquisas na index
     public function search($pesquisar = null)    {
         

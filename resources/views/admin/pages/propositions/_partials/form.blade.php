@@ -71,11 +71,10 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                  </div>
+                  </div>                
                   <input type="date" class="form-control" 
                       id="data" name="data"
-                      value="{{ $proposition->data ?? old('data') }}">
-                
+                      value="{{ old('data', isset($proposition) ? optional($proposition->data)->format('Y-m-d') : '') }}">                
               </div>
             </div>
         </div>

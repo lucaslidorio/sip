@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpadateSecretary;
 use App\Models\Secretary;
 use Illuminate\Http\Request;
 use Prophecy\Doubler\Generator\Node\ReturnTypeNode;
+use Illuminate\Support\Facades\Storage;
 
 class SecretaryController extends Controller
 {
@@ -42,9 +43,19 @@ class SecretaryController extends Controller
     public function store(StoreUpadateSecretary $request)
     {
         $this->authorize('nova-secretaria');
-        $this->repository->create($request->all());
         
-        toast('Cadastro realizado com sucesso!','success')->toToast('top') ;     
+        //dd($request->all());
+        $data = $request->validated();
+        
+        dd($data);
+        if ($request->hasFile('img_secretario')) {
+            $path = $request->file('img_secretario')->store('secretarios', 's3');
+            $data['img_secretario'] = $path;
+        }
+        
+        $this->repository->create($data);
+        
+        toast('Cadastro realizado com sucesso!','success')->toToast('top');     
         return redirect()->back();
         
 
@@ -98,12 +109,27 @@ class SecretaryController extends Controller
     public function update(StoreUpadateSecretary $request, $id)
     {
         $this->authorize('editar-secretaria');
-        $secretary  = $this->repository->where('id', $id)->first();
-        if(!$secretary){
-            redirect()->back();
+        
+        $secretary = $this->repository->where('id', $id)->first();
+        if (!$secretary) {
+            return redirect()->back();
         }
-        $secretary->update($request->all());
-        toast('Secretária atualizada com sucesso!','success')->toToast('top') ;
+
+        $data = $request->validated();
+
+        if ($request->hasFile('img_secretario')) {
+            // Delete old image if exists
+            if ($secretary->img_secretario) {
+                Storage::disk('s3')->delete($secretary->img_secretario);
+            }
+            
+            $path = $request->file('img_secretario')->store('secretarios', 's3');
+            $data['img_secretario'] = $path;
+        }
+
+        $secretary->update($data);
+        
+        toast('Secretária atualizada com sucesso!','success')->toToast('top');
         return redirect()->route('secretaries.index');
     }
 

@@ -131,8 +131,9 @@ class SiteController extends Controller
     }
     // Funções Comuns entre os site do Legislativo e Executivos
 
-    public function page($slug){          
+    public function page($slug){         
      
+        
             $page = $this->page->where('slug',$slug)->first();
          
             if(!$page){
@@ -171,6 +172,7 @@ class SiteController extends Controller
 
     public function index()
     {
+        
 
         $tenants = $this->tenant->where('id', 3)->get();
         $legislatures = $this->legislature->where('atual', 1)->get();
@@ -309,8 +311,13 @@ class SiteController extends Controller
                     ->where('tipo', 2) //Tipo = Links Úteis
                     ->orderby('ordem', 'ASC')
                     ->orderby('created_at')                            
-                    ->get(); 
-    
+                    ->get();
+             $linksInferiores = Link::query()
+             ->where('tipo', 2)//Tipo = Links Úteis
+            ->where('posicao', 4)    // 4 = inferior
+            ->whereNotNull('status')    // se tiver coluna de status
+            ->orderBy('ordem')        // se tiver coluna de ordenação
+            ->get();
        
                     
         $posts = $this->post->where('secretary_id', $post->secretary_id)
@@ -329,7 +336,9 @@ class SiteController extends Controller
             'menus' => $menus,  
             'linksDireita' => $linksDireita,
             'linksUteis' => $linksUteis,
+            'linksInferiores' => $linksInferiores,
             'menusSuperior' => $menusSuperior,
+            ''
             
         ]);
     }

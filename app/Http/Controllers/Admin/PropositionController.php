@@ -227,9 +227,12 @@ class PropositionController extends Controller
             return redirect()->back();
         }
 
+        //dd($request->all());
         $dadosProposition = $request->except('councilors', 'anexo', 'type_document_id');  
         $user = auth()->user();
         $dadosProposition['user_id'] = $user->id;
+
+        //dd($dadosProposition);
         $proposition->update($dadosProposition);
 
         //Captura as seleção do select2 dos outores

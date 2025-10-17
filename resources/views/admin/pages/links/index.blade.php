@@ -38,7 +38,9 @@
                 <div class="input-group input-group-sm" style="width: 250px;">
                   <input type="text" name="pesquisa" class="form-control float-right" placeholder="Nome, Sigla">
                   <div class="input-group-append">
+                    @can('novo-link')
                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    @endcan
                   </div>
                 </div>
               </form>
@@ -76,17 +78,20 @@
               
               <td><img src="{{config('app.aws_url')."{$link->icone}" }}" alt="{{$link->nome}}" style="max-width: 100px;;"></td>
              <td class="text-center">
+              @can('editar-link')
                 <a href="{{route('links.edit', $link->id)}}" 
                   class="btn  bg-gradient-primary btn-flat  " data-toggle="tooltip" data-placement="top" 
                   title="Editar">
                   <i class="fas fa-edit" ></i>
                 </a>
-
+              @endcan
+              @can('excluir-link')
                 <a href="{{route('links.destroy', $link->id)}}" data-id="{{$link->id}}"
                   class="btn  bg-gradient-danger btn-flat delete-confirm mt-0" data-toggle="tooltip" data-placement="top"  
                   title="Excluir">
                   <i class="fas fa-trash-alt" ></i>
                 </a>
+                @endcan
               </td>
             </tr>
             @endforeach

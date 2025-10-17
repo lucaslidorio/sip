@@ -26,8 +26,12 @@ class Post extends Model
 
     public function secretary(){
         return $this->belongsTo(Secretary::class);
+    } 
+    //Novo relacionamento
+    public function secretaria()
+    {
+        return $this->belongsTo(Secretary::class, 'secretary_id');
     }
-
     public function user(){
         return $this->belongsTo('App\Models\User', 'user_id');
     }
@@ -49,21 +53,46 @@ class Post extends Model
         return $resultado;
     }
     
-    public function noticiasPesquisar($pesquisar)
+        public function noticiasPesquisar($dados)
     {
-        $resultado = $this
-            ->where(function ($query) use ($pesquisar) {
-                $query->where('titulo', 'LIKE', "%{$pesquisar}%"
-                )
-                ->orWhere('conteudo', 'LIKE', "%{$pesquisar}%");
-            })
-            ->where(function ($query) {
-                $query->whereNull('data_expiracao')
+       
+        $query = $this->query();
+
+        // Filtro de título e conteúdo
+        if (!empty($dados['pesquisar'])) {
+            $query->where(function ($subQuery) use ($dados) {
+                $subQuery->where('titulo', 'LIKE', "%" . $dados['pesquisar'] . "%")
+                    ->orWhere('conteudo', 'LIKE', "%" . $dados['pesquisar'] . "%");
+            });
+        }
+
+        // Filtro por categoria (vinculado pela relação)
+        if (!empty($dados['category_id'])) {
+            $query->whereHas('categories', function ($subQuery) use ($dados) {
+                $subQuery->where('categorias.id', $dados['category_id']);
+            });
+        }
+
+        // Filtro por data de publicação inicial
+        if (!empty($dados['data_publicacao_inicial'])) {
+            $query->whereDate('data_publicacao', '>=', $dados['data_publicacao_inicial']);
+        }
+
+        // Filtro por data de publicação final
+        if (!empty($dados['data_publicacao_final'])) {
+            $query->whereDate('data_publicacao', '<=', $dados['data_publicacao_final']);
+        }
+
+        // Filtro para data de expiração (ativa ou não expirada)
+        $query->where(function ($subQuery) {
+            $subQuery->whereNull('data_expiracao')
                 ->orWhereDate('data_expiracao', '>=', Carbon::now()->format('Y-m-d'));
-            })
-            ->paginate(10);
-        return $resultado;        
+        });
+
+        // Ordenação e paginação
+        return $query->orderBy('data_publicacao', 'desc')->paginate(10);
     }
+
 
     public function noticiaAnterior($id){
         $postAnterior = $id - 1;

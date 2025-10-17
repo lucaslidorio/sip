@@ -89,7 +89,8 @@
                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                 </div>
                 <input type="text" class="form-control" id="data_publicacao" name="data_publicacao"
-                    value="<?php echo date(" d/m/Y H:i:s" ); ?> " disabled >
+                    value="{{ isset($processo->data_publicacao) ? $processo->data_publicacao->format('d/m/Y H:i:s') : date('d/m/Y H:i:s') }}" 
+                    disabled>
             </div>
         </div>
     </div>
@@ -103,7 +104,7 @@
 
                 <input type="date" class="form-control {{ $errors->has('data_validade') ? 'is-invalid' : '' }}"
                     id="data_validade" name="data_validade"
-                    value="{{$processo->data_formatada ?? old('data_validade')}}">
+                    value="{{ isset($processo->data_validade_formatada) ? $processo->data_validade_formatada : old('data_validade') }}">
                 @error('data_validade')
                 <small class="invalid-feedback">
                     {{ $message }}

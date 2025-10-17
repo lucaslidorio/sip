@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', "Detalhe da Manifestação")
+@section('title', "Detalhe da ouvidoria")
 
 @section('content_header')
 

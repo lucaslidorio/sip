@@ -211,8 +211,17 @@
                         <i class="text-muted">{{$data['ultima_movimentacao']->observacao }}</i>
                         <i class="text-muted d-block float-right">Movimentado em:
                           {{$data['ultima_movimentacao']->created_at->format('d-m-Y H:i:s') }}</i>
+  
+                        {{-- Adicionar a data da primeira solicitação --}}
+                        @if(isset($data['primeira_movimentacao']) && $data['primeira_movimentacao'])
+                        <div class="text-muted mt-2 small">
+                          <i class="fas fa-calendar-alt"></i> Solicitação inicial em:
+                          {{ \Carbon\Carbon::parse($data['primeira_movimentacao']->created_at)->format('d-m-Y H:i:s') }}
+                        </div>
+                        @endif
+  
                         @else
-
+                        <span class="badge bg-secondary">Sem movimentação</span>
                         @endif
                       </td>
 

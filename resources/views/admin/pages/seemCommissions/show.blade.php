@@ -48,7 +48,7 @@
       <strong>Anexos:</strong>                             ​           
       @foreach ($seemCommission->attachments as $attachment)            
           <div class="row ">
-          <a href="{{config('app.aws_url')."{$attachment->anexo}" }}" target="_blank" class="mb-2 text-reset" >
+          <a href="{{config('app.aws_url')."{$attachment->anexo}"}}" target="_blank" class="mb-2 text-reset" >
               <i class="far fa-file-pdf fa-2x text-danger mr-2"></i>
               <span class="mr-2"> {{$attachment->nome_original}}</span>
           </a> 

@@ -108,7 +108,6 @@
     <ul class="nav text-white fw-semibold font-14">
       @foreach ($menusSuperior as $item)
       <li class="nav-item ">
-
         @if ($item->pagina_interna == 1 && $item->url == null)
         <a href="{{route('pagina', $item->slug)}}" class="nav-link link-texto " title="{{$item->nome}} "
           data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$item->nome}} ">
@@ -183,7 +182,7 @@
       </div>
 
       {{-- Conteúdo --}}
-      <div class="col-md-6 col-lg-7 ">
+      <div class="col-md-6 col-lg-7 border">
 
       @yield('content')
 
@@ -402,11 +401,17 @@
   
   </script>
   @endif
+
+  
   <script src="{{asset('js/jquery-min.js')}}"></script>
   <script src="{{asset('js/nivo-lightbox.js')}}"></script>
   <script src="{{asset('js/alloy_finger.min.js')}}"></script>
   <script src="{{asset('js/lc_lightbox.lite.min.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+
   {{-- Full Calendar parou de funcionar esta linkado direto na pagina --}}
   {{-- <script src="{{ asset('dashboard/js/fullcalendar/main.js') }}"></script> --}}
   {{-- <script src="{{ asset('dashboard/js/fullcalendar/pt-br.js') }}"></script> --}}

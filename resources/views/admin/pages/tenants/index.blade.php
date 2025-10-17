@@ -18,7 +18,7 @@
     </div>
   </div>
 </div>
-<!--Alerta -->
+
 
 @stop
 
@@ -73,8 +73,15 @@
               <td>{{$tenant->nome}}</td>              
               <td>{{$tenant->endereco}},  {{$tenant->numero}}, Bairro: {{$tenant->bairro}}</td>   
               <td>{{$tenant->email}}</td>
-             
-                <td class="text-center">
+             @can('editar-orgao')
+                <td class="text-center">                 
+                   <a href="{{route('tenants.anexos', $tenant->id)}}" data-id="{{$tenant->id}}"
+                    class="btn  bg-gradient-warning btn-flat mt-0" data-toggle="tooltip" data-placement="top"  
+                    title="Anexos">
+                    <i class="fas fa-paperclip"></i>
+                  </a>
+
+                  @endcan
                   @can('ver-orgao')
                   <a href="{{route('tenants.show', $tenant->id)}}" data-id="{{$tenant->id}}"
                     class="btn  bg-gradient-info btn-flat mt-0" data-toggle="tooltip" data-placement="top"  

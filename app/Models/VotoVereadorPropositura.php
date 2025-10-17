@@ -12,11 +12,34 @@ class VotoVereadorPropositura extends Model
     protected $fillable = ['proposition_id', 'session_id', 'councilor_id', 'tipo_voto_id'];
     
 
+    // RELACIONAMENTO NOVOS
+
+    public function vereador()
+    {
+        return $this->belongsTo(Councilor::class, 'councilor_id','id');
+    }
+
+    public function tipoVoto()
+    {
+        return $this->belongsTo(TipoVoto::class, 'tipo_voto_id');
+    }
+
+    public function sessao()
+    {
+        return $this->belongsTo(Session::class, 'session_id');
+    }
 
     public function propositura()
     {
-        return $this->belongsTo(Proposition::class, 'proposition_id', 'id'); 
+        return $this->belongsTo(Proposition::class, 'proposition_id', 'id');
     }
+
+
+
+
+   // RELACIONAMENTOS ANTIGOS
+
+ 
  
     public function voto()
     {
@@ -27,9 +50,4 @@ class VotoVereadorPropositura extends Model
     {
         return $this->belongsTo(Session::class, 'session_id', 'id'); 
     }
-    public function vereador()
-    {
-        return $this->belongsTo(Session::class, 'councilor_id', 'id'); 
-    }
-    
 }

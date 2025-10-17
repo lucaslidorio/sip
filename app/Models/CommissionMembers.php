@@ -12,6 +12,20 @@ class CommissionMembers extends Model
     protected $table = 'commission_member_functions';
     protected $fillable = ['commission_id', 'councilor_id', 'function_id'];    
    
+    // Relacionamento novos
+    public function vereador()
+    {
+        return $this->belongsTo(Councilor::class, 'councilor_id');
+    }
+
+    public function funcao()
+    {
+        return $this->belongsTo(Functions::class, 'function_id');
+    }
+
+
+
+    // Relacionamentos antigos
     public function functions(){
         return $this->belongsTo(Functions::class, 'function_id', 'id');
 

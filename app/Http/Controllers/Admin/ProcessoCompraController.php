@@ -147,15 +147,20 @@ class ProcessoCompraController extends Controller
     {
         $this->authorize('editar-processo-compras');
         $processo = $this->repository->where('id', $id)->first();
-        // Formatar data usando Carbon
-
-        $dataFormatada = $processo->inicio_sessao ? $processo->inicio_sessao->format('Y-m-d') : null; // Altere o formato conforme necessário       
-        // Adicionar data formatada ao objeto $processo
-        $processo->data_formatada = $dataFormatada;
-
+        
+        // Formatar data de início da sessão
+        $dataFormatadaSessao = $processo->inicio_sessao ? $processo->inicio_sessao->format('Y-m-d') : null;
+        
+        // Formatar data de validade - ADICIONAR ESTA PARTE
+        $dataFormatadaValidade = $processo->data_validade ? $processo->data_validade->format('Y-m-d') : null;
+        
+        // Adicionar datas formatadas ao objeto $processo
+        $processo->data_formatada = $dataFormatadaSessao;
+        $processo->data_validade_formatada = $dataFormatadaValidade; // Nova propriedade para data_validade
+        
         $modalidades = $this->modalidade->get();
         $criteriosJulgamento = $this->criteriosJulgamento->get();
-        $situacoes = $this->situacao->where('processo_compra', true)->get(); // pega somente os que pertece a esse modulo
+        $situacoes = $this->situacao->where('processo_compra', true)->get();
 
         if (!$processo) {
             return redirect()->back();
@@ -177,11 +182,17 @@ class ProcessoCompraController extends Controller
         $processo = $this->repository->where('id', $id)->first();
 
         if (!$processo) {
-            redirect()->back();
+            return redirect()->back();
         }
 
         $dadosProcesso = $request->all();
         $dadosProcesso['user_last_updated'] = auth()->user()->id;
+        
+        // Tratar a data_validade para incluir a hora
+        if (isset($dadosProcesso['data_validade']) && !empty($dadosProcesso['data_validade'])) {
+            // Adiciona a hora 23:59:59 para representar o final do dia
+            $dadosProcesso['data_validade'] = $dadosProcesso['data_validade'] . ' 23:59:59';
+        }
 
         $processo->update($dadosProcesso);
 
@@ -321,29 +332,33 @@ class ProcessoCompraController extends Controller
         // Obter as contagens
         $counts = $processo->countCredenciamentosWithLastMovements();
 
-        // Inicializar um array para armazenar os dados dos credenciados e suas últimas movimentações
+        // Inicializar um array para armazenar os dados dos credenciados
         $credenciadosData = [];
 
         foreach ($processo->credenciamentos as $credenciado) {
             $ultimaMovimentacao = CredenciamentosProcessosCompras::ultimaMovimentacaoCredenciado($processo->id, $credenciado->dado_pessoa_id);
+            $primeiraMovimentacao = CredenciamentosProcessosCompras::primeiraMovimentacaoCredenciado($processo->id, $credenciado->dado_pessoa_id);
 
             $credenciadosData[] = [
                 'credenciado' => $credenciado,
-                'ultima_movimentacao' => $ultimaMovimentacao
+                'ultima_movimentacao' => $ultimaMovimentacao,
+                'primeira_movimentacao' => $primeiraMovimentacao
             ];
         }
-        // Ordenar os credenciados por última movimentação em ordem decrescente
+        
+        // Ordenar os credenciados pela data da primeira solicitação (ordem crescente)
         usort($credenciadosData, function ($a, $b) {
-            if ($a['ultima_movimentacao'] && $b['ultima_movimentacao']) {
-                return strtotime($b['ultima_movimentacao']->created_at) - strtotime($a['ultima_movimentacao']->created_at);
-            } elseif ($a['ultima_movimentacao']) {
+            if ($a['primeira_movimentacao'] && $b['primeira_movimentacao']) {
+                return strtotime($a['primeira_movimentacao']->created_at) - strtotime($b['primeira_movimentacao']->created_at);
+            } elseif ($a['primeira_movimentacao']) {
                 return -1;
-            } elseif ($b['ultima_movimentacao']) {
+            } elseif ($b['primeira_movimentacao']) {
                 return 1;
             } else {
                 return 0;
             }
         });
+        
         return view(
             'admin.pages.processos.credenciamento.credenciados',
             compact('processo', 'credenciadosData', 'tiposMovimentacoes', 'counts')

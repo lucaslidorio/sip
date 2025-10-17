@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnexoTenant;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class TenantController extends Controller
@@ -44,7 +46,10 @@ class TenantController extends Controller
         } 
         if($request->hasFile('bandeira') && $request->bandeira->isValid()){
             $dadosTenant['bandeira'] = $request->bandeira->store('tenants');
-        }          
+        } 
+        if($request->hasFile('favicon') && $request->favicon->isValid()){
+            $dadosTenant['favicon'] = $request->favicon->store('tenants');
+        }           
         //Grava os dados na tabela post
         $this->repository->create($dadosTenant);              
       
@@ -94,21 +99,39 @@ class TenantController extends Controller
         
           //verifica se existe um arquivo e se é do tipo image e faz o upload 
           //antes de fazer salvar, remove a imagem já existente    
-          if($request->hasFile('brasao') && $request->brasao->isValid()){
-             if(Storage::exists($tenant->brasao)){
-                Storage::delete($tenant->brasao);
-             }
-             $dadosTenant['brasao'] = $request->brasao->store('tenants');
-         }
-         if($request->hasFile('bandeira') && $request->bandeira->isValid()){
-            if(Storage::exists($tenant->bandeira)){
-               Storage::delete($tenant->bandeira);
+          if ($request->hasFile('brasao') && $request->file('brasao')->isValid()) {
+            // Se já havia um arquivo, tenta apagar com segurança
+            $oldPath = $tenant->brasao; // pode ser null        
+            // Salva o novo arquivo (ajuste o disk se precisar)
+            // ex.: Storage::disk('s3')->putFile('tenants', $request->file('brasao'));
+            $newPath = $request->file('brasao')->store('tenants'); // disk default        
+            // Atualiza o dado que será salvo no model
+            $dadosTenant['brasao'] = $newPath;
+            // Apaga o antigo, se existir
+            if ($oldPath && Storage::exists($oldPath)) {
+                Storage::delete($oldPath);
             }
-            $dadosTenant['bandeira'] = $request->bandeira->store('tenants');
+        }
+         if ($request->hasFile('bandeira') && $request->file('bandeira')->isValid()) {  
+            $oldPath = $tenant->bandeira;      
+            $newPath = $request->file('bandeira')->store('tenants');      
+            $dadosTenant['bandeira'] = $newPath; // Apaga o antigo, se existir
+            if ($oldPath && Storage::exists($oldPath)) {
+                Storage::delete($oldPath);
+            }
+        }
+        if ($request->hasFile('favicon') && $request->file('favicon')->isValid()) {// Se já havia um arquivo, tenta apagar com segurança
+            $oldPath = $tenant->favicon; 
+            $newPath = $request->file('favicon')->store('tenants'); 
+            $dadosTenant['favicon'] = $newPath;
+            if ($oldPath && Storage::exists($oldPath)) {
+                Storage::delete($oldPath);
+            }
         }
          //Atualila a tabela post
          $tenant->update($dadosTenant); 
-         
+         // Limpa o cache do template
+         Cache::forget('tenant_template');
          toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
          return redirect()->back();   
     }
@@ -123,4 +146,61 @@ class TenantController extends Controller
     {
         //
     }
+
+    //Anexos do órgão
+    public function anexos($id)
+{
+    $tenant = $this->repository->find($id);
+    $anexos = $tenant->anexos;
+    return view('admin.pages.tenants.anexos.index', compact('tenant', 'anexos'));
+}
+
+public function storeAnexo(Request $request, $id)
+{
+    $tenant = $this->repository->find($id);
+    
+    $request->validate([
+        'anexo' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+        'tipo_anexo' => 'required|integer'
+    ]);
+
+    if ($request->hasFile('anexo')) {
+        $file = $request->file('anexo');
+        $nome_original = $file->getClientOriginalName();
+        $path = $file->store('tenants/anexos', 's3');
+
+        $tenant->anexos()->create([
+            'anexo' => $path,
+            'nome_original' => $nome_original,
+            'tipo_anexo' => $request->tipo_anexo,
+            'situacao' => 1
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'Anexo adicionado com sucesso!');
+}
+
+public function destroyAnexo($id, $anexo_id)
+{
+    $anexo = AnexoTenant::find($anexo_id);
+    Storage::disk('s3')->delete($anexo->anexo);
+    $anexo->delete();
+
+    return redirect()->back()->with('success', 'Anexo removido com sucesso!');
+}
+
+public function toggleSituacaoAnexo($id, $anexo_id)
+{
+    $anexo = AnexoTenant::find($anexo_id);
+    $anexo->situacao = !$anexo->situacao;
+    $anexo->save();
+
+    return response()->json([
+        'message' => 'Status alterado com sucesso!',
+        'situacao' => $anexo->situacao
+    ]);
+}
+
+
+
 }

@@ -38,9 +38,7 @@ class PartyController extends Controller
     public function store(StoreUpdateParty $request)
     {
         $this->authorize('novo-partido');
-
-        $dadosParty = $request->all();
-        
+        $dadosParty = $request->all();        
         if($request->hasFile('img') && $request->img->isValid()){
             $dadosParty['img'] = $request->img->store('parties');
         } 
@@ -70,7 +68,6 @@ class PartyController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('editar-partido');
         $this->authorize('editar-partido');
         $party = $this->party->where('id', $id)->first();
         return view('admin.pages.parties.edit', compact('party'));

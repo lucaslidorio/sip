@@ -27,8 +27,9 @@
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                     </div>
                     <input type="text" class="form-control" 
-                        id="data_publicacao" name="data_publicacao"
-                        value="<?php echo date("d/m/Y" ); ?> " disabled>
+                    id="data_publicacao" name="data_publicacao"
+                    value="{{ isset($post) ? \Carbon\Carbon::parse($post->data_publicacao)->format('d/m/Y') : now()->format('d/m/Y') }}" 
+                    disabled>
                   
                 </div>
               </div>

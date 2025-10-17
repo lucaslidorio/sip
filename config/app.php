@@ -16,7 +16,7 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
     'municipio' => env('APP_MUNICIPIO', 'Rondônia'),
     'url' => env('APP_URL', 'http://localhost'),
-
+    'secure_url' => env('SECURE_URL', 'https://default-url.com'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -1,5 +1,5 @@
       <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-6">
               <div class="form-group">                  
                   <label for="nome" class="label-required">Nome </label>
                     <div class="input-group">
@@ -16,6 +16,23 @@
                   </div>
               </div>
           </div>
+          <div class="col-sm-6">
+            <div class="form-group">                  
+                <label for="slogan" class="label-required">Slogan </label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                      </div> 
+                  <input type="text" class="form-control {{ $errors->has('slogan') ? 'is-invalid' : '' }}" id="slogan"
+                      name="slogan" placeholder="Nome da entidade" value="{{ $tenant->slogan ?? old('slogan') }}">
+                  @error('slogan')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                </div>
+            </div>
+        </div>
         </div>
          
       <div class="row">
@@ -95,6 +112,29 @@
                 </div>
             </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="maps">Localização:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-map"></i></span>
+                  </div> 
+                <input type="text" class="form-control {{ $errors->has('maps') ? 'is-invalid' : '' }}"
+                    id="maps" name="maps" placeholder="Link de incorporação do google maps"
+                    value="{{ $tenant->maps ?? old('maps') }}">
+                @error('maps')
+                    <small class="invalid-feedback">
+                        {{ $message }}
+                    </small>
+                @enderror
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <div class="row">
           <div class="col-sm-3">
               <div class="form-group">
                   <label for="telefone">Telefone:</label>
@@ -196,6 +236,7 @@
         
                                   
     </div> 
+    <h5 class="mt-4 mb-2 border-bottom"> Redes Sociais</h5>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -262,7 +303,7 @@
                   </div>                    
                   <input type="text" class="form-control {{ $errors->has('twitter') ? 'is-invalid' : '' }}"
                       id="twitter" name="twitter" placeholder="Link do Twiter"
-                      value="{{ $tenant->twiter ?? old('twitter') }}">
+                      value="{{ $tenant->twitter ?? old('twitter') }}">
                   @error('twitter')
                       <small class="invalid-feedback">
                           {{ $message }}
@@ -274,6 +315,27 @@
     </div>
     <div class="row">
         <div class="col-sm-6">
+            <div class="form-group">
+                <label for="tiktok">TikTok:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fab fa-tiktok"></i></span>
+                  </div>                    
+                  <input type="text" class="form-control {{ $errors->has('tiktok') ? 'is-invalid' : '' }}"
+                      id="tiktok" name="tiktok" placeholder="Link do TikTok"
+                      value="{{ $tenant->tiktok ?? old('tiktok') }}">
+                  @error('tiktok')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                  </div>
+            </div>
+        </div>
+    </div>
+    <h5 class="mt-4 mb-2 border-bottom"> Configurações</h5>
+    <div class="row">
+        <div class="col-sm-4">
             <div class="form-group">                  
                 <label for="brasao" class="">Brasao: </label>
                   <div class="input-group">
@@ -292,7 +354,7 @@
                 
             </div>                
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="form-group">                  
                 <label for="bandeira" class="">Bandeira: </label>
                   <div class="input-group">
@@ -303,6 +365,24 @@
                       name="bandeira" placeholder="Nenhum arquivo selecionado" 
                       value="">                      
                   @error('bandeira')
+                      <small class="invalid-feedback">
+                          {{ $message }}
+                      </small>
+                  @enderror                 
+                </div>                
+            </div>                
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">                  
+                <label for="favicon" class="">Favicon: </label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
+                      </div> 
+                  <input type="file" class="form-control {{ $errors->has('favicon') ? 'is-invalid' : '' }}" id="favicon"
+                      name="favicon" placeholder="Nenhum arquivo selecionado" 
+                      value="">                      
+                  @error('favicon')
                       <small class="invalid-feedback">
                           {{ $message }}
                       </small>
@@ -374,8 +454,8 @@
                 <label  for="arquivo_cor_css" class="label-required" >Estilo CSS:</label>
                 <select class="custom-select {{ $errors->has('arquivo_cor_css') ? 'is-invalid' : '' }}" 
                     id="arquivo_cor_css" name="arquivo_cor_css">                                       
-                    <option value="style-blue.css" {{isset($tenant) && $tenant->arquivo_cor_css == 'style-blue.css' ? 'selected': ''}}> Azul </option>
-                    <option value="style-green.css" {{isset($tenant) && $tenant->arquivo_cor_css == 'style-green.css' ? 'selected': ''}}> Verde </option>
+                    <option value="colors-blue.css" {{isset($tenant) && $tenant->arquivo_cor_css == 'colors-blue.css' ? 'selected': ''}}> Azul </option>
+                    <option value="colors-green.css" {{isset($tenant) && $tenant->arquivo_cor_css == 'colors-green.css' ? 'selected': ''}}> Verde </option>
                 </select>
                 @error('arquivo_cor_css')
                 <small class="invalid-feedback">
@@ -383,7 +463,21 @@
                 </small>
             @enderror
               </div>
-        </div>
+        </div><div class="col-sm-2">
+            <div class="form-group">
+                <label  for="template" class="label-required" >Template:</label>
+                <select class="custom-select {{ $errors->has('template') ? 'is-invalid' : '' }}" 
+                    id="template" name="template">                                       
+                    <option value="leg" {{isset($tenant) && $tenant->template == 'leg' ? 'selected': ''}}> Legislativo </option>
+                    <option value="gov" {{isset($tenant) && $tenant->template == 'gov' ? 'selected': ''}}> Executivo </option>
+                </select>
+                @error('template')
+                <small class="invalid-feedback">
+                    {{ $message }}
+                </small>
+            @enderror
+              </div>
+        </div>        
         
     </div>
       
