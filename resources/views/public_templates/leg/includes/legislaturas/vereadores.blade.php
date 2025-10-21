@@ -16,10 +16,10 @@
 <div class="row " style="height: 60px; background-color: #f5f5f5">
     <div class="container  ">
         <div class="row mt-4">
-            <div class="col-8">
+            <div class="col-7">
                 <p class="fs-1">Vereadores da Legislatura {{ $legislatura->descricao }}</p>
             </div>
-            <div class="col-4 fs-4">{{ Breadcrumbs::render('legislatura', $legislatura) }}</div>
+            <div class="col-5 fs-4">{{ Breadcrumbs::render('legislatura', $legislatura) }}</div>
              
         </div>
     </div>

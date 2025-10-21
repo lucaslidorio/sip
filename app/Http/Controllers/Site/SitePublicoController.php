@@ -449,7 +449,7 @@ class SitePublicoController extends Controller
 
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
-        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', 1)
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
 
@@ -463,7 +463,7 @@ class SitePublicoController extends Controller
 
         $template = view()->shared('currentTemplate');
         $tenant = $this->tenant->first();
-        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', 1)
+        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
             ->orderBy('ordem')
             ->get();
 
@@ -702,69 +702,73 @@ $secretarias->appends(request()->query());
     }
 
     public function proposituras(Request $request)
-    {
+{
+    $template = view()->shared('currentTemplate');
 
-        $template = view()->shared('currentTemplate');
+   
+    $tenant = $this->tenant->first();
+    $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
+        ->orderBy('ordem')
+        ->get();
 
-        $tenant = $this->tenant->first();
-        $menus = $this->menu::whereNull('menu_pai_id')->where('posicao', '1')
-            ->orderBy('ordem')
-            ->get();
+    // Buscar vereadores, tipos de proposições e situações para os filtros
+    $vereadores = Councilor::orderBy('nome')->get();
+    $tipos = TypeProposition::orderBy('nome')->get();
+    $situacoes = ProceedingSituation::orderBy('id')->get();
 
-        // Buscar vereadores, tipos de proposições e situações para os filtros
-        $vereadores = Councilor::orderBy('nome')->get();
-        $tipos = TypeProposition::orderBy('nome')->get();
-        $situacoes = ProceedingSituation::orderBy('id')->get();
+    // Iniciar a query
+    $query = Proposition::query()->with(['tipo', 'situacao', 'autores']);
 
-        //dd($request->all());
-        // Iniciar a query
-        $query = Proposition::query()->with(['tipo', 'situacao', 'autores']);
-
-
-        // Aplicar filtros dinamicamente
-        if ($request->filled('autor')) {
-            if ($request->autor === 'executivo') {
-                $query->whereDoesntHave('autores');
-            } else {
-                $query->whereHas('autores', function ($q) use ($request) {
-                    $q->where('councilor_id', $request->autor);
-                });
-            }
-        }
-
-        if ($request->filled('tipo')) {
-            $query->where('type_proposition_id', $request->tipo);
-        }
-
-        if ($request->filled('situacao')) {
-            $query->where('proceeding_situation_id', $request->situacao);
-        }
-
-        if ($request->filled('ano')) {
-            $query->whereYear('data', $request->ano);
-        }
-
-        // Ordenação
-        if ($request->filled('ordenacao') && in_array($request->ordenacao, ['asc', 'desc'])) {
-            $query->orderBy('numero', $request->ordenacao)
-                ->orderBy('created_at', $request->ordenacao); // critério secundário
+    // Aplicar filtros dinamicamente
+    // Verificar parâmetro 'vereador' que vem da view do vereador
+    if ($request->filled('vereador')) {
+        $query->whereHas('autores', function ($q) use ($request) {
+            $q->where('councilors.id', $request->vereador);
+        });
+    } 
+    // Verificar o parâmetro 'autor' que vem do formulário de pesquisa
+    else if ($request->filled('autor')) {
+        if ($request->autor === 'executivo') {
+            $query->whereDoesntHave('autores');
         } else {
-            $query->orderBy('data', 'desc')
-                ->orderBy('created_at', 'desc'); // desempate por criação
+            $query->whereHas('autores', function ($q) use ($request) {
+                $q->where('councilors.id', $request->autor); // Corrigido para usar $request->autor
+            });
         }
-
-        $proposituras = $query->paginate(15);
-
-
-        return view("public_templates.$template.includes.proposituras.proposituras", compact(
-            'tenant',
-            'menus',
-            'proposituras',
-            'vereadores',
-            'tipos',
-            'situacoes'
-        ));
     }
+
+    if ($request->filled('tipo')) {
+        $query->where('type_proposition_id', $request->tipo);
+    }
+
+    if ($request->filled('situacao')) {
+        $query->where('proceeding_situation_id', $request->situacao);
+    }
+
+    if ($request->filled('ano')) {
+        $query->whereYear('data', $request->ano);
+    }
+
+    // Ordenação
+    if ($request->filled('ordenacao') && in_array($request->ordenacao, ['asc', 'desc'])) {
+        $query->orderBy('numero', $request->ordenacao)
+            ->orderBy('created_at', $request->ordenacao); // critério secundário
+    } else {
+        $query->orderBy('data', 'desc')
+            ->orderBy('created_at', 'desc'); // desempate por criação
+    }
+
+    $proposituras = $query->paginate(15)->appends($request->all());
+
+    return view("public_templates.$template.includes.proposituras.proposituras", compact(
+        'tenant',
+        'menus',
+        'proposituras',
+        'vereadores',
+        'tipos',
+        'situacoes'
+    ));
+}
 
     public function pronunciamentos(Request $request)
     {

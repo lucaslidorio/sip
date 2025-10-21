@@ -1,6 +1,6 @@
 @extends('public_templates.gov.layouts.app')
 
-@section('title', 'Página Inicial - ' . $tenant->nome)
+@section('title', '' . $tenant->nome)
 
 @section('content')
 <!-- Banner Principal -->

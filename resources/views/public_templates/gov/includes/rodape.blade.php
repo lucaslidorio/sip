@@ -20,7 +20,7 @@
                 @endif
             </div>
             <div class="footer-section">
-                <h5>Localização</h5>
+                <h5>LOCALIZAÇÃO</h5>
                 @if(!empty($tenant->maps))
                 <div class="footer-map mb-2"
                     style="width:100%; max-width:250px; height:180px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
@@ -30,7 +30,7 @@
             </div>
             @if($tenant->nome_resp_transparencia)
             <div class="footer-section">
-                <h5>RESPONSÁVEL POR ASSEGURAR O CUMPRIMANENTO DA LEI DE ACESSO A INFORMAÇÃO</h5>
+                <h5>RESPONSÁVEL POR ASSEGURAR O CUMPRIMENTO DA LEI DE ACESSO A INFORMAÇÃO</h5>
                 @if($tenant->nome_resp_transparencia)
                 <p><i class="fas fa-user"></i> {{ $tenant->nome_resp_transparencia }}</p>
                 @endif

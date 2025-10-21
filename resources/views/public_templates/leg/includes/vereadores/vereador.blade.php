@@ -6,10 +6,10 @@
 <div class="row" style="height: 60px; background-color: #f5f5f5">
     <div class="container ">
         <div class="row mt-4">
-            <div class="col-8">
+            <div class="col-6">
                 <p class="fs-1">Vereador(a)   {{$vereador->nome}}</p>
             </div>
-            <div class="col-4 fs-4">{{ Breadcrumbs::render('vereador', $vereador) }}</div>
+            <div class="col-6 fs-4">{{ Breadcrumbs::render('vereador', $vereador) }}</div>
         </div>
     </div>
 </div>
