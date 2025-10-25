@@ -12,6 +12,12 @@
     @can('update')
       
     @endcan
+ 
+    <!-- Estatísticas de Visitas - Compact -->
+    <div class="row pt-3">
+        @include('components.site-visit-counter-compact')
+    </div>
+
     {{-- <div class="row">
       <div class="col-lg-3 col-6">
         <!-- small box -->

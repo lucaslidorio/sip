@@ -130,6 +130,8 @@ class TenantController extends Controller
         }
          //Atualila a tabela post
          $tenant->update($dadosTenant); 
+          // Limpa o cache após atualizar
+        Tenant::clearCache();
          // Limpa o cache do template
          Cache::forget('tenant_template');
          toast('Cadastro atualizado com sucesso!','success')->toToast('top') ;     
@@ -175,6 +177,8 @@ public function storeAnexo(Request $request, $id)
             'tipo_anexo' => $request->tipo_anexo,
             'situacao' => 1
         ]);
+         // Limpa o cache após atualizar
+         Tenant::clearCache();
     }
 
     return redirect()->back()->with('success', 'Anexo adicionado com sucesso!');
@@ -185,6 +189,8 @@ public function destroyAnexo($id, $anexo_id)
     $anexo = AnexoTenant::find($anexo_id);
     Storage::disk('s3')->delete($anexo->anexo);
     $anexo->delete();
+     // Limpa o cache após atualizar
+    Tenant::clearCache();
 
     return redirect()->back()->with('success', 'Anexo removido com sucesso!');
 }

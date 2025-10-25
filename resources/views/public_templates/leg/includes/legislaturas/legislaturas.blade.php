@@ -41,7 +41,7 @@
                         <p class="mb-3"><strong>Fim:</strong> {{ \Carbon\Carbon::parse($legislatura->data_fim)->format('d/m/Y') }}</p>
                 
                         <a href="{{ route('camara.legislatura.vereadores', $legislatura->id) }}" 
-                           class="btn btn-primary cor-padrao-bg text-white btn-sm fs-4">
+                           class="btn btn-primary cor-padrao-bg text-white d-inline-flex align-items-center justify-content-center">
                             Ver vereadores
                         </a>
                     </div>

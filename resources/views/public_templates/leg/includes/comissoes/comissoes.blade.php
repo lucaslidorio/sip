@@ -35,7 +35,7 @@
                         @endif
     
                         <a href="{{ route('camara.comissao.show', $comissao->id) }}" 
-                           class="btn btn-primary cor-padrao-bg text-white btn-sm fs-4">
+                           class="btn btn-primary cor-padrao-bg text-white d-inline-flex align-items-center justify-content-center" >
                             Ver detalhes
                         </a>
                     </div>

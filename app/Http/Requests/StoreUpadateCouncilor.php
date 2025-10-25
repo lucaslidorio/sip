@@ -28,7 +28,7 @@ class StoreUpadateCouncilor extends FormRequest
         $rules = [           
             'nome' => ['required', 'min:3', 'max:255', "unique:councilors,nome,{$id},id"],
             'cpf' => ['nullable', 'min:2', 'max:14',"unique:councilors,cpf,{$id},id"],
-            'estado_civil' => ['min:2', 'max:20'],
+            'estado_civil' => ['nullable', 'max:20'],
             'party_id' => ['required'],
             'img' =>['nullable','image','max:1024'],
             'atual' => ['required'],

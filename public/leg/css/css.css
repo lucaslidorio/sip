@@ -538,6 +538,96 @@ input::-moz-focus-inner {
 
 input {
     line-height: normal;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Estilos específicos para formulários de contato */
+.form-control, 
+.form-select,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input.form-control,
+textarea,
+textarea.form-control,
+select.form-select,
+select.form-control {
+    font-size: 1.3rem !important;
+    padding: 1rem 1.25rem !important;
+    /* min-height: 50px !important; */
+    line-height: 1.6 !important;
+    border: 2px solid #e0e5ec !important;
+}
+
+/* Inputs específicos da página de contato */
+.contato-page .form-control,
+.contato-page .form-select,
+.contact-form .form-control,
+.contact-form .form-select,
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form select {
+    font-size: 1.25rem !important;
+    padding: 1.0rem 2rem !important;
+    min-height: 60px !important;
+    line-height: 1.6 !important;
+}
+
+textarea.form-control {
+    min-height: 150px !important;
+}
+
+.contact-form textarea.form-control,
+.contato-page textarea.form-control {
+    min-height: 180px !important;
+}
+
+.btn {
+    font-size: 1.3rem !important;
+    /* min-height: 45px !important; */
+}
+
+/* Botões da página de contato */
+.contato-page .btn-primary,
+.contact-form .btn-primary {
+    font-size: 1.1rem !important;
+    padding: 1rem 3rem !important;
+    min-height: 50px !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+}
+
+.contato-page .btn-primary:hover,
+.contact-form .btn-primary:hover,
+.contato-page .btn-primary:focus,
+.contact-form .btn-primary:focus,
+.contato-page .btn-primary:active,
+.contact-form .btn-primary:active {
+    color: #ffffff !important;
+}
+
+/* Labels maiores */
+.contact-form .form-label,
+.contato-page .form-label {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.8rem !important;
+}
+
+/* Checkboxes maiores */
+.contact-form .form-check-input,
+.contato-page .form-check-input {
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+    margin-top: 0.25rem !important;
+}
+
+.contact-form .form-check-label,
+.contato-page .form-check-label {
+    font-size: 1.5rem !important;
+    line-height: 1.6 !important;
 }
 
 input[type="checkbox"],
@@ -600,14 +690,14 @@ th {
 
 
 html {
-    font-size: 10px;
+    font-size: 12px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 /* Fonte do site */
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.42857143;
     color: #666;
     background-color: #fff;

@@ -7,7 +7,7 @@
             <div class="col-md-4">
                 <label for="comissao" class="form-label">Comissão</label>
                 <div class="input-group input-group-lg">
-                    <select class="form-select form-select-lg " id="comissao" name="comissao">
+                    <select class="form-select " id="comissao" name="comissao">
                         <option value="">Todas</option>
                         @foreach($comissoes as $comissao)
                         <option value="{{ $comissao->id }}" {{ request('comissao')==$comissao->id ? 'selected' : '' }}>

@@ -140,7 +140,7 @@
                         <img src="{{ config('app.aws_url').$selo->anexo }}" alt="{{ $selo->nome_original }}"
                             class="img-fluid mb-2" style="max-height: 80px; margin-right: 10px;">
                     
-                    @endforeach
+                       @endforeach
                     </div>
                 </div>
             </div>

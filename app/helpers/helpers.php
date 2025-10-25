@@ -39,3 +39,20 @@ if (!function_exists('embedVideo')) {
         return '';
     }
 }
+
+// Função para obter estatísticas de visitas (com cache)
+if (!function_exists('getVisitStats')) {
+    function getVisitStats() {
+        try {
+            return \App\Models\SiteVisit::getStats();
+        } catch (\Exception $e) {
+            return [
+                'total' => 0,
+                'today' => 0,
+                'week' => 0,
+                'month' => 0,
+                'unique' => 0,
+            ];
+        }
+    }
+}

@@ -82,21 +82,36 @@ class CouncilorController extends Controller
     public function update(StoreUpadateCouncilor $request, $id)
     {
         $this->authorize('editar-vereador');
-        $councilor =  $this->repository->where('id', $id)->first();
+        $councilor = $this->repository->where('id', $id)->first();
         if(!$councilor){
-            redirect()->back();
+            return redirect()->back(); // Adicionei "return" que estava faltando
         }
-        
+                // Inicializar o array com todos os dados do request
+        $dadosCouncilor = $request->all();        
+        // Tratamento para a imagem
         if ($request->hasFile('img') && $request->img->isValid()) {
-            if (!empty($councilor->img) && Storage::exists($councilor->img)) {
-                Storage::delete($councilor->img);
-            }
-        
+            // Se existe imagem antiga, tenta excluir
+            if (!empty($councilor->img)) {
+                try {
+                    if (Storage::exists($councilor->img)) {
+                        Storage::delete($councilor->img);
+                    }
+                } catch (\Exception $e) {
+                    // Log do erro, mas continua o processo
+                    \Log::error('Erro ao deletar imagem anterior: ' . $e->getMessage());
+                }
+            }            
+            // Armazena a nova imagem
             $dadosCouncilor['img'] = $request->img->store('councilors');
-        }     
+        } else {
+            // Remove o campo img do array se não foi enviado uma nova imagem
+            // Isso evita que o valor seja definido como null
+            unset($dadosCouncilor['img']);
+        }        
+        // Atualiza os dados
         $councilor->update($dadosCouncilor);
 
-        toast('Parlamentar atualizado com sucesso!','success')->toToast('top') ;
+        toast('Parlamentar atualizado com sucesso!','success')->toToast('top');
         return redirect()->route('councilors.index'); 
     }
 

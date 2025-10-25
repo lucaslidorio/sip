@@ -24,7 +24,7 @@
         <div class="col-md-4">
             <label for="tipo_id" class="form-label">Tipo de Documento</label>
             <div class="input-group input-group-lg">
-            <select name="tipo_id" id="tipo_id" class="form-select ">
+            <select name="tipo_id" id="tipo_id" class="form-select "  style="font-size: 1.5rem !important;">
                 <option value="">Todos</option>
                 @foreach($tipos as $tipo)
                     <option value="{{ $tipo->id }}" {{ $tipoSelecionado == $tipo->id ? 'selected' : '' }}>
@@ -38,19 +38,19 @@
         <div class="col-md-3">
             <label for="data_inicio" class="form-label">Data Início</label>
             <div class="input-group input-group-lg">  
-            <input type="date" name="data_inicio" id="data_inicio" value="{{ $dataInicio }}" class="form-control">
+            <input type="date" name="data_inicio" id="data_inicio" value="{{ $dataInicio }}" class="form-control"  style="font-size: 1.5rem !important;">
             </div>
         </div>
 
         <div class="col-md-3">
             <label for="data_fim" class="form-label">Data Fim</label>
             <div class="input-group input-group-lg">  
-            <input type="date" name="data_fim" id="data_fim" value="{{ $dataFim }}" class="form-control">
+            <input type="date" name="data_fim" id="data_fim" value="{{ $dataFim }}" class="form-control" style="font-size: 1.5rem !important;">
             </div>
         </div>
 
         <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-lg btn-primary  cor-padrao-bg text-white mt-3 fs-3">Pesquisar</button>
+            <button type="submit" class="btn btn-lg btn-primary  cor-padrao-bg text-white mt-3 fs-3" style="font-size: 1.5rem !important;">Pesquisar</button>
         </div>
     </form>
         </div>
@@ -58,9 +58,9 @@
 
     @if($documentos->count())
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover fs-5">
                 <thead class="table-light">
-                    <tr>
+                    <tr class="fs-5">
                         <th>Data</th>
                         <th>Tipo</th>
                         <th>Nome</th>
@@ -68,7 +68,7 @@
                         <th class="text-center">Ação</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="fs-5">
                     @foreach($documentos as $doc)
                         <tr>
                             <td>{{ \Carbon\Carbon::parse($doc->created_at)->format('d/m/Y') }}</td>
@@ -77,8 +77,9 @@
                             <td>{{ $doc->descricao ?? '-' }}</td>
                             <td class="text-center">
                                 <a href="{{ config('app.aws_url') . $doc->anexo }}" target="_blank"
-                                   class="btn btn-primary  cor-padrao-bg text-white btn-sm fs-4">
-                                   Abrir
+                                   class="btn btn-lg btn-primary cor-padrao-bg text-white"
+                                   style="font-size: 1.5rem !important; padding: 0.75rem 1.5rem !important;">
+                                    Abrir
                                 </a>
                             </td>
                         </tr>
