@@ -543,6 +543,7 @@
         @yield('content')
     </main>
   
+    @include('public_templates.leg.includes.redes-sociais-flutuante')
     <!-- Rodapé -->
     @include('public_templates.leg.includes.footer')   
 
