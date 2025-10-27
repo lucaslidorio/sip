@@ -14,9 +14,11 @@
     @endcan
  
     <!-- Estatísticas de Visitas - Compact -->
+    @can('view-estatisticas')
     <div class="row pt-3">
         @include('components.site-visit-counter-compact')
     </div>
+    @endcan
 
     {{-- <div class="row">
       <div class="col-lg-3 col-6">
